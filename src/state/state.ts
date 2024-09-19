@@ -1,4 +1,4 @@
-import { create, GetState, SetState, StateCreator, StoreApi } from 'zustand';
+import { create, StateCreator, StoreApi } from 'zustand';
 import { produce } from 'immer';
 import { devtools } from 'zustand/middleware';
 import { ObjectTyped, PickFunctions } from '@mordv/utils';
@@ -13,8 +13,8 @@ export interface AppState {
 const loggerMiddleware =
   (stateCreator: StateCreator<AppState>) =>
   (
-    set: SetState<AppState>,
-    ...rest: [GetState<AppState>, StoreApi<AppState>]
+    set: StoreApi<AppState>['setState'],
+    ...rest: [StoreApi<AppState>['getState'], StoreApi<AppState>]
   ) =>
     stateCreator((state) => {
       console.log(
