@@ -1,5 +1,5 @@
 import React from 'react';
-import { useActions, useAppStore } from '../state/state';
+import { useActions, useAppStore } from '@/state/state';
 import { Button } from './library/Button';
 
 export const Counter: React.FC = () => {
