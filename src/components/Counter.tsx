@@ -1,10 +1,10 @@
 import React from 'react';
-import { useActions, useAppStore } from '@/state/state';
+import { useAppStore } from '@/state/state';
 import { Button } from './library/Button';
 
 export const Counter: React.FC = () => {
-  const { inc, dec } = useActions();
   const counter = useAppStore((s) => s.counter);
+  const [inc, dec] = useAppStore((s) => [s.inc, s.dec]);
 
   return (
     <div className={'flex w-full items-center justify-between'}>

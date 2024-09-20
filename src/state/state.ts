@@ -10,42 +10,18 @@ export interface AppState {
   dec(): void;
 }
 
-const loggerMiddleware =
-  (stateCreator: StateCreator<AppState>) =>
-  (
-    set: StoreApi<AppState>['setState'],
-    ...rest: [StoreApi<AppState>['getState'], StoreApi<AppState>]
-  ) =>
-    stateCreator((state) => {
-      console.log(
-        `update state: `,
-        typeof state === `function` ? `function update` : state
-      );
-      set(state);
-    }, ...rest);
-
-export const useAppStore = create<AppState>()(
-  devtools(
-    loggerMiddleware((set) => {
-      const setMutable = (mutator: (draft: AppState) => void) =>
-        set(produce(mutator));
-
-      return {
-        counter: 0,
-        inc: () => setMutable((state) => void state.counter++),
-        dec: () => setMutable((state) => void state.counter--),
-      };
-    })
-  )
-);
-
-export const useActions = (): PickFunctions<AppState> =>
-  useAppStore(
-    (state: AppState) =>
-      Object.fromEntries(
-        ObjectTyped.entries(state).filter(
-          ([, value]) => typeof value === `function`
-        )
-      ) as PickFunctions<AppState>,
-    shallow
-  );
+export const useAppStore = create<AppState>((set) => ({
+  counter: 0,
+  inc: () =>
+    set(
+      produce((state: AppState) => {
+        state.counter++;
+      })
+    ),
+  dec: () =>
+    set(
+      produce((state: AppState) => {
+        state.counter--;
+      })
+    ),
+}));
