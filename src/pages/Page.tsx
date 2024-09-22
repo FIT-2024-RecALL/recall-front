@@ -1,9 +1,13 @@
 import React from 'react';
+import { useParams } from 'wouter';
+import { createSecretGeneratePost } from '@/api/services.gen';
 
 interface PageProps {
-  pageId: string;
+  id: string;
 }
 
-export const Page: React.FC<PageProps> = ({ pageId }) => {
-  return <div>{pageId}</div>;
+export const Page: React.FC = () => {
+  const { id } = useParams<PageProps>();
+
+  return <div>{id}</div>;
 };

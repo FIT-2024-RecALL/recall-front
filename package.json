@@ -11,6 +11,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@hey-api/client-axios": "^0.2.5",
     "@hey-api/client-fetch": "^0.3.1",
     "@hey-api/openapi-ts": "^0.53.2",
     "@mordv/utils": "^0.0.21",
@@ -22,7 +23,7 @@
     "react-icons": "^4.9.0",
     "three": "0.153.0",
     "ts-pattern": "^4.3.0",
-    "wouter": "^2.11.0",
+    "wouter": "^3.3.5",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
