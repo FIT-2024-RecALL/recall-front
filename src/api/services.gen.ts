@@ -14,11 +14,7 @@ import type {
   CreateSecretGeneratePostResponse,
 } from './types.gen';
 
-export const client = createClient(
-  createConfig({
-    baseUrl: "http://127.0.0.1:8000",
-  })
-);
+export const client = createClient(createConfig());
 
 /**
  * Take Secret

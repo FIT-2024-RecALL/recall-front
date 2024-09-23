@@ -12,7 +12,10 @@ export const GeneratePage: React.FC = () => {
   const testPost = () => {
     createSecretGeneratePost({
       body: { password: '1234', secret_text: 'TOP SECRET' },
-    }).then((response) => setKey(response.data as string));
+    }).then((response) => {
+      if (response.error) setKey(`Error: ${response.error}`);
+      else setKey(response.data.secret_key);
+    });
   };
   const testGet = () => {
     takeSecretSecretsSecretKeyGet({
@@ -22,8 +25,11 @@ export const GeneratePage: React.FC = () => {
       query: {
         password: '1234',
       },
-    }).then((response) => setSecretText(response.data as string));
-  }
+    }).then((response) => {
+      if (response.error) setSecretText(`Error: ${response.error}`);
+      else setSecretText(`Secret text is: ${response.data.secret_text}`);
+    });
+  };
 
   return (
     <>

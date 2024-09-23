@@ -30,6 +30,18 @@ export const SecretSchemeSchema = {
   title: 'SecretScheme',
 } as const;
 
+export const TakeSecretResponseSchemeSchema = {
+  properties: {
+    secret_text: {
+      type: 'string',
+      title: 'Secret Text',
+    },
+  },
+  type: 'object',
+  required: ['secret_text'],
+  title: 'TakeSecretResponseScheme',
+} as const;
+
 export const ValidationErrorSchema = {
   properties: {
     loc: {

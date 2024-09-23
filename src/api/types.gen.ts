@@ -9,6 +9,10 @@ export type SecretScheme = {
   password: string;
 };
 
+export type TakeSecretResponseScheme = {
+  secret_text: string;
+};
+
 export type ValidationError = {
   loc: Array<string | number>;
   msg: string;
@@ -24,7 +28,7 @@ export type TakeSecretSecretsSecretKeyGetData = {
   };
 };
 
-export type TakeSecretSecretsSecretKeyGetResponse = unknown;
+export type TakeSecretSecretsSecretKeyGetResponse = TakeSecretResponseScheme;
 
 export type TakeSecretSecretsSecretKeyGetError = HTTPValidationError;
 
@@ -32,6 +36,8 @@ export type CreateSecretGeneratePostData = {
   body: SecretScheme;
 };
 
-export type CreateSecretGeneratePostResponse = unknown;
+export type CreateSecretGeneratePostResponse = {
+  [key: string]: string;
+};
 
 export type CreateSecretGeneratePostError = HTTPValidationError;
