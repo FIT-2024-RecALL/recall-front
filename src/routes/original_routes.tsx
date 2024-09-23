@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Redirect, Route, Router, Switch } from 'wouter';
 import { navigate, useLocationProperty } from 'wouter/use-location';
 import { HomePage } from '@/pages/HomePage';
-import { Page } from '@/pages/Page';
+import { Page } from '@/pages/originla_Page';
 
 const hashLocation = () => window.location.hash.replace(/^#/, '') || '/';
 const hashNavigate = (to: string) => navigate('#' + to);
