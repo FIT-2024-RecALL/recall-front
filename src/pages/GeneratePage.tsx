@@ -41,9 +41,14 @@ export const GeneratePage: React.FC = () => {
         {errors.secret_text && <span>Secret text is required</span>}
         <input
           placeholder="Password"
-          {...register('password', { required: true })}
+          {...register('password', { required: true, minLength: 4 })}
         />
-        {errors.password && <span>Password is required</span>}
+        {errors.password?.type == 'required' && (
+          <span>Password is required</span>
+        )}
+        {errors.password?.type == 'minLength' && (
+          <span>Minimal password length is 4</span>
+        )}
         <Button variant="default" type="submit">
           Create secret message
         </Button>
