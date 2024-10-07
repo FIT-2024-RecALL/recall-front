@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, Redirect, Route, Router, Switch } from 'wouter';
 import { HomePage } from '@/pages/original_HomePage';
-import { Page } from '@/pages/originla_Page';
+// import { Page } from '@/pages/originla_Page';
 import { animated } from '@react-spring/web';
-import { GeneratePage } from '@/pages/experimental_GeneratePage';
+// import { GeneratePage } from '@/pages/experimental_GeneratePage';
 
 export const AppRoutes: React.FC = () => (
   <Router>
@@ -29,10 +29,10 @@ export const AppRoutes: React.FC = () => (
     </Route>
     <Switch>
       <Route path="/generate" nest>
-        <GeneratePage />
+        {/* <GeneratePage /> */}
       </Route>
       <Route path="/:id" nest>
-        <Page />
+        {/* <Page /> */}
       </Route>
       <Route path="/">
         <HomePage />

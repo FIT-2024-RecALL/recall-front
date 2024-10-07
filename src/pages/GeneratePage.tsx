@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { createSecretGeneratePost } from '@/api';
 import { Button } from '@/components/library/Button';
 
+// Объект данных формы. Может быть и type, и interface
 type CreateSecretFormData = {
   secret_text: string;
   password: string;
@@ -19,6 +20,7 @@ export const GeneratePage: React.FC = () => {
   const [secretKey, setSecretKey] = useState('');
 
   const sendCreateData: SubmitHandler<CreateSecretFormData> = (data) => {
+    // data будет иметь тип CreateSecretFormData
     createSecretGeneratePost({
       body: data,
     }).then((response) => {
@@ -33,6 +35,8 @@ export const GeneratePage: React.FC = () => {
 
   return (
     <>
+      {/* handleSubmit - функция высшего порядка, которая передаст 
+      в наш собственный обработчик чистые данные желаемого типа */}
       <form onSubmit={handleSubmit(sendCreateData)}>
         <input
           placeholder="Secret text"

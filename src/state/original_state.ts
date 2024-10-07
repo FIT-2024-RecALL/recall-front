@@ -1,8 +1,10 @@
-import { create, StateCreator, StoreApi } from 'zustand';
+import { create, StateCreator } from 'zustand';
 import { produce } from 'immer';
 import { devtools } from 'zustand/middleware';
+import { immer } from 'zustand/middleware/immer';
 import { ObjectTyped, PickFunctions } from '@mordv/utils';
 import { shallow } from 'zustand/shallow';
+import { App } from '@/App';
 
 export interface AppState {
   counter: number;
@@ -10,12 +12,14 @@ export interface AppState {
   dec(): void;
 }
 
-const loggerMiddleware =
-  (stateCreator: StateCreator<AppState>) =>
-  (
-    set: StoreApi<AppState>['setState'],
-    ...rest: [StoreApi<AppState>['getState'], StoreApi<AppState>]
-  ) =>
+type MiddleWare<T> = (
+  creator: StateCreator<T>,
+  ...args: any
+) => StateCreator<T>;
+
+export const loggerMiddleware =
+  <T>(stateCreator: StateCreator<T>): StateCreator<T> =>
+  (set, ...rest) =>
     stateCreator((state) => {
       console.log(
         `update state: `,
@@ -26,7 +30,7 @@ const loggerMiddleware =
 
 export const useAppStore = create<AppState>()(
   devtools(
-    loggerMiddleware((set) => {
+    loggerMiddleware((set, get, api) => {
       const setMutable = (mutator: (draft: AppState) => void) =>
         set(produce(mutator));
 

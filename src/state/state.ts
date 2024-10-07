@@ -10,7 +10,12 @@ export interface AppState {
   dec(): void;
 }
 
-export const useAppStore = create<AppState>((set) => ({
+type MiddleWare<T> = (
+  creator: StateCreator<T>,
+  ...args: any
+) => StateCreator<T>;
+
+export const useAppStore = create<AppState>()((set) => ({
   counter: 0,
   inc: () =>
     set(
