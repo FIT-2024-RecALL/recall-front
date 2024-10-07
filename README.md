@@ -8,3 +8,7 @@ Required environment:
 ```bash
 npm install
 ```
+
+## OpenAPI services generation
+1. Place new OpenAPI schema to `openapi.json`
+2. Run `npm run generate-api`

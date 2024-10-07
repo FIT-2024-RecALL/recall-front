@@ -1,8 +1,11 @@
 import React from 'react';
-import { AppRoutes } from '@/routes/AppRoutes';
+import { AppRoutes, Menu } from '@/routes';
 
 export const App: React.FC = () => (
-  <div className={'center-full'}>
-    <AppRoutes />
-  </div>
+  <>
+    <Menu />
+    <main className={'center-full'}>
+      <AppRoutes />
+    </main>
+  </>
 );
