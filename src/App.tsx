@@ -3,9 +3,14 @@ import { AppRoutes, Menu } from '@/routes';
 
 export const App: React.FC = () => (
   <>
-    <Menu />
+    <header>
+      <Menu />
+    </header>
     <main className={'center-full'}>
       <AppRoutes />
     </main>
+    <footer>
+      
+    </footer>
   </>
 );
