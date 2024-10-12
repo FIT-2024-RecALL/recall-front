@@ -39,6 +39,7 @@ export const GeneratePage: React.FC = () => {
       в наш собственный обработчик чистые данные желаемого типа */}
       <form onSubmit={handleSubmit(sendCreateData)}>
         <input
+          className="bg-1-2 br-1-6 border-1 p-1 m-1"
           placeholder="Secret text"
           {...register('secret_text', { required: true })}
         />
@@ -53,7 +54,7 @@ export const GeneratePage: React.FC = () => {
         {errors.password?.type == 'minLength' && (
           <span>Minimal password length is 4</span>
         )}
-        <Button variant="default" type="submit">
+        <Button variant="plate" type="submit">
           Create secret message
         </Button>
       </form>

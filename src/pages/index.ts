@@ -1,2 +1,3 @@
-export { GeneratePage } from './GeneratePage';
-export { GetSecretPage } from './GetSecretPage';
+export * from './GeneratePage';
+export * from './GetSecretPage';
+export * from './StartPage';

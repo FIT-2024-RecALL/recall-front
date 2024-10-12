@@ -208,12 +208,11 @@
   --color-2-1: #F1FAEE;
   --color-2-2: #A8DADC;
   --color-2-3: #457B9D;
-  --color-2-3: #1D3557;
+  --color-2-4: #1D3557;
   --color-2-5: #0A0866;
 }
 
 body {
-  margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -233,35 +232,26 @@ body {
 html,
 body,
 #root {
+  margin: 0;
+  padding: 0;
   width: 100%;
-  height: 100%;
 }
 
 * {
   overscroll-behavior-y: contain;
 }
 
-:not(.dark) *::-webkit-scrollbar-track {
-  background: var(--color-2-1);
-}
-
-:not(.dark) *::-webkit-scrollbar-thumb {
-  background: var(--color-2-3);
-}
-
-.dark *::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: var(--color-1-1);
 }
 
-.dark *::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background: var(--color-1-6);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
-}
-
-::-webkit-scrollbar {
   background: transparent;
 }
