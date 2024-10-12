@@ -9,12 +9,9 @@ interface IconButtonProps
 }
 
 const variants = {
-  active: `bg-amber-300 hover:bg-amber-400`,
-  ghost: ``,
-  red: `bg-red-300 hover:bg-red-400`,
-  green: `bg-green-300 hover:bg-green-400`,
-  violet: `bg-indigo-500 hover:bg-indigo-600`,
-  default: `bg-neutral-100 hover:bg-neutral-200 dark:text-neutral-100 dark:bg-neutral-600 hover:dark:bg-neutral-500 transition-colors `,
+  inline: `bg-1-2 color-1-6 hover:bg-1-3`,
+  plate: `bg-1-6 color-1-2 hover:bg-1-5`,
+  bordered: `bg-1-1 color-1-6 border-2 br-1-6 hover:bg-1-6 hover:color-1-2`,
 };
 export const Button: React.FC<IconButtonProps> = ({
   variant,
@@ -28,7 +25,7 @@ export const Button: React.FC<IconButtonProps> = ({
     type={'button'}
     className={
       `${
-        variants[variant || 'default']
+        variants[variant || 'inline']
       } center h-10 min-w-[40px] space-x-2 rounded-md p-2 transition-colors` +
       ' ' +
       className

@@ -10,12 +10,17 @@ type RouteData = {
 export const routesList: Array<RouteData> = [
   {
     url: '/',
-    label: 'Generate secret message',
-    content: <GeneratePage />,
+    label: 'Main page',
+    content: <GetSecretPage />,
   },
   {
-    url: '/secret',
-    label: 'Get secret message',
+    url: '/collections',
+    label: 'View collections',
     content: <GetSecretPage />,
+  },
+  {
+    url: '/about',
+    label: 'About us',
+    content: <GeneratePage />,
   },
 ];
