@@ -22,14 +22,58 @@
   .error {
     @apply outline-pink-500 ring-1 ring-pink-500
   }
+
+  .font-ma {
+    font-family: 'MontserratAlternates';
+  }
+}
+
+
+@font-face {
+  font-family: 'MontserratAlternates';
+  src: url('$fonts/MontserratAlternates-Light.ttf');
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'MontserratAlternates';
+  src: url('$fonts/MontserratAlternates-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'MontserratAlternates';
+  src: url('$fonts/MontserratAlternates-Medium.ttf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'MontserratAlternates';
+  src: url('$fonts/MontserratAlternates-Bold.ttf');
+  font-weight: 800;
+}
+
+:root {
+  --color-1-1: #02132A;
+  --color-1-2: #0F233F;
+  --color-1-3: #1D3456;
+  --color-1-4: #2A5D6C;
+  --color-1-5: #388A83;
+  --color-1-6: #4CCAA4;
+  --color-red: #E63946;
+  --color-2-1: #F1FAEE;
+  --color-2-2: #A8DADC;
+  --color-2-3: #457B9D;
+  --color-2-3: #1D3557;
+  --color-2-5: #0A0866;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  font-family: "MontserratAlternates";
 }
 
 html,
@@ -43,31 +87,20 @@ body,
   overscroll-behavior-y: contain;
 }
 
-@font-face {
-  font-family: 'JetBrainsMono';
-  src: url('$fonts/JetBrainsMono-Bold.woff2');
-  font-weight: 700;
-  font-style: normal;
-}
-
-code {
-  font-family: "JetBrainsMono", source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
 :not(.dark) *::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.04);
+  background: var(--color-2-1);
 }
 
 :not(.dark) *::-webkit-scrollbar-thumb {
-  background: #c5c5c5;
+  background: var(--color-2-3);
 }
 
 .dark *::-webkit-scrollbar-track {
-  background: rgba(202, 204, 206, 0.04);
+  background: var(--color-1-1);
 }
 
 .dark *::-webkit-scrollbar-thumb {
-  background: #474c50;
+  background: var(--color-1-6);
 }
 
 ::-webkit-scrollbar {
@@ -77,4 +110,148 @@ code {
 
 ::-webkit-scrollbar {
   background: transparent;
+}
+
+.bg-1-1 {
+  background-color: var(--color-1-1);
+}
+
+.bg-1-2 {
+  background-color: var(--color-1-2);
+}
+
+.bg-1-3 {
+  background-color: var(--color-1-3);
+}
+
+.bg-1-4 {
+  background-color: var(--color-1-4);
+}
+
+.bg-1-5 {
+  background-color: var(--color-1-5);
+}
+
+.bg-1-6 {
+  background-color: var(--color-1-6);
+}
+
+.bg-red {
+  background-color: var(--color-red);
+}
+
+.bg-2-1 {
+  background-color: var(--color-2-1);
+}
+
+.bg-2-2 {
+  background-color: var(--color-2-2);
+}
+
+.bg-2-3 {
+  background-color: var(--color-2-3);
+}
+
+.bg-2-3 {
+  background-color: var(--color-2-3);
+}
+
+.bg-2-5 {
+  background-color: var(--color-2-5);
+}
+
+.color-1-1 {
+  color: var(--color-1-1);
+}
+
+.color-1-2 {
+  color: var(--color-1-2);
+}
+
+.color-1-3 {
+  color: var(--color-1-3);
+}
+
+.color-1-4 {
+  color: var(--color-1-4);
+}
+
+.color-1-5 {
+  color: var(--color-1-5);
+}
+
+.color-1-6 {
+  color: var(--color-1-6);
+}
+
+.color-red {
+  color: var(--color-red);
+}
+
+.color-2-1 {
+  color: var(--color-2-1);
+}
+
+.color-2-2 {
+  color: var(--color-2-2);
+}
+
+.color-2-3 {
+  color: var(--color-2-3);
+}
+
+.color-2-3 {
+  color: var(--color-2-3);
+}
+
+.color-2-5 {
+  color: var(--color-2-5);
+}
+
+.br-1-1 {
+  border-color: var(--color-1-1);
+}
+
+.br-1-2 {
+  border-color: var(--color-1-2);
+}
+
+.br-1-3 {
+  border-color: var(--color-1-3);
+}
+
+.br-1-4 {
+  border-color: var(--color-1-4);
+}
+
+.br-1-5 {
+  border-color: var(--color-1-5);
+}
+
+.br-1-6 {
+  border-color: var(--color-1-6);
+}
+
+.br-red {
+  border-color: var(--color-red);
+}
+
+.br-2-1 {
+  border-color: var(--color-2-1);
+}
+
+.br-2-2 {
+  border-color: var(--color-2-2);
+}
+
+.br-2-3 {
+  border-color: var(--color-2-3);
+}
+
+.br-2-3 {
+  border-color: var(--color-2-3);
+}
+
+.br-2-5 {
+  border-color: var(--color-2-5);
 }
