@@ -1,26 +1,16 @@
 import React from 'react';
-import { Redirect, Route, Router, Switch } from 'wouter';
-import { navigate, useLocationProperty } from 'wouter/use-location';
-import { HomePage } from '@/pages/HomePage';
-import { Page } from '@/pages/Page';
-
-const hashLocation = () => window.location.hash.replace(/^#/, '') || '/';
-const hashNavigate = (to: string) => navigate('#' + to);
-const useHashLocation = () => {
-  const location = useLocationProperty(hashLocation);
-  return [location, hashNavigate];
-};
+import { Route, Switch } from 'wouter';
+import { routesList } from './routesList';
 
 export const AppRoutes: React.FC = () => (
-  <Router hook={useHashLocation as any}>
-    <Switch>
-      <Route path="/:id">{(a) => <Page pageId={a.id} />}</Route>
-      <Route path="/">
-        <HomePage />
+  <Switch>
+    {routesList.map((data) => (
+      <Route path={data.url} key={data.url}>
+        {data.content}
       </Route>
-      <Route>
-        <Redirect to={'/'} />
-      </Route>
-    </Switch>
-  </Router>
+    ))}
+    <Route>
+      <h1>Page not found</h1>
+    </Route>
+  </Switch>
 );
