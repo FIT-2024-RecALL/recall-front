@@ -20,7 +20,7 @@ export const routesList: Array<RouteData> = [
   },
   {
     url: '/about',
-    label: 'About us',
+    label: 'Feed us',
     content: <GeneratePage />,
   },
 ];
