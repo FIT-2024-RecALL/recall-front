@@ -1,32 +1,27 @@
 import { create, StateCreator, StoreApi } from 'zustand';
-import { produce } from 'immer';
+import { produce, Immutable, Draft } from 'immer';
 import { devtools } from 'zustand/middleware';
-import { ObjectTyped, PickFunctions } from '@mordv/utils';
-import { shallow } from 'zustand/shallow';
 
-export interface AppState {
-  counter: number;
-  inc(): void;
-  dec(): void;
+type UIState = Immutable<{
+  loginWindowShown: boolean;
+  toggleLoginWindow: () => void;
+}>;
+
+const createUIStateSlice: StateCreator<UIState, [], [], UIState> = (set) => {
+  return {
+    loginWindowShown: false,
+    toggleLoginWindow: () => {
+      set(
+        produce((state: Draft<UIState>) => {
+          state.loginWindowShown = !state.loginWindowShown;
+        })
+      );
+    },
+  }
 }
 
-type MiddleWare<T> = (
-  creator: StateCreator<T>,
-  ...args: any
-) => StateCreator<T>;
+type StoreType = UIState; // Will be extended
 
-export const useAppStore = create<AppState>()((set) => ({
-  counter: 0,
-  inc: () =>
-    set(
-      produce((state: AppState) => {
-        state.counter++;
-      })
-    ),
-  dec: () =>
-    set(
-      produce((state: AppState) => {
-        state.counter--;
-      })
-    ),
+export const useAppStore = create<StoreType>()((...a) => ({
+  ...createUIStateSlice(...a)
 }));
