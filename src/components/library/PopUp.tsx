@@ -1,9 +1,7 @@
-import { ComponentPropsWithRef } from "@react-spring/web";
-import clsx from "clsx";
-import React, { PropsWithChildren } from "react";
+import clsx from 'clsx';
+import React, { PropsWithChildren } from 'react';
 
-interface PopUpProps 
-extends PropsWithChildren<React.HTMLAttributes<React.FC>> {
+interface PopUpProps extends PropsWithChildren<React.HTMLAttributes<React.FC>> {
   isShown: boolean;
   toggle: () => void;
 }
@@ -14,8 +12,10 @@ export const PopUp: React.FC<PopUpProps> = (
 ) => {
   return (
     <div
-      className={clsx(isShown ? 'block fixed full bg-1-1' : 'hidden', className)}
-      onClick={toggle}
+      className={clsx(isShown ? 'block fixed full' : 'hidden', className)}
+      onClick={(e) => {
+        if (e.target == e.currentTarget) toggle();
+      }}
       {...props}
     >
       {children}
