@@ -23,5 +23,5 @@ const createUIStateSlice: StateCreator<UIState, [], [], UIState> = (set) => {
 type StoreType = UIState; // Will be extended
 
 export const useAppStore = create<StoreType>()((...a) => ({
-  ...createUIStateSlice(...a)
+  ...createUIStateSlice(...a),
 }));

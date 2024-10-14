@@ -11,7 +11,7 @@ export const Header: React.FC = () => {
   return (
     <header>
       <div className="flex justify-around m-0 p-1 bg-1-2 w-full">
-        <h2 className="text-2-2 font-bold mx-2 center">
+        <h2 className="text-2xl text-2-2 font-bold mx-2 center">
           <Link to="/">RecAll</Link>
         </h2>
         <Menu />

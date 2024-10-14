@@ -12,7 +12,7 @@ export const PopUp: React.FC<PopUpProps> = (
 ) => {
   return (
     <div
-      className={clsx(isShown ? 'block fixed full' : 'hidden', className)}
+      className={clsx(isShown ? 'visible fixed full' : 'invisible', className)}
       onClick={(e) => {
         if (e.target == e.currentTarget) toggle();
       }}
