@@ -6,7 +6,7 @@ import { useAppStore } from '@/state/state';
 import { Menu } from './Menu';
 
 export const Header: React.FC = () => {
-  const toggleLoginWindow = useAppStore((state) => state.toggleLoginWindow);
+  const openLoginWindow = useAppStore((state) => state.openLoginWindow);
 
   return (
     <header>
@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
         <Button
           variant="bordered"
           className="my-1 mx-2"
-          onClick={toggleLoginWindow}
+          onClick={openLoginWindow}
         >
           Sign in / Sign up
         </Button>

@@ -1,27 +1,18 @@
-import { create, StateCreator, StoreApi } from 'zustand';
-import { produce, Immutable, Draft } from 'immer';
+import { create } from 'zustand';
+import { produce } from 'immer';
 import { devtools } from 'zustand/middleware';
 
-type UIState = Immutable<{
-  loginWindowShown: boolean;
-  toggleLoginWindow: () => void;
-}>;
-
-const createUIStateSlice: StateCreator<UIState, [], [], UIState> = (set) => {
-  return {
-    loginWindowShown: false,
-    toggleLoginWindow: () => {
-      set(
-        produce((state: Draft<UIState>) => {
-          state.loginWindowShown = !state.loginWindowShown;
-        })
-      );
-    },
-  }
-}
+import { Mutator } from './types';
+import { UIState, createUIStateSlice } from './slices';
 
 type StoreType = UIState; // Will be extended
 
-export const useAppStore = create<StoreType>()((...a) => ({
-  ...createUIStateSlice(...a),
-}));
+export const useAppStore = create<StoreType>()(
+  devtools((set, ...rest) => {
+    const mutate: Mutator<StoreType> = (mutator) => set(produce(mutator));
+
+    return {
+      ...createUIStateSlice(mutate, set, ...rest),
+    };
+  })
+);
