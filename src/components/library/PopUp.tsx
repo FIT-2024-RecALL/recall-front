@@ -12,13 +12,13 @@ export const PopUp: React.FC<PopUpProps> = (
 ) => {
   return (
     <div
-      className={clsx(isShown ? 'visible fixed full' : 'invisible', className)}
+      className={clsx("transition-all fixed", isShown ? 'full' : 'w-0 h-0', className)}
       onClick={(e) => {
         if (e.target == e.currentTarget) close();
       }}
       {...props}
     >
-      {children}
+      {isShown && children}
     </div>
   );
 };
