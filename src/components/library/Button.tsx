@@ -9,9 +9,9 @@ interface IconButtonProps
 }
 
 const variants = {
-  inline: `bg-1-2 color-1-6 hover:bg-1-3`,
-  plate: `bg-1-6 color-1-2 hover:bg-1-5`,
-  bordered: `bg-1-1 color-1-6 border-2 br-1-6 hover:bg-1-6 hover:color-1-2`,
+  inline: `bg-1-2 text-1-6 hover:bg-1-3`,
+  plate: `bg-1-6 text-1-2 hover:bg-1-5`,
+  bordered: `bg-1-1 text-1-6 border-2 border-1-6 hover:bg-1-6 hover:text-1-2`,
 };
 export const Button: React.FC<IconButtonProps> = ({
   variant,

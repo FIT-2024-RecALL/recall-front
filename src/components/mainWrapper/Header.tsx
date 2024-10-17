@@ -1,18 +1,25 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { Button } from '@/components/library/Button';
 
+import { Button } from '@/components/library/Button';
+import { useAppStore } from '@/state/state';
 import { Menu } from './Menu';
 
 export const Header: React.FC = () => {
+  const openLoginWindow = useAppStore((state) => state.openLoginWindow);
+
   return (
     <header>
       <div className="flex justify-around m-0 p-1 bg-1-2 w-full">
-        <h2 className="color-2-2 font-bold mx-2 center">
+        <h2 className="text-2xl text-2-2 font-bold mx-2 center">
           <Link to="/">RecAll</Link>
         </h2>
         <Menu />
-        <Button variant="bordered" className="my-1 mx-2">
+        <Button
+          variant="bordered"
+          className="my-1 mx-2"
+          onClick={openLoginWindow}
+        >
           Sign in / Sign up
         </Button>
       </div>
