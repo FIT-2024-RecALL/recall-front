@@ -1,11 +1,13 @@
 import React from 'react';
-import { AppRoutes, Menu } from '@/routes';
+import { AppRoutes } from '@/routes';
+import { Header, Footer } from './components/mainWrapper';
 
 export const App: React.FC = () => (
   <>
-    <Menu />
-    <main className={'center-full'}>
+    <Header />
+    <main className="">
       <AppRoutes />
     </main>
+    <Footer />
   </>
 );
