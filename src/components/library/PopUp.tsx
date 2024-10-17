@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 
 interface PopUpProps extends PropsWithChildren<React.HTMLAttributes<React.FC>> {
   isShown: boolean;
@@ -21,15 +21,21 @@ export const PopUp: React.FC<PopUpProps> = (
   { isShown, close, className, children },
   ...props
 ) => {
+  let render = isShown;
+
   return (
     <div
-      className={clsx("transition-all fixed", isShown ? 'opacity-1 full' : 'opacity-0', className)}
+      className={clsx("fixed", isShown ? 'full animate-appear' : 'animate-disappear', className)}
       onClick={(e) => {
-        if (e.target == e.currentTarget) close();
+        if (e.target !== e.currentTarget) return;
+        close();
+        setTimeout(() => {
+          render = isShown;
+        }, 100);
       }}
       {...props}
     >
-      {children}
+      {render && children}
     </div>
   );
 };
