@@ -7,7 +7,7 @@ type RouteData = {
   content: JSX.Element;
 };
 
-export const routesList: Array<RouteData> = [
+export const routesList: RouteData[] = [
   {
     url: '/',
     label: 'Main page',

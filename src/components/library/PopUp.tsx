@@ -23,13 +23,13 @@ export const PopUp: React.FC<PopUpProps> = (
 ) => {
   return (
     <div
-      className={clsx("transition-all fixed", isShown ? 'full' : 'w-0 h-0', className)}
+      className={clsx("transition-all fixed", isShown ? 'opacity-1 full' : 'opacity-0', className)}
       onClick={(e) => {
         if (e.target == e.currentTarget) close();
       }}
       {...props}
     >
-      {isShown && children}
+      {children}
     </div>
   );
 };

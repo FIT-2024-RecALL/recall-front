@@ -7,13 +7,13 @@ export const LoginWindow: React.FC = () => {
   const [loginWindowShown, closeLoginWindow] = useAppStore((state) => [
     state.loginWindowShown,
     state.closeLoginWindow,
-  ]);
+  ]); // TODO: Разделить на 2
 
   return (
     <PopUp
       isShown={loginWindowShown}
       close={closeLoginWindow}
-      className="bg-gradient-to-b from-1-6/50 to-1-1/50 right-0 top-0"
+      className="bg-gradient-to-b from-1-6/50 to-1-1/50"
     >
       <div className="center">
         <div className="absolute top-1/3 w-3/4 m-2 md:w-1/3 h-fit p-3 border-2 border-1-1 rounded-lg bg-gradient-to-tr from-1-2 to-1-5">
