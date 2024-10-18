@@ -1,13 +1,14 @@
 import React from 'react';
+import { useShallow } from 'zustand/react/shallow';
+
 import { PopUp } from '@/components/library/PopUp';
 import { Button } from '@/components/library/Button';
 import { useAppStore } from '@/state';
 
 export const LoginWindow: React.FC = () => {
-  const [loginWindowShown, closeLoginWindow] = useAppStore((state) => [
-    state.loginWindowShown,
-    state.closeLoginWindow,
-  ]); // TODO: Разделить на 2
+  const [loginWindowShown, closeLoginWindow] = useAppStore(
+    useShallow((state) => [state.loginWindowShown, state.closeLoginWindow])
+  );
 
   return (
     <PopUp
