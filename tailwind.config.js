@@ -1,9 +1,28 @@
 /** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss/colors')} */
+
+const colors = require('tailwindcss/colors');
+
 // eslint-disable-next-line no-undef
 module.exports = {
   darkMode: 'class', // переводим в режим определения dark мода (срабатывают dark: модификаторы) по наличию класса dark у родителя
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    colors: {
+      ...colors,
+      '1-1': '#02132A',
+      '1-2': '#0F233F',
+      '1-3': '#1D3456',
+      '1-4': '#2A5D6C',
+      '1-5': '#388A83',
+      '1-6': '#4CCAA4',
+      red: '#E63946',
+      '2-1': '#F1FAEE',
+      '2-2': '#A8DADC',
+      '2-3': '#457B9D',
+      '2-4': '#1D3557',
+      '2-5': '#0A0866',
+    },
     extend: {
       keyframes: {
         appear: {

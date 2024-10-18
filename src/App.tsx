@@ -1,13 +1,17 @@
 import React from 'react';
 import { AppRoutes } from '@/routes';
-import { Header, Footer } from './components/mainWrapper';
+import { Header, Footer } from '@/components/mainWrapper';
+import { LoginWindow } from '@/components/LoginWindow';
 
-export const App: React.FC = () => (
-  <>
-    <Header />
-    <main className="">
-      <AppRoutes />
-    </main>
-    <Footer />
-  </>
-);
+export const App: React.FC = () => {
+  return (
+    <>
+      <LoginWindow />
+      <Header />
+      <main>
+        <AppRoutes />
+      </main>
+      <Footer />
+    </>
+  );
+};
