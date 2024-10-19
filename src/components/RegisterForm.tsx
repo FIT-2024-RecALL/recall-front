@@ -7,9 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 const userRegisterScheme = z
   .object({
     email: z.string().email().min(1, 'Email is required'),
-    password1: z
-      .string()
-      .min(8, 'Password must be >= 8 symbols'),
+    password1: z.string().min(8, 'Password must be >= 8 symbols'),
     password2: z.string().min(8, 'Repetition of password is required'),
   })
   .refine((data) => data.password1 === data.password2, {
