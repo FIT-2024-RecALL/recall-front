@@ -4,19 +4,19 @@ import { Button } from '@/components/library/Button';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 
-export type UserRegisterData = {
-  email: string;
-  password1: string;
-  password2: string;
-};
-
-export const userRegisterScheme = z.object({
-  email: z.string().email().min(1, 'Email is required'),
-  password1: z
-    .string()
-    .min(8, 'Password must be more than or equal to 8 symbols'),
-  password2: z.string().min(8, 'Repeat your password'),
-});
+const userRegisterScheme = z
+  .object({
+    email: z.string().email().min(1, 'Email is required'),
+    password1: z
+      .string()
+      .min(8, 'Password must be >= 8 symbols'),
+    password2: z.string().min(8, 'Repetition of password is required'),
+  })
+  .refine((data) => data.password1 === data.password2, {
+    message: 'Repeat your password correctly',
+    path: ['password2'],
+  });
+export type UserRegisterData = z.infer<typeof userRegisterScheme>;
 
 export const RegisterForm: React.FC = () => {
   const {
@@ -26,8 +26,6 @@ export const RegisterForm: React.FC = () => {
   } = useForm<UserRegisterData>({
     resolver: zodResolver(userRegisterScheme),
   });
-
-  // TODO: добавить дополнительную стороннюю проверку на соответствие паролей
 
   const registerUser: SubmitHandler<UserRegisterData> = (data) => {
     console.log(data);

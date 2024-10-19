@@ -7,7 +7,6 @@ import { useAppStore } from '@/state';
 import { LoginForm } from './LoginForm';
 import { RegisterForm } from './RegisterForm';
 import clsx from 'clsx';
-import { SliderCheckbox } from './library/SliderCheckbox';
 
 export const LoginWindow: React.FC = () => {
   const [loginWindowShown, closeLoginWindow] = useAppStore(

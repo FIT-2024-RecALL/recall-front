@@ -4,17 +4,13 @@ import { Button } from '@/components/library/Button';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 
-export type UserLoginData = {
-  email: string;
-  password: string;
-};
-
-export const userLoginScheme = z.object({
+const userLoginScheme = z.object({
   email: z.string().email().min(1, 'Email is required'),
   password: z
     .string()
     .min(8, 'Password must be more than or equal to 8 symbols'),
 });
+export type UserLoginData = z.infer<typeof userLoginScheme>;
 
 export const LoginForm: React.FC = () => {
   const {
