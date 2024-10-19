@@ -7,6 +7,7 @@ import { useAppStore } from '@/state';
 import { LoginForm } from './LoginForm';
 import { RegisterForm } from './RegisterForm';
 import clsx from 'clsx';
+import { SliderCheckbox } from './library/SliderCheckbox';
 
 export const LoginWindow: React.FC = () => {
   const [loginWindowShown, closeLoginWindow] = useAppStore(
@@ -25,30 +26,36 @@ export const LoginWindow: React.FC = () => {
       <div className="center">
         <div className="absolute top-1/4 w-3/4 m-2 md:w-1/3 h-fit p-3 border-2 border-1-1 rounded-lg bg-gradient-to-tr from-1-2 to-1-5">
           <h1 className="text-xl text-center text-2-1">Log in to RecAll</h1>
-          <div className="vstack center">
+          <div className="vstack center transition-all relative">
             <div
               className={clsx(
-                'transition-all w-full',
-                registerPartShown ? 'h-0 opacity-0' : 'h-fit opacity-1'
+                'transition-all duration-300 w-full relative',
+                registerPartShown
+                  ? 'h-0 opacity-0 -translate-x-12'
+                  : 'h-fit opacity-1'
               )}
             >
               {!registerPartShown && <LoginForm />}
             </div>
             <div
               className={clsx(
-                'transition-all w-full',
-                registerPartShown ? 'h-fit opacity-1' : 'h-0 opacity-0'
+                'transition-all duration-300 w-full',
+                registerPartShown
+                  ? 'h-fit opacity-1'
+                  : 'h-0 opacity-0 translate-x-12'
               )}
             >
               {registerPartShown && <RegisterForm />}
             </div>
-            <Button
-              className="p-2"
-              variant="bordered"
-              onClick={toggleRegisterForm}
-            >
-              {registerPartShown ? 'Sign in' : 'Sign out'}
-            </Button>
+            <div className="center">
+              <Button
+                className="p-2"
+                variant="bordered"
+                onClick={toggleRegisterForm}
+              >
+                {registerPartShown ? '< Sign in form' : 'Sign up form >'}
+              </Button>
+            </div>
           </div>
         </div>
       </div>

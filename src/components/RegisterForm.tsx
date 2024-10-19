@@ -1,6 +1,8 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from '@/components/library/Button';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 
 export type UserRegisterData = {
   email: string;
@@ -8,12 +10,24 @@ export type UserRegisterData = {
   password2: string;
 };
 
+export const userRegisterScheme = z.object({
+  email: z.string().email().min(1, 'Email is required'),
+  password1: z
+    .string()
+    .min(8, 'Password must be more than or equal to 8 symbols'),
+  password2: z.string().min(8, 'Repeat your password'),
+});
+
 export const RegisterForm: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserRegisterData>();
+  } = useForm<UserRegisterData>({
+    resolver: zodResolver(userRegisterScheme),
+  });
+
+  // TODO: добавить дополнительную стороннюю проверку на соответствие паролей
 
   const registerUser: SubmitHandler<UserRegisterData> = (data) => {
     console.log(data);
@@ -26,9 +40,9 @@ export const RegisterForm: React.FC = () => {
         className="m-2 p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
         {...register('email', { required: true })}
       />
-      {errors.email?.type === 'required' && (
+      {errors.email?.message && (
         <span className="text-red text-center m-2 p-2 bg-1-1 rounded-md">
-          Email is required
+          {errors.email?.message.toString()}
         </span>
       )}
       <input
@@ -37,21 +51,20 @@ export const RegisterForm: React.FC = () => {
         {...register('password1', { required: true })}
         type="password"
       />
-      {errors.password1?.type === 'required' && (
+      {errors.password1?.message && (
         <span className="text-red text-center m-2 p-2 bg-1-1 rounded-md">
-          Password is required
+          {errors.password1?.message.toString()}
         </span>
       )}
       <input
         placeholder="Repeat password"
         className="m-2 p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
-        {...register('password2', { required: true })}
+        {...register('password2')}
         type="password"
       />
-      {/* TODO: добавить проверку на эквивалентность */}
-      {errors.password1?.type === 'required' && (
+      {errors.password2?.message && (
         <span className="text-red text-center m-2 p-2 bg-1-1 rounded-md">
-          You must repeat your password
+          {errors.password2?.message.toString()}
         </span>
       )}
       <Button variant="plate" type="submit" className="m-2">
