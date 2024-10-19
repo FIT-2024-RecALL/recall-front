@@ -1,5 +1,4 @@
 import React from 'react';
-import { useShallow } from 'zustand/react/shallow';
 
 import { PopUp } from '@/components/library/PopUp';
 import { Button } from '@/components/library/Button';
@@ -9,50 +8,50 @@ import { RegisterForm } from './RegisterForm';
 import clsx from 'clsx';
 
 export const LoginWindow: React.FC = () => {
-  const [loginWindowShown, closeLoginWindow] = useAppStore(
-    useShallow((state) => [state.loginWindowShown, state.closeLoginWindow])
+  const authWindowState = useAppStore((state) => state.authWindow);
+  const closeAuthWindow = useAppStore((state) => state.closeAuthWindow);
+  const toggleActiveAuthWindow = useAppStore(
+    (state) => state.toggleActiveAuthWindow
   );
-  const [registerPartShown, toggleRegisterForm] = useAppStore(
-    useShallow((state) => [state.registerFormShown, state.toggleRegisterForm])
-  );
+
+  const isLogin = authWindowState === 'login';
+  const isRegister = authWindowState === 'register';
 
   return (
     <PopUp
-      isShown={loginWindowShown}
-      close={closeLoginWindow}
+      isShown={authWindowState !== 'hidden'}
+      close={closeAuthWindow}
       className="bg-gradient-to-b from-1-6/50 to-1-1/50"
     >
       <div className="center">
         <div className="absolute top-1/4 w-3/4 m-2 md:w-1/3 h-fit p-3 border-2 border-1-1 rounded-lg bg-gradient-to-tr from-1-2 to-1-5">
-          <h1 className="text-xl text-center text-2-1">Log in to RecAll</h1>
+          <h1 className="text-xl text-center text-2-1">
+            {isLogin ? 'Log in to RecAll' : 'Register in RecAll'}
+          </h1>
           <div className="vstack center transition-all relative">
             <div
               className={clsx(
                 'transition-all duration-300 w-full relative',
-                registerPartShown
-                  ? 'h-0 opacity-0 -translate-x-12'
-                  : 'h-fit opacity-1'
+                isLogin ? 'h-fit opacity-1' : 'h-0 opacity-0 -translate-x-12'
               )}
             >
-              {!registerPartShown && <LoginForm />}
+              {isLogin && <LoginForm />}
             </div>
             <div
               className={clsx(
                 'transition-all duration-300 w-full',
-                registerPartShown
-                  ? 'h-fit opacity-1'
-                  : 'h-0 opacity-0 translate-x-12'
+                isRegister ? 'h-fit opacity-1' : 'h-0 opacity-0 translate-x-12'
               )}
             >
-              {registerPartShown && <RegisterForm />}
+              {isRegister && <RegisterForm />}
             </div>
             <div className="center">
               <Button
                 className="p-2"
                 variant="bordered"
-                onClick={toggleRegisterForm}
+                onClick={toggleActiveAuthWindow}
               >
-                {registerPartShown ? '< Sign in form' : 'Sign up form >'}
+                {isLogin ? 'Go to Register >' : '< Go to Log in'}
               </Button>
             </div>
           </div>

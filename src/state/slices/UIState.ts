@@ -3,50 +3,42 @@ import { Immutable } from 'immer';
 import { Slice } from '@/state';
 
 export type UIState = Immutable<{
-  loginWindowShown: boolean;
-  toggleLoginWindow: () => void;
-  openLoginWindow: () => void;
-  closeLoginWindow: () => void;
-
-  registerFormShown: boolean;
-  toggleRegisterForm: () => void;
-  showRegisterForm: () => void;
-  hideRegisterForm: () => void;
+  authWindow: 'hidden' | 'login' | 'register';
+  closeAuthWindow: () => void;
+  showLoginWindow: () => void;
+  showRegisterWindow: () => void;
+  toggleActiveAuthWindow: () => void;
 }>;
 
 export const createUIStateSlice: Slice<UIState> = (mutate) => {
   return {
-    loginWindowShown: false,
-    toggleLoginWindow: () => {
+    authWindow: 'hidden',
+    closeAuthWindow: () => {
       mutate((state) => {
-        state.loginWindowShown = !state.loginWindowShown;
+        state.authWindow = 'hidden';
       });
     },
-    openLoginWindow: () => {
+    showLoginWindow: () => {
       mutate((state) => {
-        state.loginWindowShown = true;
+        state.authWindow = 'login';
       });
     },
-    closeLoginWindow: () => {
+    showRegisterWindow: () => {
       mutate((state) => {
-        state.loginWindowShown = false;
+        state.authWindow = 'register';
       });
     },
-
-    registerFormShown: false,
-    toggleRegisterForm: () => {
+    toggleActiveAuthWindow: () => {
       mutate((state) => {
-        state.registerFormShown = !state.registerFormShown;
-      });
-    },
-    showRegisterForm: () => {
-      mutate((state) => {
-        state.registerFormShown = true;
-      });
-    },
-    hideRegisterForm: () => {
-      mutate((state) => {
-        state.registerFormShown = false;
+        switch (state.authWindow) {
+          case 'login':
+            state.authWindow = 'register';
+            break;
+          case 'register':
+            state.authWindow = 'login';
+            break;
+          case 'hidden':
+        }
       });
     },
   };
