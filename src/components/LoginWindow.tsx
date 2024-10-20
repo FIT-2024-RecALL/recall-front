@@ -6,10 +6,13 @@ import { useAppStore } from '@/state';
 import { LoginForm } from './LoginForm';
 import { RegisterForm } from './RegisterForm';
 import clsx from 'clsx';
+import { SliderCheckbox } from './library/SliderCheckbox';
 
 export const LoginWindow: React.FC = () => {
   const authWindowState = useAppStore((state) => state.authWindow);
   const closeAuthWindow = useAppStore((state) => state.closeAuthWindow);
+  const showLoginWindow = useAppStore((state) => state.showLoginWindow);
+  const showRegisterWindow = useAppStore((state) => state.showRegisterWindow);
   const toggleActiveAuthWindow = useAppStore(
     (state) => state.toggleActiveAuthWindow
   );
@@ -45,13 +48,27 @@ export const LoginWindow: React.FC = () => {
             >
               {isRegister && <RegisterForm />}
             </div>
-            <div className="center">
+            <div className="around w-full text-2-2">
               <Button
-                className="p-2"
+                className={clsx('m-1 p-1 rounded-xl', isLogin && 'border-4')}
                 variant="bordered"
-                onClick={toggleActiveAuthWindow}
+                onClick={showLoginWindow}
               >
-                {isLogin ? 'Go to Register >' : '< Go to Log in'}
+                Logging in
+              </Button>
+              {/* <span className={clsx('m-2', isLogin && 'border')}>Logging in</span> */}
+              <SliderCheckbox
+                variant="light"
+                checked={isRegister}
+                onClick={toggleActiveAuthWindow}
+              />
+              {/* <span className={clsx('m-2', isRegister && 'border')}>Registration</span> */}
+              <Button
+                className={clsx('m-1 p-1 rounded-xl', isRegister && 'border-4')}
+                variant="bordered"
+                onClick={showRegisterWindow}
+              >
+                Registration
               </Button>
             </div>
           </div>
