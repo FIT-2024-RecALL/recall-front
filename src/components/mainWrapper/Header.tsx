@@ -6,22 +6,32 @@ import { useAppStore } from '@/state/state';
 import { Menu } from './Menu';
 
 export const Header: React.FC = () => {
-  const openLoginWindow = useAppStore((state) => state.openLoginWindow);
+  const showLoginWindow = useAppStore((state) => state.showLoginWindow);
+  const showRegisterWindow = useAppStore((state) => state.showRegisterWindow);
 
   return (
     <header>
-      <div className="flex justify-around m-0 p-1 bg-1-2 w-full">
+      <div className="flex justify-between m-0 p-2 bg-1-2 w-full">
         <h2 className="text-2xl text-2-2 font-bold mx-2 center">
           <Link to="/">RecAll</Link>
         </h2>
         <Menu />
-        <Button
-          variant="bordered"
-          className="my-1 mx-2"
-          onClick={openLoginWindow}
-        >
-          Sign in / Sign up
-        </Button>
+        <div className="center">
+          <Button
+            variant="bordered"
+            className="p-1 my-1 mx-2"
+            onClick={showLoginWindow}
+          >
+            Log in
+          </Button>
+          <Button
+            variant="plate"
+            className="p-1 my-1 mx-2"
+            onClick={showRegisterWindow}
+          >
+            Register
+          </Button>
+        </div>
       </div>
     </header>
   );
