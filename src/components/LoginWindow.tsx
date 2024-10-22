@@ -24,7 +24,7 @@ export const LoginWindow: React.FC = () => {
     <PopUp
       isShown={authWindowState !== 'hidden'}
       close={closeAuthWindow}
-      className="bg-gradient-to-b from-1-6/50 to-1-1/50"
+      className="bg-gradient-to-b from-1-6/50 to-1-1/50 backdrop-blur-sm"
     >
       <div className="center">
         <div className="absolute top-1/4 w-3/4 m-2 md:w-1/3 h-fit p-3 border-2 border-1-1 rounded-lg bg-gradient-to-tr from-1-2 to-1-5">
@@ -56,13 +56,11 @@ export const LoginWindow: React.FC = () => {
               >
                 Logging in
               </Button>
-              {/* <span className={clsx('m-2', isLogin && 'border')}>Logging in</span> */}
               <SliderCheckbox
                 variant="light"
                 checked={isRegister}
                 onClick={toggleActiveAuthWindow}
               />
-              {/* <span className={clsx('m-2', isRegister && 'border')}>Registration</span> */}
               <Button
                 className={clsx('m-1 p-1 rounded-xl', isRegister && 'border-4')}
                 variant="bordered"

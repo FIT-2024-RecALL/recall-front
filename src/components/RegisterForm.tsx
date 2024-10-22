@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 
 const userRegisterScheme = z
   .object({
-    email: z.string().email().min(1, 'Email is required'),
+    email: z.string().email('Invalid email').min(1, 'Email is required'),
     password1: z.string().min(8, 'Password must be >= 8 symbols'),
     password2: z.string().min(8, 'Repetition of password is required'),
   })
@@ -34,7 +34,7 @@ export const RegisterForm: React.FC = () => {
       <input
         placeholder="Email"
         className="m-2 p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
-        {...register('email', { required: true })}
+        {...register('email')}
       />
       {errors.email?.message && (
         <span className="text-red text-center m-2 p-2 bg-1-1 rounded-md">
@@ -44,7 +44,7 @@ export const RegisterForm: React.FC = () => {
       <input
         placeholder="Create password"
         className="m-2 p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
-        {...register('password1', { required: true })}
+        {...register('password1')}
         type="password"
       />
       {errors.password1?.message && (
