@@ -78,7 +78,8 @@ body {
 
   font-family: "MontserratAlternates";
 
-  background: linear-gradient(
+  /* background: url("https://i.pinimg.com/736x/ce/90/da/ce90da83897ad404966014a745f44b78.jpg"); */
+  /* background: linear-gradient(
     180deg, 
     var(--color-1-1) 0%, 
     var(--color-1-2) 20%,
@@ -86,7 +87,8 @@ body {
     var(--color-1-4) 60%,
     var(--color-1-5) 80%,
     var(--color-1-6) 100%
-  );
+  ); */
+  background-color: var(--color-2-1);
 }
 
 html,
