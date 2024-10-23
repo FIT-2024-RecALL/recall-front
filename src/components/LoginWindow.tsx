@@ -27,8 +27,8 @@ export const LoginWindow: React.FC = () => {
       className="bg-gradient-to-b from-1-6/50 to-1-1/50 backdrop-blur-sm"
     >
       <div className="center">
-        <div className="absolute top-1/4 w-3/4 m-2 md:w-1/3 h-fit p-3 border-2 border-1-1 rounded-lg bg-gradient-to-tr from-1-2 to-1-5">
-          <h1 className="text-xl text-center text-2-1">
+        <div className="absolute top-1/4 w-3/4 m-2 md:w-1/3 h-fit p-3 border border-1-1 rounded-lg bg-gradient-to-tr from-1-2 to-1-5">
+          <h1 className="text-lg md:text-xl text-center text-2-1">
             {isLogin ? 'Log in to RecAll' : 'Register in RecAll'}
           </h1>
           <div className="vstack center transition-all relative">
@@ -50,11 +50,11 @@ export const LoginWindow: React.FC = () => {
             </div>
             <div className="around w-full text-2-2">
               <Button
-                className={clsx('m-1 p-1 rounded-xl', isLogin && 'border-4')}
+                className={clsx('m-1 p-2 rounded-lg', isLogin && 'border-4')}
                 variant="bordered"
                 onClick={showLoginWindow}
               >
-                Logging in
+                Log in
               </Button>
               <SliderCheckbox
                 variant="light"
@@ -62,11 +62,11 @@ export const LoginWindow: React.FC = () => {
                 onClick={toggleActiveAuthWindow}
               />
               <Button
-                className={clsx('m-1 p-1 rounded-xl', isRegister && 'border-4')}
+                className={clsx('m-1 p-2 rounded-lg', isRegister && 'border-4')}
                 variant="bordered"
                 onClick={showRegisterWindow}
               >
-                Registration
+                Register
               </Button>
             </div>
           </div>

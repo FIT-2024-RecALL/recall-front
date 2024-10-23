@@ -4,7 +4,7 @@ import React from 'react';
 interface SliderCheckboxProps {
   checked: boolean;
   variant?: 'default' | 'inverted' | 'dark' | 'light';
-  onClick: (checked?: boolean) => void;
+  onClick?: (checked?: boolean) => void;
 }
 
 export const SliderCheckbox: React.FC<SliderCheckboxProps> = ({
@@ -33,7 +33,9 @@ export const SliderCheckbox: React.FC<SliderCheckboxProps> = ({
           'shadow-inner transition-all hover:cursor-pointer',
           checkedForStyle ? 'bg-1-6 border-1-1' : 'bg-1-1 border-1-6'
         )}
-        onClick={() => onClick()}
+        onClick={() => {
+          if (onClick) onClick();
+        }}
       >
         <div
           className={clsx(

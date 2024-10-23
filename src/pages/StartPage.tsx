@@ -19,7 +19,7 @@ export const StartPage: React.FC = () => {
   }
 
   return (
-    <div className="vstack m-10 p-5 bg-2-1 color-2-5 rounded-md">
+    <div className="vstack m-2 md:m-10 p-2 md:p-5 bg-2-1 color-2-5 rounded-md">
       <h1 className="font-bold">Make engrams for everything you want</h1>
       {paragraphs}
     </div>
