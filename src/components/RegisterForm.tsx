@@ -1,8 +1,10 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button } from '@/components/library/Button';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
+
+import { Button } from '@/components/library/Button';
+import { FormItem } from '@/components/library/FormItem';
 
 const userRegisterScheme = z
   .object({
@@ -31,38 +33,38 @@ export const RegisterForm: React.FC = () => {
 
   return (
     <form className="vstack w-full p-2" onSubmit={handleSubmit(registerUser)}>
-      <input
-        placeholder="Email"
-        className="m-2 p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
-        {...register('email')}
-      />
-      {errors.email?.message && (
-        <span className="text-red text-center m-2 p-2 bg-1-1 rounded-md">
-          {errors.email?.message.toString()}
-        </span>
-      )}
-      <input
-        placeholder="Create password"
-        className="m-2 p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
-        {...register('password1')}
-        type="password"
-      />
-      {errors.password1?.message && (
-        <span className="text-red text-center m-2 p-2 bg-1-1 rounded-md">
-          {errors.password1?.message.toString()}
-        </span>
-      )}
-      <input
-        placeholder="Repeat password"
-        className="m-2 p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
-        {...register('password2')}
-        type="password"
-      />
-      {errors.password2?.message && (
-        <span className="text-red text-center m-2 p-2 bg-1-1 rounded-md">
-          {errors.password2?.message.toString()}
-        </span>
-      )}
+      <FormItem
+        className="vstack p-1 w-full"
+        errorMessage={errors.email?.message}
+      >
+        <input
+          placeholder="Email"
+          className="w-full p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
+          {...register('email')}
+        />
+      </FormItem>
+      <FormItem
+        className="vstack p-1 w-full"
+        errorMessage={errors.password1?.message}
+      >
+        <input
+          placeholder="Create password"
+          className="w-full p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
+          {...register('password1')}
+          type="password"
+        />
+      </FormItem>
+      <FormItem
+        className="vstack p-1 w-full"
+        errorMessage={errors.password2?.message}
+      >
+        <input
+          placeholder="Repeat password"
+          className="w-full p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
+          {...register('password2')}
+          type="password"
+        />
+      </FormItem>
       <Button variant="plate" type="submit" className="m-2">
         Sign up
       </Button>
