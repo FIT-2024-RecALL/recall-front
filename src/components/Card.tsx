@@ -14,7 +14,7 @@ export const Card: React.FC<CardProps> = ({ mode, disabled, className }) => {
     <>
       <div
         className={clsx(
-          'm-2 p-2 w-7/8 h-48',
+          'm-2 p-2 w-auto h-48',
           'hover:cursor-pointer bg-gradient-to-r from-2-4 to-2-3 rounded-lg',
           'border border-2 border-2-1',
           'center',
@@ -28,21 +28,41 @@ export const Card: React.FC<CardProps> = ({ mode, disabled, className }) => {
       <PopUp
         isShown={zoomed}
         close={() => setZoomed(false)}
-        className="vstack center backdrop-blur-md"
+        className="vstack center bg-2-3/25 backdrop-blur-sm"
       >
         <div
           className={clsx(
-            'm-2 p-6 w-3/4 h-2/3',
+            'm-2 p-2 pl-4 md:p-4 lg:p-6 w-11/12 lg:w-3/4 h-2/3',
             'bg-gradient-to-r from-2-4 to-2-3 rounded-3xl',
-            'border border-4 border-2-1',
-            'center vstack',
-            'transition-all',
+            'border border-2 border-2-1',
+            'flex items-center',
+            'overflow-auto',
             className
           )}
-          onClick={() => setZoomed(true)}
         >
-          <h2 className="m-2 text-2xl text-2-1 font-bold">Card header</h2>
-          <p className="text-lg text-2-1">Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. </p>
+          <div
+            className={clsx(
+              'w-full h-5/6',
+              'vstack items-center',
+              'overflow-auto'
+            )}
+          >
+            <h2 className="m-2 text-2xl text-2-1 font-bold">Card header</h2>
+            <p className="text-lg text-2-1">
+              Card content. Card content. Card content. Card content. Card
+              content. Card content. Card content. Card content. Card content.
+              Card content. Card content. Card content. Card content. Card
+              content. Card content. Card content. Card content. Card content.
+              Card content. Card content. Card content. Card content. Card
+              content. Card content. Card content. Card content. Card content.
+              Card content. Card content. Card content. Card content. Card
+              content. Card content. Card content. Card content. Card content.
+              Card content. Card content. Card content. Card content. Card
+              content. Card content. Card content. Card content. Card content.
+              Card content. Card content. Card content. Card content. Card
+              content.
+            </p>
+          </div>
         </div>
       </PopUp>
       {/* {!zoomed ? (

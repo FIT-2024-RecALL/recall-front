@@ -104,16 +104,18 @@ body,
 }
 
 *::-webkit-scrollbar-track {
-  background: var(--color-1-1);
+  background-color: var(--color-2-4);
+  background-clip: content-box;
+  border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background: var(--color-1-6);
+  background: var(--color-2-2);
+  background-clip: content-box;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar {
   width: 10px;
-  height: 10px;
   background: transparent;
 }

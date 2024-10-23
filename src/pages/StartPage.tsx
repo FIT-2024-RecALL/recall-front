@@ -7,7 +7,7 @@ export const StartPage: React.FC = () => {
       <h1 className="text-4xl my-2 font-bold">
         Make engrams for everything you want
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
         <Card mode="edit" />
         <Card mode="edit" />
         <Card mode="edit" />

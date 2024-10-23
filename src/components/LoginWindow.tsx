@@ -24,10 +24,10 @@ export const LoginWindow: React.FC = () => {
     <PopUp
       isShown={authWindowState !== 'hidden'}
       close={closeAuthWindow}
-      className="bg-gradient-to-b from-1-6/50 to-1-1/50 backdrop-blur-sm"
+      className="bg-2-3/25 backdrop-blur-sm"
     >
       <div className="center">
-        <div className="absolute top-1/4 w-3/4 m-2 md:w-1/3 h-fit p-3 border border-1-1 rounded-lg bg-gradient-to-tr from-1-2 to-1-5">
+        <div className="absolute top-1/4 w-3/4 m-2 md:w-1/2 lg:w-1/3 h-fit p-3 border border-1-1 rounded-lg bg-gradient-to-tr from-1-2 to-1-5">
           <h1 className="text-lg md:text-xl text-center text-2-1">
             {isLogin ? 'Log in to RecAll' : 'Register in RecAll'}
           </h1>
