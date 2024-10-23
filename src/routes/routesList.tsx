@@ -1,5 +1,6 @@
 import React from 'react';
 import { GeneratePage, GetSecretPage, StartPage } from '@/pages';
+import { CollectionsPage } from '@/pages/CollectionsPage';
 
 type RouteData = {
   url: string;
@@ -16,7 +17,7 @@ export const routesList: RouteData[] = [
   {
     url: '/collections',
     label: 'View collections',
-    content: <GetSecretPage />,
+    content: <CollectionsPage />,
   },
   {
     url: '/about',
