@@ -1,5 +1,6 @@
 import { Card } from '@/components/Card';
 import React from 'react';
+import { Link } from 'wouter';
 
 export const StartPage: React.FC = () => {
   return (
@@ -7,14 +8,7 @@ export const StartPage: React.FC = () => {
       <h1 className="text-4xl my-2 font-bold">
         Make engrams for everything you want
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
-        <Card mode="edit" />
-        <Card mode="edit" />
-        <Card mode="edit" />
-        <Card mode="edit" />
-        <Card mode="edit" />
-        <Card mode="edit" />
-      </div>
+      <Link to="/collections/edit/1">Edit collection 1</Link>
     </div>
   );
 };
