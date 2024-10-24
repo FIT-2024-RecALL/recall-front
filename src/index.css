@@ -59,16 +59,17 @@
 
 :root {
   --color-1-1: #178058;
-  --color-1-2: #27a876;
-  --color-1-3: #53BD94;
-  --color-1-4: #77BFA3;
-  --color-1-5: #98C9A3;
-  --color-1-6: #BFD8BD;
-  --color-1-7: #DDE7C7;
-  --color-1-8: #EDEEC9;
-  --color-1-9: #F5F0C4;
-  --color-1-10: #FEF4D2;
-  --color-1-11: #f8f3e4;
+  --color-1-2: #2d8b67;
+  --color-1-3: #27a876;
+  --color-1-4: #53BD94;
+  --color-1-5: #77BFA3;
+  --color-1-6: #98C9A3;
+  --color-1-7: #BFD8BD;
+  --color-1-8: #DDE7C7;
+  --color-1-9: #EDEEC9;
+  --color-1-10: #F5F0C4;
+  --color-1-11: #FEF4D2;
+  --color-1-12: #f8f3e4;
   
   --color-2-1: #02132A;
   --color-2-2: #0F233F;
@@ -90,7 +91,7 @@ body {
 
   font-family: "MontserratAlternates";
 
-  background: var(--color-1-11);
+  background: var(--color-1-12);
   /* background: linear-gradient(
     180deg, 
     var(--color-1-1) 0%, 

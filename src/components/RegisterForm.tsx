@@ -32,7 +32,10 @@ export const RegisterForm: React.FC = () => {
   };
 
   return (
-    <form className="vstack w-full p-2 text-white" onSubmit={handleSubmit(registerUser)}>
+    <form
+      className="vstack w-full p-2 text-white"
+      onSubmit={handleSubmit(registerUser)}
+    >
       <FormItem
         className="vstack p-1 w-full"
         errorMessage={errors.email?.message}
