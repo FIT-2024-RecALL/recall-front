@@ -30,12 +30,12 @@ export const LoginForm: React.FC = () => {
   return (
     <form className="vstack w-full p-2" onSubmit={handleSubmit(login)}>
       <FormItem
-        className="vstack p-1 w-full"
+        className="vstack p-1 w-full text-white"
         errorMessage={errors.email?.message}
       >
         <input
           placeholder="Email"
-          className="w-full p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
+          className="w-full p-2 bg-1-2 focus:bg-1-3 rounded-md"
           {...register('email')}
         />
       </FormItem>
@@ -45,7 +45,7 @@ export const LoginForm: React.FC = () => {
       >
         <input
           placeholder="Password"
-          className="w-full p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
+          className="w-full p-2 bg-1-2 focus:bg-1-3 rounded-md"
           {...register('password')}
           type="password"
         />

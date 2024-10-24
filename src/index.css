@@ -58,18 +58,30 @@
 }
 
 :root {
-  --color-1-1: #02132A;
-  --color-1-2: #0F233F;
-  --color-1-3: #1D3456;
-  --color-1-4: #2A5D6C;
-  --color-1-5: #388A83;
-  --color-1-6: #4CCAA4;
+  --color-1-1: #178058;
+  --color-1-2: #27a876;
+  --color-1-3: #53BD94;
+  --color-1-4: #77BFA3;
+  --color-1-5: #98C9A3;
+  --color-1-6: #BFD8BD;
+  --color-1-7: #DDE7C7;
+  --color-1-8: #EDEEC9;
+  --color-1-9: #F5F0C4;
+  --color-1-10: #FEF4D2;
+  --color-1-11: #f8f3e4;
+  
+  --color-2-1: #02132A;
+  --color-2-2: #0F233F;
+  --color-2-3: #1D3456;
+  --color-2-4: #2A5D6C;
+  --color-2-5: #388A83;
+  --color-2-6: #4CCAA4;
+  --color-black: #02132A;
   --color-red: #E63946;
-  --color-2-1: #F1FAEE;
-  --color-2-2: #A8DADC;
-  --color-2-3: #457B9D;
-  --color-2-4: #1D3557;
-  --color-2-5: #0A0866;
+  --color-white: #F1FAEE;
+  --color-blue: #A8DADC;
+  --color-mid-blue: #457B9D;
+  --color-dark-blue: #1D3557;
 }
 
 body {
@@ -78,7 +90,8 @@ body {
 
   font-family: "MontserratAlternates";
 
-  background: linear-gradient(
+  background: var(--color-1-11);
+  /* background: linear-gradient(
     180deg, 
     var(--color-1-1) 0%, 
     var(--color-1-2) 20%,
@@ -86,7 +99,7 @@ body {
     var(--color-1-4) 60%,
     var(--color-1-5) 80%,
     var(--color-1-6) 100%
-  );
+  ); */
 }
 
 html,
@@ -114,4 +127,8 @@ body,
   width: 10px;
   height: 10px;
   background: transparent;
+}
+
+*::placeholder {
+  color: var(--color-1-10);
 }
