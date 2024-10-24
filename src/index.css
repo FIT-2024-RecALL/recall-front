@@ -116,19 +116,19 @@ body,
 }
 
 *::-webkit-scrollbar-track {
-  background-color: var(--color-2-4);
+  background-color: transparent;
   background-clip: content-box;
   border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background: var(--color-2-2);
+  background: var(--color-1-6);
   background-clip: content-box;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
   background: transparent;
 }
 
