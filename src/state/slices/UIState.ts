@@ -1,30 +1,44 @@
-import { Immutable, Draft } from 'immer';
+import { Immutable } from 'immer';
 
 import { Slice } from '@/state';
 
 export type UIState = Immutable<{
-  loginWindowShown: boolean;
-  toggleLoginWindow: () => void;
-  openLoginWindow: () => void;
-  closeLoginWindow: () => void;
+  authWindow: 'hidden' | 'login' | 'register';
+  closeAuthWindow: () => void;
+  showLoginWindow: () => void;
+  showRegisterWindow: () => void;
+  toggleActiveAuthWindow: () => void;
 }>;
 
 export const createUIStateSlice: Slice<UIState> = (mutate) => {
   return {
-    loginWindowShown: false,
-    toggleLoginWindow: () => {
+    authWindow: 'hidden',
+    closeAuthWindow: () => {
       mutate((state) => {
-        state.loginWindowShown = !state.loginWindowShown;
+        state.authWindow = 'hidden';
       });
     },
-    openLoginWindow: () => {
-      mutate((state: Draft<UIState>) => {
-        state.loginWindowShown = true;
+    showLoginWindow: () => {
+      mutate((state) => {
+        state.authWindow = 'login';
       });
     },
-    closeLoginWindow: () => {
-      mutate((state: Draft<UIState>) => {
-        state.loginWindowShown = false;
+    showRegisterWindow: () => {
+      mutate((state) => {
+        state.authWindow = 'register';
+      });
+    },
+    toggleActiveAuthWindow: () => {
+      mutate((state) => {
+        switch (state.authWindow) {
+          case 'login':
+            state.authWindow = 'register';
+            break;
+          case 'register':
+            state.authWindow = 'login';
+            break;
+          case 'hidden':
+        }
       });
     },
   };
