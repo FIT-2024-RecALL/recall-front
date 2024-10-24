@@ -11,8 +11,8 @@ export const Header: React.FC = () => {
 
   return (
     <header>
-      <div className="flex justify-between m-0 p-2 bg-1-2 w-full transition-all">
-        <h2 className="text-lg md:text-2xl text-2-2 font-bold mx-2 center">
+      <div className="flex justify-between m-0 p-2 bg-1-7 w-full transition-all">
+        <h2 className="text-lg md:text-2xl text-1-1 font-bold mx-2 center">
           <Link to="/">RecAll</Link>
         </h2>
         <Menu />

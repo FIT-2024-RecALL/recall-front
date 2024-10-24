@@ -32,14 +32,17 @@ export const RegisterForm: React.FC = () => {
   };
 
   return (
-    <form className="vstack w-full p-2" onSubmit={handleSubmit(registerUser)}>
+    <form
+      className="vstack w-full p-2 text-white"
+      onSubmit={handleSubmit(registerUser)}
+    >
       <FormItem
         className="vstack p-1 w-full"
         errorMessage={errors.email?.message}
       >
         <input
           placeholder="Email"
-          className="w-full p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
+          className="w-full p-2 bg-1-2 focus:bg-1-3 rounded-md placeholder-shown:text-1-8"
           {...register('email')}
         />
       </FormItem>
@@ -49,7 +52,7 @@ export const RegisterForm: React.FC = () => {
       >
         <input
           placeholder="Create password"
-          className="w-full p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
+          className="w-full p-2 bg-1-2 focus:bg-1-3 rounded-md"
           {...register('password1')}
           type="password"
         />
@@ -60,7 +63,7 @@ export const RegisterForm: React.FC = () => {
       >
         <input
           placeholder="Repeat password"
-          className="w-full p-2 bg-1-2 focus:bg-1-3 text-1-6 rounded-md"
+          className="w-full p-2 bg-1-2 focus:bg-1-3 rounded-md"
           {...register('password2')}
           type="password"
         />

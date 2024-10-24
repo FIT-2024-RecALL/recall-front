@@ -9,7 +9,11 @@ export const Menu: React.FC = () => {
   const links = routesList
     .filter((data) => data.label)
     .map((data) => (
-      <Link to={data.url} className="my-1 mx-2 p-0 center" key={data.url}>
+      <Link
+        to={data.url}
+        className="my-1 mx-2 p-0 center font-bold"
+        key={data.url}
+      >
         <Button variant="inline">{data.label}</Button>
       </Link>
     ));
