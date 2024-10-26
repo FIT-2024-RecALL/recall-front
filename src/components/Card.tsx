@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import { PopUp } from '@/components/library/PopUp';
+import { Icon } from '@/components/library/Icon';
 
 interface CardProps extends React.HTMLAttributes<React.FC> {
   mode: 'train' | 'edit';
@@ -9,6 +10,7 @@ interface CardProps extends React.HTMLAttributes<React.FC> {
 
 export const Card: React.FC<CardProps> = ({ mode, disabled, className }) => {
   const [zoomed, setZoomed] = useState(false);
+  const [flipped, setFlipped] = useState(false);
 
   return (
     <>
@@ -36,23 +38,25 @@ export const Card: React.FC<CardProps> = ({ mode, disabled, className }) => {
       >
         <div
           className={clsx(
-            'm-2 p-2 pl-4 md:p-4 lg:p-6 w-11/12 lg:w-3/4 h-2/3',
+            'm-2 w-11/12 lg:w-3/4 h-2/3',
             'bg-gradient-to-r from-1-3 to-1-2 rounded-3xl',
             'border border-2 border-black',
             'flex items-center',
-            'overflow-auto',
             'text-white',
+            'transition-all duration-500 flip-inner',
+            flipped && 'animate-flip',
             className
           )}
         >
           <div
             className={clsx(
-              'w-full h-5/6',
+              'p-2 lg:p-4 w-full h-5/6',
               'vstack items-center',
-              'overflow-auto'
+              'overflow-auto',
+              'flip-front'
             )}
           >
-            <h2 className="m-2 text-2xl font-bold">Card header</h2>
+            <h2 className="m-2 text-2xl font-bold">Side 1</h2>
             <p className="text-lg">
               Card content. Card content. Card content. Card content. Card
               content. Card content. Card content. Card content. Card content.
@@ -68,35 +72,38 @@ export const Card: React.FC<CardProps> = ({ mode, disabled, className }) => {
               content.
             </p>
           </div>
+          <div
+            className={clsx(
+              'p-2 lg:p-4 w-full h-5/6',
+              'vstack items-center',
+              'overflow-auto',
+              'flip-back'
+            )}
+          >
+            <h2 className="m-2 text-2xl font-bold">Side 2</h2>
+            <p className="text-lg">
+              Card content. Card content. Card content. Card content. Card
+              content. Card content. Card content. Card content. Card content.
+              Card content. Card content. Card content. Card content. Card
+              content. Card content. Card content. Card content. Card content.
+              Card content. Card content. Card content. Card content. Card
+              content. Card content. Card content. Card content. Card content.
+              Card content. Card content. Card content. Card content. Card
+              content. Card content. Card content. Card content. Card content.
+              Card content. Card content. Card content. Card content. Card
+              content. Card content. Card content. Card content. Card content.
+              Card content. Card content. Card content. Card content. Card
+              content.
+            </p>
+          </div>
+          <div
+            className="absolute right-0 bottom-0 p-2 hover:cursor-pointer"
+            onClick={() => setFlipped(!flipped)}
+          >
+            <Icon icon="arrowRight" className="w-10 h-10" />
+          </div>
         </div>
       </PopUp>
-      {/* {!zoomed ? (
-        <div
-          className={clsx(
-            'm-2 p-2 w-7/8 h-48',
-            'hover:cursor-pointer bg-gradient-to-r from-2-4 to-2-3 rounded-lg',
-            'center',
-            'transition-all hover:scale-105',
-            className
-          )}
-          onClick={() => setZoomed(true)}
-        >
-          <h2 className="text-2xl text-2-1 font-bold">Card preview</h2>
-        </div>
-      ) : (
-        <div
-          className={clsx(
-            'm-2 p-2 w-7/8 h-48',
-            'hover:cursor-pointer bg-gradient-to-r from-2-4 to-2-3 rounded-lg',
-            'center',
-            'transition-all hover:scale-105',
-            className
-          )}
-          onClick={() => setZoomed(false)}
-        >
-          <h2 className="text-2xl text-2-1 font-bold">Full card</h2>
-        </div>
-      )} */}
     </>
   );
 };

@@ -135,3 +135,22 @@ body,
 *::placeholder {
   color: var(--color-1-10);
 }
+
+.flip-inner {
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.animate-flip {
+  transform: rotateY(180deg);
+}
+
+.flip-front, .flip-back {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-back {
+  transform: rotateY(180deg);
+}
