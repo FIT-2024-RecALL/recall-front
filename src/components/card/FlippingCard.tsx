@@ -4,17 +4,20 @@ import { PopUp } from '@/components/library/PopUp';
 import { Icon } from '@/components/library/Icon';
 import { CardSide } from './CardSide';
 import { Button } from '../library/Button';
+import { CardType } from '../../state/slices/CollectionsState';
 
 interface FlippingCardProps extends HTMLAttributes<React.FC> {
   isShown: boolean;
   close: () => void;
   mode: 'train' | 'edit';
+  cardData: CardType;
 }
 
 export const FlippingCard: React.FC<FlippingCardProps> = ({
   isShown,
   close,
   mode,
+  cardData,
 }) => {
   const [flipped, setFlipped] = useState(false);
 
@@ -37,37 +40,11 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
       >
         <CardSide side="front">
           <h2 className="mb-2 text-2xl font-bold">Side 1</h2>
-          <p className="text-lg">
-            Card content. Card content. Card content. Card content. Card
-            content. Card content. Card content. Card content. Card content.
-            Card content. Card content. Card content. Card content. Card
-            content. Card content. Card content. Card content. Card content.
-            Card content. Card content. Card content. Card content. Card
-            content. Card content. Card content. Card content. Card content.
-            Card content. Card content. Card content. Card content. Card
-            content. Card content. Card content. Card content. Card content.
-            Card content. Card content. Card content. Card content. Card
-            content. Card content. Card content. Card content. Card content.
-            Card content. Card content. Card content. Card content. Card
-            content.
-          </p>
+          <p className="text-lg">{cardData.frontSide}</p>
         </CardSide>
         <CardSide side="back">
           <h2 className="mb-2 text-2xl font-bold">Side 2</h2>
-          <p className="text-lg">
-            Card content. Card content. Card content. Card content. Card
-            content. Card content. Card content. Card content. Card content.
-            Card content. Card content. Card content. Card content. Card
-            content. Card content. Card content. Card content. Card content.
-            Card content. Card content. Card content. Card content. Card
-            content. Card content. Card content. Card content. Card content.
-            Card content. Card content. Card content. Card content. Card
-            content. Card content. Card content. Card content. Card content.
-            Card content. Card content. Card content. Card content. Card
-            content. Card content. Card content. Card content. Card content.
-            Card content. Card content. Card content. Card content. Card
-            content.
-          </p>
+          <p className="text-lg">{cardData.backSide}</p>
         </CardSide>
         <div
           className={clsx(
