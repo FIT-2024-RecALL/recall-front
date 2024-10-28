@@ -1,6 +1,6 @@
 import { Card } from '@/components/card/Card';
 import { useAppStore } from '@/state';
-import { getCollectionSelectorFactory } from '@/state/slices';
+import { CollectionSelectorsFactories } from '@/state/slices';
 import React from 'react';
 import { Redirect, useParams } from 'wouter';
 
@@ -10,7 +10,9 @@ interface EditPageParams {
 
 export const CollectionEditPage: React.FC = () => {
   const { id } = useParams<EditPageParams>();
-  const collection = useAppStore(getCollectionSelectorFactory(Number(id)));
+  const collection = useAppStore(
+    CollectionSelectorsFactories.getCollection(Number(id))
+  );
   const cards = collection?.cards.map((card) => (
     <Card cardData={card} mode="edit" key={card.id} />
   ));

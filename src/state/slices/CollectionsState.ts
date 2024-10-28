@@ -28,10 +28,11 @@ function getCardExample(id: number): Immutable<CardType> {
   };
 }
 
-export const getCollectionSelectorFactory =
-  (id: number) => (state: CollectionsState) => {
+export const CollectionSelectorsFactories = {
+  getCollection: (id: number) => (state: CollectionsState) => {
     return state.collections.find((collection) => collection.id === id);
-  };
+  },
+};
 
 export const createCollectionsStateSlice: Slice<CollectionsState> = (
   mutate
