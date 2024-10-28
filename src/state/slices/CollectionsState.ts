@@ -13,28 +13,28 @@ export type CollectionType = {
   title: string;
   description: string;
   isPublic: boolean;
-  cards: [CardType];
+  cards: CardType[];
 };
 export type CollectionsState = Immutable<{
-  collections: [CollectionType];
-  getCollection: (id: number) => Immutable<CollectionType> | undefined;
+  collections: CollectionType[];
 }>;
 
 function getCardExample(id: number): Immutable<CardType> {
   return {
     id: id,
     previewText: `Card ${id}`,
-    frontSide:
-      'Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. ',
-    backSide:
-      'Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. Card content. ',
+    frontSide: 'Card content. '.repeat(200),
+    backSide: 'Card content. '.repeat(200),
   };
 }
 
+export const getCollectionSelectorFactory =
+  (id: number) => (state: CollectionsState) => {
+    return state.collections.find((collection) => collection.id === id);
+  };
+
 export const createCollectionsStateSlice: Slice<CollectionsState> = (
-  mutate,
-  _,
-  get
+  mutate
 ) => {
   return {
     collections: [
@@ -54,8 +54,5 @@ export const createCollectionsStateSlice: Slice<CollectionsState> = (
         ],
       },
     ],
-    getCollection: (id: number) => {
-      return get().collections.find((collection) => collection.id === id);
-    },
   };
 };

@@ -54,25 +54,35 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
             'transition-all',
             'hover:cursor-pointer hover:bg-1-8/10'
           )}
-          onClick={() => setFlipped(!flipped)}
+          onClick={() => setFlipped((f) => !f)}
         >
           <Icon icon="arrowRight" className="w-7 h-7 md:w-10 md:h-10" />
         </div>
       </div>
-      <div className="m-2 center vstack">
-        {mode == 'edit' && (
+      {mode == 'edit' && (
+        <div className="m-2 center vstack">
           <Button className="text-xl" variant="bordered">
             Save
           </Button>
-        )}
-        {mode == 'train' && !flipped && (
-          <Button variant="bordered" onClick={() => setFlipped(!flipped)}>
-            Flip card
+        </div>
+      )}
+      {mode == 'train' && (
+        <div
+          className={clsx(
+            'm-6 center vstack w-1/2',
+            'transition-all duration-500 flip-inner',
+            flipped && 'animate-flip'
+          )}
+        >
+          <Button
+            className="flip-front"
+            variant="bordered"
+            onClick={() => setFlipped(!flipped)}
+          >
+            <span>Flip card</span>
             <Icon icon="arrowRight" className="ml-1 w-7 h-7" />
           </Button>
-        )}
-        {mode == 'train' && flipped && (
-          <div className="around">
+          <div className="around flip-back">
             <Button className="m-1" variant="bordered">
               1
             </Button>
@@ -89,8 +99,8 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
               5
             </Button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </PopUp>
   );
 };

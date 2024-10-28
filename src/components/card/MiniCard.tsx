@@ -25,9 +25,7 @@ export const MiniCard: React.FC<MiniCardProps> = ({
         'text-1-12',
         className
       )}
-      onClick={() => {
-        if (onClick) onClick();
-      }}
+      onClick={() => onClick?.()}
     >
       <h2 className="text-2xl font-bold">{previewText}</h2>
     </div>

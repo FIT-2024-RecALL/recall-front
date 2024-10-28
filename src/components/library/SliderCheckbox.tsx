@@ -12,7 +12,7 @@ const variantCheckedTransformers = {
   inverted: (checked: boolean) => !checked,
   dark: () => false,
   light: () => true,
-}
+};
 
 export const SliderCheckbox: React.FC<SliderCheckboxProps> = ({
   checked,
@@ -28,9 +28,7 @@ export const SliderCheckbox: React.FC<SliderCheckboxProps> = ({
         'shadow-inner transition-all hover:cursor-pointer',
         checkedForStyle ? 'bg-1-6 border-1-1' : 'bg-1-1 border-1-6'
       )}
-      onClick={() => {
-        if (onClick) onClick();
-      }}
+      onClick={() => onClick?.()}
     >
       <div
         className={clsx(
