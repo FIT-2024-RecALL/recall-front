@@ -1,8 +1,7 @@
 import clsx from 'clsx';
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, HTMLAttributes } from 'react';
 
-interface FormItemProps
-  extends PropsWithChildren<React.HTMLAttributes<React.FC>> {
+interface FormItemProps extends PropsWithChildren<HTMLAttributes<React.FC>> {
   labelComponent?: JSX.Element;
   errorMessage?: string;
 }

@@ -116,20 +116,41 @@ body,
 }
 
 *::-webkit-scrollbar-track {
-  background: var(--color-1-1);
+  background-color: transparent;
+  background-clip: content-box;
+  border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
   background: var(--color-1-6);
+  background-clip: content-box;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 5px;
   background: transparent;
 }
 
 *::placeholder {
   color: var(--color-1-10);
+}
+
+.flip-inner {
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.animate-flip {
+  transform: rotateY(180deg);
+}
+
+.flip-front, .flip-back {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-back {
+  transform: rotateY(180deg);
 }
