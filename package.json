@@ -23,6 +23,8 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.53.0",
     "react-icons": "^4.9.0",
+    "slate": "^0.110.2",
+    "slate-react": "^0.110.3",
     "ts-pattern": "5.4.0",
     "wouter": "^3.3.5",
     "zod": "^3.23.8",

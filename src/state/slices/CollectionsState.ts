@@ -1,12 +1,24 @@
 import { Immutable } from 'immer';
+import { createEditor, BaseEditor, Descendant } from 'slate';
+import { withReact, Slate, Editable, ReactEditor } from 'slate-react';
 
 import { Slice } from '@/state';
+
+type CustomText = { text: string };
+type CustomElement = { type: 'paragraph'; children: CustomText[] };
+declare module 'slate' {
+  interface CustomTypes {
+    Editor: BaseEditor & ReactEditor;
+    Element: CustomElement;
+    Text: CustomText;
+  }
+}
 
 export type CardType = {
   id: number;
   previewText: string;
-  frontSide: string;
-  backSide: string;
+  frontSide: Descendant[];
+  backSide: Descendant[];
 };
 export type CollectionType = {
   id: number;
@@ -23,8 +35,18 @@ function getCardExample(id: number): Immutable<CardType> {
   return {
     id: id,
     previewText: `Card ${id}`,
-    frontSide: 'Card content. '.repeat(200),
-    backSide: 'Card content. '.repeat(200),
+    frontSide: [
+      {
+        type: 'paragraph',
+        children: [{ text: 'A line of text in a paragraph.' }],
+      },
+    ],
+    backSide: [
+      {
+        type: 'paragraph',
+        children: [{ text: 'A line of text in a paragraph.' }],
+      },
+    ],
   };
 }
 
