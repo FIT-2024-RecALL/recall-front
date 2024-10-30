@@ -1,18 +1,7 @@
 import { Immutable } from 'immer';
-import { createEditor, BaseEditor, Descendant } from 'slate';
-import { withReact, Slate, Editable, ReactEditor } from 'slate-react';
+import { Descendant } from 'slate';
 
 import { Slice } from '@/state';
-
-type CustomText = { text: string };
-type CustomElement = { type: 'paragraph'; children: CustomText[] };
-declare module 'slate' {
-  interface CustomTypes {
-    Editor: BaseEditor & ReactEditor;
-    Element: CustomElement;
-    Text: CustomText;
-  }
-}
 
 export type CardType = {
   id: number;
@@ -37,8 +26,9 @@ function getCardExample(id: number): Immutable<CardType> {
     previewText: `Card ${id}`,
     frontSide: [
       {
-        type: 'paragraph',
+        type: 'code',
         children: [{ text: 'A line of text in a paragraph.' }],
+        lang: 'js',
       },
     ],
     backSide: [
