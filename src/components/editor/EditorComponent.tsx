@@ -2,7 +2,6 @@ import React, { HTMLAttributes, useState } from 'react';
 import markdownit from 'markdown-it';
 import markdownItMedia from '@gotfeedback/markdown-it-media';
 
-
 interface EditorComponentProps extends HTMLAttributes<React.FC> {
   initialState: string;
   active?: boolean;
