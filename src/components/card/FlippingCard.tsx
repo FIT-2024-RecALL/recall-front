@@ -4,6 +4,7 @@ import React, { HTMLAttributes, useState } from 'react';
 import { PopUp } from '@/components/library/PopUp';
 import { Icon } from '@/components/library/Icon';
 import { Button } from '@/components/library/Button';
+import { SliderCheckbox } from '@/components/library/SliderCheckbox';
 import { EditorComponent } from '@/components/editor/EditorComponent';
 import { CardType } from '@/state/slices/CollectionsState';
 
@@ -23,6 +24,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
   cardData,
 }) => {
   const [flipped, setFlipped] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(true);
 
   return (
     <PopUp
@@ -41,17 +43,25 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
           flipped && 'animate-flip'
         )}
       >
+        <div className="center m-2 p-2 absolute top-0 w-full">
+          <span className="mx-2">Edit</span>
+          <SliderCheckbox
+            checked={!isEditMode}
+            onClick={() => setIsEditMode((p) => !p)}
+          />
+          <span className="mx-2">Preview</span>
+        </div>
         <CardSide side="front">
-          <h2 className="mb-2 text-2xl font-bold">Side 1</h2>
-          <div className="text-lg w-full">
-            <EditorComponent initialState={cardData.frontSide} />
-          </div>
+          <EditorComponent
+            initialState={cardData.frontSide}
+            active={isEditMode}
+          />
         </CardSide>
         <CardSide side="back">
-          <h2 className="mb-2 text-2xl font-bold">Side 2</h2>
-          <div className="text-lg w-full">
-            <EditorComponent initialState={cardData.backSide} />
-          </div>
+          <EditorComponent
+            initialState={cardData.backSide}
+            active={isEditMode}
+          />
         </CardSide>
         <div
           className={clsx(

@@ -1,38 +1,43 @@
-import React, { HTMLAttributes, useMemo, useState } from 'react';
-import { createEditor, Descendant } from 'slate';
-import { Editable, Slate, withReact } from 'slate-react';
+import React, { HTMLAttributes, useState } from 'react';
+import markdownit from 'markdown-it';
+import markdownItMedia from '@gotfeedback/markdown-it-media';
 
-import { renderElement } from './elementRenderers';
 
 interface EditorComponentProps extends HTMLAttributes<React.FC> {
-  initialState: Descendant[];
+  initialState: string;
+  active?: boolean;
 }
+
+const extendedMdRenderer = markdownit({
+  linkify: true,
+  breaks: true,
+  typographer: true,
+}).use(markdownItMedia, {
+  controls: true,
+});
 
 export const EditorComponent: React.FC<EditorComponentProps> = ({
   initialState,
+  active
 }) => {
-  const editor = useMemo(() => withReact(createEditor()), []);
   const [editorState, setEditorState] = useState(initialState);
-
   return (
-    <Slate
-      editor={editor}
-      initialValue={initialState}
-      onChange={(value) => {
-        const isAstChange = editor.operations.some(
-          (op) => 'set_selection' !== op.type
-        );
-        console.log(editor.operations);
-        if (isAstChange) {
-          console.log(value);
-          setEditorState(value);
-        }
-      }}
-    >
-      <Editable
-        renderElement={renderElement}
-        className="p-1 md:p-2 bg-1-2 focus:bg-1-1"
-      />
-    </Slate>
+    <>
+      {active ? (
+        <textarea
+          className="bg-1-3 focus:bg-1-2 w-full h-full text-md p-1 md:p-2 resize-none"
+          onChange={(e) => setEditorState(e.target.value)}
+        >
+          {editorState}
+        </textarea>
+      ) : (
+        <div
+          className="text-lg p-1 md:p-2"
+          dangerouslySetInnerHTML={{
+            __html: extendedMdRenderer.render(editorState),
+          }}
+        ></div>
+      )}
+    </>
   );
 };

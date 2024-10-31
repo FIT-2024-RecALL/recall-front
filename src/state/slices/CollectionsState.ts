@@ -6,8 +6,8 @@ import { Slice } from '@/state';
 export type CardType = {
   id: number;
   previewText: string;
-  frontSide: Descendant[];
-  backSide: Descendant[];
+  frontSide: string;
+  backSide: string;
 };
 export type CollectionType = {
   id: number;
@@ -24,19 +24,14 @@ function getCardExample(id: number): Immutable<CardType> {
   return {
     id: id,
     previewText: `Card ${id}`,
-    frontSide: [
-      {
-        type: 'code',
-        children: [{ text: 'A line of text in a paragraph.' }],
-        lang: 'js',
-      },
-    ],
-    backSide: [
-      {
-        type: 'paragraph',
-        children: [{ text: 'A line of text in a paragraph.' }],
-      },
-    ],
+    frontSide:
+      '# The first side \n Here will be **question** \n ' +
+      'Photos: ![Cat photo](https://avatars.mds.yandex.net/i?id=76dd9d5c1922688236a4dca063bc3c2ce3dafd22-5283663-images-thumbs&n=13)' +
+      'audios: ![Bip sound](https://sanstv.ru/test/audio/test.wav)' +
+      'and videos: ![Waterfall video](https://tekeye.uk/html/images/Joren_Falls_Izu_Jap.mp4)' + 
+      'are available! \n ' +
+      'And also $LaTeX$...',
+    backSide: '# The second side \n Here will be *answer* \n (Only basic markup is available)',
   };
 }
 
