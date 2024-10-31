@@ -1,5 +1,4 @@
 import { Immutable } from 'immer';
-import { Descendant } from 'slate';
 
 import { Slice } from '@/state';
 
