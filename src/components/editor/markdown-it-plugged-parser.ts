@@ -10,6 +10,7 @@ import { tex } from '@mdit/plugin-tex';
 export const extendedMdRenderer = markdownit({
   linkify: true,
   typographer: true,
+  langPrefix: 'language-',
   highlight: (str, lang, attrs) => {
     if (highligher.getLanguage(lang)) {
       try {

@@ -43,14 +43,6 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
           flipped && 'animate-flip'
         )}
       >
-        <div className="center m-2 p-2 absolute top-0 w-full">
-          <span className="mx-2">Edit</span>
-          <SliderCheckbox
-            checked={!isEditMode}
-            onClick={() => setIsEditMode((p) => !p)}
-          />
-          <span className="mx-2">Preview</span>
-        </div>
         <CardSide side="front">
           <EditorComponent
             initialState={cardData.frontSide}
@@ -77,8 +69,15 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
         </div>
       </div>
       {mode == 'edit' && (
-        <div className="m-2 center vstack">
-          <Button className="text-xl" variant="bordered">
+        <div className="m-2 center">
+          <Button
+            className="text-xl m-3"
+            variant="plate"
+            onClick={() => setIsEditMode((p) => !p)}
+          >
+            {isEditMode ? 'Preview' : 'Edit'}
+          </Button>
+          <Button className="text-xl m-3" variant="bordered">
             Save
           </Button>
         </div>
