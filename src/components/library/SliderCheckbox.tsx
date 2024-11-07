@@ -24,7 +24,7 @@ export const SliderCheckbox: React.FC<SliderCheckboxProps> = ({
   return (
     <div
       className={clsx(
-        'flex h-9 w-16 items-center rounded-full px-1',
+        'flex h-7 w-12 items-center rounded-full px-1',
         'shadow-inner transition-all hover:cursor-pointer',
         checkedForStyle ? 'bg-1-6 border-1-1' : 'bg-1-1 border-1-6'
       )}
@@ -32,8 +32,8 @@ export const SliderCheckbox: React.FC<SliderCheckboxProps> = ({
     >
       <div
         className={clsx(
-          'h-7 w-7 rounded-full transition-all',
-          checked && 'translate-x-7',
+          'h-5 w-5 rounded-full transition-all',
+          checked && 'translate-x-5',
           checkedForStyle ? 'bg-1-1' : 'bg-1-6'
         )}
       />

@@ -154,3 +154,18 @@ body,
 .flip-back {
   transform: rotateY(180deg);
 }
+
+
+.markdown {
+  ul {
+    list-style: disc;
+  }
+  
+  ol {
+    list-style: decimal;
+  }
+
+  pre {
+    @apply bg-1-1
+  }
+}

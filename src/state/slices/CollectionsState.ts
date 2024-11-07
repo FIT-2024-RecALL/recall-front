@@ -23,8 +23,14 @@ function getCardExample(id: number): Immutable<CardType> {
   return {
     id: id,
     previewText: `Card ${id}`,
-    frontSide: 'Card content. '.repeat(200),
-    backSide: 'Card content. '.repeat(200),
+    frontSide:
+      '# The first side \n Here will be **question** \n ' +
+      'Photos: ![Cat photo](https://avatars.mds.yandex.net/i?id=76dd9d5c1922688236a4dca063bc3c2ce3dafd22-5283663-images-thumbs&n=13)' +
+      'audios: ![Bip sound](https://sanstv.ru/test/audio/test.wav)' +
+      'and videos: ![Waterfall video](https://tekeye.uk/html/images/Joren_Falls_Izu_Jap.mp4)' + 
+      'are available! \n ' +
+      'And also $LaTeX$...',
+    backSide: '# The second side \n Here will be *answer* \n (Only basic markup is available)',
   };
 }
 

@@ -1,10 +1,14 @@
 import clsx from 'clsx';
 import React, { HTMLAttributes, useState } from 'react';
+
 import { PopUp } from '@/components/library/PopUp';
 import { Icon } from '@/components/library/Icon';
+import { Button } from '@/components/library/Button';
+import { SliderCheckbox } from '@/components/library/SliderCheckbox';
+import { EditorComponent } from '@/components/editor/EditorComponent';
+import { CardType } from '@/state/slices/CollectionsState';
+
 import { CardSide } from './CardSide';
-import { Button } from '../library/Button';
-import { CardType } from '../../state/slices/CollectionsState';
 
 interface FlippingCardProps extends HTMLAttributes<React.FC> {
   isShown: boolean;
@@ -20,6 +24,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
   cardData,
 }) => {
   const [flipped, setFlipped] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(true);
 
   return (
     <PopUp
@@ -39,12 +44,17 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
         )}
       >
         <CardSide side="front">
-          <h2 className="mb-2 text-2xl font-bold">Side 1</h2>
-          <p className="text-lg">{cardData.frontSide}</p>
+          <EditorComponent
+            initialState={cardData.frontSide}
+            active={isEditMode}
+            extended
+          />
         </CardSide>
         <CardSide side="back">
-          <h2 className="mb-2 text-2xl font-bold">Side 2</h2>
-          <p className="text-lg">{cardData.backSide}</p>
+          <EditorComponent
+            initialState={cardData.backSide}
+            active={isEditMode}
+          />
         </CardSide>
         <div
           className={clsx(
@@ -60,8 +70,15 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
         </div>
       </div>
       {mode == 'edit' && (
-        <div className="m-2 center vstack">
-          <Button className="text-xl" variant="bordered">
+        <div className="m-2 center">
+          <Button
+            className="text-xl m-3"
+            variant="plate"
+            onClick={() => setIsEditMode((p) => !p)}
+          >
+            {isEditMode ? 'Preview' : 'Edit'}
+          </Button>
+          <Button className="text-xl m-3" variant="bordered">
             Save
           </Button>
         </div>
