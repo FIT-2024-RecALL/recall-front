@@ -1,4 +1,4 @@
-import markdownit, { PluginSimple } from 'markdown-it';
+import markdownit from 'markdown-it';
 
 import highligher from 'highlight.js';
 
