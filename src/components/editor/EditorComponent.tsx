@@ -1,15 +1,20 @@
 import React, { HTMLAttributes, useMemo, useState } from 'react';
-import { simpleRenderer, extendedMdRenderer } from './markdown-it-plugged-parser';
+import {
+  simpleRenderer,
+  extendedMdRenderer,
+} from './markdown-it-plugged-parser';
 import clsx from 'clsx';
 
 interface EditorComponentProps extends HTMLAttributes<React.FC> {
-  initialState: string;
+  state: string;
+  setState: (newState: string) => void;
   active?: boolean;
   extended?: boolean;
 }
 
 export const EditorComponent: React.FC<EditorComponentProps> = ({
-  initialState,
+  state,
+  setState,
   active,
   extended,
 }) => {
@@ -17,7 +22,6 @@ export const EditorComponent: React.FC<EditorComponentProps> = ({
     () => (extended ? extendedMdRenderer : simpleRenderer),
     [extended]
   );
-  const [editorState, setEditorState] = useState(initialState);
   return (
     <>
       {active ? (
@@ -28,8 +32,8 @@ export const EditorComponent: React.FC<EditorComponentProps> = ({
             'w-full h-full',
             'resize-none text-md'
           )}
-          onChange={(e) => setEditorState(e.target.value)}
-          value={editorState}
+          onChange={(e) => setState(e.target.value)}
+          value={state}
           onKeyDown={(e) => {
             if (e.key === 'Tab') {
               e.preventDefault();
@@ -41,7 +45,7 @@ export const EditorComponent: React.FC<EditorComponentProps> = ({
         <div
           className="text-lg p-1 md:p-4 w-full markdown"
           dangerouslySetInnerHTML={{
-            __html: renderer.render(editorState),
+            __html: renderer.render(state),
           }}
         ></div>
       )}

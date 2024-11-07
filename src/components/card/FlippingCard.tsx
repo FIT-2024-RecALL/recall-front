@@ -4,27 +4,26 @@ import React, { HTMLAttributes, useState } from 'react';
 import { PopUp } from '@/components/library/PopUp';
 import { Icon } from '@/components/library/Icon';
 import { Button } from '@/components/library/Button';
-import { SliderCheckbox } from '@/components/library/SliderCheckbox';
 import { EditorComponent } from '@/components/editor/EditorComponent';
-import { CardType } from '@/state/slices/CollectionsState';
 
 import { CardSide } from './CardSide';
+import { useAppStore } from '@/state';
 
 interface FlippingCardProps extends HTMLAttributes<React.FC> {
   isShown: boolean;
   close: () => void;
   mode: 'train' | 'edit';
-  cardData: CardType;
 }
 
 export const FlippingCard: React.FC<FlippingCardProps> = ({
   isShown,
   close,
   mode,
-  cardData,
 }) => {
   const [flipped, setFlipped] = useState(false);
   const [isEditMode, setIsEditMode] = useState(true);
+  const cardData = useAppStore((state) => state.activeCard);
+  const setCardSide = useAppStore((state) => state.setActiveCardSide);
 
   return (
     <PopUp
@@ -45,15 +44,17 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
       >
         <CardSide side="front">
           <EditorComponent
-            initialState={cardData.frontSide}
-            active={isEditMode}
+            state={cardData.frontSide}
+            setState={(s) => setCardSide('frontSide', s)}
+            active={mode == 'edit' && isEditMode}
             extended
           />
         </CardSide>
         <CardSide side="back">
           <EditorComponent
-            initialState={cardData.backSide}
-            active={isEditMode}
+            state={cardData.backSide}
+            setState={(s) => setCardSide('backSide', s)}
+            active={mode == 'edit' && isEditMode}
           />
         </CardSide>
         <div
@@ -78,7 +79,11 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
           >
             {isEditMode ? 'Preview' : 'Edit'}
           </Button>
-          <Button className="text-xl m-3" variant="bordered">
+          <Button
+            className="text-xl m-3"
+            variant="bordered"
+            onClick={() => console.log(cardData)}
+          >
             Save
           </Button>
         </div>

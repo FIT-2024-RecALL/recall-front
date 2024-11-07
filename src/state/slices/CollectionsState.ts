@@ -1,13 +1,8 @@
 import { Immutable } from 'immer';
 
 import { Slice } from '@/state';
+import { CardType } from './ActiveCardState';
 
-export type CardType = {
-  id: number;
-  previewText: string;
-  frontSide: string;
-  backSide: string;
-};
 export type CollectionType = {
   id: number;
   title: string;
