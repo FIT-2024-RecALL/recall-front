@@ -1,23 +1,23 @@
 import React, { HTMLAttributes, useMemo, useState } from 'react';
-import { extendedMdRenderer } from './markdown-it-plugged-parser';
+import { simpleRenderer, extendedMdRenderer } from './markdown-it-plugged-parser';
 import clsx from 'clsx';
 
 interface EditorComponentProps extends HTMLAttributes<React.FC> {
   initialState: string;
   active?: boolean;
+  extended?: boolean;
 }
 
 export const EditorComponent: React.FC<EditorComponentProps> = ({
   initialState,
   active,
+  extended,
 }) => {
-  const [editorState, setEditorState] = useState(initialState);
-  const [focusDownFlag, setFocusDownFlag] = useState(false);
-  const renderedContent = useMemo(
-    () => extendedMdRenderer.render(editorState),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [focusDownFlag]
+  const renderer = useMemo(
+    () => (extended ? extendedMdRenderer : simpleRenderer),
+    [extended]
   );
+  const [editorState, setEditorState] = useState(initialState);
   return (
     <>
       {active ? (
@@ -28,7 +28,6 @@ export const EditorComponent: React.FC<EditorComponentProps> = ({
             'w-full h-full',
             'resize-none text-md'
           )}
-          onBlur={() => setFocusDownFlag((f) => !f)}
           onChange={(e) => setEditorState(e.target.value)}
           value={editorState}
           onKeyDown={(e) => {
@@ -42,7 +41,7 @@ export const EditorComponent: React.FC<EditorComponentProps> = ({
         <div
           className="text-lg p-1 md:p-4 w-full markdown"
           dangerouslySetInnerHTML={{
-            __html: renderedContent,
+            __html: renderer.render(editorState),
           }}
         ></div>
       )}

@@ -7,7 +7,7 @@ import markdownItMedia from '@gotfeedback/markdown-it-media';
 import katex from 'katex';
 import { tex } from '@mdit/plugin-tex';
 
-export const extendedMdRenderer = markdownit({
+export const simpleRenderer = markdownit({
   linkify: true,
   typographer: true,
   langPrefix: 'language-',
@@ -21,7 +21,9 @@ export const extendedMdRenderer = markdownit({
     }
     return '';
   },
-})
+}).disable('image');
+
+export const extendedMdRenderer = markdownit({ ...simpleRenderer.options })
   .use(markdownItMedia, {
     controls: true,
   })

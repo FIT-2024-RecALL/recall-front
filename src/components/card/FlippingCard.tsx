@@ -47,6 +47,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
           <EditorComponent
             initialState={cardData.frontSide}
             active={isEditMode}
+            extended
           />
         </CardSide>
         <CardSide side="back">
