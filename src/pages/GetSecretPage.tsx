@@ -49,7 +49,7 @@ export const GetSecretPage: React.FC = () => {
           {...register('password', { required: true })}
         />
         {errors.password && <span>Password is required</span>}
-        <Button variant="default" type="submit">
+        <Button variant="plate" type="submit">
           Get secret message
         </Button>
       </form>

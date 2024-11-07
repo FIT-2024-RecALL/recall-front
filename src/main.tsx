@@ -8,8 +8,8 @@ const container = document.getElementById(`root`);
 const root = createRoot(container!);
 
 client.setConfig({
-  baseUrl: "http://127.0.0.1:8000",
-})
+  baseUrl: 'http://127.0.0.1:8000',
+});
 
 root.render(
   <React.StrictMode>
