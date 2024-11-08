@@ -27,7 +27,7 @@ export const EditorComponent: React.FC<EditorComponentProps> = ({
       {active ? (
         <textarea
           className={clsx(
-            'bg-1-3 focus:bg-1-2',
+            'bg-1-2 focus:bg-1-3',
             'p-1 md:p-2',
             'w-full h-full',
             'resize-none text-md'
@@ -43,7 +43,7 @@ export const EditorComponent: React.FC<EditorComponentProps> = ({
         />
       ) : (
         <div
-          className="text-lg p-1 md:p-4 w-full markdown"
+          className="text-lg w-full markdown overflow-auto"
           dangerouslySetInnerHTML={{
             __html: renderer.render(state),
           }}
