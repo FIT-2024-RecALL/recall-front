@@ -16,6 +16,12 @@ export type ActiveCardState = Immutable<{
   setActiveCardSide: (side: CardSides, sideValue: string) => void;
 }>;
 
+export const ActiveCardSelectorsFactories = {
+  getActiveCardSide: (side: CardSides) => (state: ActiveCardState) => {
+    return state.activeCard[side];
+  },
+};
+
 export const createActiveCardStateSlice: Slice<ActiveCardState> = (mutate, _, get) => ({
   activeCard: {
     id: 0,
