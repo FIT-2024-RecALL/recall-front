@@ -2,7 +2,7 @@ import { Immutable } from 'immer';
 
 import { Slice } from '@/state';
 
-type CardSides = 'frontSide' | 'backSide';
+export type CardSides = 'frontSide' | 'backSide';
 export type CardType = {
   id: number;
   previewText: string;
@@ -10,24 +10,37 @@ export type CardType = {
   backSide: string;
 };
 
-export type ActiveCardState = Immutable<{
-  activeCard: CardType;
-  setActiveCard: (newCard: CardType) => void;
-  setActiveCardSide: (side: CardSides, sideValue: string) => void;
-}>;
-
-export const ActiveCardSelectorsFactories = {
-  getActiveCardSide: (side: CardSides) => (state: ActiveCardState) => {
-    return state.activeCard[side];
-  },
+export type ActiveCardUIModes = 'train' | 'edit';
+export type ActiveCardUIFlagKeys = 'flipped' | 'editActive';
+export type ActiveCardUI = {
+  mode: ActiveCardUIModes;
+  flipped: boolean;
+  editActive: boolean;
 };
 
-export const createActiveCardStateSlice: Slice<ActiveCardState> = (mutate, _, get) => ({
+export type ActiveCardState = Immutable<{
+  activeCard: CardType;
+  activeCardUI: ActiveCardUI;
+  setActiveCard: (newCard: CardType) => void;
+  setActiveCardSide: (side: CardSides, sideValue: string) => void;
+  setActiveCardUIMode: (mode: ActiveCardUIModes) => void;
+  setActiveCardUIFlag: (
+    flagKey: ActiveCardUIFlagKeys,
+    flagMutator: (oldValue: boolean) => boolean
+  ) => void;
+}>;
+
+export const createActiveCardStateSlice: Slice<ActiveCardState> = (mutate) => ({
   activeCard: {
     id: 0,
     previewText: '',
     frontSide: '',
     backSide: '',
+  },
+  activeCardUI: {
+    mode: 'edit',
+    flipped: false,
+    editActive: false,
   },
   setActiveCard: (newCard) => {
     mutate((state) => {
@@ -37,6 +50,20 @@ export const createActiveCardStateSlice: Slice<ActiveCardState> = (mutate, _, ge
   setActiveCardSide: (side, sideValue) => {
     mutate((state) => {
       state.activeCard[side] = sideValue;
+    });
+  },
+  setActiveCardUIMode: (mode) => {
+    mutate((state) => {
+      state.activeCardUI = {
+        mode: mode,
+        flipped: false,
+        editActive: mode == 'edit',
+      };
+    });
+  },
+  setActiveCardUIFlag: (flagKey, flagMutator) => {
+    mutate((state) => {
+      state.activeCardUI[flagKey] = flagMutator(state.activeCardUI[flagKey]);
     });
   },
 });

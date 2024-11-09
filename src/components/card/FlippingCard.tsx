@@ -7,18 +7,17 @@ import { EditorComponent } from '@/components/editor/EditorComponent';
 import { CardSide } from './CardSide';
 import { useAppStore } from '@/state';
 
-interface FlippingCardProps extends HTMLAttributes<React.FC> {
-  isEditMode?: boolean;
-}
+interface FlippingCardProps extends HTMLAttributes<React.FC> {}
 
 export const FlippingCard: React.FC<FlippingCardProps> = ({
-  isEditMode,
   className,
 }) => {
-  const [flipped, setFlipped] = useState(false);
   const frontSide = useAppStore((state) => state.activeCard.frontSide);
   const backSide = useAppStore((state) => state.activeCard.backSide);
   const setCardSide = useAppStore((state) => state.setActiveCardSide);
+  const flipped = useAppStore((state) => state.activeCardUI.flipped);
+  const setUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
+  const isEditModeActive = useAppStore((state) => state.activeCardUI.editActive);
 
   return (
     <div
@@ -32,7 +31,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
         <EditorComponent
           state={frontSide}
           setState={(s) => setCardSide('frontSide', s)}
-          active={isEditMode}
+          active={isEditModeActive}
           extended
         />
       </CardSide>
@@ -40,7 +39,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
         <EditorComponent
           state={backSide}
           setState={(s) => setCardSide('backSide', s)}
-          active={isEditMode}
+          active={isEditModeActive}
         />
       </CardSide>
       <div
@@ -54,7 +53,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
           'hover:cursor-pointer hover:bg-1-8/10',
           'hover:pl-10'
         )}
-        onClick={() => setFlipped((f) => !f)}
+        onClick={() => setUIFlag('flipped', (f) => !f)}
       >
         <Icon icon="arrowRight" className="w-4 h-4 md:w-6 md:h-6" />
         <Icon icon="arrowRight" className="w-4 h-4 md:w-6 md:h-6" />

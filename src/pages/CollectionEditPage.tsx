@@ -14,7 +14,7 @@ export const CollectionEditPage: React.FC = () => {
     CollectionSelectorsFactories.getCollection(Number(id))
   );
   const cards = collection?.cards.map((card) => (
-    <Card cardData={card} mode="edit" key={card.id} />
+    <Card cardData={card} mode="train" key={card.id} />
   ));
 
   return (

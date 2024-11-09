@@ -1,23 +1,25 @@
 import React, { HTMLAttributes, useState } from 'react';
 import { MiniCard } from './MiniCard';
-import { CardType } from '@/state/slices';
+import { CardType, ActiveCardUIModes } from '@/state/slices';
 import { useAppStore } from '@/state';
 import { ZoomedCard } from './ZoomedCard';
 
 interface CardProps extends HTMLAttributes<React.FC> {
-  mode: 'train' | 'edit';
+  mode: ActiveCardUIModes;
   cardData: CardType;
 }
 
 export const Card: React.FC<CardProps> = ({ mode, cardData, className }) => {
   const [zoomed, setZoomed] = useState(false);
   const setActiveCard = useAppStore((state) => state.setActiveCard);
+  const setActiveCardUIMode = useAppStore((state) => state.setActiveCardUIMode);
 
   return (
     <>
       <MiniCard
         previewText={cardData.previewText}
         onClick={() => {
+          setActiveCardUIMode(mode);
           setActiveCard(cardData);
           setZoomed(true);
         }}
@@ -25,7 +27,6 @@ export const Card: React.FC<CardProps> = ({ mode, cardData, className }) => {
       <ZoomedCard
         isShown={zoomed}
         close={() => setZoomed(false)}
-        mode={mode}
         className={className}
       />
     </>
