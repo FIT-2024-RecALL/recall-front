@@ -52,7 +52,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({
           'overflow-hidden',
           'transition-all',
           'hover:cursor-pointer hover:bg-1-8/10',
-          'hover:translate-x-5'
+          'hover:pl-10'
         )}
         onClick={() => setFlipped((f) => !f)}
       >

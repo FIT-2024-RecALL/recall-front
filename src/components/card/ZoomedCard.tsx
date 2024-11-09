@@ -40,11 +40,11 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = ({
       close={close}
       className="center bg-1-5/50 backdrop-blur-sm"
     >
-      <div className={clsx('w-11/12 lg:w-3/4 h-5/6', 'center vstack')}>
+      <div className={clsx('w-11/12 lg:w-3/4 h-11/12 lg:h-5/6 center vstack')}>
         <FlippingCard
           className={clsx(
-            'm-1 md:m-4 w-full h-full',
-            'bg-1-1 rounded-3xl',
+            'm-1 md:m-4 w-full h-5/6',
+            'bg-1-1 rounded-xl',
             'border border-2 border-black',
             'text-white'
           )}
@@ -56,7 +56,7 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = ({
               className={clsx(
                 'bg-1-1 rounded-xl',
                 'xs-md:vstack md:center',
-                'w-full p-2 md:p-4 h-1/12',
+                'w-full p-1 md:p-4',
                 'border border-2 border-black',
                 'text-white'
               )}
@@ -69,7 +69,7 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = ({
                 classNames={{
                   container: () => 'w-full',
                   control: () => 'bg-1-2 rounded px-1',
-                  multiValue: () => 'bg-1-3 mx-1 px-2 rounded center',
+                  multiValue: () => 'bg-1-3 m-1 px-2 rounded center',
                   multiValueRemove: () => 'pl-1',
                   menuList: () =>
                     'bg-1-2 my-1 py-1 divide-y-2 divide-black rounded',
@@ -92,7 +92,7 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = ({
               />
             </div>
 
-            <div className="m-2 center">
+            <div className="m-2 center h-1/12">
               <Button
                 className="text-xl m-3"
                 variant="plate"
