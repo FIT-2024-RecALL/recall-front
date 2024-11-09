@@ -10,6 +10,7 @@ interface EditorComponentProps extends HTMLAttributes<React.FC> {
   setState: (newState: string) => void;
   active?: boolean;
   extended?: boolean;
+  placeholder?: string;
 }
 
 export const EditorComponent: React.FC<EditorComponentProps> = ({
@@ -17,6 +18,7 @@ export const EditorComponent: React.FC<EditorComponentProps> = ({
   setState,
   active,
   extended,
+  placeholder,
 }) => {
   const renderer = useMemo(
     () => (extended ? extendedMdRenderer : simpleRenderer),
@@ -33,8 +35,9 @@ export const EditorComponent: React.FC<EditorComponentProps> = ({
             'resize-none text-md',
             'rounded'
           )}
-          onChange={(e) => setState(e.target.value)}
+          placeholder={placeholder}
           value={state}
+          onChange={(e) => setState(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === 'Tab') {
               e.preventDefault();

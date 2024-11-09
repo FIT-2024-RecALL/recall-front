@@ -5,7 +5,6 @@ import { PopUp } from '@/components/library/PopUp';
 import { FlippingCard } from './FlippingCard';
 
 import { EditCardControls } from './EditCardControls';
-import { ActiveCardUIModes } from '@/state/slices';
 import { TrainCardControls } from './TrainCardControls';
 import { useAppStore } from '@/state';
 

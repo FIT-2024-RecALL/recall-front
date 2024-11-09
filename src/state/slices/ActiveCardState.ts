@@ -4,7 +4,7 @@ import { Slice } from '@/state';
 
 export type CardSides = 'frontSide' | 'backSide';
 export type CardType = {
-  id: number;
+  id: number | 'new';
   previewText: string;
   frontSide: string;
   backSide: string;

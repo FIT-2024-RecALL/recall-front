@@ -23,12 +23,9 @@ export const Card: React.FC<CardProps> = ({ mode, cardData, className }) => {
           setActiveCard(cardData);
           setZoomed(true);
         }}
-      />
-      <ZoomedCard
-        isShown={zoomed}
-        close={() => setZoomed(false)}
         className={className}
       />
+      <ZoomedCard isShown={zoomed} close={() => setZoomed(false)} />
     </>
   );
 };

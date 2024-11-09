@@ -18,7 +18,7 @@ export const MiniCard: React.FC<MiniCardProps> = ({
         'm-2 p-2 w-auto h-48',
         'hover:cursor-pointer rounded-lg',
         'bg-gradient-to-r from-1-3 to-1-1',
-        'hover:bg-gradient-to-r from-1-3 hover:to-1-2',
+        'hover:bg-gradient-to-r hover:to-1-2',
         'border border-1 border-1-1',
         'center',
         'hover:scale-105',
