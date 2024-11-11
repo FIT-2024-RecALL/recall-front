@@ -30,7 +30,7 @@ export const EditCardControls: React.FC = () => {
   const cardData = useAppStore((state) => state.activeCard);
   const isEditMode = useAppStore((state) => state.activeCardUI.editActive);
   const setUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
-  const [allOptions, setAllOptions] = useState<MultiValue<Option<number>>>([]);
+  const [allOptions, setAllOptions] = useState<Options<Option<number>>>([]);
   const [selectedOptions, setSelectedOptions] = useState<
     MultiValue<Option<number>>
   >([]);
