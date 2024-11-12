@@ -7,8 +7,9 @@ import '@/index.css';
 const container = document.getElementById(`root`);
 const root = createRoot(container!);
 
+export const serverUrl = 'http://127.0.0.1:8000';
 client.setConfig({
-  baseUrl: 'http://127.0.0.1:8000',
+  baseUrl: serverUrl,
 });
 
 root.render(

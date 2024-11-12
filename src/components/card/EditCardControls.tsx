@@ -62,7 +62,6 @@ export const EditCardControls: React.FC = () => {
         )}
       >
         <span className="md:text-right w-full md:w-1/6 px-1">Paired with:</span>
-        {/* TODO: Вынести в отдельный компонент */}
         <Select
           unstyled
           classNames={{
