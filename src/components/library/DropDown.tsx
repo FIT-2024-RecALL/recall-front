@@ -1,5 +1,10 @@
 import clsx from 'clsx';
-import React, { PropsWithChildren, HTMLAttributes, useState, useRef } from 'react';
+import React, {
+  PropsWithChildren,
+  HTMLAttributes,
+  useState,
+  useRef,
+} from 'react';
 
 interface DropDownProps extends PropsWithChildren<HTMLAttributes<React.FC>> {
   buttonComponent: JSX.Element;
@@ -16,14 +21,22 @@ export const DropDown: React.FC<DropDownProps> = ({
 
   return (
     <div className={clsx(className)}>
-      <div className="w-fit" onClick={() => setIsShown((s) => !s)}>{buttonComponent}</div>
+      <div className="w-fit" onClick={() => setIsShown((s) => !s)}>
+        {buttonComponent}
+      </div>
       <div
         className={clsx(
           'absolute transition-all',
           isShown ? 'opacity-1 visible' : 'opacity-0 invisible'
         )}
       >
-        {children}
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsShown(false);
+          }}
+          className="fixed inset-0 w-screen h-screen"
+        ></div>
+        <div className="relative">{children}</div>
       </div>
     </div>
   );
