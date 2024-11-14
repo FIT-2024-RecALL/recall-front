@@ -11,14 +11,14 @@ export const Header: React.FC = () => {
 
   return (
     <header>
-      <div className="flex justify-between m-0 p-2 bg-1-7 w-full transition-all">
+      <div className="flex justify-between m-0 p-2 bg-transparent w-full transition-all">
         <h2 className="text-lg md:text-2xl text-1-1 font-bold mx-2 center">
           <Link to="/">RecAll</Link>
         </h2>
         <Menu />
         <div className="center">
           <Button
-            variant="bordered"
+            variant="bordered-trans"
             className="p-1 my-1 mx-2"
             onClick={showLoginWindow}
           >

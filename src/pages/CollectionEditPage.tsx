@@ -7,6 +7,7 @@ import { FormItem } from '../components/library/FormItem';
 import { z } from 'zod';
 import { Button } from '../components/library/Button';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
+import clsx from 'clsx';
 
 const collectionScheme = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -106,50 +107,59 @@ export const CollectionEditPage: React.FC = () => {
     <>
       {!collection && <Redirect to="" />}
       <div className="vstack m-2 md:m-10 p-2 md:p-5">
-        <h1 className="text-4xl my-2 font-bold">
-          Edit collection {collection?.title}
-        </h1>
         <form
           className="my-2 md:my-6"
           onSubmit={handleSubmit(saveCollectionData)}
         >
           <FormItem
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-2 md:m-4 text-2xl"
+            className="m-2 md:m-4 text-2xl"
             errorMessage={errors.title?.message}
           >
-            <label className="md:text-right mr-2" htmlFor="title">
-              Title:
-            </label>
             <input
-              className="bg-1-2 focus:bg-1-3 text-white p-1"
+              className={clsx(
+                'p-1 md:p-2 w-full',
+                'text-1-1 font-medium rounded',
+                'bg-transparent border-b border-1-1',
+                'focus:outline-none focus:border-b-2'
+              )}
+              placeholder="Title"
               id="title"
               defaultValue={collection?.title}
               {...register('title', { required: true })}
             />
           </FormItem>
           <FormItem
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-2 md:m-4 text-lg"
+            className="m-2 md:m-4 text-lg"
             errorMessage={errors.description?.message}
           >
-            <label className="md:text-right mr-2" htmlFor="description">
-              Description:
-            </label>
             <textarea
-              className="bg-1-2 focus:bg-1-3 text-white p-1"
+              className={clsx(
+                'p-1 md:p-2 w-full h-24 lg:h-32',
+                'bg-transparent border border-1-1',
+                'focus:outline-none focus:border-2',
+                'rounded text-black'
+              )}
+              placeholder="Description"
               id="description"
               defaultValue={collection?.description}
               {...register('description')}
             />
           </FormItem>
+          {/* TODO: Сделать, чтобы кнопка появлялась при изменениях */}
           <div className="w-full center">
             <Button variant="plate" type="submit">
-              Save collection fields
+              Save collection
             </Button>
           </div>
         </form>
         <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
         <h2 className="my-2 text-2xl text-center font-bold">Paired cards</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
+        <div
+          className="grid gap-x-5 gap-y-1 w-full"
+          style={{
+            gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
+          }}
+        >
           <Card
             cardData={{
               id: 'new',
@@ -158,7 +168,7 @@ export const CollectionEditPage: React.FC = () => {
               backSide: '',
             }}
             mode="edit"
-            className="bg-gradient-to-r from-1-3/75 to-1-1/75"
+            className="bg-1-4 text-7xl font-normal"
           />
           {collectionCards.map((card) => (
             <Card cardData={card} mode="edit" key={card.id} />
@@ -166,7 +176,12 @@ export const CollectionEditPage: React.FC = () => {
         </div>
         <hr className="border border-1-1 rounded my-2 md:my-6" />
         <h2 className="my-2 text-2xl text-center font-bold">All cards</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
+        <div
+          className="grid gap-x-5 gap-y-1 w-full"
+          style={{
+            gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
+          }}
+        >
           {cards.map((card) => (
             <Card cardData={card} mode="edit" key={card.id} />
           ))}

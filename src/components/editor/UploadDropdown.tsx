@@ -13,9 +13,7 @@ interface UploadFormData {
 
 export const UploadDropdown: React.FC = () => {
   const { handleSubmit, register } = useForm<UploadFormData>();
-  const [uploadedLink, setUploadedLink] = useState<string | undefined>(
-    undefined
-  );
+  const [uploadedLink, setUploadedLink] = useState<string>();
 
   return (
     <DropDown

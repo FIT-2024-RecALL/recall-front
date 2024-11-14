@@ -15,19 +15,19 @@ export const MiniCard: React.FC<MiniCardProps> = ({
     <div
       className={clsx(
         'transition-all',
-        'm-2 p-2 w-auto h-48',
+        'm-2 p-2 w-full h-48',
         'hover:cursor-pointer rounded-lg',
-        'bg-gradient-to-r from-1-3 to-1-1',
-        'hover:bg-gradient-to-r hover:to-1-2',
+        'bg-1-3',
+        'hover:bg-1-3/80',
         'border border-1 border-1-1',
         'center',
         'hover:scale-105',
-        'text-1-12',
+        'text-1-12 text-2xl font-bold',
         className
       )}
       onClick={() => onClick?.()}
     >
-      <h2 className="text-2xl font-bold">{previewText}</h2>
+      <h2 className="">{previewText}</h2>
     </div>
   );
 };
