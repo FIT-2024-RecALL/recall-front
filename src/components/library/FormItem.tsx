@@ -17,7 +17,7 @@ export const FormItem: React.FC<FormItemProps> = ({
       {labelComponent}
       {children}
       {errorMessage && (
-        <span className="text-red-300 font-bold text-center mt-2 p-2 bg-1-1 rounded-md">
+        <span className="text-red-500 font-bold text-center m-1 p-2 rounded-md">
           {errorMessage}
         </span>
       )}

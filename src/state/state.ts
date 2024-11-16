@@ -4,13 +4,13 @@ import { devtools } from 'zustand/middleware';
 
 import { Mutator } from './types';
 import {
-  CollectionsState,
+  ActiveCardState,
   UIState,
-  createCollectionsStateSlice,
+  createActiveCardStateSlice,
   createUIStateSlice,
 } from './slices';
 
-type StoreType = UIState & CollectionsState;
+type StoreType = UIState & ActiveCardState;
 
 export const useAppStore = create<StoreType>()(
   devtools((set, ...rest) => {
@@ -18,7 +18,7 @@ export const useAppStore = create<StoreType>()(
 
     return {
       ...createUIStateSlice(mutate, set, ...rest),
-      ...createCollectionsStateSlice(mutate, set, ...rest),
+      ...createActiveCardStateSlice(mutate, set, ...rest),
     };
   })
 );

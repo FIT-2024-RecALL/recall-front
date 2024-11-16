@@ -4,48 +4,431 @@ import {
   createClient,
   createConfig,
   type Options,
+  formDataBodySerializer,
 } from '@hey-api/client-fetch';
 import type {
-  TakeSecretSecretsSecretKeyGetData,
-  TakeSecretSecretsSecretKeyGetError,
-  TakeSecretSecretsSecretKeyGetResponse,
-  CreateSecretGeneratePostData,
-  CreateSecretGeneratePostError,
-  CreateSecretGeneratePostResponse,
+  ReadCardCardsCardIdGetData,
+  ReadCardCardsCardIdGetError,
+  ReadCardCardsCardIdGetResponse,
+  ReadCardsCardsGetData,
+  ReadCardsCardsGetError,
+  ReadCardsCardsGetResponse,
+  CreateCardCardsPostData,
+  CreateCardCardsPostError,
+  CreateCardCardsPostResponse,
+  ReadCollectionCollectionsCollectionIdGetData,
+  ReadCollectionCollectionsCollectionIdGetError,
+  ReadCollectionCollectionsCollectionIdGetResponse,
+  ReadCollectionsCollectionsGetData,
+  ReadCollectionsCollectionsGetError,
+  ReadCollectionsCollectionsGetResponse,
+  CreateCollectionCollectionsUserIdPostData,
+  CreateCollectionCollectionsUserIdPostError,
+  CreateCollectionCollectionsUserIdPostResponse,
+  ReadCollectionCardsCollectionsCollectionIdCardsGetData,
+  ReadCollectionCardsCollectionsCollectionIdCardsGetError,
+  ReadCollectionCardsCollectionsCollectionIdCardsGetResponse,
+  SetCardCollectionConnectionCollectionsCollectionIdPairPostData,
+  SetCardCollectionConnectionCollectionsCollectionIdPairPostError,
+  SetCardCollectionConnectionCollectionsCollectionIdPairPostResponse,
+  DeleteCardCollectionConnectionCollectionsCollectionIdUnpairDeleteData,
+  DeleteCardCollectionConnectionCollectionsCollectionIdUnpairDeleteError,
+  DeleteCardCollectionConnectionCollectionsCollectionIdUnpairDeleteResponse,
+  ReadTrainRecordTrainRecordsTrainRecordIdGetData,
+  ReadTrainRecordTrainRecordsTrainRecordIdGetError,
+  ReadTrainRecordTrainRecordsTrainRecordIdGetResponse,
+  ReadTrainRecordsTrainRecordsGetData,
+  ReadTrainRecordsTrainRecordsGetError,
+  ReadTrainRecordsTrainRecordsGetResponse,
+  CreateTrainRecordForUserTrainRecordsCardIdUserIdPostData,
+  CreateTrainRecordForUserTrainRecordsCardIdUserIdPostError,
+  CreateTrainRecordForUserTrainRecordsCardIdUserIdPostResponse,
+  ReadUserUsersUserIdGetData,
+  ReadUserUsersUserIdGetError,
+  ReadUserUsersUserIdGetResponse,
+  ReadUsersUsersGetData,
+  ReadUsersUsersGetError,
+  ReadUsersUsersGetResponse,
+  CreateUserUsersPostData,
+  CreateUserUsersPostError,
+  CreateUserUsersPostResponse,
+  ReadCurrentUserProfileUsersProfileGetError,
+  ReadCurrentUserProfileUsersProfileGetResponse,
+  GetFileStorageUserIdFilenameGetData,
+  GetFileStorageUserIdFilenameGetError,
+  GetFileStorageUserIdFilenameGetResponse,
+  DeleteFileStorageUserIdFilenameDeleteData,
+  DeleteFileStorageUserIdFilenameDeleteError,
+  DeleteFileStorageUserIdFilenameDeleteResponse,
+  ListFilesStorageUserIdGetData,
+  ListFilesStorageUserIdGetError,
+  ListFilesStorageUserIdGetResponse,
+  AddFileStorageUserIdPostData,
+  AddFileStorageUserIdPostError,
+  AddFileStorageUserIdPostResponse,
 } from './types.gen';
 
 export const client = createClient(createConfig());
 
 /**
- * Take Secret
+ * Read Card
  */
-export const takeSecretSecretsSecretKeyGet = <
-  ThrowOnError extends boolean = false
->(
-  options: Options<TakeSecretSecretsSecretKeyGetData, ThrowOnError>
+export const readCardCardsCardIdGet = <ThrowOnError extends boolean = false>(
+  options: Options<ReadCardCardsCardIdGetData, ThrowOnError>
 ) => {
   return (options?.client ?? client).get<
-    TakeSecretSecretsSecretKeyGetResponse,
-    TakeSecretSecretsSecretKeyGetError,
+    ReadCardCardsCardIdGetResponse,
+    ReadCardCardsCardIdGetError,
     ThrowOnError
   >({
     ...options,
-    url: '/secrets/{secret_key}',
+    url: '/cards/{card_id}',
   });
 };
 
 /**
- * Create Secret
+ * Read Cards
  */
-export const createSecretGeneratePost = <ThrowOnError extends boolean = false>(
-  options: Options<CreateSecretGeneratePostData, ThrowOnError>
+export const readCardsCardsGet = <ThrowOnError extends boolean = false>(
+  options?: Options<ReadCardsCardsGetData, ThrowOnError>
 ) => {
-  return (options?.client ?? client).post<
-    CreateSecretGeneratePostResponse,
-    CreateSecretGeneratePostError,
+  return (options?.client ?? client).get<
+    ReadCardsCardsGetResponse,
+    ReadCardsCardsGetError,
     ThrowOnError
   >({
     ...options,
-    url: '/generate',
+    url: '/cards/',
+  });
+};
+
+/**
+ * Create Card
+ */
+export const createCardCardsPost = <ThrowOnError extends boolean = false>(
+  options: Options<CreateCardCardsPostData, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    CreateCardCardsPostResponse,
+    CreateCardCardsPostError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/cards/',
+  });
+};
+
+/**
+ * Read Collection
+ */
+export const readCollectionCollectionsCollectionIdGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<ReadCollectionCollectionsCollectionIdGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCollectionCollectionsCollectionIdGetResponse,
+    ReadCollectionCollectionsCollectionIdGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/{collection_id}',
+  });
+};
+
+/**
+ * Read Collections
+ */
+export const readCollectionsCollectionsGet = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<ReadCollectionsCollectionsGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCollectionsCollectionsGetResponse,
+    ReadCollectionsCollectionsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/',
+  });
+};
+
+/**
+ * Create Collection
+ */
+export const createCollectionCollectionsUserIdPost = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<CreateCollectionCollectionsUserIdPostData, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    CreateCollectionCollectionsUserIdPostResponse,
+    CreateCollectionCollectionsUserIdPostError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/{user_id}',
+  });
+};
+
+/**
+ * Read Collection Cards
+ */
+export const readCollectionCardsCollectionsCollectionIdCardsGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<
+    ReadCollectionCardsCollectionsCollectionIdCardsGetData,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? client).get<
+    ReadCollectionCardsCollectionsCollectionIdCardsGetResponse,
+    ReadCollectionCardsCollectionsCollectionIdCardsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/{collection_id}/cards',
+  });
+};
+
+/**
+ * Set Card Collection Connection
+ */
+export const setCardCollectionConnectionCollectionsCollectionIdPairPost = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<
+    SetCardCollectionConnectionCollectionsCollectionIdPairPostData,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? client).post<
+    SetCardCollectionConnectionCollectionsCollectionIdPairPostResponse,
+    SetCardCollectionConnectionCollectionsCollectionIdPairPostError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/{collection_id}/pair',
+  });
+};
+
+/**
+ * Delete Card Collection Connection
+ */
+export const deleteCardCollectionConnectionCollectionsCollectionIdUnpairDelete =
+  <ThrowOnError extends boolean = false>(
+    options: Options<
+      DeleteCardCollectionConnectionCollectionsCollectionIdUnpairDeleteData,
+      ThrowOnError
+    >
+  ) => {
+    return (options?.client ?? client).delete<
+      DeleteCardCollectionConnectionCollectionsCollectionIdUnpairDeleteResponse,
+      DeleteCardCollectionConnectionCollectionsCollectionIdUnpairDeleteError,
+      ThrowOnError
+    >({
+      ...options,
+      url: '/collections/{collection_id}/unpair',
+    });
+  };
+
+/**
+ * Read Train Record
+ */
+export const readTrainRecordTrainRecordsTrainRecordIdGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<
+    ReadTrainRecordTrainRecordsTrainRecordIdGetData,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? client).get<
+    ReadTrainRecordTrainRecordsTrainRecordIdGetResponse,
+    ReadTrainRecordTrainRecordsTrainRecordIdGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/train_records/{train_record_id}',
+  });
+};
+
+/**
+ * Read Train Records
+ */
+export const readTrainRecordsTrainRecordsGet = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<ReadTrainRecordsTrainRecordsGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadTrainRecordsTrainRecordsGetResponse,
+    ReadTrainRecordsTrainRecordsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/train_records/',
+  });
+};
+
+/**
+ * Create Train Record For User
+ */
+export const createTrainRecordForUserTrainRecordsCardIdUserIdPost = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<
+    CreateTrainRecordForUserTrainRecordsCardIdUserIdPostData,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? client).post<
+    CreateTrainRecordForUserTrainRecordsCardIdUserIdPostResponse,
+    CreateTrainRecordForUserTrainRecordsCardIdUserIdPostError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/train_records/{card_id}/{user_id}',
+  });
+};
+
+/**
+ * Read User
+ */
+export const readUserUsersUserIdGet = <ThrowOnError extends boolean = false>(
+  options: Options<ReadUserUsersUserIdGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadUserUsersUserIdGetResponse,
+    ReadUserUsersUserIdGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/users/{user_id}',
+  });
+};
+
+/**
+ * Read Users
+ */
+export const readUsersUsersGet = <ThrowOnError extends boolean = false>(
+  options?: Options<ReadUsersUsersGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadUsersUsersGetResponse,
+    ReadUsersUsersGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/users/',
+  });
+};
+
+/**
+ * Create User
+ */
+export const createUserUsersPost = <ThrowOnError extends boolean = false>(
+  options: Options<CreateUserUsersPostData, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    CreateUserUsersPostResponse,
+    CreateUserUsersPostError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/users/',
+  });
+};
+
+/**
+ * Read Current User Profile
+ */
+export const readCurrentUserProfileUsersProfileGet = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<unknown, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCurrentUserProfileUsersProfileGetResponse,
+    ReadCurrentUserProfileUsersProfileGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/users/profile',
+  });
+};
+
+/**
+ * Get File
+ */
+export const getFileStorageUserIdFilenameGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<GetFileStorageUserIdFilenameGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    GetFileStorageUserIdFilenameGetResponse,
+    GetFileStorageUserIdFilenameGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/storage/{user_id}/{filename}',
+  });
+};
+
+/**
+ * Delete File
+ */
+export const deleteFileStorageUserIdFilenameDelete = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<DeleteFileStorageUserIdFilenameDeleteData, ThrowOnError>
+) => {
+  return (options?.client ?? client).delete<
+    DeleteFileStorageUserIdFilenameDeleteResponse,
+    DeleteFileStorageUserIdFilenameDeleteError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/storage/{user_id}/{filename}',
+  });
+};
+
+/**
+ * List Files
+ */
+export const listFilesStorageUserIdGet = <ThrowOnError extends boolean = false>(
+  options: Options<ListFilesStorageUserIdGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ListFilesStorageUserIdGetResponse,
+    ListFilesStorageUserIdGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/storage/{user_id}',
+  });
+};
+
+/**
+ * Add File
+ */
+export const addFileStorageUserIdPost = <ThrowOnError extends boolean = false>(
+  options: Options<AddFileStorageUserIdPostData, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    AddFileStorageUserIdPostResponse,
+    AddFileStorageUserIdPostError,
+    ThrowOnError
+  >({
+    ...options,
+    ...formDataBodySerializer,
+    headers: {
+      'Content-Type': null,
+      ...options?.headers,
+    },
+    url: '/storage/{user_id}',
   });
 };
