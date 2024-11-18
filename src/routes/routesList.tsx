@@ -1,5 +1,6 @@
 import React from 'react';
 import { StartPage, CollectionEditPage } from '@/pages';
+import { CollectionsPage } from '../pages/CollectionsPage';
 
 type RouteData = {
   url: string;
@@ -16,7 +17,7 @@ export const routesList: RouteData[] = [
   {
     url: '/collections',
     label: 'View collections',
-    content: <StartPage />,
+    content: <CollectionsPage />,
   },
   {
     url: '/collections/edit/:id',
