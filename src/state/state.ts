@@ -3,9 +3,14 @@ import { produce } from 'immer';
 import { devtools } from 'zustand/middleware';
 
 import { Mutator } from './types';
-import { UIState, createUIStateSlice } from './slices';
+import {
+  ActiveCardState,
+  UIState,
+  createActiveCardStateSlice,
+  createUIStateSlice,
+} from './slices';
 
-type StoreType = UIState; // Will be extended
+type StoreType = UIState & ActiveCardState;
 
 export const useAppStore = create<StoreType>()(
   devtools((set, ...rest) => {
@@ -13,6 +18,7 @@ export const useAppStore = create<StoreType>()(
 
     return {
       ...createUIStateSlice(mutate, set, ...rest),
+      ...createActiveCardStateSlice(mutate, set, ...rest),
     };
   })
 );
