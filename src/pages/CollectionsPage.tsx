@@ -30,7 +30,7 @@ export const CollectionsPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center p-5 bg-2-2 rounded-lg shadow-md">
+    <div className="flex flex-col items-center vstack m-2 md:m-10 p-2 md:p-5 bg-1-8 text-o-black rounded-md ">
       <h1 className="text-center text-o-white text-2xl font-bold mb-4">
         Collections
       </h1>

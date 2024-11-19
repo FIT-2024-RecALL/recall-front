@@ -23,10 +23,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       <label htmlFor="search" className="sr-only">
         Search
       </label>
-      <div className="relative w-full">
+      <div className="input-wrapper bg-white w-full rounded-[15px] h-[2.5rem] px-[15px] shadow-[0px_0px_8px_#ddd] flex items-center">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <svg
-            className="w-5 h-5 text-gray-500"
+            id="search-icon"
+            className="w-5 h-5 text-royalblue"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -46,8 +47,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search..."
-          className="block w-full pl-10 pr-4 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+          className="input bg-transparent border-none h-full text-[1.25rem] w-full ml-1"
           required
+          onFocus={() => {
+            // Optional: Add focus effect here if needed
+          }}
         />
         <button
           type="submit"
