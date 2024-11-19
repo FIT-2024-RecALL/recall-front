@@ -1,23 +1,11 @@
-// src/pages/CollectionsPage.tsx
-
-import React from 'react';
+import React, { useState } from 'react';
 import CollectionCard from '../components/collectionCard/CollectionCard';
 import SearchBar from '@/components/SearchBar';
-
-const mockData = [
-  { id: 1, title: 'CATS', description: 'Description for Collection 1' },
-  { id: 2, title: 'Collection 2', description: 'Description for Collection 2' },
-  { id: 3, title: 'Collection 3', description: 'Description for Collection 3' },
-  { id: 4, title: 'Collection 4', description: 'Description for Collection 4' },
-  { id: 5, title: 'Collection 5', description: 'Description for Collection 5' },
-  { id: 6, title: 'Collection 6', description: 'Description for Collection 6' },
-];
+import { collections } from '../components/words.js';
 
 export const CollectionsPage: React.FC = () => {
-  const handleSearch = (query: string) => {
-    console.log('Search query:', query);
-    // Implement search functionality here
-  };
+  const [, setSearchTerm] = useState('');
+  const [activeSearch, setActiveSearch] = useState(collections);
 
   const handleButtonClick1 = (id: number) => {
     console.log(`Button 1 clicked for Collection ID: ${id}`);
@@ -29,22 +17,34 @@ export const CollectionsPage: React.FC = () => {
     // Implement action for Button 2
   };
 
+  const handleSearchChange = (term: string) => {
+    setSearchTerm(term);
+    if (term === '') {
+      setActiveSearch(collections);
+    } else {
+      setActiveSearch(
+        collections.filter((item) =>
+          item.title.toLowerCase().includes(term.toLowerCase())
+        )
+      );
+    }
+  };
+
   return (
     <div className="flex flex-col items-center vstack m-2 md:m-10 p-2 md:p-5 bg-1-8 text-o-black rounded-md ">
       <h1 className="text-center text-o-white text-2xl font-bold mb-4">
         Collections
       </h1>
-      <SearchBar />
+      <SearchBar onSearchChange={handleSearchChange} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-        {mockData.map((item) => (
+        {activeSearch.map((item) => (
           <CollectionCard
             key={item.id}
-            timeAgo="30 минут назад" // You can customize this based on your logic
+            timeAgo="30 минут назад"
             title={item.title}
             description={item.description}
             onButtonClick1={() => handleButtonClick1(item.id)}
             onButtonClick2={() => handleButtonClick2(item.id)}
-            // Adjust the size of the card here if needed
           />
         ))}
       </div>
