@@ -1,8 +1,8 @@
 // src/pages/CollectionsPage.tsx
 
 import React from 'react';
-import { SearchBar } from '@/components/SearchBar';
 import CollectionCard from '../components/collectionCard/CollectionCard';
+import SearchBar from '@/components/SearchBar';
 
 const mockData = [
   { id: 1, title: 'CATS', description: 'Description for Collection 1' },
@@ -34,7 +34,7 @@ export const CollectionsPage: React.FC = () => {
       <h1 className="text-center text-o-white text-2xl font-bold mb-4">
         Collections
       </h1>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
         {mockData.map((item) => (
           <CollectionCard

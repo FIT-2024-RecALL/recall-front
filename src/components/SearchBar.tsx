@@ -1,78 +1,68 @@
-// src/components/SearchBar.tsx
-
 import React, { useState } from 'react';
+import { IoSearch } from 'react-icons/io5';
+import { collections } from './words.js'; // Import your collections
+import CollectionCard from '../components/collectionCard/CollectionCard'; // Import CollectionCard
 
-interface SearchBarProps {
-  onSearch: (query: string) => void;
-}
+export const SearchBar = () => {
+  const [activeSearch, setActiveSearch] = useState<
+    { id: number; title: string; description: string; timeAgo: string }[]
+  >([]);
 
-export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [query, setQuery] = useState('');
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchTerm = e.target.value.toLowerCase(); // Convert to lowercase for case-insensitive search
+    if (searchTerm === '') {
+      setActiveSearch([]);
+      return;
+    }
+    setActiveSearch(
+      collections
+        .filter((collection) =>
+          collection.title.toLowerCase().includes(searchTerm)
+        ) // Search in titles
+        .slice(0, 8)
+    );
+  };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent form submission
-    onSearch(query);
-    setQuery('');
+  const handleEditClick = (id: number) => {
+    console.log(`Edit collection with ID: ${id}`);
+    // Add your edit logic here
+  };
+
+  const handleTrainClick = (id: number) => {
+    console.log(`Train collection with ID: ${id}`);
+    // Add your train logic here
   };
 
   return (
-    <form
-      onSubmit={handleSearch}
-      className="flex items-center max-w-md mx-auto"
-    >
-      <label htmlFor="search" className="sr-only">
-        Search
-      </label>
-      <div className="input-wrapper bg-white w-full rounded-[15px] h-[2.5rem] px-[15px] shadow-[0px_0px_8px_#ddd] flex items-center">
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <svg
-            id="search-icon"
-            className="w-5 h-5 text-royalblue"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M11 4a7 7 0 100 14 7 7 0 000-14zm0 0l6 6"
-            />
-          </svg>
-        </div>
+    <form className="w-[500px] relative">
+      <div className="relative">
         <input
-          type="text"
-          id="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search..."
-          className="input bg-transparent border-none h-full text-[1.25rem] w-full ml-1"
-          required
-          onFocus={() => {
-            // Optional: Add focus effect here if needed
-          }}
+          type="search"
+          placeholder="Search collections..."
+          className="w-full h-12 p-4 rounded-full bg-1-10"
+          onChange={handleSearch}
         />
-        <button
-          type="submit"
-          className="absolute inset-y-0 right-0 flex items-center pr-3 text-blue-600 hover:text-blue-800 transition duration-200"
-        >
-          <svg
-            className="w-5 h-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M15 12h3m-3 0h-3m3 0v3m0-3V9m-6 3h-3m3 0h3m-3 0v3m0-3V9"
-            />
-          </svg>
+        <button className="absolute p-0 right-1 h-10 w-10 top-1/2 -translate-y-1/2 bg-1-5 rounded-full flex justify-center items-center">
+          <IoSearch />
         </button>
       </div>
+
+      {activeSearch.length > 0 && (
+        <div className="absolute top-20 p-4 bg-1-5 text-white w-full rounded-xl left-1/2 -translate-x-1/2 flex flex-col gap-2">
+          {activeSearch.map((collection) => (
+            <CollectionCard
+              key={collection.id}
+              timeAgo={collection.timeAgo}
+              title={collection.title}
+              description={collection.description}
+              onButtonClick1={() => handleEditClick(collection.id)} // Pass the ID to the edit handler
+              onButtonClick2={() => handleTrainClick(collection.id)} // Pass the ID to the train handler
+            />
+          ))}
+        </div>
+      )}
     </form>
   );
 };
+
+export default SearchBar;
