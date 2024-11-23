@@ -5,6 +5,7 @@ import { Redirect, useParams } from 'wouter';
 import { Button } from '../components/library/Button';
 import clsx from 'clsx';
 import { CollectionType } from './CollectionEditPage';
+import { ProgressBar } from '@/components/library/ProgressBar';
 
 function getCardExample(id: number): CardType {
   return {
@@ -50,6 +51,7 @@ export const TrainPage: React.FC = () => {
   const { id } = useParams<TrainPageParams>();
   const [collection, setCollection] = useState<CollectionType>();
   const [cards, setCards] = useState<CardType[]>([]);
+  const [trainedCount, setTrainedCount] = useState(0);
 
   useEffect(() => {
     getCollectionPseudoRequest(id).then((collection) =>
@@ -62,9 +64,14 @@ export const TrainPage: React.FC = () => {
     <>
       {!collection && <Redirect to="" />}
       <div className="vstack m-2 md:m-10 p-2 md:p-5">
-        <h1 className="text-center text-2xl font-bold">
+        <h1 className="my-2 text-center text-2xl font-bold">
           Trainining {collection?.title}
         </h1>
+        <ProgressBar
+          className="my-4 border-2 text-xl font-medium"
+          value={trainedCount}
+          maxValue={cards.length}
+        />
         <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
         <div
           className="grid gap-x-5 gap-y-1 w-full"
