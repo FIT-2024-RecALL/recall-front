@@ -10,7 +10,6 @@ interface CardProps extends HTMLAttributes<React.FC> {
 }
 
 export const Card: React.FC<CardProps> = ({ mode, cardData, className }) => {
-  const [zoomed, setZoomed] = useState(false);
   const setActiveCard = useAppStore((state) => state.setActiveCard);
   const setActiveCardUIMode = useAppStore((state) => state.setActiveCardUIMode);
 
@@ -21,11 +20,10 @@ export const Card: React.FC<CardProps> = ({ mode, cardData, className }) => {
         onClick={() => {
           setActiveCardUIMode(mode);
           setActiveCard(cardData);
-          setZoomed(true);
         }}
         className={className}
       />
-      <ZoomedCard isShown={zoomed} close={() => setZoomed(false)} />
+      <ZoomedCard cardData={cardData} />
     </>
   );
 };

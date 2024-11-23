@@ -3,10 +3,10 @@ import { Redirect, useParams } from 'wouter';
 import { useShallow } from 'zustand/react/shallow';
 
 import { Card } from '@/components/card/Card';
-import { CardType } from '@/state/slices';
 import { CollectionType } from './CollectionEditPage';
 import { ProgressBar } from '@/components/library/ProgressBar';
 import { useAppStore } from '@/state';
+import { CardType } from '@/state/slices';
 
 function getCardExample(id: number): CardType {
   return {
@@ -52,8 +52,9 @@ export const TrainPage: React.FC = () => {
   const { id } = useParams<TrainPageParams>();
   const [collection, setCollection] = useState<CollectionType>();
 
-  const cards = useAppStore(useShallow((state) => state.trainCards));
+  const cards = useAppStore(useShallow((state) => state.cardsToTrain));
   const setTrainCards = useAppStore((state) => state.setTrainCards);
+  const maxCount = useAppStore((state) => state.cardsToTrainInitialCount);
   const trainedCount = useAppStore((state) => state.trainedCount);
 
   useEffect(() => {
@@ -73,7 +74,7 @@ export const TrainPage: React.FC = () => {
         <ProgressBar
           className="my-4 border-2 text-xl font-medium"
           value={trainedCount}
-          maxValue={cards.length}
+          maxValue={maxCount}
         />
         <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
         <div
@@ -82,7 +83,7 @@ export const TrainPage: React.FC = () => {
             gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
           }}
         >
-          {cards.map((card) => (
+          {cards.slice(0, 6).map((card) => (
             <Card cardData={card} mode="train" key={card.id} />
           ))}
         </div>

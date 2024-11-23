@@ -7,12 +7,21 @@ import { Button } from '@/components/library/Button';
 import { useAppStore } from '@/state';
 
 export const TrainCardControls: React.FC = () => {
+  const cardId = useAppStore((state) => state.activeCard.id);
+  const executeTrainCard = useAppStore((state) => state.executeTrainCard);
+
   const [flippedOnce, setFlippedOnce] = useState(false);
   const flipped = useAppStore((state) => state.activeCardUI.flipped);
   const setUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
 
   useEffect(() => setFlippedOnce(true), [flipped]);
   useEffect(() => setFlippedOnce(false), []);
+
+  const onClikcTrainButton = () => {
+    console.log('Train request to back');
+    executeTrainCard(cardId);
+    setUIFlag('zoomed', () => false);
+  };
 
   return (
     <div
@@ -24,19 +33,39 @@ export const TrainCardControls: React.FC = () => {
     >
       {flippedOnce ? (
         <div className="around flip-front">
-          <Button className="m-1" variant="bordered">
+          <Button
+            className="m-1"
+            variant="bordered"
+            onClick={onClikcTrainButton}
+          >
             1
           </Button>
-          <Button className="m-1" variant="bordered">
+          <Button
+            className="m-1"
+            variant="bordered"
+            onClick={onClikcTrainButton}
+          >
             2
           </Button>
-          <Button className="m-1" variant="bordered">
+          <Button
+            className="m-1"
+            variant="bordered"
+            onClick={onClikcTrainButton}
+          >
             3
           </Button>
-          <Button className="m-1" variant="bordered">
+          <Button
+            className="m-1"
+            variant="bordered"
+            onClick={onClikcTrainButton}
+          >
             4
           </Button>
-          <Button className="m-1" variant="bordered">
+          <Button
+            className="m-1"
+            variant="bordered"
+            onClick={onClikcTrainButton}
+          >
             5
           </Button>
         </div>
@@ -51,19 +80,19 @@ export const TrainCardControls: React.FC = () => {
         </Button>
       )}
       <div className="around flip-back">
-        <Button className="m-1" variant="bordered">
+        <Button className="m-1" variant="bordered" onClick={onClikcTrainButton}>
           1
         </Button>
-        <Button className="m-1" variant="bordered">
+        <Button className="m-1" variant="bordered" onClick={onClikcTrainButton}>
           2
         </Button>
-        <Button className="m-1" variant="bordered">
+        <Button className="m-1" variant="bordered" onClick={onClikcTrainButton}>
           3
         </Button>
-        <Button className="m-1" variant="bordered">
+        <Button className="m-1" variant="bordered" onClick={onClikcTrainButton}>
           4
         </Button>
-        <Button className="m-1" variant="bordered">
+        <Button className="m-1" variant="bordered" onClick={onClikcTrainButton}>
           5
         </Button>
       </div>
