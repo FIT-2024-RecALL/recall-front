@@ -1,3 +1,4 @@
+import { routes } from '@/routes';
 import React from 'react';
 import { Link } from 'wouter';
 
@@ -31,7 +32,7 @@ export const StartPage: React.FC = () => {
         />
       </div>
 
-      <Link className="text-2xl underline" to="/collections/edit/1">
+      <Link className="text-2xl underline" to={routes.collectionEdit.getUrl(1)}>
         К карточкам!
       </Link>
     </div>
