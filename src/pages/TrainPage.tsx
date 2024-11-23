@@ -1,11 +1,12 @@
-import { Card } from '@/components/card/Card';
-import { CardType } from '@/state/slices';
 import React, { useEffect, useState } from 'react';
 import { Redirect, useParams } from 'wouter';
-import { Button } from '../components/library/Button';
-import clsx from 'clsx';
+import { useShallow } from 'zustand/react/shallow';
+
+import { Card } from '@/components/card/Card';
+import { CardType } from '@/state/slices';
 import { CollectionType } from './CollectionEditPage';
 import { ProgressBar } from '@/components/library/ProgressBar';
+import { useAppStore } from '@/state';
 
 function getCardExample(id: number): CardType {
   return {
@@ -50,15 +51,17 @@ export interface TrainPageParams {
 export const TrainPage: React.FC = () => {
   const { id } = useParams<TrainPageParams>();
   const [collection, setCollection] = useState<CollectionType>();
-  const [cards, setCards] = useState<CardType[]>([]);
-  const [trainedCount, setTrainedCount] = useState(0);
+
+  const cards = useAppStore(useShallow((state) => state.trainCards));
+  const setTrainCards = useAppStore((state) => state.setTrainCards);
+  const trainedCount = useAppStore((state) => state.trainedCount);
 
   useEffect(() => {
     getCollectionPseudoRequest(id).then((collection) =>
       setCollection(collection)
     );
-    getTrainCardsPseudoRequest(id).then((cards) => setCards(cards));
-  }, [id]);
+    getTrainCardsPseudoRequest(id).then((cards) => setTrainCards(cards));
+  }, [id, setTrainCards]);
 
   return (
     <>

@@ -1,2 +1,2 @@
-export * from './UIState';
+export * from './AuthWindowState';
 export * from './ActiveCardState';
