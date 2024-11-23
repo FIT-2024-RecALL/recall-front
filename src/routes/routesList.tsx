@@ -1,5 +1,5 @@
 import React from 'react';
-import { StartPage, CollectionEditPage } from '@/pages';
+import { StartPage, CollectionEditPage, TrainPage } from '@/pages';
 
 type RouteData = {
   url: string;
@@ -7,7 +7,7 @@ type RouteData = {
   label?: string;
   content: JSX.Element;
 };
-type RoutesEnum = 'main' | 'collections' | 'collectionEdit' | 'about';
+type RoutesEnum = 'main' | 'collections' | 'collectionEdit' | 'train' | 'about';
 
 export const routes: Record<RoutesEnum, RouteData> = {
   main: {
@@ -26,6 +26,11 @@ export const routes: Record<RoutesEnum, RouteData> = {
     url: '/collections/:id/edit',
     getUrl: (id: number) => `/collections/${id}/edit`,
     content: <CollectionEditPage />,
+  },
+  train: {
+    url: '/collections/:id/train',
+    getUrl: (id: number) => `/collections/${id}/train`,
+    content: <TrainPage />,
   },
   about: {
     url: '/about',

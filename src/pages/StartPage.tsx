@@ -33,7 +33,11 @@ export const StartPage: React.FC = () => {
       </div>
 
       <Link className="text-2xl underline" to={routes.collectionEdit.getUrl(1)}>
-        К карточкам!
+        Test edit
+      </Link>
+
+      <Link className="text-2xl underline" to={routes.train.getUrl(1)}>
+        Test train
       </Link>
     </div>
   );
