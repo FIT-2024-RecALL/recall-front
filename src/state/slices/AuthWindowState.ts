@@ -1,6 +1,7 @@
 import { Immutable } from 'immer';
 
 import { Slice } from '@/state';
+import { match } from 'ts-pattern';
 
 export type AuthWindowState = Immutable<{
   authWindow: 'hidden' | 'login' | 'register';
@@ -29,15 +30,12 @@ export const createAuthWindowStateSlice: Slice<AuthWindowState> = (mutate) => ({
   },
   toggleActiveAuthWindow: () => {
     mutate((state) => {
-      switch (state.authWindow) {
-        case 'login':
-          state.authWindow = 'register';
-          break;
-        case 'register':
-          state.authWindow = 'login';
-          break;
-        case 'hidden':
-      }
+      state.authWindow = match(state.authWindow)
+        .returnType<typeof state.authWindow>()
+        .with('login', () => 'register')
+        .with('register', () => 'login')
+        .with('hidden', () => 'hidden')
+        .run();
     });
   },
 });
