@@ -35,7 +35,7 @@ export const createAuthWindowStateSlice: Slice<AuthWindowState> = (mutate) => ({
         .with('login', () => 'register')
         .with('register', () => 'login')
         .with('hidden', () => 'hidden')
-        .run();
+        .exhaustive();
     });
   },
 });
