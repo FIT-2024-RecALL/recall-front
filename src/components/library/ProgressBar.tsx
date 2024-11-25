@@ -3,12 +3,14 @@ import React, { HTMLAttributes } from 'react';
 
 export interface ProgressBarProps extends HTMLAttributes<React.FC> {
   value: number;
+  minValue: number;
   maxValue: number;
   fillClassName?: string;
 }
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({
   value,
+  minValue,
   maxValue,
   className,
   fillClassName,
@@ -23,7 +25,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
     >
       <div
         className={clsx('absolute bg-1-6 h-full', fillClassName)}
-        style={{ width: `${(value / maxValue) * 100}%` }}
+        style={{ width: `${((value - minValue) / (maxValue - minValue)) * 100}%` }}
       ></div>
       <div className="absolute h-full w-full text-center">
         <span className="m-1">{value}</span>

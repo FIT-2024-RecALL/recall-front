@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Redirect, useParams } from 'wouter';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Link, Redirect, useParams } from 'wouter';
 import { useShallow } from 'zustand/react/shallow';
 
 import { Card } from '@/components/card/Card';
@@ -7,6 +7,8 @@ import { CollectionType } from './CollectionEditPage';
 import { ProgressBar } from '@/components/library/ProgressBar';
 import { useAppStore } from '@/state';
 import { CardType } from '@/state/slices';
+import { Button } from '@/components/library/Button';
+import { routes } from '@/routes';
 
 function getCardExample(id: number): CardType {
   return {
@@ -57,12 +59,14 @@ export const TrainPage: React.FC = () => {
   const maxCount = useAppStore((state) => state.cardsToTrainInitialCount);
   const trainedCount = useAppStore((state) => state.trainedCount);
 
-  useEffect(() => {
+  const requestTrainCards = useCallback(() => {
     getCollectionPseudoRequest(id).then((collection) =>
       setCollection(collection)
     );
     getTrainCardsPseudoRequest(id).then((cards) => setTrainCards(cards));
   }, [id, setTrainCards]);
+
+  useEffect(requestTrainCards, [requestTrainCards]);
 
   return (
     <>
@@ -71,22 +75,45 @@ export const TrainPage: React.FC = () => {
         <h1 className="my-2 text-center text-2xl font-bold">
           Trainining {collection?.title}
         </h1>
-        <ProgressBar
-          className="my-4 border-2 text-xl font-medium"
-          value={trainedCount}
-          maxValue={maxCount}
-        />
-        <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
-        <div
-          className="grid gap-x-5 gap-y-1 w-full"
-          style={{
-            gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
-          }}
-        >
-          {cards.slice(0, 6).map((card) => (
-            <Card cardData={card} mode="train" key={card.id} />
-          ))}
-        </div>
+        {trainedCount < maxCount ? (
+          <>
+            <ProgressBar
+              className="my-4 border-2 text-xl font-medium"
+              value={trainedCount}
+              minValue={0}
+              maxValue={maxCount}
+            />
+            <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
+            <div
+              className="grid gap-x-5 gap-y-1 w-full"
+              style={{
+                gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
+              }}
+            >
+              {cards.slice(0, 6).map((card) => (
+                <Card cardData={card} mode="train" key={card.id} />
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <h2 className="text-center text-2xl my-2">
+              Congratulations! Training was completed
+            </h2>
+            <div className="vstack md:center">
+              <Link className="my-2 md:m-2 w-full" to={routes.collections.url}>
+                <Button className="w-full" variant="plate">Go to collections</Button>
+              </Link>
+              <Button
+                className="md:m-2"
+                variant="plate"
+                onClick={requestTrainCards}
+              >
+                Train this collection again
+              </Button>
+            </div>
+          </>
+        )}
       </div>
     </>
   );
