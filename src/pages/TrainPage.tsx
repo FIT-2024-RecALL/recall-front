@@ -101,8 +101,13 @@ export const TrainPage: React.FC = () => {
               Congratulations! Training was completed
             </h2>
             <div className="vstack md:center">
-              <Link className="my-2 md:m-2 w-full" to={routes.collections.url}>
-                <Button className="w-full" variant="plate">Go to collections</Button>
+              <Link
+                className="my-2 md:m-2 w-full"
+                to={routes.collections.getUrl()}
+              >
+                <Button className="w-full" variant="plate">
+                  Go to collections
+                </Button>
               </Link>
               <Button
                 className="md:m-2"

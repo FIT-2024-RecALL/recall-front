@@ -3,7 +3,7 @@ import { StartPage, CollectionEditPage, TrainPage } from '@/pages';
 
 type RouteData = {
   url: string;
-  getUrl: (kwargs: any) => string;
+  getUrl: (kwargs?: any) => string;
   label?: string;
   content: JSX.Element;
 };
