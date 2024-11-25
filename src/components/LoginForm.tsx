@@ -5,6 +5,11 @@ import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 
 import { Button } from '@/components/library/Button';
 import { FormItem } from '@/components/library/FormItem';
+import {
+  authenticateUserUsersLoginPost,
+  readCurrentUserUsersProfileGet,
+} from '@/api';
+import { useAppStore } from '@/state';
 
 const userLoginScheme = z.object({
   email: z.string().email().min(1, 'Email is required'),
@@ -15,6 +20,8 @@ const userLoginScheme = z.object({
 export type UserLoginData = z.infer<typeof userLoginScheme>;
 
 export const LoginForm: React.FC = () => {
+  const closeAuthWindow = useAppStore((state) => state.closeAuthWindow);
+
   const {
     register,
     handleSubmit,
@@ -24,13 +31,27 @@ export const LoginForm: React.FC = () => {
   });
 
   const login: SubmitHandler<UserLoginData> = (data) => {
-    userLoginScheme.parse(data);
+    authenticateUserUsersLoginPost({
+      body: {
+        ...data,
+      },
+    }).then((data) => {
+      if (data.response.ok) {
+        readCurrentUserUsersProfileGet().then((data) => {
+          console.log(data.data); // TODO: подать куда надо сигнал об обновлении визуала пользователя
+        });
+        closeAuthWindow();
+      } else console.log('Error: ' + data.error?.detail);
+    });
   };
 
   return (
-    <form className="vstack w-full p-2" onSubmit={handleSubmit(login)}>
+    <form
+      className="vstack w-full p-2 text-white"
+      onSubmit={handleSubmit(login)}
+    >
       <FormItem
-        className="vstack p-1 w-full text-white"
+        className="vstack p-1 w-full"
         errorMessage={errors.email?.message}
       >
         <input

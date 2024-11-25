@@ -10,6 +10,7 @@ const root = createRoot(container!);
 export const serverUrl = 'http://127.0.0.1:8000';
 client.setConfig({
   baseUrl: serverUrl,
+  credentials: 'include',
 });
 
 root.render(
