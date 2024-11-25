@@ -1,36 +1,31 @@
 import { Immutable } from 'immer';
 
 import { Slice } from '../types';
-import { CardType } from './ActiveCardState';
 
 export type TrainState = Immutable<{
-  cardsToTrain: CardType[];
-  trainedCards: CardType[];
+  cardsToTrainIds: number[];
   cardsToTrainInitialCount: number;
   trainedCount: number;
-  setTrainCards: (cards: CardType[]) => void;
-  executeTrainCard: (cardId: CardType['id']) => void;
+  setTrainCards: (cardsIds: number[]) => void;
+  executeTrainCard: (cardId: number) => void;
 }>;
 
 export const createTrainStateSlice: Slice<TrainState> = (mutate) => ({
-  cardsToTrain: [],
-  trainedCards: [], // Сейчас не используется и не изменяется, но может быть полезно в будущем
+  cardsToTrainIds: [],
   cardsToTrainInitialCount: 0,
   trainedCount: 0,
-  setTrainCards: (cards) =>
+  setTrainCards: (cardsIds) =>
     mutate((state) => {
-      state.cardsToTrain = cards;
-      state.trainedCards = [];
-      state.cardsToTrainInitialCount = cards.length;
+      state.cardsToTrainIds = cardsIds;
+      state.cardsToTrainInitialCount = cardsIds.length;
       state.trainedCount = 0;
     }),
-  executeTrainCard: (cardId) => {
+  executeTrainCard: (trainedCardId) => {
     mutate((state) => {
-      state.cardsToTrain = state.cardsToTrain.filter(
-        (card) => card.id !== cardId
+      state.cardsToTrainIds = state.cardsToTrainIds.filter(
+        (cardId) => trainedCardId !== cardId
       );
       state.trainedCount++;
     });
-    console.log(`Card ${cardId} executed`);
   },
 });

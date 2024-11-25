@@ -18,6 +18,7 @@ export const TrainCardControls: React.FC = () => {
   useEffect(() => setFlippedOnce(false), []);
 
   const onClikcTrainButton = () => {
+    if (cardId === 'new') return;
     console.log('Train request to back');
     executeTrainCard(cardId);
     setUIFlag('zoomed', () => false);

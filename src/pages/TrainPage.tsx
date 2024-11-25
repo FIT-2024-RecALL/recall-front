@@ -6,25 +6,8 @@ import { Card } from '@/components/card/Card';
 import { CollectionType } from './CollectionEditPage';
 import { ProgressBar } from '@/components/library/ProgressBar';
 import { useAppStore } from '@/state';
-import { CardType } from '@/state/slices';
 import { Button } from '@/components/library/Button';
 import { routes } from '@/routes';
-
-function getCardExample(id: number): CardType {
-  return {
-    id: id,
-    previewText: `Card ${id}`,
-    frontSide:
-      '# The first side \n Here will be **question** \n ' +
-      'Photos: ![Cat photo](https://avatars.mds.yandex.net/i?id=76dd9d5c1922688236a4dca063bc3c2ce3dafd22-5283663-images-thumbs&n=13)' +
-      'audios: ![Bip sound](https://sanstv.ru/test/audio/test.wav)' +
-      'and videos: ![Waterfall video](https://tekeye.uk/html/images/Joren_Falls_Izu_Jap.mp4)' +
-      'are available! \n ' +
-      'And also $LaTeX$...',
-    backSide:
-      '# The second side \n Here will be *answer* \n (Only basic markup is available)',
-  };
-}
 
 const getCollectionPseudoRequest = async (id: number) => {
   return {
@@ -35,15 +18,7 @@ const getCollectionPseudoRequest = async (id: number) => {
 };
 
 const getTrainCardsPseudoRequest = async (collectionId: number) => {
-  return [
-    { ...getCardExample(0) },
-    { ...getCardExample(1) },
-    { ...getCardExample(2) },
-    { ...getCardExample(3) },
-    { ...getCardExample(4) },
-    { ...getCardExample(5) },
-    { ...getCardExample(6) },
-  ];
+  return [1, 2, 3, 4, 5, 6, 7];
 };
 
 export interface TrainPageParams {
@@ -54,7 +29,7 @@ export const TrainPage: React.FC = () => {
   const { id } = useParams<TrainPageParams>();
   const [collection, setCollection] = useState<CollectionType>();
 
-  const cards = useAppStore(useShallow((state) => state.cardsToTrain));
+  const cardsIds = useAppStore(useShallow((state) => state.cardsToTrainIds));
   const setTrainCards = useAppStore((state) => state.setTrainCards);
   const maxCount = useAppStore((state) => state.cardsToTrainInitialCount);
   const trainedCount = useAppStore((state) => state.trainedCount);
@@ -90,8 +65,8 @@ export const TrainPage: React.FC = () => {
                 gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
               }}
             >
-              {cards.slice(0, 6).map((card) => (
-                <Card cardData={card} mode="train" key={card.id} />
+              {cardsIds.slice(0, 6).map((cardId) => (
+                <Card cardId={cardId} mode="train" key={cardId} />
               ))}
             </div>
           </>
@@ -102,7 +77,7 @@ export const TrainPage: React.FC = () => {
             </h2>
             <div className="vstack md:center">
               <Link
-                className="my-2 md:m-2 w-full"
+                className="my-2 md:m-2 w-fit"
                 to={routes.collections.getUrl()}
               >
                 <Button className="w-full" variant="plate">

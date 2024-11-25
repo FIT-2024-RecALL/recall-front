@@ -31,7 +31,7 @@ export const createAuthWindowStateSlice: Slice<AuthWindowState> = (mutate) => ({
   toggleActiveAuthWindow: () => {
     mutate((state) => {
       state.authWindow = match(state.authWindow)
-        .returnType<typeof state.authWindow>()
+        .returnType<AuthWindowState['authWindow']>()
         .with('login', () => 'register')
         .with('register', () => 'login')
         .with('hidden', () => 'hidden')
