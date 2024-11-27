@@ -12,12 +12,16 @@ import type {
   DeleteCardCardsCardIdDeleteData,
   DeleteCardCardsCardIdDeleteError,
   DeleteCardCardsCardIdDeleteResponse,
+  UpdateCardCardsCardIdPutError,
+  UpdateCardCardsCardIdPutResponse,
   ReadCardsCardsGetData,
   ReadCardsCardsGetError,
   ReadCardsCardsGetResponse,
   CreateCardCardsPostData,
   CreateCardCardsPostError,
   CreateCardCardsPostResponse,
+  ReadCardCollectionsCardsCardIdCollectionsGetError,
+  ReadCardCollectionsCardsCardIdCollectionsGetResponse,
   ReadCollectionCollectionsCollectionIdGetData,
   ReadCollectionCollectionsCollectionIdGetError,
   ReadCollectionCollectionsCollectionIdGetResponse,
@@ -36,39 +40,39 @@ import type {
   DeleteCardCollectionConnectionCollectionsCollectionIdUnpairDeleteData,
   DeleteCardCollectionConnectionCollectionsCollectionIdUnpairDeleteError,
   DeleteCardCollectionConnectionCollectionsCollectionIdUnpairDeleteResponse,
-  ReadTrainRecordTrainRecordsAdminTrainRecordIdGetData,
-  ReadTrainRecordTrainRecordsAdminTrainRecordIdGetError,
-  ReadTrainRecordTrainRecordsAdminTrainRecordIdGetResponse,
-  ReadTrainRecordsTrainRecordsAdminGetData,
-  ReadTrainRecordsTrainRecordsAdminGetError,
-  ReadTrainRecordsTrainRecordsAdminGetResponse,
-  ReadUserTrainRecordsTrainRecordsGetError,
-  ReadUserTrainRecordsTrainRecordsGetResponse,
-  CreateTrainRecordForUserTrainRecordsCardIdPostData,
-  CreateTrainRecordForUserTrainRecordsCardIdPostError,
-  CreateTrainRecordForUserTrainRecordsCardIdPostResponse,
-  ReadUserCardTrainRecordsTrainRecordsCardIdGetData,
-  ReadUserCardTrainRecordsTrainRecordsCardIdGetError,
-  ReadUserCardTrainRecordsTrainRecordsCardIdGetResponse,
-  ReadUserCardLastTrainRecordTrainRecordsRecordCardIdGetData,
-  ReadUserCardLastTrainRecordTrainRecordsRecordCardIdGetError,
-  ReadUserCardLastTrainRecordTrainRecordsRecordCardIdGetResponse,
-  ReadUsersUsersGetData,
-  ReadUsersUsersGetError,
-  ReadUsersUsersGetResponse,
-  ReadCurrentUserUsersProfileGetError,
-  ReadCurrentUserUsersProfileGetResponse,
-  ReadUserUsersUserIdGetData,
-  ReadUserUsersUserIdGetError,
-  ReadUserUsersUserIdGetResponse,
+  CreateTrainRecordTrainRecordsCardIdPostData,
+  CreateTrainRecordTrainRecordsCardIdPostError,
+  CreateTrainRecordTrainRecordsCardIdPostResponse,
+  ReadCardLastTrainRecordTrainRecordsRecordCardIdGetData,
+  ReadCardLastTrainRecordTrainRecordsRecordCardIdGetError,
+  ReadCardLastTrainRecordTrainRecordsRecordCardIdGetResponse,
+  ReadUserUsersProfileGetError,
+  ReadUserUsersProfileGetResponse,
   CreateUserUsersRegisterPostData,
   CreateUserUsersRegisterPostError,
   CreateUserUsersRegisterPostResponse,
+  UpdateUserUsersEditProfilePutData,
+  UpdateUserUsersEditProfilePutError,
+  UpdateUserUsersEditProfilePutResponse,
   AuthenticateUserUsersLoginPostData,
   AuthenticateUserUsersLoginPostError,
   AuthenticateUserUsersLoginPostResponse,
   LogoutUserUsersLogoutPostError,
   LogoutUserUsersLogoutPostResponse,
+  DeleteUserUsersDeleteProfileDeleteError,
+  DeleteUserUsersDeleteProfileDeleteResponse,
+  ReadCardsAdminCardsGetData,
+  ReadCardsAdminCardsGetError,
+  ReadCardsAdminCardsGetResponse,
+  ReadTrainRecordsAdminTrainRecordsGetData,
+  ReadTrainRecordsAdminTrainRecordsGetError,
+  ReadTrainRecordsAdminTrainRecordsGetResponse,
+  ReadUsersAdminUsersGetData,
+  ReadUsersAdminUsersGetError,
+  ReadUsersAdminUsersGetResponse,
+  ReadCollectionsAdminCollectionsGetData,
+  ReadCollectionsAdminCollectionsGetError,
+  ReadCollectionsAdminCollectionsGetResponse,
 } from './types.gen';
 
 export const client = createClient(createConfig());
@@ -108,6 +112,22 @@ export const deleteCardCardsCardIdDelete = <
 };
 
 /**
+ * Update Card
+ */
+export const updateCardCardsCardIdPut = <ThrowOnError extends boolean = false>(
+  options?: Options<unknown, ThrowOnError>
+) => {
+  return (options?.client ?? client).put<
+    UpdateCardCardsCardIdPutResponse,
+    UpdateCardCardsCardIdPutError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/cards/{card_id}',
+  });
+};
+
+/**
  * Read Cards
  */
 export const readCardsCardsGet = <ThrowOnError extends boolean = false>(
@@ -136,6 +156,24 @@ export const createCardCardsPost = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: '/cards/',
+  });
+};
+
+/**
+ * Read Card Collections
+ */
+export const readCardCollectionsCardsCardIdCollectionsGet = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<unknown, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCardCollectionsCardsCardIdCollectionsGetResponse,
+    ReadCardCollectionsCardsCardIdCollectionsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/cards/{card_id}/collections',
   });
 };
 
@@ -256,76 +294,16 @@ export const deleteCardCollectionConnectionCollectionsCollectionIdUnpairDelete =
   };
 
 /**
- * Read Train Record
+ * Create Train Record
  */
-export const readTrainRecordTrainRecordsAdminTrainRecordIdGet = <
+export const createTrainRecordTrainRecordsCardIdPost = <
   ThrowOnError extends boolean = false
 >(
-  options: Options<
-    ReadTrainRecordTrainRecordsAdminTrainRecordIdGetData,
-    ThrowOnError
-  >
-) => {
-  return (options?.client ?? client).get<
-    ReadTrainRecordTrainRecordsAdminTrainRecordIdGetResponse,
-    ReadTrainRecordTrainRecordsAdminTrainRecordIdGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/train_records/admin/{train_record_id}',
-  });
-};
-
-/**
- * Read Train Records
- */
-export const readTrainRecordsTrainRecordsAdminGet = <
-  ThrowOnError extends boolean = false
->(
-  options?: Options<ReadTrainRecordsTrainRecordsAdminGetData, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    ReadTrainRecordsTrainRecordsAdminGetResponse,
-    ReadTrainRecordsTrainRecordsAdminGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/train_records/admin',
-  });
-};
-
-/**
- * Read User Train Records
- */
-export const readUserTrainRecordsTrainRecordsGet = <
-  ThrowOnError extends boolean = false
->(
-  options?: Options<unknown, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    ReadUserTrainRecordsTrainRecordsGetResponse,
-    ReadUserTrainRecordsTrainRecordsGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/train_records/',
-  });
-};
-
-/**
- * Create Train Record For User
- */
-export const createTrainRecordForUserTrainRecordsCardIdPost = <
-  ThrowOnError extends boolean = false
->(
-  options: Options<
-    CreateTrainRecordForUserTrainRecordsCardIdPostData,
-    ThrowOnError
-  >
+  options: Options<CreateTrainRecordTrainRecordsCardIdPostData, ThrowOnError>
 ) => {
   return (options?.client ?? client).post<
-    CreateTrainRecordForUserTrainRecordsCardIdPostResponse,
-    CreateTrainRecordForUserTrainRecordsCardIdPostError,
+    CreateTrainRecordTrainRecordsCardIdPostResponse,
+    CreateTrainRecordTrainRecordsCardIdPostError,
     ThrowOnError
   >({
     ...options,
@@ -334,40 +312,19 @@ export const createTrainRecordForUserTrainRecordsCardIdPost = <
 };
 
 /**
- * Read User Card Train Records
+ * Read Card Last Train Record
  */
-export const readUserCardTrainRecordsTrainRecordsCardIdGet = <
+export const readCardLastTrainRecordTrainRecordsRecordCardIdGet = <
   ThrowOnError extends boolean = false
 >(
   options: Options<
-    ReadUserCardTrainRecordsTrainRecordsCardIdGetData,
+    ReadCardLastTrainRecordTrainRecordsRecordCardIdGetData,
     ThrowOnError
   >
 ) => {
   return (options?.client ?? client).get<
-    ReadUserCardTrainRecordsTrainRecordsCardIdGetResponse,
-    ReadUserCardTrainRecordsTrainRecordsCardIdGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/train_records/{card_id}',
-  });
-};
-
-/**
- * Read User Card Last Train Record
- */
-export const readUserCardLastTrainRecordTrainRecordsRecordCardIdGet = <
-  ThrowOnError extends boolean = false
->(
-  options: Options<
-    ReadUserCardLastTrainRecordTrainRecordsRecordCardIdGetData,
-    ThrowOnError
-  >
-) => {
-  return (options?.client ?? client).get<
-    ReadUserCardLastTrainRecordTrainRecordsRecordCardIdGetResponse,
-    ReadUserCardLastTrainRecordTrainRecordsRecordCardIdGetError,
+    ReadCardLastTrainRecordTrainRecordsRecordCardIdGetResponse,
+    ReadCardLastTrainRecordTrainRecordsRecordCardIdGetError,
     ThrowOnError
   >({
     ...options,
@@ -376,52 +333,18 @@ export const readUserCardLastTrainRecordTrainRecordsRecordCardIdGet = <
 };
 
 /**
- * Read Users
+ * Read User
  */
-export const readUsersUsersGet = <ThrowOnError extends boolean = false>(
-  options?: Options<ReadUsersUsersGetData, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    ReadUsersUsersGetResponse,
-    ReadUsersUsersGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/users/',
-  });
-};
-
-/**
- * Read Current User
- */
-export const readCurrentUserUsersProfileGet = <
-  ThrowOnError extends boolean = false
->(
+export const readUserUsersProfileGet = <ThrowOnError extends boolean = false>(
   options?: Options<unknown, ThrowOnError>
 ) => {
   return (options?.client ?? client).get<
-    ReadCurrentUserUsersProfileGetResponse,
-    ReadCurrentUserUsersProfileGetError,
+    ReadUserUsersProfileGetResponse,
+    ReadUserUsersProfileGetError,
     ThrowOnError
   >({
     ...options,
     url: '/users/profile',
-  });
-};
-
-/**
- * Read User
- */
-export const readUserUsersUserIdGet = <ThrowOnError extends boolean = false>(
-  options: Options<ReadUserUsersUserIdGetData, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    ReadUserUsersUserIdGetResponse,
-    ReadUserUsersUserIdGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/users/{user_id}',
   });
 };
 
@@ -440,6 +363,24 @@ export const createUserUsersRegisterPost = <
   >({
     ...options,
     url: '/users/register',
+  });
+};
+
+/**
+ * Update User
+ */
+export const updateUserUsersEditProfilePut = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<UpdateUserUsersEditProfilePutData, ThrowOnError>
+) => {
+  return (options?.client ?? client).put<
+    UpdateUserUsersEditProfilePutResponse,
+    UpdateUserUsersEditProfilePutError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/users/edit_profile',
   });
 };
 
@@ -474,5 +415,91 @@ export const logoutUserUsersLogoutPost = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: '/users/logout',
+  });
+};
+
+/**
+ * Delete User
+ */
+export const deleteUserUsersDeleteProfileDelete = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<unknown, ThrowOnError>
+) => {
+  return (options?.client ?? client).delete<
+    DeleteUserUsersDeleteProfileDeleteResponse,
+    DeleteUserUsersDeleteProfileDeleteError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/users/delete_profile',
+  });
+};
+
+/**
+ * Read Cards
+ */
+export const readCardsAdminCardsGet = <ThrowOnError extends boolean = false>(
+  options?: Options<ReadCardsAdminCardsGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCardsAdminCardsGetResponse,
+    ReadCardsAdminCardsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/admin/cards',
+  });
+};
+
+/**
+ * Read Train Records
+ */
+export const readTrainRecordsAdminTrainRecordsGet = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<ReadTrainRecordsAdminTrainRecordsGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadTrainRecordsAdminTrainRecordsGetResponse,
+    ReadTrainRecordsAdminTrainRecordsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/admin/train_records',
+  });
+};
+
+/**
+ * Read Users
+ */
+export const readUsersAdminUsersGet = <ThrowOnError extends boolean = false>(
+  options?: Options<ReadUsersAdminUsersGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadUsersAdminUsersGetResponse,
+    ReadUsersAdminUsersGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/admin/users',
+  });
+};
+
+/**
+ * Read Collections
+ */
+export const readCollectionsAdminCollectionsGet = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<ReadCollectionsAdminCollectionsGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCollectionsAdminCollectionsGetResponse,
+    ReadCollectionsAdminCollectionsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/admin/collections',
   });
 };

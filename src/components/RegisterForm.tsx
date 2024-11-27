@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 
 import { Button } from '@/components/library/Button';
 import { FormItem } from '@/components/library/FormItem';
-import {
-  authenticateUserUsersLoginPost,
-  createUserUsersRegisterPost,
-  readCurrentUserUsersProfileGet,
-} from '@/api';
+import { createUserUsersRegisterPost } from '@/api';
 import { useAppStore } from '@/state';
+import { getErrorObject } from '@/query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const userRegisterScheme = z
   .object({
@@ -28,8 +26,6 @@ export type UserRegisterData = z.infer<typeof userRegisterScheme>;
 export const RegisterForm: React.FC = () => {
   const closeAuthWindow = useAppStore((state) => state.closeAuthWindow);
 
-  const [registerErrorMessage, setRegisterErrorMessage] = useState<string>();
-
   const {
     register,
     handleSubmit,
@@ -37,40 +33,30 @@ export const RegisterForm: React.FC = () => {
   } = useForm<UserRegisterData>({
     resolver: zodResolver(userRegisterScheme),
   });
-
-  const registerUser: SubmitHandler<UserRegisterData> = (data) => {
-    createUserUsersRegisterPost({
-      body: {
-        email: data.email,
-        nickname: data.nickname,
-        password: data.password1,
-      },
-    })
-      .then((responseData) => {
-        if (responseData.response.ok)
-          return authenticateUserUsersLoginPost({
-            body: {
-              email: data.email,
-              password: data.password1,
-            },
-          });
-        // else setRegisterErrorMessage(responseData.error?.detail?.toString());
-        else console.log(responseData.error?.detail);
-      })
-      .then((loginResponse) => {
-        if (loginResponse?.response.ok) {
-          readCurrentUserUsersProfileGet().then((userResponse) => {
-            console.log(userResponse.data); // TODO: подать куда надо сигнал об обновлении визуала пользователя
-          });
-          closeAuthWindow();
-        } else console.log('Error: ' + loginResponse?.error?.detail);
-      });
-  };
+  
+  const queryClient = useQueryClient();
+  const { mutate: registerUser, error } = useMutation({
+    mutationFn: (data: UserRegisterData) =>
+      createUserUsersRegisterPost({
+        body: {
+          email: data.email,
+          nickname: data.nickname,
+          password: data.password1,
+        },
+      }).then(({ data, response, error }) => {
+        if (data) return data;
+        throw getErrorObject(response, error);
+      }),
+    onSuccess: (data) => {
+      closeAuthWindow();
+      queryClient.setQueryData(['profile'], data);
+    },
+  });
 
   return (
     <form
       className="vstack w-full p-2 text-white"
-      onSubmit={handleSubmit(registerUser)}
+      onSubmit={handleSubmit((data) => registerUser(data))}
     >
       <FormItem
         className="vstack p-1 w-full"
@@ -114,11 +100,8 @@ export const RegisterForm: React.FC = () => {
           type="password"
         />
       </FormItem>
-      {registerErrorMessage && (
-        <FormItem
-          className="vstack p-1 w-full"
-          errorMessage={registerErrorMessage}
-        />
+      {error && (
+        <FormItem className="vstack p-1 w-full" errorMessage={error.message} />
       )}
       <Button variant="plate" type="submit" className="m-2">
         Sign up

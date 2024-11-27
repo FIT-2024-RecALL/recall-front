@@ -50,6 +50,11 @@ export type UserAuth = {
   password: string;
 };
 
+export type UserBase = {
+  nickname: string;
+  email: string;
+};
+
 export type UserCreate = {
   nickname: string;
   email: string;
@@ -82,6 +87,10 @@ export type DeleteCardCardsCardIdDeleteResponse = unknown;
 
 export type DeleteCardCardsCardIdDeleteError = HTTPValidationError;
 
+export type UpdateCardCardsCardIdPutResponse = unknown;
+
+export type UpdateCardCardsCardIdPutError = unknown;
+
 export type ReadCardsCardsGetData = {
   query?: {
     limit?: number | null;
@@ -100,6 +109,10 @@ export type CreateCardCardsPostData = {
 export type CreateCardCardsPostResponse = Card;
 
 export type CreateCardCardsPostError = HTTPValidationError;
+
+export type ReadCardCollectionsCardsCardIdCollectionsGetResponse = unknown;
+
+export type ReadCardCollectionsCardsCardIdCollectionsGetError = unknown;
 
 export type ReadCollectionCollectionsCollectionIdGetData = {
   path: {
@@ -169,94 +182,32 @@ export type DeleteCardCollectionConnectionCollectionsCollectionIdUnpairDeleteRes
 export type DeleteCardCollectionConnectionCollectionsCollectionIdUnpairDeleteError =
   HTTPValidationError;
 
-export type ReadTrainRecordTrainRecordsAdminTrainRecordIdGetData = {
-  path: {
-    train_record_id: number;
-  };
-};
-
-export type ReadTrainRecordTrainRecordsAdminTrainRecordIdGetResponse =
-  TrainRecord;
-
-export type ReadTrainRecordTrainRecordsAdminTrainRecordIdGetError =
-  HTTPValidationError;
-
-export type ReadTrainRecordsTrainRecordsAdminGetData = {
-  query?: {
-    limit?: number | null;
-    skip?: number;
-  };
-};
-
-export type ReadTrainRecordsTrainRecordsAdminGetResponse = Array<TrainRecord>;
-
-export type ReadTrainRecordsTrainRecordsAdminGetError = HTTPValidationError;
-
-export type ReadUserTrainRecordsTrainRecordsGetResponse = Array<TrainRecord>;
-
-export type ReadUserTrainRecordsTrainRecordsGetError = unknown;
-
-export type CreateTrainRecordForUserTrainRecordsCardIdPostData = {
+export type CreateTrainRecordTrainRecordsCardIdPostData = {
   body: TrainRecordCreate;
   path: {
     card_id: number;
   };
 };
 
-export type CreateTrainRecordForUserTrainRecordsCardIdPostResponse =
-  TrainRecord;
+export type CreateTrainRecordTrainRecordsCardIdPostResponse = TrainRecord;
 
-export type CreateTrainRecordForUserTrainRecordsCardIdPostError =
-  HTTPValidationError;
+export type CreateTrainRecordTrainRecordsCardIdPostError = HTTPValidationError;
 
-export type ReadUserCardTrainRecordsTrainRecordsCardIdGetData = {
+export type ReadCardLastTrainRecordTrainRecordsRecordCardIdGetData = {
   path: {
     card_id: number;
   };
 };
 
-export type ReadUserCardTrainRecordsTrainRecordsCardIdGetResponse =
+export type ReadCardLastTrainRecordTrainRecordsRecordCardIdGetResponse =
   Array<TrainRecord>;
 
-export type ReadUserCardTrainRecordsTrainRecordsCardIdGetError =
+export type ReadCardLastTrainRecordTrainRecordsRecordCardIdGetError =
   HTTPValidationError;
 
-export type ReadUserCardLastTrainRecordTrainRecordsRecordCardIdGetData = {
-  path: {
-    card_id: number;
-  };
-};
+export type ReadUserUsersProfileGetResponse = User;
 
-export type ReadUserCardLastTrainRecordTrainRecordsRecordCardIdGetResponse =
-  Array<TrainRecord>;
-
-export type ReadUserCardLastTrainRecordTrainRecordsRecordCardIdGetError =
-  HTTPValidationError;
-
-export type ReadUsersUsersGetData = {
-  query?: {
-    limit?: number;
-    skip?: number;
-  };
-};
-
-export type ReadUsersUsersGetResponse = Array<User>;
-
-export type ReadUsersUsersGetError = HTTPValidationError;
-
-export type ReadCurrentUserUsersProfileGetResponse = User;
-
-export type ReadCurrentUserUsersProfileGetError = unknown;
-
-export type ReadUserUsersUserIdGetData = {
-  path: {
-    user_id: number;
-  };
-};
-
-export type ReadUserUsersUserIdGetResponse = User;
-
-export type ReadUserUsersUserIdGetError = HTTPValidationError;
+export type ReadUserUsersProfileGetError = unknown;
 
 export type CreateUserUsersRegisterPostData = {
   body: UserCreate;
@@ -265,6 +216,14 @@ export type CreateUserUsersRegisterPostData = {
 export type CreateUserUsersRegisterPostResponse = User;
 
 export type CreateUserUsersRegisterPostError = HTTPValidationError;
+
+export type UpdateUserUsersEditProfilePutData = {
+  body: UserBase;
+};
+
+export type UpdateUserUsersEditProfilePutResponse = User;
+
+export type UpdateUserUsersEditProfilePutError = HTTPValidationError;
 
 export type AuthenticateUserUsersLoginPostData = {
   body: UserAuth;
@@ -277,3 +236,51 @@ export type AuthenticateUserUsersLoginPostError = HTTPValidationError;
 export type LogoutUserUsersLogoutPostResponse = unknown;
 
 export type LogoutUserUsersLogoutPostError = unknown;
+
+export type DeleteUserUsersDeleteProfileDeleteResponse = unknown;
+
+export type DeleteUserUsersDeleteProfileDeleteError = unknown;
+
+export type ReadCardsAdminCardsGetData = {
+  query?: {
+    limit?: number | null;
+    skip?: number;
+  };
+};
+
+export type ReadCardsAdminCardsGetResponse = Array<Card>;
+
+export type ReadCardsAdminCardsGetError = HTTPValidationError;
+
+export type ReadTrainRecordsAdminTrainRecordsGetData = {
+  query?: {
+    limit?: number | null;
+    skip?: number;
+  };
+};
+
+export type ReadTrainRecordsAdminTrainRecordsGetResponse = Array<TrainRecord>;
+
+export type ReadTrainRecordsAdminTrainRecordsGetError = HTTPValidationError;
+
+export type ReadUsersAdminUsersGetData = {
+  query?: {
+    limit?: number;
+    skip?: number;
+  };
+};
+
+export type ReadUsersAdminUsersGetResponse = Array<User>;
+
+export type ReadUsersAdminUsersGetError = HTTPValidationError;
+
+export type ReadCollectionsAdminCollectionsGetData = {
+  query?: {
+    limit?: number | null;
+    skip?: number;
+  };
+};
+
+export type ReadCollectionsAdminCollectionsGetResponse = Array<Collection>;
+
+export type ReadCollectionsAdminCollectionsGetError = HTTPValidationError;

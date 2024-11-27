@@ -193,6 +193,24 @@ export const UserAuthSchema = {
   title: 'UserAuth',
 } as const;
 
+export const UserBaseSchema = {
+  properties: {
+    nickname: {
+      type: 'string',
+      maxLength: 50,
+      title: 'Nickname',
+    },
+    email: {
+      type: 'string',
+      format: 'email',
+      title: 'Email',
+    },
+  },
+  type: 'object',
+  required: ['nickname', 'email'],
+  title: 'UserBase',
+} as const;
+
 export const UserCreateSchema = {
   properties: {
     nickname: {

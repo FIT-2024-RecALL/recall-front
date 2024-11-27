@@ -1,15 +1,14 @@
 import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 
 import { Button } from '@/components/library/Button';
 import { FormItem } from '@/components/library/FormItem';
-import {
-  authenticateUserUsersLoginPost,
-  readCurrentUserUsersProfileGet,
-} from '@/api';
+import { authenticateUserUsersLoginPost } from '@/api';
 import { useAppStore } from '@/state';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getErrorObject } from '@/query';
 
 const userLoginScheme = z.object({
   email: z.string().email().min(1, 'Email is required'),
@@ -30,25 +29,27 @@ export const LoginForm: React.FC = () => {
     resolver: zodResolver(userLoginScheme),
   });
 
-  const login: SubmitHandler<UserLoginData> = (data) => {
-    authenticateUserUsersLoginPost({
-      body: {
-        ...data,
-      },
-    }).then((data) => {
-      if (data.response.ok) {
-        readCurrentUserUsersProfileGet().then((data) => {
-          console.log(data.data); // TODO: подать куда надо сигнал об обновлении визуала пользователя
-        });
-        closeAuthWindow();
-      } else console.log('Error: ' + data.error?.detail);
-    });
-  };
+  const queryClient = useQueryClient();
+  const { mutate: login, error } = useMutation({
+    mutationFn: (data: UserLoginData) =>
+      authenticateUserUsersLoginPost({
+        body: {
+          ...data,
+        },
+      }).then(({ data, response, error }) => {
+        if (data) return data;
+        throw getErrorObject(response, error);
+      }),
+    onSuccess: () => {
+      closeAuthWindow();
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+    },
+  });
 
   return (
     <form
       className="vstack w-full p-2 text-white"
-      onSubmit={handleSubmit(login)}
+      onSubmit={handleSubmit((data) => login(data))}
     >
       <FormItem
         className="vstack p-1 w-full"
@@ -71,6 +72,9 @@ export const LoginForm: React.FC = () => {
           type="password"
         />
       </FormItem>
+      {error && (
+        <FormItem className="vstack p-1 w-full" errorMessage={error.message} />
+      )}
       <Button variant="plate" type="submit" className="m-2">
         Sign in
       </Button>

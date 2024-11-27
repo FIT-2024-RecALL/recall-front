@@ -4,18 +4,25 @@ import { Link } from 'wouter';
 import { Button } from '@/components/library/Button';
 import { useAppStore } from '@/state/state';
 import { Menu } from './Menu';
-import { logoutUserUsersLogoutPost, readCurrentUserUsersProfileGet } from '@/api';
+import { logoutUserUsersLogoutPost } from '@/api';
+import { getErrorObject, useProfile } from '@/query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const Header: React.FC = () => {
   const showLoginWindow = useAppStore((state) => state.showLoginWindow);
   const showRegisterWindow = useAppStore((state) => state.showRegisterWindow);
-  const [user, setUser] = useState<string>();
 
-  useEffect(() => {
-    readCurrentUserUsersProfileGet().then((data) => {
-      if (data.response.ok) setUser(data.data?.nickname);
-    }); // TODO: Разумеется, это надо будет переделать
-  }, []);
+  const { profile } = useProfile();
+
+  const client = useQueryClient();
+  const { mutate: logout, error: logoutError } = useMutation({
+    mutationFn: () =>
+      logoutUserUsersLogoutPost().then(({ data, response, error }) => {
+        if (data) return data;
+        throw getErrorObject(response, error);
+      }),
+    onSuccess: () => client.resetQueries({ queryKey: ['profile'] }),
+  });
 
   return (
     <header>
@@ -25,22 +32,21 @@ export const Header: React.FC = () => {
         </h2>
         <Menu />
         <div className="center">
-          {user ? (
+          {profile ? (
             <>
               <Link to="/profile" className="my-1 mx-2 p-0 center font-bold">
-                <Button variant="inline">{user}</Button>
+                <Button variant="inline">{profile.nickname}</Button>
               </Link>
               <Button
                 variant="bordered-trans"
                 className="p-1 my-1 mx-2"
-                onClick={() => {
-                  logoutUserUsersLogoutPost().then((data) => {
-                    console.log(data);
-                  });
-                }}
+                onClick={() => logout()}
               >
                 Log out
               </Button>
+              {logoutError && (
+                <span>Failed to logout: {logoutError.message}</span>
+              )}
             </>
           ) : (
             <>
