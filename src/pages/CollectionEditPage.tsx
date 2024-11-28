@@ -19,22 +19,6 @@ export type CollectionType = CollectionEditType & {
   id: number;
 };
 
-function getCardExample(id: number): CardType {
-  return {
-    id: id,
-    previewText: `Card ${id}`,
-    frontSide:
-      '# The first side \n Here will be **question** \n ' +
-      'Photos: ![Cat photo](https://avatars.mds.yandex.net/i?id=76dd9d5c1922688236a4dca063bc3c2ce3dafd22-5283663-images-thumbs&n=13)' +
-      'audios: ![Bip sound](https://sanstv.ru/test/audio/test.wav)' +
-      'and videos: ![Waterfall video](https://tekeye.uk/html/images/Joren_Falls_Izu_Jap.mp4)' +
-      'are available! \n ' +
-      'And also $LaTeX$...',
-    backSide:
-      '# The second side \n Here will be *answer* \n (Only basic markup is available)',
-  };
-}
-
 const getCollectionPseudoRequest = async (id: number) => {
   return {
     id: id,
@@ -44,31 +28,11 @@ const getCollectionPseudoRequest = async (id: number) => {
 };
 
 const getCollectionCardsPseudoRequest = async (id: number) => {
-  return [
-    { ...getCardExample(0) },
-    { ...getCardExample(1) },
-    { ...getCardExample(2) },
-    { ...getCardExample(3) },
-    { ...getCardExample(4) },
-    { ...getCardExample(5) },
-    { ...getCardExample(6) },
-  ];
+  return [0, 1, 2, 3, 4, 5, 6];
 };
 
 const getAllCardsPseudoRequest = async () => {
-  return [
-    { ...getCardExample(0) },
-    { ...getCardExample(1) },
-    { ...getCardExample(2) },
-    { ...getCardExample(3) },
-    { ...getCardExample(4) },
-    { ...getCardExample(5) },
-    { ...getCardExample(6) },
-    { ...getCardExample(7) },
-    { ...getCardExample(8) },
-    { ...getCardExample(9) },
-    { ...getCardExample(10) },
-  ];
+  return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 };
 
 export interface EditPageParams {
@@ -78,17 +42,17 @@ export interface EditPageParams {
 export const CollectionEditPage: React.FC = () => {
   const { id } = useParams<EditPageParams>();
   const [collection, setCollection] = useState<CollectionType>();
-  const [collectionCards, setCollectionCards] = useState<CardType[]>([]);
-  const [cards, setCards] = useState<CardType[]>([]);
+  const [collectionCardsIds, setCollectionCardsIds] = useState<number[]>([]);
+  const [cardsIds, setCardsIds] = useState<number[]>([]);
 
   useEffect(() => {
     getCollectionPseudoRequest(id).then((collection) =>
       setCollection(collection)
     );
-    getCollectionCardsPseudoRequest(id).then((cards) =>
-      setCollectionCards(cards)
+    getCollectionCardsPseudoRequest(id).then((cardsIds) =>
+      setCollectionCardsIds(cardsIds)
     );
-    getAllCardsPseudoRequest().then((cards) => setCards(cards));
+    getAllCardsPseudoRequest().then((cardsIds) => setCardsIds(cardsIds));
   }, [id]);
 
   const {
@@ -164,17 +128,12 @@ export const CollectionEditPage: React.FC = () => {
           }}
         >
           <Card
-            cardData={{
-              id: 'new',
-              previewText: '+',
-              frontSide: '',
-              backSide: '',
-            }}
+            cardId="new"
             mode="edit"
             className="bg-1-4 text-7xl font-normal"
           />
-          {collectionCards.map((card) => (
-            <Card cardData={card} mode="edit" key={card.id} />
+          {collectionCardsIds.map((cardId) => (
+            <Card cardId={cardId} mode="edit" key={cardId} />
           ))}
         </div>
 
@@ -187,8 +146,8 @@ export const CollectionEditPage: React.FC = () => {
             gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
           }}
         >
-          {cards.map((card) => (
-            <Card cardData={card} mode="edit" key={card.id} />
+          {cardsIds.map((cardId) => (
+            <Card cardId={cardId} mode="edit" key={cardId} />
           ))}
         </div>
       </div>
