@@ -103,10 +103,12 @@ export const CollectionEditPage: React.FC = () => {
     console.log(data);
   };
 
+  if (!collection) return <Redirect to="" />;
+
   return (
     <>
-      {!collection && <Redirect to="" />}
       <div className="vstack m-2 md:m-10 p-2 md:p-5">
+        {/* Collection Edit Form */}
         <form
           className="my-2 md:my-6"
           onSubmit={handleSubmit(saveCollectionData)}
@@ -145,15 +147,16 @@ export const CollectionEditPage: React.FC = () => {
               {...register('description')}
             />
           </FormItem>
-          {/* TODO: Сделать, чтобы кнопка появлялась при изменениях */}
           <div className="w-full center">
             <Button variant="plate" type="submit">
               Save collection
             </Button>
           </div>
         </form>
+
         <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
         <h2 className="my-2 text-2xl text-center font-bold">Paired cards</h2>
+        {/* Paired Cards */}
         <div
           className="grid gap-x-5 gap-y-1 w-full"
           style={{
@@ -174,8 +177,10 @@ export const CollectionEditPage: React.FC = () => {
             <Card cardData={card} mode="edit" key={card.id} />
           ))}
         </div>
+
         <hr className="border border-1-1 rounded my-2 md:my-6" />
         <h2 className="my-2 text-2xl text-center font-bold">All cards</h2>
+        {/* All Cards */}
         <div
           className="grid gap-x-5 gap-y-1 w-full"
           style={{

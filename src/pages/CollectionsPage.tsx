@@ -1,52 +1,64 @@
 import React, { useState } from 'react';
-import CollectionCard from '../components/collectionCard/CollectionCard';
-import SearchBar from '@/components/SearchBar';
-import { collections } from '../components/words.js';
+import { CollectionCard } from '../components/collectionCard/CollectionCard';
+import { SearchBar } from '@/components/SearchBar';
+import { collections } from '../components/mockCollectionsData.js';
+import clsx from 'clsx';
 
 export const CollectionsPage: React.FC = () => {
-  const [, setSearchTerm] = useState('');
-  const [activeSearch, setActiveSearch] = useState(collections);
-
-  const handleButtonClick1 = (id: number) => {
-    console.log(`Button 1 clicked for Collection ID: ${id}`);
-    // Implement action for Button 1
-  };
-
-  const handleButtonClick2 = (id: number) => {
-    console.log(`Button 2 clicked for Collection ID: ${id}`);
-    // Implement action for Button 2
-  };
+  const [searchTerm, setSearchTerm] = useState('');
+  const [, setConfirmedSearchTerm] = useState('');
+  const [activeCollections, setActiveCollections] = useState(collections);
 
   const handleSearchChange = (term: string) => {
     setSearchTerm(term);
-    if (term === '') {
-      setActiveSearch(collections);
-    } else {
-      setActiveSearch(
-        collections.filter((item) =>
-          item.title.toLowerCase().includes(term.toLowerCase())
-        )
-      );
-    }
+  };
+
+  const handleSearchConfirm = () => {
+    setConfirmedSearchTerm(searchTerm);
+    const filteredCollections =
+      searchTerm.trim() === ''
+        ? collections
+        : collections.filter((item) =>
+            item.title.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+    setActiveCollections(filteredCollections);
   };
 
   return (
-    <div className="flex flex-col items-center vstack m-2 md:m-10 p-2 md:p-5 bg-1-8 text-o-black rounded-md ">
-      <h1 className="text-center text-o-white text-2xl font-bold mb-4">
+    <div className="flex flex-col items-center m-4 md:m-10 p-5 bg-1-8 text-o-black rounded-lg">
+      <h1 className="text-center text-2-1 text-2xl font-bold mb-6">
         Collections
       </h1>
-      <SearchBar onSearchChange={handleSearchChange} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-        {activeSearch.map((item) => (
-          <CollectionCard
-            key={item.id}
-            timeAgo="30 минут назад"
-            title={item.title}
-            description={item.description}
-            onButtonClick1={() => handleButtonClick1(item.id)}
-            onButtonClick2={() => handleButtonClick2(item.id)}
-          />
-        ))}
+      <SearchBar
+        onSearchChange={handleSearchChange}
+        onSearchConfirm={handleSearchConfirm}
+        activeSearch={collections
+          .filter((item) =>
+            item.title.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+          .map((item) => item.title)}
+      />
+      <div
+        className="grid align-center justify-center w-full gap-4 pt-4"
+        style={{
+          gridTemplateColumns: 'repeat( auto-fit, 320px )',
+        }}
+      >
+        {activeCollections.length > 0 ? (
+          activeCollections.map((item) => (
+            <CollectionCard
+              key={item.id}
+              timeAgo={item.timeAgo}
+              title={item.title}
+              description={item.description}
+              collectionId={item.id.toString()}
+            />
+          ))
+        ) : (
+          <p className="text-center text-o-white col-span-full">
+            No collections found
+          </p>
+        )}
       </div>
     </div>
   );
