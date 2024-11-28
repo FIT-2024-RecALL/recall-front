@@ -1,13 +1,12 @@
-import { Card } from '@/components/card/Card';
-import { CardType } from '@/state/slices';
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { Redirect, useParams } from 'wouter';
-import { FormItem } from '../components/library/FormItem';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Button } from '../components/library/Button';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 import clsx from 'clsx';
+
+import { Card } from '@/components/card';
+import { Button, FormItem } from '@/components/library';
 
 const collectionScheme = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -67,10 +66,9 @@ export const CollectionEditPage: React.FC = () => {
     console.log(data);
   };
 
-  if (!collection) return <Redirect to="" />;
-
   return (
     <>
+      {!collection && <Redirect to="" />}
       <div className="vstack m-2 md:m-10 p-2 md:p-5">
         {/* Collection Edit Form */}
         <form
@@ -120,7 +118,6 @@ export const CollectionEditPage: React.FC = () => {
 
         <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
         <h2 className="my-2 text-2xl text-center font-bold">Paired cards</h2>
-        {/* Paired Cards */}
         <div
           className="grid gap-x-5 gap-y-1 w-full"
           style={{
@@ -139,7 +136,6 @@ export const CollectionEditPage: React.FC = () => {
 
         <hr className="border border-1-1 rounded my-2 md:my-6" />
         <h2 className="my-2 text-2xl text-center font-bold">All cards</h2>
-        {/* All Cards */}
         <div
           className="grid gap-x-5 gap-y-1 w-full"
           style={{
