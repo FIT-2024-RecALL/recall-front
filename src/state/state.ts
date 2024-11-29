@@ -5,20 +5,22 @@ import { devtools } from 'zustand/middleware';
 import { Mutator } from './types';
 import {
   ActiveCardState,
-  UIState,
+  AuthWindowState,
   createActiveCardStateSlice,
-  createUIStateSlice,
+  createAuthWindowStateSlice,
 } from './slices';
+import { createTrainStateSlice, TrainState } from './slices/TrainState';
 
-type StoreType = UIState & ActiveCardState;
+type StoreType = AuthWindowState & ActiveCardState & TrainState;
 
 export const useAppStore = create<StoreType>()(
   devtools((set, ...rest) => {
     const mutate: Mutator<StoreType> = (mutator) => set(produce(mutator));
 
     return {
-      ...createUIStateSlice(mutate, set, ...rest),
+      ...createAuthWindowStateSlice(mutate, set, ...rest),
       ...createActiveCardStateSlice(mutate, set, ...rest),
+      ...createTrainStateSlice(mutate, set, ...rest),
     };
   })
 );
