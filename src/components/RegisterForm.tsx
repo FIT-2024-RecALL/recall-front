@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 
 import { Button } from '@/components/library/Button';
 import { FormItem } from '@/components/library/FormItem';
-import { createUserUsersRegisterPost } from '@/api';
+import { createUserUserRegisterPost } from '@/api';
 import { useAppStore } from '@/state';
 import { dataExtractionWrapper } from '@/query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -38,7 +38,7 @@ export const RegisterForm: React.FC = () => {
   const { mutate: registerUser, error } = useMutation({
     mutationFn: (data: UserRegisterData) =>
       dataExtractionWrapper(
-        createUserUsersRegisterPost({
+        createUserUserRegisterPost({
           body: {
             email: data.email,
             nickname: data.nickname,

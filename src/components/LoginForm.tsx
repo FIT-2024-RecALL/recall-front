@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 
 import { Button } from '@/components/library/Button';
 import { FormItem } from '@/components/library/FormItem';
-import { authenticateUserUsersLoginPost } from '@/api';
+import { authenticateUserUserLoginPost } from '@/api';
 import { useAppStore } from '@/state';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { dataExtractionWrapper } from '@/query';
@@ -33,7 +33,7 @@ export const LoginForm: React.FC = () => {
   const { mutate: login, error } = useMutation({
     mutationFn: (data: UserLoginData) =>
       dataExtractionWrapper(
-        authenticateUserUsersLoginPost({
+        authenticateUserUserLoginPost({
           body: {
             ...data,
           },
