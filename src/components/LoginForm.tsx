@@ -8,7 +8,7 @@ import { FormItem } from '@/components/library/FormItem';
 import { authenticateUserUsersLoginPost } from '@/api';
 import { useAppStore } from '@/state';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getErrorObject } from '@/query';
+import { dataExtractionWrapper } from '@/query';
 
 const userLoginScheme = z.object({
   email: z.string().email().min(1, 'Email is required'),
@@ -32,14 +32,13 @@ export const LoginForm: React.FC = () => {
   const queryClient = useQueryClient();
   const { mutate: login, error } = useMutation({
     mutationFn: (data: UserLoginData) =>
-      authenticateUserUsersLoginPost({
-        body: {
-          ...data,
-        },
-      }).then(({ data, response, error }) => {
-        if (data) return data;
-        throw getErrorObject(response, error);
-      }),
+      dataExtractionWrapper(
+        authenticateUserUsersLoginPost({
+          body: {
+            ...data,
+          },
+        })
+      ),
     onSuccess: () => {
       closeAuthWindow();
       queryClient.invalidateQueries({ queryKey: ['profile'] });
