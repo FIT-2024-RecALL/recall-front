@@ -39,9 +39,9 @@ export const LoginForm: React.FC = () => {
           },
         })
       ),
-    onSuccess: () => {
+    onSuccess: (data) => {
       closeAuthWindow();
-      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      queryClient.setQueryData(['profile'], data);
     },
   });
 

@@ -221,6 +221,9 @@ export type ReadUserUserProfileGetError = unknown;
 
 export type CreateUserUserRegisterPostData = {
   body: UserCreate;
+  query?: {
+    auto_login?: boolean;
+  };
 };
 
 export type CreateUserUserRegisterPostResponse = User;
@@ -239,7 +242,7 @@ export type AuthenticateUserUserLoginPostData = {
   body: UserAuth;
 };
 
-export type AuthenticateUserUserLoginPostResponse = unknown;
+export type AuthenticateUserUserLoginPostResponse = User;
 
 export type AuthenticateUserUserLoginPostError = HTTPValidationError;
 

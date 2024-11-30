@@ -48,7 +48,7 @@ export const RegisterForm: React.FC = () => {
       ),
     onSuccess: (data) => {
       closeAuthWindow();
-      // queryClient.setQueryData(['profile'], data);
+      queryClient.setQueryData(['profile'], data);
     },
   });
 
