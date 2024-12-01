@@ -28,8 +28,6 @@ export const EditCardControls: React.FC = () => {
   const { id } = useParams<EditPageParams>(); // WE MUST GRANT THAT CREATION IS ONLY ON COLLECTION EDIT PAGE
 
   const cardData = useAppStore((state) => state.activeCard);
-  const isEditMode = useAppStore((state) => state.activeCardUI.editActive);
-  const setUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
   const [allOptions, setAllOptions] = useState<Options<Option<number>>>([]);
   const [selectedOptions, setSelectedOptions] = useState<
     MultiValue<Option<number>>
@@ -88,13 +86,6 @@ export const EditCardControls: React.FC = () => {
         />
       </div>
       <div className="m-2 center h-1/12">
-        <Button
-          className="text-xl m-3"
-          variant="plate"
-          onClick={() => setUIFlag('editActive', (p) => !p)}
-        >
-          {isEditMode ? 'Preview' : 'Edit'}
-        </Button>
         <Button
           className="text-xl m-3"
           variant="bordered"

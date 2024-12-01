@@ -11,12 +11,11 @@ export type CardType = {
 };
 
 export type ActiveCardUIModes = 'train' | 'edit';
-export type ActiveCardUIFlagKeys = 'zoomed' | 'flipped' | 'editActive';
+export type ActiveCardUIFlagKeys = 'zoomed' | 'flipped';
 export type ActiveCardUI = {
   mode: ActiveCardUIModes;
   zoomed: boolean;
   flipped: boolean;
-  editActive: boolean;
 };
 
 export type ActiveCardState = Immutable<{
@@ -60,7 +59,6 @@ export const createActiveCardStateSlice: Slice<ActiveCardState> = (mutate) => ({
         mode: mode,
         zoomed: true,
         flipped: false,
-        editActive: mode == 'edit',
       };
     });
   },

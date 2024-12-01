@@ -5,11 +5,13 @@ import {
 } from './markdown-it-plugged-parser';
 import clsx from 'clsx';
 import { UploadDropdown } from './UploadDropdown';
+import { Button } from '../library/Button';
+import { Icon } from '../library/Icon';
+import { EditorControls } from './EditorControls';
 
 interface EditorComponentProps extends HTMLAttributes<React.FC> {
   state: string;
   setState: (newState: string) => void;
-  active?: boolean;
   extended?: boolean;
   placeholder?: string;
 }
@@ -17,10 +19,10 @@ interface EditorComponentProps extends HTMLAttributes<React.FC> {
 export const EditorComponent: React.FC<EditorComponentProps> = ({
   state,
   setState,
-  active,
   extended,
   placeholder,
 }) => {
+  const [active, setActive] = useState(true);
   const renderer = useMemo(
     () => (extended ? extendedMdRenderer : simpleRenderer),
     [extended]
@@ -28,9 +30,13 @@ export const EditorComponent: React.FC<EditorComponentProps> = ({
 
   return (
     <>
+      <EditorControls
+        isExtended={extended}
+        isActive={active}
+        switchActive={() => setActive((a) => !a)}
+      />
       {active ? (
         <div className="w-full h-full">
-          {extended && <UploadDropdown />}
           <textarea
             className={clsx(
               'bg-1-2 focus:bg-1-3',
