@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'wouter';
-import { routesList } from '@/routes';
+import { menuRoutes } from '@/routes';
 import { Button } from '@/components/library/Button';
 import { SliderCheckbox } from '../library/SliderCheckbox';
 import clsx from 'clsx';
 
 export const Menu: React.FC = () => {
-  const links = routesList
-    .filter((data) => data.label)
-    .map((data) => (
-      <Link
-        to={data.url}
-        className="my-1 mx-2 p-0 center font-bold"
-        key={data.url}
-      >
-        <Button variant="inline">{data.label}</Button>
-      </Link>
-    ));
+  const links = menuRoutes.map((data) => (
+    <Link
+      to={data.url}
+      className="my-1 mx-2 p-0 center font-bold"
+      key={data.url}
+    >
+      <Button variant="inline">{data.label}</Button>
+    </Link>
+  ));
 
   const [mobileMenuShown, setMobileMenuShown] = useState(false);
 

@@ -6,46 +6,543 @@ import {
   type Options,
 } from '@hey-api/client-fetch';
 import type {
-  TakeSecretSecretsSecretKeyGetData,
-  TakeSecretSecretsSecretKeyGetError,
-  TakeSecretSecretsSecretKeyGetResponse,
-  CreateSecretGeneratePostData,
-  CreateSecretGeneratePostError,
-  CreateSecretGeneratePostResponse,
+  ReadCardCardsCardIdGetData,
+  ReadCardCardsCardIdGetError,
+  ReadCardCardsCardIdGetResponse,
+  DeleteCardCardsCardIdDeleteData,
+  DeleteCardCardsCardIdDeleteError,
+  DeleteCardCardsCardIdDeleteResponse,
+  UpdateCardCardsCardIdPutData,
+  UpdateCardCardsCardIdPutError,
+  UpdateCardCardsCardIdPutResponse,
+  CreateCardCardsPostData,
+  CreateCardCardsPostError,
+  CreateCardCardsPostResponse,
+  ReadCardCollectionsCardsCardIdCollectionsGetData,
+  ReadCardCollectionsCardsCardIdCollectionsGetError,
+  ReadCardCollectionsCardsCardIdCollectionsGetResponse,
+  ReadCollectionCollectionsCollectionIdGetData,
+  ReadCollectionCollectionsCollectionIdGetError,
+  ReadCollectionCollectionsCollectionIdGetResponse,
+  DeleteCollectionCollectionsCollectionIdDeleteData,
+  DeleteCollectionCollectionsCollectionIdDeleteError,
+  DeleteCollectionCollectionsCollectionIdDeleteResponse,
+  UpdateCollectionCollectionsCollectionIdPutData,
+  UpdateCollectionCollectionsCollectionIdPutError,
+  UpdateCollectionCollectionsCollectionIdPutResponse,
+  ReadCollectionsCollectionsGetData,
+  ReadCollectionsCollectionsGetError,
+  ReadCollectionsCollectionsGetResponse,
+  CreateCollectionCollectionsPostData,
+  CreateCollectionCollectionsPostError,
+  CreateCollectionCollectionsPostResponse,
+  ReadCollectionCardsCollectionsCollectionIdCardsGetData,
+  ReadCollectionCardsCollectionsCollectionIdCardsGetError,
+  ReadCollectionCardsCollectionsCollectionIdCardsGetResponse,
+  CreateTrainRecordTrainRecordsCardIdPostData,
+  CreateTrainRecordTrainRecordsCardIdPostError,
+  CreateTrainRecordTrainRecordsCardIdPostResponse,
+  ReadCardLastTrainRecordTrainRecordsRecordCardIdGetData,
+  ReadCardLastTrainRecordTrainRecordsRecordCardIdGetError,
+  ReadCardLastTrainRecordTrainRecordsRecordCardIdGetResponse,
+  ReadUserUserProfileGetError,
+  ReadUserUserProfileGetResponse,
+  CreateUserUserRegisterPostData,
+  CreateUserUserRegisterPostError,
+  CreateUserUserRegisterPostResponse,
+  UpdateUserUserEditProfilePutData,
+  UpdateUserUserEditProfilePutError,
+  UpdateUserUserEditProfilePutResponse,
+  AuthenticateUserUserLoginPostData,
+  AuthenticateUserUserLoginPostError,
+  AuthenticateUserUserLoginPostResponse,
+  ReadCardsUserCardsGetData,
+  ReadCardsUserCardsGetError,
+  ReadCardsUserCardsGetResponse,
+  ReadCollectionsUserCollectionsGetData,
+  ReadCollectionsUserCollectionsGetError,
+  ReadCollectionsUserCollectionsGetResponse,
+  LogoutUserUserLogoutPostError,
+  LogoutUserUserLogoutPostResponse,
+  DeleteUserUserDeleteProfileDeleteError,
+  DeleteUserUserDeleteProfileDeleteResponse,
+  ReadItemItemsItemIdGetData,
+  ReadItemItemsItemIdGetError,
+  ReadItemItemsItemIdGetResponse,
+  ReadCardsAdminCardsGetData,
+  ReadCardsAdminCardsGetError,
+  ReadCardsAdminCardsGetResponse,
+  ReadTrainRecordsAdminTrainRecordsGetData,
+  ReadTrainRecordsAdminTrainRecordsGetError,
+  ReadTrainRecordsAdminTrainRecordsGetResponse,
+  ReadUsersAdminUsersGetData,
+  ReadUsersAdminUsersGetError,
+  ReadUsersAdminUsersGetResponse,
+  ReadCollectionsAdminCollectionsGetData,
+  ReadCollectionsAdminCollectionsGetError,
+  ReadCollectionsAdminCollectionsGetResponse,
 } from './types.gen';
 
 export const client = createClient(createConfig());
 
 /**
- * Take Secret
+ * Read Card
  */
-export const takeSecretSecretsSecretKeyGet = <
-  ThrowOnError extends boolean = false
->(
-  options: Options<TakeSecretSecretsSecretKeyGetData, ThrowOnError>
+export const readCardCardsCardIdGet = <ThrowOnError extends boolean = false>(
+  options: Options<ReadCardCardsCardIdGetData, ThrowOnError>
 ) => {
   return (options?.client ?? client).get<
-    TakeSecretSecretsSecretKeyGetResponse,
-    TakeSecretSecretsSecretKeyGetError,
+    ReadCardCardsCardIdGetResponse,
+    ReadCardCardsCardIdGetError,
     ThrowOnError
   >({
     ...options,
-    url: '/secrets/{secret_key}',
+    url: '/cards/{card_id}',
   });
 };
 
 /**
- * Create Secret
+ * Delete Card
  */
-export const createSecretGeneratePost = <ThrowOnError extends boolean = false>(
-  options: Options<CreateSecretGeneratePostData, ThrowOnError>
+export const deleteCardCardsCardIdDelete = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<DeleteCardCardsCardIdDeleteData, ThrowOnError>
 ) => {
-  return (options?.client ?? client).post<
-    CreateSecretGeneratePostResponse,
-    CreateSecretGeneratePostError,
+  return (options?.client ?? client).delete<
+    DeleteCardCardsCardIdDeleteResponse,
+    DeleteCardCardsCardIdDeleteError,
     ThrowOnError
   >({
     ...options,
-    url: '/generate',
+    url: '/cards/{card_id}',
+  });
+};
+
+/**
+ * Update Card
+ */
+export const updateCardCardsCardIdPut = <ThrowOnError extends boolean = false>(
+  options: Options<UpdateCardCardsCardIdPutData, ThrowOnError>
+) => {
+  return (options?.client ?? client).put<
+    UpdateCardCardsCardIdPutResponse,
+    UpdateCardCardsCardIdPutError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/cards/{card_id}',
+  });
+};
+
+/**
+ * Create Card
+ */
+export const createCardCardsPost = <ThrowOnError extends boolean = false>(
+  options: Options<CreateCardCardsPostData, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    CreateCardCardsPostResponse,
+    CreateCardCardsPostError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/cards/',
+  });
+};
+
+/**
+ * Read Card Collections
+ */
+export const readCardCollectionsCardsCardIdCollectionsGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<
+    ReadCardCollectionsCardsCardIdCollectionsGetData,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? client).get<
+    ReadCardCollectionsCardsCardIdCollectionsGetResponse,
+    ReadCardCollectionsCardsCardIdCollectionsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/cards/{card_id}/collections',
+  });
+};
+
+/**
+ * Read Collection
+ */
+export const readCollectionCollectionsCollectionIdGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<ReadCollectionCollectionsCollectionIdGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCollectionCollectionsCollectionIdGetResponse,
+    ReadCollectionCollectionsCollectionIdGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/{collection_id}',
+  });
+};
+
+/**
+ * Delete Collection
+ */
+export const deleteCollectionCollectionsCollectionIdDelete = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<
+    DeleteCollectionCollectionsCollectionIdDeleteData,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? client).delete<
+    DeleteCollectionCollectionsCollectionIdDeleteResponse,
+    DeleteCollectionCollectionsCollectionIdDeleteError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/{collection_id}',
+  });
+};
+
+/**
+ * Update Collection
+ */
+export const updateCollectionCollectionsCollectionIdPut = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<UpdateCollectionCollectionsCollectionIdPutData, ThrowOnError>
+) => {
+  return (options?.client ?? client).put<
+    UpdateCollectionCollectionsCollectionIdPutResponse,
+    UpdateCollectionCollectionsCollectionIdPutError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/{collection_id}',
+  });
+};
+
+/**
+ * Read Collections
+ */
+export const readCollectionsCollectionsGet = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<ReadCollectionsCollectionsGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCollectionsCollectionsGetResponse,
+    ReadCollectionsCollectionsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/',
+  });
+};
+
+/**
+ * Create Collection
+ */
+export const createCollectionCollectionsPost = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<CreateCollectionCollectionsPostData, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    CreateCollectionCollectionsPostResponse,
+    CreateCollectionCollectionsPostError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/',
+  });
+};
+
+/**
+ * Read Collection Cards
+ */
+export const readCollectionCardsCollectionsCollectionIdCardsGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<
+    ReadCollectionCardsCollectionsCollectionIdCardsGetData,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? client).get<
+    ReadCollectionCardsCollectionsCollectionIdCardsGetResponse,
+    ReadCollectionCardsCollectionsCollectionIdCardsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/{collection_id}/cards',
+  });
+};
+
+/**
+ * Create Train Record
+ */
+export const createTrainRecordTrainRecordsCardIdPost = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<CreateTrainRecordTrainRecordsCardIdPostData, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    CreateTrainRecordTrainRecordsCardIdPostResponse,
+    CreateTrainRecordTrainRecordsCardIdPostError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/train_records/{card_id}',
+  });
+};
+
+/**
+ * Read Card Last Train Record
+ */
+export const readCardLastTrainRecordTrainRecordsRecordCardIdGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<
+    ReadCardLastTrainRecordTrainRecordsRecordCardIdGetData,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? client).get<
+    ReadCardLastTrainRecordTrainRecordsRecordCardIdGetResponse,
+    ReadCardLastTrainRecordTrainRecordsRecordCardIdGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/train_records/record/{card_id}',
+  });
+};
+
+/**
+ * Read User
+ */
+export const readUserUserProfileGet = <ThrowOnError extends boolean = false>(
+  options?: Options<unknown, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadUserUserProfileGetResponse,
+    ReadUserUserProfileGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/user/profile',
+  });
+};
+
+/**
+ * Create User
+ */
+export const createUserUserRegisterPost = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<CreateUserUserRegisterPostData, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    CreateUserUserRegisterPostResponse,
+    CreateUserUserRegisterPostError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/user/register',
+  });
+};
+
+/**
+ * Update User
+ */
+export const updateUserUserEditProfilePut = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<UpdateUserUserEditProfilePutData, ThrowOnError>
+) => {
+  return (options?.client ?? client).put<
+    UpdateUserUserEditProfilePutResponse,
+    UpdateUserUserEditProfilePutError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/user/edit_profile',
+  });
+};
+
+/**
+ * Authenticate User
+ */
+export const authenticateUserUserLoginPost = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<AuthenticateUserUserLoginPostData, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    AuthenticateUserUserLoginPostResponse,
+    AuthenticateUserUserLoginPostError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/user/login',
+  });
+};
+
+/**
+ * Read Cards
+ */
+export const readCardsUserCardsGet = <ThrowOnError extends boolean = false>(
+  options?: Options<ReadCardsUserCardsGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCardsUserCardsGetResponse,
+    ReadCardsUserCardsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/user/cards',
+  });
+};
+
+/**
+ * Read Collections
+ */
+export const readCollectionsUserCollectionsGet = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<ReadCollectionsUserCollectionsGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCollectionsUserCollectionsGetResponse,
+    ReadCollectionsUserCollectionsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/user/collections',
+  });
+};
+
+/**
+ * Logout User
+ */
+export const logoutUserUserLogoutPost = <ThrowOnError extends boolean = false>(
+  options?: Options<unknown, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    LogoutUserUserLogoutPostResponse,
+    LogoutUserUserLogoutPostError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/user/logout',
+  });
+};
+
+/**
+ * Delete User
+ */
+export const deleteUserUserDeleteProfileDelete = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<unknown, ThrowOnError>
+) => {
+  return (options?.client ?? client).delete<
+    DeleteUserUserDeleteProfileDeleteResponse,
+    DeleteUserUserDeleteProfileDeleteError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/user/delete_profile',
+  });
+};
+
+/**
+ * Read Item
+ */
+export const readItemItemsItemIdGet = <ThrowOnError extends boolean = false>(
+  options: Options<ReadItemItemsItemIdGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadItemItemsItemIdGetResponse,
+    ReadItemItemsItemIdGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/items/{item_id}',
+  });
+};
+
+/**
+ * Read Cards
+ */
+export const readCardsAdminCardsGet = <ThrowOnError extends boolean = false>(
+  options?: Options<ReadCardsAdminCardsGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCardsAdminCardsGetResponse,
+    ReadCardsAdminCardsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/admin/cards',
+  });
+};
+
+/**
+ * Read Train Records
+ */
+export const readTrainRecordsAdminTrainRecordsGet = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<ReadTrainRecordsAdminTrainRecordsGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadTrainRecordsAdminTrainRecordsGetResponse,
+    ReadTrainRecordsAdminTrainRecordsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/admin/train_records',
+  });
+};
+
+/**
+ * Read Users
+ */
+export const readUsersAdminUsersGet = <ThrowOnError extends boolean = false>(
+  options?: Options<ReadUsersAdminUsersGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadUsersAdminUsersGetResponse,
+    ReadUsersAdminUsersGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/admin/users',
+  });
+};
+
+/**
+ * Read Collections
+ */
+export const readCollectionsAdminCollectionsGet = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<ReadCollectionsAdminCollectionsGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCollectionsAdminCollectionsGetResponse,
+    ReadCollectionsAdminCollectionsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/admin/collections',
   });
 };
