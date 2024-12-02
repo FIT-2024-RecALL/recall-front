@@ -14,9 +14,6 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
   const setCardSide = useAppStore((state) => state.setActiveCardSide);
   const flipped = useAppStore((state) => state.activeCardUI.flipped);
   const setUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
-  const isEditModeActive = useAppStore(
-    (state) => state.activeCardUI.editActive
-  );
 
   return (
     <div
@@ -30,7 +27,6 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
         <EditorComponent
           state={frontSide}
           setState={(s) => setCardSide('frontSide', s)}
-          active={isEditModeActive}
           extended
           placeholder="First side"
         />
@@ -39,7 +35,6 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
         <EditorComponent
           state={backSide}
           setState={(s) => setCardSide('backSide', s)}
-          active={isEditModeActive}
           placeholder="Second side"
         />
       </CardSide>

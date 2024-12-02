@@ -14,6 +14,12 @@ const options: Options<Option<number>> = [
   { value: 0, label: 'Collection 0' },
   { value: 1, label: 'Test' },
   { value: 2, label: 'Real collection' },
+  { value: 0, label: 'Collection 0' },
+  { value: 1, label: 'Test' },
+  { value: 2, label: 'Real collection' },
+  { value: 0, label: 'Collection 0' },
+  { value: 1, label: 'Test' },
+  { value: 2, label: 'Real collection' },
 ];
 
 const getAllOptionsPseudoRequest = async () => {
@@ -28,8 +34,7 @@ export const EditCardControls: React.FC = () => {
   const { id } = useParams<EditPageParams>(); // WE MUST GRANT THAT CREATION IS ONLY ON COLLECTION EDIT PAGE
 
   const cardData = useAppStore((state) => state.activeCard);
-  const isEditMode = useAppStore((state) => state.activeCardUI.editActive);
-  const setUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
+
   const [allOptions, setAllOptions] = useState<Options<Option<number>>>([]);
   const [selectedOptions, setSelectedOptions] = useState<
     MultiValue<Option<number>>
@@ -77,24 +82,18 @@ export const EditCardControls: React.FC = () => {
           isMulti
           isSearchable
           isClearable={false}
-          options={allOptions}
           defaultMenuIsOpen={false}
+          closeMenuOnSelect={false}
+          maxMenuHeight={100}
+          options={allOptions}
           value={selectedOptions}
-          onChange={(values, meta) => {
+          onChange={(values) => {
             if (values.length == 0) return;
-            console.log(meta);
             setSelectedOptions(values);
           }}
         />
       </div>
       <div className="m-2 center h-1/12">
-        <Button
-          className="text-xl m-3"
-          variant="plate"
-          onClick={() => setUIFlag('editActive', (p) => !p)}
-        >
-          {isEditMode ? 'Preview' : 'Edit'}
-        </Button>
         <Button
           className="text-xl m-3"
           variant="bordered"
