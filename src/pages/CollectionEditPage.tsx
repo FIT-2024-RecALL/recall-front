@@ -1,6 +1,5 @@
 import { Card } from '@/components/card/Card';
-import { CardType } from '@/state/slices';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Redirect, useParams } from 'wouter';
 import { FormItem } from '../components/library/FormItem';
@@ -8,6 +7,15 @@ import { z } from 'zod';
 import { Button } from '../components/library/Button';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 import clsx from 'clsx';
+import {
+  dataExtractionWrapper,
+  useCollection,
+  useCollectionCards,
+  useProfile,
+  useProfileCards,
+} from '@/query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { updateCollectionCollectionsCollectionIdPut } from '@/api';
 
 const collectionScheme = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -19,41 +27,17 @@ export type CollectionType = CollectionEditType & {
   id: number;
 };
 
-const getCollectionPseudoRequest = async (id: number) => {
-  return {
-    id: id,
-    title: 'Test collection',
-    description: 'Just test collection',
-  };
-};
-
-const getCollectionCardsPseudoRequest = async (id: number) => {
-  return [0, 1, 2, 3, 4, 5, 6];
-};
-
-const getAllCardsPseudoRequest = async () => {
-  return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-};
-
 export interface EditPageParams {
   id: number;
 }
 
 export const CollectionEditPage: React.FC = () => {
   const { id } = useParams<EditPageParams>();
-  const [collection, setCollection] = useState<CollectionType>();
-  const [collectionCardsIds, setCollectionCardsIds] = useState<number[]>([]);
-  const [cardsIds, setCardsIds] = useState<number[]>([]);
-
-  useEffect(() => {
-    getCollectionPseudoRequest(id).then((collection) =>
-      setCollection(collection)
-    );
-    getCollectionCardsPseudoRequest(id).then((cardsIds) =>
-      setCollectionCardsIds(cardsIds)
-    );
-    getAllCardsPseudoRequest().then((cardsIds) => setCardsIds(cardsIds));
-  }, [id]);
+  const { profile, error: profileError } = useProfile();
+  const { collection, error: collectionError } = useCollection(id);
+  const { cards: collectionCardsIds, error: collectionCardsError } =
+    useCollectionCards(id);
+  const { cards: cardsIds, error: profileCardsError } = useProfileCards();
 
   const {
     register,
@@ -63,17 +47,46 @@ export const CollectionEditPage: React.FC = () => {
     resolver: zodResolver(collectionScheme),
   });
 
-  const saveCollectionData = (data: CollectionEditType) => {
-    console.log(data);
-  };
+  const queryClient = useQueryClient();
+  const {
+    mutate: saveCollectionData,
+    error: saveError,
+    isPending,
+    isSuccess,
+  } = useMutation({
+    mutationFn: (data: CollectionEditType) =>
+      dataExtractionWrapper(
+        updateCollectionCollectionsCollectionIdPut({
+          path: {
+            collection_id: id,
+          },
+          body: {
+            ...data,
+          },
+        })
+      ),
+    onSuccess: (data) => {
+      queryClient.setQueryData(['collection', id], data);
+    },
+  });
+
+  const firstError =
+    !collection ||
+    collectionError?.message ||
+    profileError?.message ||
+    collectionCardsError?.message ||
+    profileCardsError?.message;
+
+  if (firstError) return <h1>{firstError}</h1>;
+
+  if (collection?.owner_id !== profile?.id) return <h1>Prohibited</h1>;
 
   return (
     <>
-      {!collection && <Redirect to="" />}
       <div className="vstack m-2 md:m-10 p-2 md:p-5">
         <form
           className="my-2 md:my-6"
-          onSubmit={handleSubmit(saveCollectionData)}
+          onSubmit={handleSubmit((data) => saveCollectionData(data))}
         >
           <FormItem
             className="m-2 md:m-4 text-2xl"
@@ -88,7 +101,7 @@ export const CollectionEditPage: React.FC = () => {
               )}
               placeholder="Title"
               id="title"
-              defaultValue={collection?.title}
+              defaultValue={collection.title}
               {...register('title', { required: true })}
             />
           </FormItem>
@@ -105,15 +118,24 @@ export const CollectionEditPage: React.FC = () => {
               )}
               placeholder="Description"
               id="description"
-              defaultValue={collection?.description}
+              defaultValue={
+                collection.description === null ? '' : collection.description
+              }
               {...register('description')}
             />
           </FormItem>
-          {/* TODO: Сделать, чтобы кнопка появлялась при изменениях */}
+          <FormItem
+            className="m-2 md:m-4 text-lg"
+            errorMessage={saveError?.message}
+          />
           <div className="w-full center">
             <Button variant="plate" type="submit">
               Save collection
             </Button>
+            <span className="mx-2">
+              {isPending && 'Saving...'}
+              {isSuccess && 'Saved'}
+            </span>
           </div>
         </form>
         <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
@@ -129,7 +151,7 @@ export const CollectionEditPage: React.FC = () => {
             mode="edit"
             className="bg-1-4 text-7xl font-normal"
           />
-          {collectionCardsIds.map((cardId) => (
+          {collectionCardsIds?.map((cardId) => (
             <Card cardId={cardId} mode="edit" key={cardId} />
           ))}
         </div>
@@ -141,7 +163,7 @@ export const CollectionEditPage: React.FC = () => {
             gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
           }}
         >
-          {cardsIds.map((cardId) => (
+          {cardsIds?.map((cardId) => (
             <Card cardId={cardId} mode="edit" key={cardId} />
           ))}
         </div>
