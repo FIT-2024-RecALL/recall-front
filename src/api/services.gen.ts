@@ -4,6 +4,7 @@ import {
   createClient,
   createConfig,
   type Options,
+  formDataBodySerializer,
 } from '@hey-api/client-fetch';
 import type {
   ReadCardCardsCardIdGetData,
@@ -66,6 +67,18 @@ import type {
   LogoutUserUserLogoutPostResponse,
   DeleteUserUserDeleteProfileDeleteError,
   DeleteUserUserDeleteProfileDeleteResponse,
+  GetFileStorageUserIdFilenameGetData,
+  GetFileStorageUserIdFilenameGetError,
+  GetFileStorageUserIdFilenameGetResponse,
+  DeleteFileStorageUserIdFilenameDeleteData,
+  DeleteFileStorageUserIdFilenameDeleteError,
+  DeleteFileStorageUserIdFilenameDeleteResponse,
+  ListFilesStorageUserIdGetData,
+  ListFilesStorageUserIdGetError,
+  ListFilesStorageUserIdGetResponse,
+  AddFileStorageUserIdPostData,
+  AddFileStorageUserIdPostError,
+  AddFileStorageUserIdPostResponse,
   ReadItemItemsItemIdGetData,
   ReadItemItemsItemIdGetError,
   ReadItemItemsItemIdGetResponse,
@@ -460,6 +473,79 @@ export const deleteUserUserDeleteProfileDelete = <
   >({
     ...options,
     url: '/user/delete_profile',
+  });
+};
+
+/**
+ * Get File
+ */
+export const getFileStorageUserIdFilenameGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<GetFileStorageUserIdFilenameGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    GetFileStorageUserIdFilenameGetResponse,
+    GetFileStorageUserIdFilenameGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/storage/{user_id}/{filename}',
+  });
+};
+
+/**
+ * Delete File
+ */
+export const deleteFileStorageUserIdFilenameDelete = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<DeleteFileStorageUserIdFilenameDeleteData, ThrowOnError>
+) => {
+  return (options?.client ?? client).delete<
+    DeleteFileStorageUserIdFilenameDeleteResponse,
+    DeleteFileStorageUserIdFilenameDeleteError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/storage/{user_id}/{filename}',
+  });
+};
+
+/**
+ * List Files
+ */
+export const listFilesStorageUserIdGet = <ThrowOnError extends boolean = false>(
+  options: Options<ListFilesStorageUserIdGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ListFilesStorageUserIdGetResponse,
+    ListFilesStorageUserIdGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/storage/{user_id}',
+  });
+};
+
+/**
+ * Add File
+ */
+export const addFileStorageUserIdPost = <ThrowOnError extends boolean = false>(
+  options: Options<AddFileStorageUserIdPostData, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    AddFileStorageUserIdPostResponse,
+    AddFileStorageUserIdPostError,
+    ThrowOnError
+  >({
+    ...options,
+    ...formDataBodySerializer,
+    headers: {
+      'Content-Type': null,
+      ...options?.headers,
+    },
+    url: '/storage/{user_id}',
   });
 };
 
