@@ -5,13 +5,13 @@ import { LoginWindow } from '@/components/LoginWindow';
 
 export const App: React.FC = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <LoginWindow />
       <Header />
-      <main>
+      <main className="flex-grow">
         <AppRoutes />
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
