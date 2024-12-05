@@ -37,6 +37,9 @@ import type {
   CreateCollectionCollectionsPostData,
   CreateCollectionCollectionsPostError,
   CreateCollectionCollectionsPostResponse,
+  ReadCollectionsCollectionsFullGetData,
+  ReadCollectionsCollectionsFullGetError,
+  ReadCollectionsCollectionsFullGetResponse,
   ReadCollectionCardsCollectionsCollectionIdCardsGetData,
   ReadCollectionCardsCollectionsCollectionIdCardsGetError,
   ReadCollectionCardsCollectionsCollectionIdCardsGetResponse,
@@ -70,15 +73,14 @@ import type {
   GetFileStorageUserIdFilenameGetData,
   GetFileStorageUserIdFilenameGetError,
   GetFileStorageUserIdFilenameGetResponse,
-  DeleteFileStorageUserIdFilenameDeleteData,
-  DeleteFileStorageUserIdFilenameDeleteError,
-  DeleteFileStorageUserIdFilenameDeleteResponse,
-  ListFilesStorageUserIdGetData,
-  ListFilesStorageUserIdGetError,
-  ListFilesStorageUserIdGetResponse,
-  AddFileStorageUserIdPostData,
-  AddFileStorageUserIdPostError,
-  AddFileStorageUserIdPostResponse,
+  ListFilesStorageGetError,
+  ListFilesStorageGetResponse,
+  AddFileStoragePostData,
+  AddFileStoragePostError,
+  AddFileStoragePostResponse,
+  DeleteFileStorageFilenameDeleteData,
+  DeleteFileStorageFilenameDeleteError,
+  DeleteFileStorageFilenameDeleteResponse,
   ReadItemItemsItemIdGetData,
   ReadItemItemsItemIdGetError,
   ReadItemItemsItemIdGetResponse,
@@ -244,6 +246,7 @@ export const updateCollectionCollectionsCollectionIdPut = <
 
 /**
  * Read Collections
+ * Returns collections' ids
  */
 export const readCollectionsCollectionsGet = <
   ThrowOnError extends boolean = false
@@ -275,6 +278,25 @@ export const createCollectionCollectionsPost = <
   >({
     ...options,
     url: '/collections/',
+  });
+};
+
+/**
+ * Read Collections
+ * Returns collections' full data objects
+ */
+export const readCollectionsCollectionsFullGet = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<ReadCollectionsCollectionsFullGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCollectionsCollectionsFullGetResponse,
+    ReadCollectionsCollectionsFullGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/full',
   });
 };
 
@@ -495,48 +517,30 @@ export const getFileStorageUserIdFilenameGet = <
 };
 
 /**
- * Delete File
- */
-export const deleteFileStorageUserIdFilenameDelete = <
-  ThrowOnError extends boolean = false
->(
-  options: Options<DeleteFileStorageUserIdFilenameDeleteData, ThrowOnError>
-) => {
-  return (options?.client ?? client).delete<
-    DeleteFileStorageUserIdFilenameDeleteResponse,
-    DeleteFileStorageUserIdFilenameDeleteError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/storage/{user_id}/{filename}',
-  });
-};
-
-/**
  * List Files
  */
-export const listFilesStorageUserIdGet = <ThrowOnError extends boolean = false>(
-  options: Options<ListFilesStorageUserIdGetData, ThrowOnError>
+export const listFilesStorageGet = <ThrowOnError extends boolean = false>(
+  options?: Options<unknown, ThrowOnError>
 ) => {
   return (options?.client ?? client).get<
-    ListFilesStorageUserIdGetResponse,
-    ListFilesStorageUserIdGetError,
+    ListFilesStorageGetResponse,
+    ListFilesStorageGetError,
     ThrowOnError
   >({
     ...options,
-    url: '/storage/{user_id}',
+    url: '/storage/',
   });
 };
 
 /**
  * Add File
  */
-export const addFileStorageUserIdPost = <ThrowOnError extends boolean = false>(
-  options: Options<AddFileStorageUserIdPostData, ThrowOnError>
+export const addFileStoragePost = <ThrowOnError extends boolean = false>(
+  options: Options<AddFileStoragePostData, ThrowOnError>
 ) => {
   return (options?.client ?? client).post<
-    AddFileStorageUserIdPostResponse,
-    AddFileStorageUserIdPostError,
+    AddFileStoragePostResponse,
+    AddFileStoragePostError,
     ThrowOnError
   >({
     ...options,
@@ -545,7 +549,25 @@ export const addFileStorageUserIdPost = <ThrowOnError extends boolean = false>(
       'Content-Type': null,
       ...options?.headers,
     },
-    url: '/storage/{user_id}',
+    url: '/storage/',
+  });
+};
+
+/**
+ * Delete File
+ */
+export const deleteFileStorageFilenameDelete = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<DeleteFileStorageFilenameDeleteData, ThrowOnError>
+) => {
+  return (options?.client ?? client).delete<
+    DeleteFileStorageFilenameDeleteResponse,
+    DeleteFileStorageFilenameDeleteError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/storage/{filename}',
   });
 };
 
