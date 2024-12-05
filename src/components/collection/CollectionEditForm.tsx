@@ -9,6 +9,7 @@ import { Button } from '@/components/library/Button';
 import { FormItem } from '@/components/library/FormItem';
 import { dataExtractionWrapper, useCollection, useProfile } from '@/query';
 import { updateCollectionCollectionsCollectionIdPut } from '@/api';
+import { Icon } from '../library/Icon';
 
 const collectionScheme = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -117,10 +118,10 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
         <Button variant="plate" type="submit">
           Save collection
         </Button>
-        <span className="mx-2">
-          {isPending && 'Saving...'}
+        <div className="mx-2">
+          {isPending && <Icon className="animate-spin" icon="loader" />}
           {isSuccess && 'Saved'}
-        </span>
+        </div>
       </div>
     </form>
   );
