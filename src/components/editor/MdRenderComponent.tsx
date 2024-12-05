@@ -19,6 +19,7 @@ export const MdRenderComponent: React.FC<MdRendererProps> = ({
     () => (extended ? extendedMdRenderer : simpleRenderer),
     [extended]
   );
+
   return (
     <div
       className={clsx('markdown', className)}

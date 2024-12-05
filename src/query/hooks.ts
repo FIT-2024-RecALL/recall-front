@@ -18,12 +18,10 @@ export const useProfile = () => {
 };
 
 export const useProfileCards = () => {
-  const { data, ...rest } = useQuery({
+  const { data: cards, ...rest } = useQuery({
     queryKey: ['profile', 'cards'],
     queryFn: () => dataExtractionWrapper(readCardsUserCardsGet()),
   });
-
-  const cards = data?.map((card) => card.id);
 
   return { cards, ...rest };
 };
@@ -45,7 +43,7 @@ export const useCollection = (id: number) => {
 };
 
 export const useCollectionCards = (id: number) => {
-  const { data, ...rest } = useQuery({
+  const { data: cards, ...rest } = useQuery({
     queryKey: ['collection', 'cards', id],
     queryFn: () =>
       dataExtractionWrapper(
@@ -56,8 +54,6 @@ export const useCollectionCards = (id: number) => {
         })
       ),
   });
-
-  const cards = data?.map((card) => card.id);
 
   return { cards, ...rest };
 };
