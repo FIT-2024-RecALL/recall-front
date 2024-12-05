@@ -1,4 +1,5 @@
 import {
+  readCardCardsCardIdGet,
   readCardsUserCardsGet,
   readCollectionCardsCollectionsCollectionIdCardsGet,
   readCollectionCollectionsCollectionIdGet,
@@ -59,4 +60,20 @@ export const useCollectionCards = (id: number) => {
   const cards = data?.map((card) => card.id);
 
   return { cards, ...rest };
+};
+
+export const useCard = (id: number) => {
+  const { data: card, ...rest } = useQuery({
+    queryKey: ['card', id],
+    queryFn: () =>
+      dataExtractionWrapper(
+        readCardCardsCardIdGet({
+          path: {
+            card_id: id,
+          },
+        })
+      ),
+  });
+
+  return { card, ...rest };
 };

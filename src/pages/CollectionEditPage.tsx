@@ -71,12 +71,12 @@ export const CollectionEditPage: React.FC = () => {
   });
 
   const firstError =
-    !collection ||
     collectionError?.message ||
     profileError?.message ||
     collectionCardsError?.message ||
     profileCardsError?.message;
 
+  // if (firstError) return <Redirect to="/" replace />;
   if (firstError) return <h1>{firstError}</h1>;
 
   if (collection?.owner_id !== profile?.id) return <h1>Prohibited</h1>;
@@ -101,7 +101,8 @@ export const CollectionEditPage: React.FC = () => {
               )}
               placeholder="Title"
               id="title"
-              defaultValue={collection.title}
+              // Тут возникают траблы из-за нереактивности и
+              defaultValue={collection?.title}
               {...register('title', { required: true })}
             />
           </FormItem>
@@ -119,7 +120,7 @@ export const CollectionEditPage: React.FC = () => {
               placeholder="Description"
               id="description"
               defaultValue={
-                collection.description === null ? '' : collection.description
+                collection?.description === null ? '' : collection?.description
               }
               {...register('description')}
             />
