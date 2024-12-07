@@ -5,11 +5,14 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { Button } from '@/components/library/Button';
-import { FormItem } from '@/components/library/FormItem';
+import {
+  Button,
+  FormItem,
+  LoadableComponent,
+  Icon,
+} from '@/components/library';
 import { dataExtractionWrapper, useCollection, useProfile } from '@/query';
 import { updateCollectionCollectionsCollectionIdPut } from '@/api';
-import { Icon } from '../library/Icon';
 
 const collectionScheme = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -29,7 +32,11 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
   id,
 }) => {
   const { profile, error: profileError } = useProfile();
-  const { collection, error: collectionError } = useCollection(id);
+  const {
+    collection,
+    error: collectionError,
+    isPending: isCollectionPending,
+  } = useCollection(id);
 
   const {
     register,
@@ -69,60 +76,65 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
   if (collection?.ownerId !== profile?.id) return <h1>Prohibited</h1>;
 
   return (
-    <form
-      className="my-2 md:my-6"
-      onSubmit={handleSubmit((data) => saveCollectionData(data))}
+    <LoadableComponent
+      isPending={isCollectionPending}
+      errorMessage={collectionError?.message}
     >
-      <FormItem
-        className="m-2 md:m-4 text-2xl"
-        errorMessage={errors.title?.message}
+      <form
+        className="my-2 md:my-6"
+        onSubmit={handleSubmit((data) => saveCollectionData(data))}
       >
-        <input
-          className={clsx(
-            'p-1 md:p-2 w-full',
-            'text-1-1 font-medium rounded',
-            'bg-transparent border-b border-1-1',
-            'focus:outline-none focus:border-b-2'
-          )}
-          placeholder="Title"
-          id="title"
-          // Тут возникают траблы из-за нереактивности и
-          defaultValue={collection?.title}
-          {...register('title', { required: true })}
+        <FormItem
+          className="m-2 md:m-4 text-2xl"
+          errorMessage={errors.title?.message}
+        >
+          <input
+            className={clsx(
+              'p-1 md:p-2 w-full',
+              'text-1-1 font-medium rounded',
+              'bg-transparent border-b border-1-1',
+              'focus:outline-none focus:border-b-2'
+            )}
+            placeholder="Title"
+            id="title"
+            // Тут возникают траблы из-за нереактивности и
+            defaultValue={collection?.title}
+            {...register('title', { required: true })}
+          />
+        </FormItem>
+        <FormItem
+          className="m-2 md:m-4 text-lg"
+          errorMessage={errors.description?.message}
+        >
+          <textarea
+            className={clsx(
+              'p-1 md:p-2 w-full h-24 lg:h-32',
+              'bg-transparent border border-1-1',
+              'focus:outline-none focus:border-2',
+              'rounded text-black'
+            )}
+            placeholder="Description"
+            id="description"
+            defaultValue={
+              collection?.description === null ? '' : collection?.description
+            }
+            {...register('description')}
+          />
+        </FormItem>
+        <FormItem
+          className="m-2 md:m-4 text-lg"
+          errorMessage={saveError?.message}
         />
-      </FormItem>
-      <FormItem
-        className="m-2 md:m-4 text-lg"
-        errorMessage={errors.description?.message}
-      >
-        <textarea
-          className={clsx(
-            'p-1 md:p-2 w-full h-24 lg:h-32',
-            'bg-transparent border border-1-1',
-            'focus:outline-none focus:border-2',
-            'rounded text-black'
-          )}
-          placeholder="Description"
-          id="description"
-          defaultValue={
-            collection?.description === null ? '' : collection?.description
-          }
-          {...register('description')}
-        />
-      </FormItem>
-      <FormItem
-        className="m-2 md:m-4 text-lg"
-        errorMessage={saveError?.message}
-      />
-      <div className="w-full center">
-        <Button variant="plate" type="submit">
-          Save collection
-        </Button>
-        <div className="mx-2">
-          {isPending && <Icon className="animate-spin" icon="loader" />}
-          {isSuccess && 'Saved'}
+        <div className="w-full center">
+          <Button variant="plate" type="submit">
+            Save collection
+          </Button>
+          <div className="mx-2">
+            {isPending && <Icon className="animate-spin" icon="loader" />}
+            {isSuccess && 'Saved'}
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </LoadableComponent>
   );
 };
