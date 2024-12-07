@@ -1,19 +1,14 @@
 import { useQuery, queryOptions } from '@tanstack/react-query';
 import { dataExtractionWrapper } from '@/query';
-import { readCardCollectionsCardsCardIdCollectionsGet } from '@/api';
+import { CollectionShort, readCardCollectionsCardsCardIdCollectionsGet } from '@/api';
 import { CardIdType } from '@/state/slices';
 
-export const getCardCollectionsQueryOptions = (
-  id: CardIdType,
-  defaultCollectionId?: number
-) =>
+export const getCardCollectionsQueryOptions = (id: CardIdType) =>
   queryOptions({
     queryKey: ['card', id, 'collections'],
     queryFn: () =>
       id === 'new'
-        ? defaultCollectionId === undefined
-          ? []
-          : [defaultCollectionId]
+        ? []
         : dataExtractionWrapper(
             readCardCollectionsCardsCardIdCollectionsGet({
               path: {
@@ -23,12 +18,9 @@ export const getCardCollectionsQueryOptions = (
           ),
   });
 
-export const useCardCollections = (
-  id: CardIdType,
-  defaultCollectionId?: number
-) => {
+export const useCardCollections = (id: CardIdType) => {
   const { data: cardCollections, ...rest } = useQuery(
-    getCardCollectionsQueryOptions(id, defaultCollectionId)
+    getCardCollectionsQueryOptions(id)
   );
 
   return { cardCollections, ...rest };

@@ -38,6 +38,12 @@ export type CollectionCreate = {
   description?: string | null;
 };
 
+export type CollectionShort = {
+  id: number;
+  ownerId: number;
+  title: string;
+};
+
 export type FileUploadedScheme = {
   url: string;
 };
@@ -131,7 +137,7 @@ export type ReadCardCollectionsCardsCardIdCollectionsGetData = {
 };
 
 export type ReadCardCollectionsCardsCardIdCollectionsGetResponse =
-  Array<number>;
+  Array<CollectionShort>;
 
 export type ReadCardCollectionsCardsCardIdCollectionsGetError =
   HTTPValidationError;
@@ -276,16 +282,28 @@ export type ReadCardsUserCardsGetResponse = Array<number>;
 
 export type ReadCardsUserCardsGetError = HTTPValidationError;
 
-export type ReadCollectionsUserCollectionsGetData = {
+export type ReadCollectionsShortUserCollectionsGetData = {
   query?: {
     limit?: number | null;
     skip?: number;
   };
 };
 
-export type ReadCollectionsUserCollectionsGetResponse = Array<number>;
+export type ReadCollectionsShortUserCollectionsGetResponse =
+  Array<CollectionShort>;
 
-export type ReadCollectionsUserCollectionsGetError = HTTPValidationError;
+export type ReadCollectionsShortUserCollectionsGetError = HTTPValidationError;
+
+export type ReadCollectionsUserCollectionsFullGetData = {
+  query?: {
+    limit?: number | null;
+    skip?: number;
+  };
+};
+
+export type ReadCollectionsUserCollectionsFullGetResponse = Array<Collection>;
+
+export type ReadCollectionsUserCollectionsFullGetError = HTTPValidationError;
 
 export type LogoutUserUserLogoutPostResponse = unknown;
 
