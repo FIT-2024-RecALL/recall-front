@@ -3,9 +3,10 @@ import { Immutable } from 'immer';
 import { Slice } from '@/state';
 
 export type CardSides = 'frontSide' | 'backSide';
+export type NewCardPseudoId = 'new';
+export type CardIdType = number | NewCardPseudoId;
 export type CardType = {
-  id: number | 'new';
-  previewText: string;
+  id: CardIdType;
   frontSide: string;
   backSide: string;
 };
@@ -29,6 +30,12 @@ export type ActiveCardState = Immutable<{
     flagMutator: (oldValue: boolean) => boolean
   ) => void;
 }>;
+
+export const newCardDraft: CardType = {
+  id: 'new',
+  frontSide: '',
+  backSide: '',
+};
 
 export const createActiveCardStateSlice: Slice<ActiveCardState> = (mutate) => ({
   activeCard: {
