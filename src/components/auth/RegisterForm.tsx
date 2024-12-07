@@ -2,13 +2,14 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Button } from '@/components/library/Button';
 import { FormItem } from '@/components/library/FormItem';
 import { createUserUserRegisterPost } from '@/api';
 import { useAppStore } from '@/state';
 import { dataExtractionWrapper } from '@/query';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getProfileQueryOptions } from '@/query/queryHooks';
 
 const userRegisterScheme = z
   .object({
@@ -48,7 +49,7 @@ export const RegisterForm: React.FC = () => {
       ),
     onSuccess: (data) => {
       closeAuthWindow();
-      queryClient.setQueryData(['profile'], data);
+      queryClient.setQueryData(getProfileQueryOptions().queryKey, data);
     },
   });
 

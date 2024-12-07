@@ -57,7 +57,7 @@ module.exports = {
         // теперь в className можно писать animate-appear animate-disappear
         appear: 'appear 100ms ease-in',
         disappear: 'disappear 100ms ease-in',
-        shake: 'shake 0.3s infinite',
+        shake: 'shake 0.3s ease-in-out infinite',
       },
     },
   },

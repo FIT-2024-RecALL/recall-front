@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppRoutes } from '@/routes';
 import { Header, Footer } from '@/components/mainWrapper';
-import { LoginWindow } from '@/components/LoginWindow';
+import { LoginWindow } from '@/components/auth/LoginWindow';
 
 export const App: React.FC = () => {
   return (

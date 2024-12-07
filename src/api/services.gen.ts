@@ -4,6 +4,7 @@ import {
   createClient,
   createConfig,
   type Options,
+  formDataBodySerializer,
 } from '@hey-api/client-fetch';
 import type {
   ReadCardCardsCardIdGetData,
@@ -36,6 +37,9 @@ import type {
   CreateCollectionCollectionsPostData,
   CreateCollectionCollectionsPostError,
   CreateCollectionCollectionsPostResponse,
+  ReadCollectionsCollectionsFullGetData,
+  ReadCollectionsCollectionsFullGetError,
+  ReadCollectionsCollectionsFullGetResponse,
   ReadCollectionCardsCollectionsCollectionIdCardsGetData,
   ReadCollectionCardsCollectionsCollectionIdCardsGetError,
   ReadCollectionCardsCollectionsCollectionIdCardsGetResponse,
@@ -66,6 +70,17 @@ import type {
   LogoutUserUserLogoutPostResponse,
   DeleteUserUserDeleteProfileDeleteError,
   DeleteUserUserDeleteProfileDeleteResponse,
+  GetFileStorageUserIdFilenameGetData,
+  GetFileStorageUserIdFilenameGetError,
+  GetFileStorageUserIdFilenameGetResponse,
+  ListFilesStorageGetError,
+  ListFilesStorageGetResponse,
+  AddFileStoragePostData,
+  AddFileStoragePostError,
+  AddFileStoragePostResponse,
+  DeleteFileStorageFilenameDeleteData,
+  DeleteFileStorageFilenameDeleteError,
+  DeleteFileStorageFilenameDeleteResponse,
   ReadItemItemsItemIdGetData,
   ReadItemItemsItemIdGetError,
   ReadItemItemsItemIdGetResponse,
@@ -231,6 +246,7 @@ export const updateCollectionCollectionsCollectionIdPut = <
 
 /**
  * Read Collections
+ * Returns collections' ids
  */
 export const readCollectionsCollectionsGet = <
   ThrowOnError extends boolean = false
@@ -262,6 +278,25 @@ export const createCollectionCollectionsPost = <
   >({
     ...options,
     url: '/collections/',
+  });
+};
+
+/**
+ * Read Collections
+ * Returns collections' full data objects
+ */
+export const readCollectionsCollectionsFullGet = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<ReadCollectionsCollectionsFullGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCollectionsCollectionsFullGetResponse,
+    ReadCollectionsCollectionsFullGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/full',
   });
 };
 
@@ -460,6 +495,79 @@ export const deleteUserUserDeleteProfileDelete = <
   >({
     ...options,
     url: '/user/delete_profile',
+  });
+};
+
+/**
+ * Get File
+ */
+export const getFileStorageUserIdFilenameGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<GetFileStorageUserIdFilenameGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    GetFileStorageUserIdFilenameGetResponse,
+    GetFileStorageUserIdFilenameGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/storage/{user_id}/{filename}',
+  });
+};
+
+/**
+ * List Files
+ */
+export const listFilesStorageGet = <ThrowOnError extends boolean = false>(
+  options?: Options<unknown, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ListFilesStorageGetResponse,
+    ListFilesStorageGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/storage/',
+  });
+};
+
+/**
+ * Add File
+ */
+export const addFileStoragePost = <ThrowOnError extends boolean = false>(
+  options: Options<AddFileStoragePostData, ThrowOnError>
+) => {
+  return (options?.client ?? client).post<
+    AddFileStoragePostResponse,
+    AddFileStoragePostError,
+    ThrowOnError
+  >({
+    ...options,
+    ...formDataBodySerializer,
+    headers: {
+      'Content-Type': null,
+      ...options?.headers,
+    },
+    url: '/storage/',
+  });
+};
+
+/**
+ * Delete File
+ */
+export const deleteFileStorageFilenameDelete = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<DeleteFileStorageFilenameDeleteData, ThrowOnError>
+) => {
+  return (options?.client ?? client).delete<
+    DeleteFileStorageFilenameDeleteResponse,
+    DeleteFileStorageFilenameDeleteError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/storage/{filename}',
   });
 };
 
