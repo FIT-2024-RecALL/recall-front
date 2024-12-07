@@ -51,7 +51,11 @@ export const CollectionEditPage: React.FC = () => {
           isPending={collectionCardsPending}
           errorMessage={collectionCardsError?.message}
         >
-          <CardsList cardsIds={collectionCardsIds ?? []} mode="edit" />
+          <CardsList
+            cardsIds={collectionCardsIds ?? []}
+            mode="edit"
+            addNewCard
+          />
         </LoadableComponent>
         <hr className="border border-1-1 rounded my-2 md:my-6" />
         <h2 className="my-2 text-2xl text-center font-bold">All cards</h2>

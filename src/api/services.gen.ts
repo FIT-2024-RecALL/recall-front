@@ -63,9 +63,12 @@ import type {
   ReadCardsUserCardsGetData,
   ReadCardsUserCardsGetError,
   ReadCardsUserCardsGetResponse,
-  ReadCollectionsUserCollectionsGetData,
-  ReadCollectionsUserCollectionsGetError,
-  ReadCollectionsUserCollectionsGetResponse,
+  ReadCollectionsShortUserCollectionsGetData,
+  ReadCollectionsShortUserCollectionsGetError,
+  ReadCollectionsShortUserCollectionsGetResponse,
+  ReadCollectionsUserCollectionsFullGetData,
+  ReadCollectionsUserCollectionsFullGetError,
+  ReadCollectionsUserCollectionsFullGetResponse,
   LogoutUserUserLogoutPostError,
   LogoutUserUserLogoutPostResponse,
   DeleteUserUserDeleteProfileDeleteError,
@@ -447,20 +450,38 @@ export const readCardsUserCardsGet = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Read Collections
+ * Read Collections Short
  */
-export const readCollectionsUserCollectionsGet = <
+export const readCollectionsShortUserCollectionsGet = <
   ThrowOnError extends boolean = false
 >(
-  options?: Options<ReadCollectionsUserCollectionsGetData, ThrowOnError>
+  options?: Options<ReadCollectionsShortUserCollectionsGetData, ThrowOnError>
 ) => {
   return (options?.client ?? client).get<
-    ReadCollectionsUserCollectionsGetResponse,
-    ReadCollectionsUserCollectionsGetError,
+    ReadCollectionsShortUserCollectionsGetResponse,
+    ReadCollectionsShortUserCollectionsGetError,
     ThrowOnError
   >({
     ...options,
     url: '/user/collections',
+  });
+};
+
+/**
+ * Read Collections
+ */
+export const readCollectionsUserCollectionsFullGet = <
+  ThrowOnError extends boolean = false
+>(
+  options?: Options<ReadCollectionsUserCollectionsFullGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCollectionsUserCollectionsFullGetResponse,
+    ReadCollectionsUserCollectionsFullGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/user/collections/full',
   });
 };
 

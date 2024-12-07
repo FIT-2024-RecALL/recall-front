@@ -5,11 +5,13 @@ import clsx from 'clsx';
 
 export interface CardsListProps extends HTMLAttributes<React.FC> {
   cardsIds: number[];
+  addNewCard?: boolean;
   mode: ActiveCardUIModes;
 }
 
 export const CardsList: React.FC<CardsListProps> = ({
   cardsIds,
+  addNewCard,
   mode,
   className,
 }) => {
@@ -20,8 +22,14 @@ export const CardsList: React.FC<CardsListProps> = ({
         gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
       }}
     >
-      <Card cardId="new" mode="edit" className="bg-1-4 text-7xl font-normal" />
-      {cardsIds?.map((cardId) => (
+      {addNewCard && (
+        <Card
+          cardId="new"
+          mode="edit"
+          className="bg-1-4 text-7xl font-normal"
+        />
+      )}
+      {cardsIds.map((cardId) => (
         <Card cardId={cardId} mode={mode} key={cardId} />
       ))}
     </div>

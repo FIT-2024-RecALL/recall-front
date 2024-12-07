@@ -7,13 +7,13 @@ import { FlippingCard } from './FlippingCard';
 import { EditCardControls } from './EditCardControls';
 import { TrainCardControls } from './TrainCardControls';
 import { useAppStore } from '@/state';
-import { CardType } from '@/state/slices';
+import { CardIdType } from '@/state/slices';
 
 interface ZoomedCardProps extends HTMLAttributes<React.FC> {
-  cardData: CardType
+  cardId: CardIdType;
 }
 
-export const ZoomedCard: React.FC<ZoomedCardProps> = ({ cardData }) => {
+export const ZoomedCard: React.FC<ZoomedCardProps> = ({ cardId }) => {
   const zoomed = useAppStore((state) => state.activeCardUI.zoomed);
   const activeCardId = useAppStore((state) => state.activeCard.id);
   const setCardUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
@@ -21,7 +21,7 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = ({ cardData }) => {
 
   return (
     <PopUp
-      isShown={zoomed && cardData.id === activeCardId}
+      isShown={zoomed && cardId === activeCardId}
       close={() => setCardUIFlag('zoomed', () => false)}
       className="center bg-1-5/50 backdrop-blur-sm"
     >

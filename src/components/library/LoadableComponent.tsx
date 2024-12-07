@@ -1,15 +1,18 @@
 import React, { HTMLAttributes } from 'react';
 import { Icon } from './Icon';
 import clsx from 'clsx';
+import { animated } from '@react-spring/web';
 
 interface LoadableComponentProps extends HTMLAttributes<React.FC> {
   isPending?: boolean;
   errorMessage?: string;
+  animated?: boolean;
 }
 
 export const LoadableComponent: React.FC<LoadableComponentProps> = ({
   isPending,
   errorMessage,
+  animated,
   className,
   children,
 }) => {
@@ -39,15 +42,18 @@ export const LoadableComponent: React.FC<LoadableComponentProps> = ({
           {errorMessage}
         </span>
       )}
-      <div
-        className={clsx(
-          'trainsition-all duration-300',
-          isPending || errorMessage ? 'invisible opacity-0' : 'opacity-1',
-          className
-        )}
-      >
-        {children}
-      </div>
+      {animated && (
+        <div
+          className={clsx(
+            'trainsition-all duration-300',
+            isPending || errorMessage ? 'invisible opacity-0' : 'opacity-1',
+            className
+          )}
+        >
+          {children}
+        </div>
+      )}
+      {!animated && !isPending && !errorMessage && children}
     </>
   );
 };
