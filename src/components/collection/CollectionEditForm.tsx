@@ -11,7 +11,8 @@ import {
   LoadableComponent,
   Icon,
 } from '@/components/library';
-import { dataExtractionWrapper, useCollection, useProfile } from '@/query';
+import { dataExtractionWrapper } from '@/query';
+import { getCollectionQueryOptions, useCollection } from '@/query/queryHooks';
 import { updateCollectionCollectionsCollectionIdPut } from '@/api';
 
 const collectionScheme = z.object({
@@ -31,7 +32,6 @@ export interface CollectionEditFormProps {
 export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
   id,
 }) => {
-  const { profile, error: profileError } = useProfile();
   const {
     collection,
     error: collectionError,
@@ -65,7 +65,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
         })
       ),
     onSuccess: (data) => {
-      queryClient.setQueryData(['collection', id], data);
+      queryClient.setQueryData(getCollectionQueryOptions(id).queryKey, data);
     },
   });
 

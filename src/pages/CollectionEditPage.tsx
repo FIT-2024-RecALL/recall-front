@@ -1,4 +1,3 @@
-import { Card } from '@/components/card/Card';
 import React from 'react';
 import { useParams } from 'wouter';
 import {
@@ -6,7 +5,7 @@ import {
   useCollectionCards,
   useProfile,
   useProfileCards,
-} from '@/query';
+} from '@/query/queryHooks';
 import { CollectionEditForm } from '@/components/collection/CollectionEditForm';
 import { ErrorPage } from '@/pages';
 import { CardsList } from '../components/collection/CardsList';
@@ -18,7 +17,7 @@ export interface EditPageParams {
 
 export const CollectionEditPage: React.FC = () => {
   const { id } = useParams<EditPageParams>();
-  const { profile, error: profileError } = useProfile();
+  const { profile } = useProfile();
   const {
     collection,
     error: collectionError,
@@ -35,34 +34,34 @@ export const CollectionEditPage: React.FC = () => {
     isPending: profileCardsPending,
   } = useProfileCards();
 
-  if (profile && collection && collection?.ownerId !== profile?.id)
+  if (!profile || collection?.ownerId !== profile?.id)
     return <ErrorPage message="Prohibited" />;
 
   return (
-    <div className="vstack m-2 md:m-10 p-2 md:p-5">
-      <LoadableComponent
-        isPending={isCollectionPending}
-        errorMessage={collectionError?.message}
-      >
+    <LoadableComponent
+      isPending={isCollectionPending}
+      errorMessage={collectionError?.message}
+    >
+      <div className="vstack m-2 md:m-10 p-2 md:p-5">
         <CollectionEditForm id={id} />
-      </LoadableComponent>
 
-      <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
-      <h2 className="my-2 text-2xl text-center font-bold">Paired cards</h2>
-      <LoadableComponent
-        isPending={collectionCardsPending}
-        errorMessage={collectionCardsError?.message}
-      >
-        <CardsList cardsIds={collectionCardsIds ?? []} mode="edit" />
-      </LoadableComponent>
-      <hr className="border border-1-1 rounded my-2 md:my-6" />
-      <h2 className="my-2 text-2xl text-center font-bold">All cards</h2>
-      <LoadableComponent
-        isPending={profileCardsPending}
-        errorMessage={profileCardsError?.message}
-      >
-        <CardsList cardsIds={profileCardsIds ?? []} mode="edit" />
-      </LoadableComponent>
-    </div>
+        <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
+        <h2 className="my-2 text-2xl text-center font-bold">Paired cards</h2>
+        <LoadableComponent
+          isPending={collectionCardsPending}
+          errorMessage={collectionCardsError?.message}
+        >
+          <CardsList cardsIds={collectionCardsIds ?? []} mode="edit" />
+        </LoadableComponent>
+        <hr className="border border-1-1 rounded my-2 md:my-6" />
+        <h2 className="my-2 text-2xl text-center font-bold">All cards</h2>
+        <LoadableComponent
+          isPending={profileCardsPending}
+          errorMessage={profileCardsError?.message}
+        >
+          <CardsList cardsIds={profileCardsIds ?? []} mode="edit" />
+        </LoadableComponent>
+      </div>
+    </LoadableComponent>
   );
 };

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'wouter';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Button } from '@/components/library/Button';
 import { useAppStore } from '@/state/state';
 import { Menu } from './Menu';
 import { logoutUserUserLogoutPost } from '@/api';
-import { useProfile, dataExtractionWrapper } from '@/query';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { dataExtractionWrapper } from '@/query';
+import { getProfileQueryOptions, useProfile } from '@/query/queryHooks';
 
 export const Header: React.FC = () => {
   const showLoginWindow = useAppStore((state) => state.showLoginWindow);
@@ -17,7 +18,8 @@ export const Header: React.FC = () => {
   const client = useQueryClient();
   const { mutate: logout, error: logoutError } = useMutation({
     mutationFn: () => dataExtractionWrapper(logoutUserUserLogoutPost()),
-    onSuccess: () => client.resetQueries({ queryKey: ['profile'] }),
+    onSuccess: () =>
+      client.resetQueries({ queryKey: getProfileQueryOptions().queryKey }),
   });
 
   return (

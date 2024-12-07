@@ -10,6 +10,7 @@ interface LoadableComponentProps extends HTMLAttributes<React.FC> {
 export const LoadableComponent: React.FC<LoadableComponentProps> = ({
   isPending,
   errorMessage,
+  className,
   children,
 }) => {
   // if (isPending)
@@ -41,7 +42,8 @@ export const LoadableComponent: React.FC<LoadableComponentProps> = ({
       <div
         className={clsx(
           'trainsition-all duration-300',
-          isPending || errorMessage ? 'invisible opacity-0' : 'opacity-1'
+          isPending || errorMessage ? 'invisible opacity-0' : 'opacity-1',
+          className
         )}
       >
         {children}
