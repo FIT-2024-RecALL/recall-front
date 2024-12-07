@@ -69,12 +69,6 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
     },
   });
 
-  const firstError = collectionError?.message || profileError?.message;
-
-  if (firstError) return <h1>{firstError}</h1>;
-
-  if (collection?.ownerId !== profile?.id) return <h1>Prohibited</h1>;
-
   return (
     <LoadableComponent
       isPending={isCollectionPending}
@@ -88,38 +82,41 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
           className="m-2 md:m-4 text-2xl"
           errorMessage={errors.title?.message}
         >
-          <input
-            className={clsx(
-              'p-1 md:p-2 w-full',
-              'text-1-1 font-medium rounded',
-              'bg-transparent border-b border-1-1',
-              'focus:outline-none focus:border-b-2'
-            )}
-            placeholder="Title"
-            id="title"
-            // Тут возникают траблы из-за нереактивности и
-            defaultValue={collection?.title}
-            {...register('title', { required: true })}
-          />
+          {collection && (
+            <input
+              className={clsx(
+                'p-1 md:p-2 w-full',
+                'text-1-1 font-medium rounded',
+                'bg-transparent border-b border-1-1',
+                'focus:outline-none focus:border-b-2'
+              )}
+              placeholder="Title"
+              id="title"
+              defaultValue={collection.title}
+              {...register('title', { required: true })}
+            />
+          )}
         </FormItem>
         <FormItem
           className="m-2 md:m-4 text-lg"
           errorMessage={errors.description?.message}
         >
-          <textarea
-            className={clsx(
-              'p-1 md:p-2 w-full h-24 lg:h-32',
-              'bg-transparent border border-1-1',
-              'focus:outline-none focus:border-2',
-              'rounded text-black'
-            )}
-            placeholder="Description"
-            id="description"
-            defaultValue={
-              collection?.description === null ? '' : collection?.description
-            }
-            {...register('description')}
-          />
+          {collection && (
+            <textarea
+              className={clsx(
+                'p-1 md:p-2 w-full h-24 lg:h-32',
+                'bg-transparent border border-1-1',
+                'focus:outline-none focus:border-2',
+                'rounded text-black'
+              )}
+              placeholder="Description"
+              id="description"
+              defaultValue={
+                collection.description === null ? '' : collection.description
+              }
+              {...register('description')}
+            />
+          )}
         </FormItem>
         <FormItem
           className="m-2 md:m-4 text-lg"

@@ -19,7 +19,11 @@ export interface EditPageParams {
 export const CollectionEditPage: React.FC = () => {
   const { id } = useParams<EditPageParams>();
   const { profile, error: profileError } = useProfile();
-  const { collection, error: collectionError } = useCollection(id);
+  const {
+    collection,
+    error: collectionError,
+    isPending: isCollectionPending,
+  } = useCollection(id);
   const {
     cards: collectionCardsIds,
     error: collectionCardsError,
@@ -36,7 +40,13 @@ export const CollectionEditPage: React.FC = () => {
 
   return (
     <div className="vstack m-2 md:m-10 p-2 md:p-5">
-      <CollectionEditForm id={id} />
+      <LoadableComponent
+        isPending={isCollectionPending}
+        errorMessage={collectionError?.message}
+      >
+        <CollectionEditForm id={id} />
+      </LoadableComponent>
+
       <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
       <h2 className="my-2 text-2xl text-center font-bold">Paired cards</h2>
       <LoadableComponent
