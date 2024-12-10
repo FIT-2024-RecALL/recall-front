@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'wouter';
 
+import { routes } from '@/routes';
+
 export const StartPage: React.FC = () => {
   return (
     <div className="vstack m-2 md:m-10 p-2 md:p-5 bg-1-8 text-o-black rounded-md">
@@ -31,8 +33,12 @@ export const StartPage: React.FC = () => {
         />
       </div>
 
-      <Link className="text-2xl underline" to="/collections/edit/1">
-        К карточкам!
+      <Link className="text-2xl underline" to={routes.collectionEdit.getUrl(1)}>
+        Test edit
+      </Link>
+
+      <Link className="text-2xl underline" to={routes.train.getUrl(1)}>
+        Test train
       </Link>
     </div>
   );

@@ -41,10 +41,10 @@ export const CollectionsPage: React.FC = () => {
           activeCollections.map((item) => (
             <CollectionCard
               key={item.id}
+              collectionId={item.id}
               timeAgo={item.timeAgo}
               title={item.title}
               description={item.description}
-              collectionId={item.id.toString()}
             />
           ))
         ) : (
