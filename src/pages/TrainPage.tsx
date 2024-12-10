@@ -2,12 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link, Redirect, useParams } from 'wouter';
 import { useShallow } from 'zustand/react/shallow';
 
-import { Card } from '@/components/card/Card';
-import { CollectionType } from './CollectionEditPage';
-import { ProgressBar } from '@/components/library/ProgressBar';
 import { useAppStore } from '@/state';
-import { Button } from '@/components/library/Button';
 import { routes } from '@/routes';
+import { Button, ProgressBar } from '@/components/library';
+import { Card } from '@/components/card';
+import { CollectionType } from './CollectionEditPage';
 
 const getCollectionPseudoRequest = async (id: number) => {
   return {
