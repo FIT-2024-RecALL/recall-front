@@ -15,6 +15,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const resultsContainerRef = useRef<HTMLDivElement>(null);
+  const resultRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
@@ -26,7 +27,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     } else if (e.key === 'Enter' && highlightedIndex >= 0) {
       const selected = activeSearch[highlightedIndex];
       setSearchTerm(selected);
+      setHighlightedIndex(-1);
     } else if (e.key === 'Escape') {
+      e.preventDefault();
       setHighlightedIndex(-1);
     }
   };
@@ -49,15 +52,28 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
 
+  const scrollToHighlighted = (index: number) => {
+    resultRefs.current[index]?.scrollIntoView({
+      block: 'nearest',
+    });
+  };
+
+  useEffect(() => {
+    scrollToHighlighted(highlightedIndex);
+  }, [highlightedIndex]);
+
   return (
     <div className="relative w-[500px] min-w-[250px] max-w-full">
       <div className="relative">
         <input
           type="search"
           placeholder="Search collections..."
-          className="w-full h-12 p-4 rounded-full bg-1-10"
+          className="w-full h-12 p-4 rounded-full bg-1-8"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setHighlightedIndex(Math.min(0, activeSearch.length - 1));
+          }}
           onKeyDown={handleKeyDown}
         />
         <button className="absolute p-0 right-1 h-10 w-10 top-1/2 -translate-y-1/2 bg-1-5 rounded-full flex justify-center items-center">
@@ -72,6 +88,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         >
           {activeSearch.map((item, index) => (
             <div
+              ref={(el) => (resultRefs.current[index] = el)}
               key={index}
               className={clsx(
                 'flex justify-between items-center p-2 cursor-pointer',

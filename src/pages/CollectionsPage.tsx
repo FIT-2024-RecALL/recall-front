@@ -20,7 +20,7 @@ export const CollectionsPage: React.FC = () => {
   }, [searchTerm]);
 
   return (
-    <div className="flex flex-col items-center m-4 md:m-10 p-5 bg-1-8 text-o-black rounded-lg">
+    <div className="flex flex-col items-center m-4 md:m-10 p-5 text-o-black">
       <h1 className="text-center text-2-1 text-2xl font-bold mb-6">
         Collections
       </h1>

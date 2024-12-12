@@ -18,14 +18,14 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
   description,
 }) => {
   return (
-    <div className="bg-1-4 text-o-black p-6 rounded-lg shadow-lg w-80 flex flex-col justify-between">
+    <div className="bg-1-3 text-o-black p-6 rounded-lg shadow-lg w-80 flex flex-col justify-between">
       <div>
         <div className="flex justify-between items-center mb-4">
           <span className="text-sm text-1-12">{timeAgo}</span>
           <div className="w-4 h-4 bg-1-9 rounded-full"></div>
         </div>
-        <h2 className="text-lg font-bold text-1-11 mb-2">{title}</h2>
-        <p className="text-sm text-1-7 mb-2">{description}</p>
+        <h2 className="text-lg font-bold text-1-12 mb-2">{title}</h2>
+        <p className="text-md text-1-11 mb-2">{description}</p>
       </div>
 
       <div className="flex space-x-2 mt-4">
