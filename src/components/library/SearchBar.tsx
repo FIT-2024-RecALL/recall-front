@@ -2,7 +2,7 @@ import { IoSearch } from 'react-icons/io5';
 import React, { useRef, useEffect, useState } from 'react';
 import clsx from 'clsx';
 
-interface SearchBarProps {
+export interface SearchBarProps {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
   activeSearch: string[];

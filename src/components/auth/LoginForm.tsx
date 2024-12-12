@@ -1,10 +1,15 @@
 import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Button } from '@/components/library/Button';
 import { FormItem } from '@/components/library/FormItem';
+import { authenticateUserUserLoginPost } from '@/api';
+import { useAppStore } from '@/state';
+import { dataExtractionWrapper } from '@/query';
+import { getProfileQueryOptions } from '@/query/queryHooks';
 
 const userLoginScheme = z.object({
   email: z.string().email().min(1, 'Email is required'),
@@ -15,6 +20,8 @@ const userLoginScheme = z.object({
 export type UserLoginData = z.infer<typeof userLoginScheme>;
 
 export const LoginForm: React.FC = () => {
+  const closeAuthWindow = useAppStore((state) => state.closeAuthWindow);
+
   const {
     register,
     handleSubmit,
@@ -23,14 +30,29 @@ export const LoginForm: React.FC = () => {
     resolver: zodResolver(userLoginScheme),
   });
 
-  const login: SubmitHandler<UserLoginData> = (data) => {
-    userLoginScheme.parse(data);
-  };
+  const queryClient = useQueryClient();
+  const { mutate: login, error } = useMutation({
+    mutationFn: (data: UserLoginData) =>
+      dataExtractionWrapper(
+        authenticateUserUserLoginPost({
+          body: {
+            ...data,
+          },
+        })
+      ),
+    onSuccess: (data) => {
+      closeAuthWindow();
+      queryClient.setQueryData(getProfileQueryOptions().queryKey, data);
+    },
+  });
 
   return (
-    <form className="vstack w-full p-2" onSubmit={handleSubmit(login)}>
+    <form
+      className="vstack w-full p-2 text-white"
+      onSubmit={handleSubmit((data) => login(data))}
+    >
       <FormItem
-        className="vstack p-1 w-full text-white"
+        className="vstack p-1 w-full"
         errorMessage={errors.email?.message}
       >
         <input
@@ -50,6 +72,9 @@ export const LoginForm: React.FC = () => {
           type="password"
         />
       </FormItem>
+      {error && (
+        <FormItem className="vstack p-1 w-full" errorMessage={error.message} />
+      )}
       <Button variant="plate" type="submit" className="m-2">
         Sign in
       </Button>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { CollectionCard } from '../components/collectionCard/CollectionCard';
-import { SearchBar } from '@/components/SearchBar';
+import { CollectionCard } from '../components/collection/CollectionCard';
+import { SearchBar } from '@/components/library/SearchBar';
 import { collections } from '../components/library/mockCollectionsData.js';
 import { Link } from 'wouter';
 import { Button } from '@/components/library/Button';
@@ -24,6 +24,15 @@ export const CollectionsPage: React.FC = () => {
       <h1 className="text-center text-2-1 text-2xl font-bold mb-6">
         Collections
       </h1>
+
+      <div className="flex justify-center mb-4">
+        <Button
+          variant="plate"
+          className="py-3 px-6 rounded-full text-lg shadow-md hover:shadow-lg transition duration-200"
+        >
+          Create collection
+        </Button>
+      </div>
 
       <SearchBar
         searchTerm={searchTerm}
@@ -52,22 +61,6 @@ export const CollectionsPage: React.FC = () => {
             No collections found
           </p>
         )}
-      </div>
-
-      <div className="fixed inset-x-0 bottom-0 mb-8 flex justify-center">
-        <Link to={`/collections/edit/undefined`}>
-          <Button
-            className="bg-gradient-to-r from-1-1 to-1-3 text-1-9 py-3 px-6 rounded-full text-lg shadow-md hover:shadow-lg hover:from-1-3 hover:to-1-5 transition duration-200"
-            style={{
-              minWidth: '500px',
-              width: 'calc(100% - 100px)',
-              marginLeft: '50px',
-              marginRight: '50px',
-            }}
-          >
-            <p>Edit Collection</p>
-          </Button>
-        </Link>
       </div>
     </div>
   );

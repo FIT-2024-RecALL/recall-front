@@ -3,7 +3,7 @@ import { DropDown } from '../library/DropDown';
 import { Button } from '../library/Button';
 import { Icon } from '../library/Icon';
 import { useForm } from 'react-hook-form';
-import { addFileStorageUserIdPost } from '@/api';
+// import { addFileStorageUserIdPost } from '@/api';
 import { serverUrl } from '@/main';
 import clsx from 'clsx';
 
@@ -30,22 +30,22 @@ export const UploadDropdown: React.FC = () => {
           'border border-black rounded'
         )}
         onSubmit={handleSubmit((data) => {
-          addFileStorageUserIdPost({
-            path: {
-              user_id: 1,
-            },
-            body: {
-              file: data.file[0],
-            },
-          })
-            .then((response) => {
-              if (response.response.ok)
-                setUploadedLink(serverUrl + response.data?.url);
-              else setUploadedLink(response.error?.detail?.toString());
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          // addFileStorageUserIdPost({
+          //   path: {
+          //     user_id: 1,
+          //   },
+          //   body: {
+          //     file: data.file[0],
+          //   },
+          // })
+          //   .then((response) => {
+          //     if (response.response.ok)
+          //       setUploadedLink(serverUrl + response.data?.url);
+          //     else setUploadedLink(response.error?.detail?.toString());
+          //   })
+          //   .catch((error) => {
+          //     console.log(error);
+          //   });
         })}
       >
         <div className="around">

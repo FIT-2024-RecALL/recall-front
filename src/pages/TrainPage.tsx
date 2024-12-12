@@ -6,7 +6,12 @@ import { useAppStore } from '@/state';
 import { routes } from '@/routes';
 import { Button, ProgressBar } from '@/components/library';
 import { Card } from '@/components/card';
-import { CollectionType } from './CollectionEditPage';
+
+type CollectionType = {
+  id: number;
+  title: string;
+  description: string;
+}
 
 const getCollectionPseudoRequest = async (id: number) => {
   return {
