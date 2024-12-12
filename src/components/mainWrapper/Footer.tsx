@@ -7,7 +7,12 @@ export const Footer: React.FC = () => {
         <p>
           <code>2024</code>, NSU FIT
         </p>
-        <a className="underline" href="https://github.com/FIT-2024-RecALL">
+        <a
+          className="underline"
+          href="https://github.com/FIT-2024-RecALL"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Github
         </a>
       </div>

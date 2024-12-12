@@ -30,6 +30,7 @@
     "react-hook-form": "^7.53.0",
     "react-icons": "^4.9.0",
     "react-select": "^5.8.2",
+    "tailwind-scrollbar": "^3.1.0",
     "ts-pattern": "5.4.0",
     "wouter": "^3.3.5",
     "zod": "^3.23.8",

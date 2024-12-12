@@ -5,4 +5,5 @@ export * from './Icon';
 export * from './LoadableComponent';
 export * from './PopUp';
 export * from './ProgressBar';
+export * from './SearchBar';
 export * from './SliderCheckbox';

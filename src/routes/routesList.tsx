@@ -1,5 +1,10 @@
 import React from 'react';
-import { StartPage, CollectionEditPage, TrainPage } from '@/pages';
+import {
+  StartPage,
+  CollectionsPage,
+  CollectionEditPage,
+  TrainPage,
+} from '@/pages';
 
 type RouteData = {
   url: string;
@@ -20,7 +25,7 @@ export const routes: Record<RoutesEnum, RouteData> = {
     url: '/collections',
     getUrl: () => '/collections',
     label: 'View collections',
-    content: <StartPage />,
+    content: <CollectionsPage />,
   },
   collectionEdit: {
     url: '/collections/:id/edit',
