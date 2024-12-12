@@ -8,7 +8,7 @@ import {
 } from '@/query/queryHooks';
 import { CollectionEditForm } from '@/components/collection/CollectionEditForm';
 import { ErrorPage } from '@/pages';
-import { CardsList } from '../components/collection/CardsList';
+import { CardsList } from '../components/card/CardsList';
 import { LoadableComponent } from '../components/library/LoadableComponent';
 
 export interface EditPageParams {

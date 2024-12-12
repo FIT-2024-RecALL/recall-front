@@ -1,5 +1,5 @@
 import React, { HTMLAttributes } from 'react';
-import { Card } from '@/components/card';
+import { Card } from './Card';
 import { ActiveCardUIModes } from '@/state/slices';
 import clsx from 'clsx';
 

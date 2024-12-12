@@ -1,6 +1,7 @@
-import { routes } from '@/routes';
 import React from 'react';
 import { Link } from 'wouter';
+
+import { routes } from '@/routes';
 
 export const StartPage: React.FC = () => {
   return (
