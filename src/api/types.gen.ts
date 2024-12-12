@@ -182,7 +182,7 @@ export type ReadCollectionsCollectionsGetData = {
   };
 };
 
-export type ReadCollectionsCollectionsGetResponse = Array<number>;
+export type ReadCollectionsCollectionsGetResponse = Array<CollectionShort>;
 
 export type ReadCollectionsCollectionsGetError = HTTPValidationError;
 
@@ -193,17 +193,6 @@ export type CreateCollectionCollectionsPostData = {
 export type CreateCollectionCollectionsPostResponse = Collection;
 
 export type CreateCollectionCollectionsPostError = HTTPValidationError;
-
-export type ReadCollectionsCollectionsFullGetData = {
-  query?: {
-    limit?: number;
-    skip?: number;
-  };
-};
-
-export type ReadCollectionsCollectionsFullGetResponse = Array<Collection>;
-
-export type ReadCollectionsCollectionsFullGetError = HTTPValidationError;
 
 export type ReadCollectionCardsCollectionsCollectionIdCardsGetData = {
   path: {

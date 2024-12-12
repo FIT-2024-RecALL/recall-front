@@ -37,7 +37,7 @@ export const Header: React.FC = () => {
               </Link>
               <Button
                 variant="bordered-trans"
-                className="p-1 my-1 mx-2"
+                className="p-1 my-1 mx-2 text-sm md:text-md"
                 onClick={() => logout()}
               >
                 Log out

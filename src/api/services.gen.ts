@@ -37,9 +37,6 @@ import type {
   CreateCollectionCollectionsPostData,
   CreateCollectionCollectionsPostError,
   CreateCollectionCollectionsPostResponse,
-  ReadCollectionsCollectionsFullGetData,
-  ReadCollectionsCollectionsFullGetError,
-  ReadCollectionsCollectionsFullGetResponse,
   ReadCollectionCardsCollectionsCollectionIdCardsGetData,
   ReadCollectionCardsCollectionsCollectionIdCardsGetError,
   ReadCollectionCardsCollectionsCollectionIdCardsGetResponse,
@@ -249,7 +246,7 @@ export const updateCollectionCollectionsCollectionIdPut = <
 
 /**
  * Read Collections
- * Returns collections' ids
+ * Returns collections' list without descriptions
  */
 export const readCollectionsCollectionsGet = <
   ThrowOnError extends boolean = false
@@ -281,25 +278,6 @@ export const createCollectionCollectionsPost = <
   >({
     ...options,
     url: '/collections/',
-  });
-};
-
-/**
- * Read Collections
- * Returns collections' full data objects
- */
-export const readCollectionsCollectionsFullGet = <
-  ThrowOnError extends boolean = false
->(
-  options?: Options<ReadCollectionsCollectionsFullGetData, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    ReadCollectionsCollectionsFullGetResponse,
-    ReadCollectionsCollectionsFullGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/collections/full',
   });
 };
 

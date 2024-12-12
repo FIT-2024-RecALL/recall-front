@@ -1,6 +1,6 @@
 import { useQuery, queryOptions } from '@tanstack/react-query';
 import { dataExtractionWrapper } from '@/query';
-import { CollectionShort, readCardCollectionsCardsCardIdCollectionsGet } from '@/api';
+import { readCardCollectionsCardsCardIdCollectionsGet } from '@/api';
 import { CardIdType } from '@/state/slices';
 
 export const getCardCollectionsQueryOptions = (id: CardIdType) =>
