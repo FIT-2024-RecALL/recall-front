@@ -12,8 +12,14 @@ import {
 } from '@/components/library';
 import { dataExtractionWrapper } from '@/query';
 import { getCollectionQueryOptions, useCollection } from '@/query/queryHooks';
-import { updateCollectionCollectionsCollectionIdPut } from '@/api';
+import {
+  deleteCollectionCollectionsCollectionIdDelete,
+  updateCollectionCollectionsCollectionIdPut,
+} from '@/api';
 import { CollectionEditType, collectionScheme } from './CreateCollectionWindow';
+import { navigate } from 'wouter/use-browser-location';
+import { routes } from '@/routes';
+import { DropDown } from '../library/DropDown';
 
 export type CollectionType = CollectionEditType & {
   id: number;
@@ -44,8 +50,8 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
   const {
     mutate: saveCollectionData,
     error: saveError,
-    isPending,
-    isSuccess,
+    isPending: isSavePending,
+    isSuccess: isSaveSuccess,
   } = useMutation({
     mutationFn: (data: CollectionEditType) =>
       dataExtractionWrapper(
@@ -60,6 +66,26 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
       ),
     onSuccess: (data) => {
       queryClient.setQueryData(getCollectionQueryOptions(id).queryKey, data);
+    },
+  });
+  const {
+    mutate: deleteCollection,
+    error: deleteError,
+    isPending: isDeletePending,
+  } = useMutation({
+    mutationFn: (id: number) =>
+      dataExtractionWrapper(
+        deleteCollectionCollectionsCollectionIdDelete({
+          path: {
+            collection_id: id,
+          },
+        })
+      ),
+    onSuccess: (data, id) => {
+      queryClient.resetQueries({
+        queryKey: getCollectionQueryOptions(id).queryKey,
+      });
+      navigate(routes.collections.getUrl(), { replace: true });
     },
   });
 
@@ -114,16 +140,38 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
         </FormItem>
         <FormItem
           className="m-2 md:m-4 text-lg"
-          errorMessage={saveError?.message}
+          errorMessage={saveError?.message || deleteError?.message}
         />
         <div className="w-full center">
-          <Button variant="plate" type="submit">
+          <Button className="mx-3" variant="plate" type="submit">
             Save collection
           </Button>
-          <div className="mx-2">
-            {isPending && <Icon className="animate-spin" icon="loader" />}
-            {isSuccess && 'Saved'}
-          </div>
+          {(isSavePending || isSaveSuccess) && (
+            <div className="mx-2">
+              {isSavePending && <Icon className="animate-spin" icon="loader" />}
+              {isSaveSuccess && 'Saved'}
+            </div>
+          )}
+          <DropDown
+            buttonComponent={
+              <Button className="mx-3" variant="bordered-trans">
+                Delete collection
+              </Button>
+            }
+          >
+            <Button
+              className="m-3"
+              variant="bordered"
+              onClick={() => deleteCollection(id)}
+            >
+              Confirm deletion
+            </Button>
+            {isDeletePending && (
+              <div className="mx-2">
+                <Icon className="animate-spin" icon="loader" />
+              </div>
+            )}
+          </DropDown>
         </div>
       </form>
     </LoadableComponent>

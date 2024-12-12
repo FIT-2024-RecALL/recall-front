@@ -2,15 +2,18 @@ import React from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { navigate } from 'wouter/use-browser-location';
 
 import { Button, FormItem, Icon, PopUp } from '@/components/library';
 import { useAppStore } from '@/state';
 import clsx from 'clsx';
-import { getCollectionQueryOptions, getCollectionsQueryOptions } from '@/query/queryHooks';
+import {
+  getCollectionQueryOptions,
+  getCollectionsQueryOptions,
+} from '@/query/queryHooks';
 import { createCollectionCollectionsPost } from '@/api';
 import { dataExtractionWrapper } from '@/query';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { navigate } from 'wouter/use-browser-location';
 import { routes } from '@/routes';
 
 export const collectionScheme = z.object({
@@ -53,7 +56,7 @@ export const CreateCollectionWindow: React.FC = () => {
         data
       );
       queryClient.invalidateQueries({
-        queryKey: getCollectionsQueryOptions().queryKey
+        queryKey: getCollectionsQueryOptions().queryKey,
       });
       navigate(routes.collectionEdit.getUrl(data.id), { replace: true });
       setIsOpened(false);
