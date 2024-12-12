@@ -155,6 +155,28 @@ export const CollectionCreateSchema = {
   title: 'CollectionCreate',
 } as const;
 
+export const CollectionShortSchema = {
+  properties: {
+    id: {
+      type: 'integer',
+      title: 'Id',
+    },
+    ownerId: {
+      type: 'integer',
+      title: 'Ownerid',
+    },
+    title: {
+      type: 'string',
+      maxLength: 100,
+      minLength: 1,
+      title: 'Title',
+    },
+  },
+  type: 'object',
+  required: ['id', 'ownerId', 'title'],
+  title: 'CollectionShort',
+} as const;
+
 export const FileUploadedSchemeSchema = {
   properties: {
     url: {
