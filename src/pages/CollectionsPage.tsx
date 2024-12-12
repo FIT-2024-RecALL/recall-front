@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { CollectionCard } from '../components/collection/CollectionCard';
 import { SearchBar } from '@/components/library/SearchBar';
-import { collections } from '../components/library/mockCollectionsData.js';
 import { Button } from '@/components/library/Button';
-import { useCollections } from '@/query/queryHooks';
-import { Collection, CollectionShort } from '@/api';
+import { useCollections, useProfile } from '@/query/queryHooks';
+import { CollectionShort } from '@/api';
+import { useAppStore } from '@/state';
+import clsx from 'clsx';
 
 export const CollectionsPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
+
+  const setIsCreateCollectionOpened = useAppStore(
+    (state) => state.setIsCreateCollectionWindowOpened
+  );
+
+  const { profile } = useProfile();
   const { collections } = useCollections();
   const [activeCollections, setAcitveCollections] = useState<CollectionShort[]>(
     []
@@ -30,14 +37,22 @@ export const CollectionsPage: React.FC = () => {
         Collections
       </h1>
 
-      <div className="flex justify-center mb-4">
-        <Button
-          variant="plate"
-          className="py-3 px-6 rounded-full text-lg shadow-md hover:shadow-lg transition duration-200"
-        >
-          Create collection
-        </Button>
-      </div>
+      {profile && (
+        <div className="flex justify-center mb-4">
+          <Button
+            variant="plate"
+            className={clsx(
+              'py-3 px-6 rounded-full',
+              'text-lg font-medium',
+              'shadow-md hover:shadow-lg',
+              'transition duration-200'
+            )}
+            onClick={() => setIsCreateCollectionOpened(true)}
+          >
+            Create collection
+          </Button>
+        </div>
+      )}
 
       <SearchBar
         searchTerm={searchTerm}

@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -14,12 +13,7 @@ import {
 import { dataExtractionWrapper } from '@/query';
 import { getCollectionQueryOptions, useCollection } from '@/query/queryHooks';
 import { updateCollectionCollectionsCollectionIdPut } from '@/api';
-
-const collectionScheme = z.object({
-  title: z.string().min(1, 'Title is required'),
-  description: z.string(),
-});
-export type CollectionEditType = z.infer<typeof collectionScheme>;
+import { CollectionEditType, collectionScheme } from './CreateCollectionWindow';
 
 export type CollectionType = CollectionEditType & {
   id: number;
