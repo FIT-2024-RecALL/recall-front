@@ -1,12 +1,10 @@
 import { Immutable } from 'immer';
 
 import { Slice } from '@/state';
+import { Card } from '@/api';
 
 export type CardSides = 'frontSide' | 'backSide';
-export type NewCardPseudoId = 'new';
-export type CardIdType = number | NewCardPseudoId;
-export type CardType = {
-  id: CardIdType;
+export type CardStateType = {
   frontSide: string;
   backSide: string;
 };
@@ -20,9 +18,12 @@ export type ActiveCardUI = {
 };
 
 export type ActiveCardState = Immutable<{
-  activeCard: CardType;
+  activeCardId: number;
+  isNewActiveCard: boolean;
+  activeCard: CardStateType;
   activeCardUI: ActiveCardUI;
-  setActiveCard: (newCard: CardType) => void;
+  setDraftActiveCard: () => void;
+  setRealActiveCard: (card: Card) => void;
   setActiveCardSide: (side: CardSides, sideValue: string) => void;
   setActiveCardUIMode: (mode: ActiveCardUIModes) => void;
   setActiveCardUIFlag: (
@@ -31,16 +32,15 @@ export type ActiveCardState = Immutable<{
   ) => void;
 }>;
 
-export const newCardDraft: CardType = {
-  id: 'new',
+export const cardDraft: CardStateType = {
   frontSide: '',
   backSide: '',
 };
 
 export const createActiveCardStateSlice: Slice<ActiveCardState> = (mutate) => ({
+  activeCardId: -1,
+  isNewActiveCard: false,
   activeCard: {
-    id: 0,
-    previewText: '',
     frontSide: '',
     backSide: '',
   },
@@ -50,9 +50,21 @@ export const createActiveCardStateSlice: Slice<ActiveCardState> = (mutate) => ({
     flipped: false,
     editActive: false,
   },
-  setActiveCard: (newCard) => {
+  setDraftActiveCard: () => {
     mutate((state) => {
-      state.activeCard = newCard;
+      state.activeCard = cardDraft;
+      state.activeCardId = -1;
+      state.isNewActiveCard = true;
+    });
+  },
+  setRealActiveCard: (card) => {
+    mutate((state) => {
+      state.activeCard = {
+        frontSide: card.frontSide,
+        backSide: card.backSide,
+      };
+      state.activeCardId = card.id;
+      state.isNewActiveCard = false;
     });
   },
   setActiveCardSide: (side, sideValue) => {

@@ -2,6 +2,7 @@ import React, { HTMLAttributes } from 'react';
 import { Card } from './Card';
 import { ActiveCardUIModes } from '@/state/slices';
 import clsx from 'clsx';
+import { NewCard } from './NewCard';
 
 export interface CardsListProps extends HTMLAttributes<React.FC> {
   cardsIds: number[];
@@ -22,13 +23,7 @@ export const CardsList: React.FC<CardsListProps> = ({
         gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
       }}
     >
-      {addNewCard && (
-        <Card
-          cardId="new"
-          mode="edit"
-          className="bg-1-4 text-7xl font-normal"
-        />
-      )}
+      {addNewCard && <NewCard />}
       {cardsIds.map((cardId) => (
         <Card cardId={cardId} mode={mode} key={cardId} />
       ))}

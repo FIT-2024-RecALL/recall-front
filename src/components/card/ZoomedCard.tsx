@@ -7,21 +7,19 @@ import { FlippingCard } from './FlippingCard';
 import { EditCardControls } from './EditCardControls';
 import { TrainCardControls } from './TrainCardControls';
 import { useAppStore } from '@/state';
-import { CardIdType } from '@/state/slices';
+import { CreateCardControls } from './CreateCardControls';
 
-interface ZoomedCardProps extends HTMLAttributes<React.FC> {
-  cardId: CardIdType;
-}
+interface ZoomedCardProps extends HTMLAttributes<React.FC> {}
 
-export const ZoomedCard: React.FC<ZoomedCardProps> = ({ cardId }) => {
+export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
   const zoomed = useAppStore((state) => state.activeCardUI.zoomed);
-  const activeCardId = useAppStore((state) => state.activeCard.id);
   const setCardUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
   const mode = useAppStore((state) => state.activeCardUI.mode);
+  const isNew = useAppStore((state) => state.isNewActiveCard);
 
   return (
     <PopUp
-      isShown={zoomed && cardId === activeCardId}
+      isShown={zoomed}
       close={() => setCardUIFlag('zoomed', () => false)}
       className="center bg-1-5/50 backdrop-blur-sm"
     >
@@ -34,8 +32,9 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = ({ cardId }) => {
             'text-white'
           )}
         />
-        {mode == 'edit' && <EditCardControls />}
-        {mode == 'train' && <TrainCardControls />}
+        {mode === 'edit' && isNew && <CreateCardControls />}
+        {mode === 'edit' && !isNew && <EditCardControls />}
+        {mode === 'train' && <TrainCardControls />}
       </div>
     </PopUp>
   );
