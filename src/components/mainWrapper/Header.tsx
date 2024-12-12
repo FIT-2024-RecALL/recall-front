@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'wouter';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Button } from '@/components/library/Button';
 import { useAppStore } from '@/state/state';
 import { Menu } from './Menu';
 import { logoutUserUserLogoutPost } from '@/api';
-import { useProfile, dataExtractionWrapper } from '@/query';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { dataExtractionWrapper } from '@/query';
+import { getProfileQueryOptions, useProfile } from '@/query/queryHooks';
 
 export const Header: React.FC = () => {
   const showLoginWindow = useAppStore((state) => state.showLoginWindow);
@@ -17,14 +18,15 @@ export const Header: React.FC = () => {
   const client = useQueryClient();
   const { mutate: logout, error: logoutError } = useMutation({
     mutationFn: () => dataExtractionWrapper(logoutUserUserLogoutPost()),
-    onSuccess: () => client.resetQueries({ queryKey: ['profile'] }),
+    onSuccess: () =>
+      client.resetQueries({ queryKey: getProfileQueryOptions().queryKey }),
   });
 
   return (
     <header>
       <div className="flex justify-between m-0 p-2 bg-transparent w-full transition-all">
         <h2 className="text-lg md:text-2xl text-1-1 font-bold mx-2 center">
-          <Link to="/">RecAll</Link>
+          <Link to="/">Let{"'"}s RecAll</Link>
         </h2>
         <Menu />
         <div className="center">
