@@ -2,22 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { CollectionCard } from '../components/collection/CollectionCard';
 import { SearchBar } from '@/components/library/SearchBar';
 import { collections } from '../components/library/mockCollectionsData.js';
-import { Link } from 'wouter';
 import { Button } from '@/components/library/Button';
+import { useCollections } from '@/query/queryHooks';
+import { Collection, CollectionShort } from '@/api';
 
 export const CollectionsPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeCollections, setActiveCollections] = useState(collections);
+  const { collections } = useCollections();
+  const [activeCollections, setAcitveCollections] = useState<CollectionShort[]>(
+    []
+  );
 
   useEffect(() => {
+    if (!collections) return;
     const filteredCollections =
       searchTerm.trim() === ''
         ? collections
         : collections.filter((item) =>
             item.title.toLowerCase().includes(searchTerm.toLowerCase())
           );
-    setActiveCollections(filteredCollections);
-  }, [searchTerm]);
+    setAcitveCollections(filteredCollections);
+  }, [searchTerm, collections]);
 
   return (
     <div className="flex flex-col items-center m-4 md:m-10 p-5 text-o-black">
@@ -48,13 +53,7 @@ export const CollectionsPage: React.FC = () => {
       >
         {activeCollections.length > 0 ? (
           activeCollections.map((item) => (
-            <CollectionCard
-              key={item.id}
-              collectionId={item.id}
-              timeAgo={item.timeAgo}
-              title={item.title}
-              description={item.description}
-            />
+            <CollectionCard key={item.id} collectionId={item.id} />
           ))
         ) : (
           <p className="text-center text-o-white col-span-full">
