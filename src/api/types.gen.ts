@@ -194,17 +194,6 @@ export type CreateCollectionCollectionsPostResponse = Collection;
 
 export type CreateCollectionCollectionsPostError = HTTPValidationError;
 
-export type ReadCollectionsCollectionsFullGetData = {
-  query?: {
-    limit?: number;
-    skip?: number;
-  };
-};
-
-export type ReadCollectionsCollectionsFullGetResponse = Array<Collection>;
-
-export type ReadCollectionsCollectionsFullGetError = HTTPValidationError;
-
 export type ReadCollectionCardsCollectionsCollectionIdCardsGetData = {
   path: {
     collection_id: number;
