@@ -14,7 +14,7 @@ export const MiniCard: React.FC<MiniCardProps> = ({
     <div
       className={clsx(
         'transition-all',
-        'm-2 p-2 w-full h-48',
+        'p-2 w-full h-48',
         'hover:cursor-pointer rounded-lg',
         'bg-1-3',
         'hover:bg-1-3/80',
