@@ -2,14 +2,13 @@ import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
 interface MiniCardProps extends HTMLAttributes<React.FC> {
-  previewText: string;
   onClick?: () => void;
 }
 
 export const MiniCard: React.FC<MiniCardProps> = ({
-  previewText,
   onClick,
   className,
+  children,
 }) => {
   return (
     <div
@@ -27,7 +26,7 @@ export const MiniCard: React.FC<MiniCardProps> = ({
       )}
       onClick={() => onClick?.()}
     >
-      <h2 className="">{previewText}</h2>
+      {children}
     </div>
   );
 };

@@ -1,46 +1,58 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MultiValue } from 'react-select';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { Button } from '@/components/library';
 import { useAppStore } from '@/state';
 import {
+  useCardCollections,
   getCardQueryOptions,
-  getProfileCardsQueryOptions,
   getCardCollectionsQueryOptions,
 } from '@/query/queryHooks';
 import { dataExtractionWrapper } from '@/query';
-import { createCardCardsPost } from '@/api';
-import { CollectionsSelect, Option } from './CollectionsSelect';
+import { updateCardCardsCardIdPut } from '@/api';
+import { Button, LoadableComponent } from '@/components/library';
+import {
+  collectionResponseToOptions,
+  CollectionsSelect,
+  Option,
+} from './CollectionsSelect';
 
-export const CreateCardControls: React.FC = () => {
+export const EditCardControls: React.FC = () => {
+  const cardId = useAppStore((state) => state.activeCardId);
   const cardData = useAppStore((state) => state.activeCard);
 
+  const { cardCollections, isPending: cardCollectionsPending } =
+    useCardCollections(cardId);
   const [selectedOptions, setSelectedOptions] = useState<
     MultiValue<Option<number>>
   >([]);
 
+  useEffect(() => {
+    setSelectedOptions(collectionResponseToOptions(cardCollections));
+  }, [cardCollections]);
+
   const client = useQueryClient();
-  const { mutate: createCard, error: createError } = useMutation({
+  const { mutate: updateCard, error: updateError } = useMutation({
     mutationFn: (data: {
-      card: { frontSide: string; backSide: string };
+      id: number;
+      new_card: { frontSide: string; backSide: string };
       collections: number[];
     }) =>
       dataExtractionWrapper(
-        createCardCardsPost({
+        updateCardCardsCardIdPut({
+          path: {
+            card_id: data.id,
+          },
           body: {
             ...data,
           },
         })
       ),
     onSuccess: (responseData, requestData) => {
-      client.invalidateQueries({ queryKey: ['collection'] });
+      client.invalidateQueries({ queryKey: ['collection'] }); // TODO: подумать, как оптимизировать этот запрос
       client.invalidateQueries({
         queryKey: getCardCollectionsQueryOptions(responseData.id).queryKey,
-      });
-      client.invalidateQueries({
-        queryKey: getProfileCardsQueryOptions().queryKey,
       });
       client.setQueryData(
         getCardQueryOptions(responseData.id).queryKey,
@@ -63,14 +75,16 @@ export const CreateCardControls: React.FC = () => {
           <span className="md:text-right w-full md:w-1/6 px-1">
             Paired with:
           </span>
-          <CollectionsSelect
-            selectedOptions={selectedOptions}
-            setSelectedOptions={setSelectedOptions}
-          />
+          <LoadableComponent isPending={cardCollectionsPending}>
+            <CollectionsSelect
+              selectedOptions={selectedOptions}
+              setSelectedOptions={setSelectedOptions}
+            />
+          </LoadableComponent>
         </div>
-        {createError && (
+        {updateError && (
           <div className={clsx('center mb-2', 'text-red-200 font-bold')}>
-            {createError.message}
+            {updateError.message}
           </div>
         )}
       </div>
@@ -79,13 +93,14 @@ export const CreateCardControls: React.FC = () => {
           className="text-xl m-3"
           variant="bordered"
           onClick={() => {
-            createCard({
-              card: { ...cardData },
+            updateCard({
+              id: cardId,
+              new_card: { ...cardData },
               collections: selectedOptions?.map((option) => option.value),
             });
           }}
         >
-          Save
+          Save card
         </Button>
       </div>
     </>

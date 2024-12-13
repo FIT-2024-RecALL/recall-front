@@ -1,9 +1,7 @@
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
-import { Icon } from '@/components/library/Icon';
 
-import { Button } from '@/components/library/Button';
-
+import { Icon, Button } from '@/components/library';
 import { useAppStore } from '@/state';
 
 export const TrainCardControls: React.FC = () => {

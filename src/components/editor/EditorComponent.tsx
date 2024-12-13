@@ -4,7 +4,7 @@ import { UploadDropdown } from './UploadDropdown';
 import { Button } from '../library/Button';
 import { Icon } from '../library/Icon';
 import { EditorControls } from './EditorControls';
-import { MdRenderComponent } from './MdRenderComponent';
+import { MarkdownRenderComponent } from './MarkdownRenderComponent';
 
 interface EditorComponentProps extends HTMLAttributes<React.FC> {
   state: string;
@@ -52,7 +52,7 @@ export const EditorComponent: React.FC<EditorComponentProps> = ({
           />
         </div>
       ) : (
-        <MdRenderComponent
+        <MarkdownRenderComponent
           rawText={state}
           extended={extended}
           className={clsx('text-lg w-full overflow-auto', previewClassName)}

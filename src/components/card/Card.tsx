@@ -1,9 +1,12 @@
 import React, { HTMLAttributes } from 'react';
-import { MiniCard } from './MiniCard';
+
+import { MiniCard } from './visuals';
 import { ActiveCardUIModes } from '@/state/slices';
 import { useAppStore } from '@/state';
 import { useCard } from '@/query/queryHooks';
-import { LoadableComponent } from '../library/LoadableComponent';
+import { LoadableComponent } from '@/components/library';
+import { MarkdownRenderComponent } from '@/components/editor';
+import clsx from 'clsx';
 
 interface CardProps extends HTMLAttributes<React.FC> {
   mode: ActiveCardUIModes;
@@ -20,7 +23,6 @@ export const Card: React.FC<CardProps> = ({ mode, cardId, className }) => {
     <>
       <LoadableComponent isPending={isPending} animated>
         <MiniCard
-          previewText={error ? error.message : `Card ${card?.id}`}
           onClick={
             card &&
             (() => {
@@ -28,8 +30,17 @@ export const Card: React.FC<CardProps> = ({ mode, cardId, className }) => {
               setRealActiveCard(card);
             })
           }
-          className={className}
-        />
+          className={clsx('overflow-hidden', className)}
+        >
+          {error && error.message}
+          {card && (
+            <MarkdownRenderComponent
+              className="w-3/4 md:w-1/2"
+              rawText={card.frontSide}
+              extended
+            />
+          )}
+        </MiniCard>
       </LoadableComponent>
     </>
   );

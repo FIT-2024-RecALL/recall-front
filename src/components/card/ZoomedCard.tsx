@@ -1,13 +1,14 @@
 import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
-import { PopUp } from '@/components/library/PopUp';
-import { FlippingCard } from './FlippingCard';
-
-import { EditCardControls } from './EditCardControls';
-import { TrainCardControls } from './TrainCardControls';
+import { PopUp } from '@/components/library';
+import { FlippingCard } from './visuals';
+import {
+  CreateCardControls,
+  EditCardControls,
+  TrainCardControls,
+} from './controls';
 import { useAppStore } from '@/state';
-import { CreateCardControls } from './CreateCardControls';
 
 interface ZoomedCardProps extends HTMLAttributes<React.FC> {}
 

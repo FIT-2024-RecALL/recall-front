@@ -5,12 +5,12 @@ import {
 } from './markdown-it-plugged-parser';
 import clsx from 'clsx';
 
-export interface MdRendererProps extends HTMLAttributes<React.FC> {
+export interface MarkdownRendererProps extends HTMLAttributes<React.FC> {
   rawText: string;
   extended?: boolean;
 }
 
-export const MdRenderComponent: React.FC<MdRendererProps> = ({
+export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
   rawText,
   extended,
   className,

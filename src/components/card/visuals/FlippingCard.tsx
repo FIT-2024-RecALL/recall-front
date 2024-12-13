@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
-import { EditorComponent } from '@/components/editor/EditorComponent';
+import { EditorComponent } from '@/components/editor';
 
 import { CardSide } from './CardSide';
 import { useAppStore } from '@/state';
