@@ -1,14 +1,18 @@
 import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
-import { EditorComponent } from '@/components/editor';
+import {
+  MarkdownEditorComponent,
+  MarkdownRenderComponent,
+} from '@/components/editor';
 
 import { CardSide } from './CardSide';
 import { useAppStore } from '@/state';
 
-interface FlippingCardProps extends HTMLAttributes<React.FC> {}
+type FlippingCardProps = HTMLAttributes<React.FC>;
 
 export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
+  const mode = useAppStore((state) => state.activeCardUI.mode);
   const frontSide = useAppStore((state) => state.activeCard.frontSide);
   const backSide = useAppStore((state) => state.activeCard.backSide);
   const setCardSide = useAppStore((state) => state.setActiveCardSide);
@@ -24,19 +28,36 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
       )}
     >
       <CardSide side="front">
-        <EditorComponent
-          state={frontSide}
-          setState={(s) => setCardSide('frontSide', s)}
-          extended
-          placeholder="First side"
-        />
+        {mode === 'edit' && (
+          <MarkdownEditorComponent
+            state={frontSide}
+            setState={(s) => setCardSide('frontSide', s)}
+            extended
+            placeholder="First side"
+          />
+        )}
+        {mode === 'train' && (
+          <MarkdownRenderComponent
+            className="text-lg w-full p-2 md:p-4"
+            rawText={frontSide}
+            extended
+          />
+        )}
       </CardSide>
       <CardSide side="back">
-        <EditorComponent
-          state={backSide}
-          setState={(s) => setCardSide('backSide', s)}
-          placeholder="Second side"
-        />
+        {mode === 'edit' && (
+          <MarkdownEditorComponent
+            state={backSide}
+            setState={(s) => setCardSide('backSide', s)}
+            placeholder="Second side"
+          />
+        )}
+        {mode === 'train' && (
+          <MarkdownRenderComponent
+            className="text-lg w-full p-2 md:p-4"
+            rawText={backSide}
+          />
+        )}
       </CardSide>
       <div
         className={clsx(
