@@ -45,5 +45,5 @@ export const routes: Record<RoutesEnum, RouteData> = {
   },
 };
 
-const menuRoutesKeys: RoutesEnum[] = ['main', 'collections', 'about'];
+const menuRoutesKeys: RoutesEnum[] = ['main', 'collections'];
 export const menuRoutes = menuRoutesKeys.map((menuKey) => routes[menuKey]);

@@ -2,44 +2,26 @@ import React from 'react';
 import { Link } from 'wouter';
 
 import { routes } from '@/routes';
+import { useAppStore } from '@/state';
+import { Button } from '@/components/library';
 
 export const StartPage: React.FC = () => {
+  const showLoginWindow = useAppStore((state) => state.showLoginWindow);
+
   return (
-    <div className="vstack m-2 md:m-10 p-2 md:p-5 bg-1-8 text-o-black rounded-md">
-      <h1 className="text-4xl text-center m-2 font-bold">
+    <div className="vstack m-2 md:m-10 p-2 md:p-5 text-o-black rounded-md">
+      <h1 className="text-4xl text-center my-6 font-bold">
         Make engrams for everything you want
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-3">
-        <div className="md:col-span-2 center vstack">
-          <p className="text-xl m-2">
-            Товарищ! Ты вступаешь на путь знаний, где ошибка стоит дорого, а
-            забывчивость — враг. Этот веб-приложение — не просто инструмент, а
-            твой строгий учитель в освоении материала. Интервальные повторения —
-            система, проверенная временем, и она не потерпит лености. Здесь
-            каждый забытый факт — шаг к поражению, а регулярная работа — залог
-            победы.
-          </p>
-          <p className="text-xl m-2">
-            Запомни: здесь нет места хаосу и слабости. Приложение точно
-            рассчитает, когда и что тебе нужно повторить, чтобы знания
-            закрепились в твоей голове навечно. Неукоснительное следование
-            рекомендациям — это твой долг.
-          </p>
-        </div>
-        <img
-          className="my-2 md:mx-2"
-          src="https://avatars.dzeninfra.ru/get-zen_brief/7731634/pub_63204e7cc0fd3557a72bae3c_632070daa32fa40d99e6362a/scale_1200"
-          alt="А ты уже?.."
-        />
+      <div className="w-full center vstack">
+        <Button
+          variant="plate"
+          className="font-bold text-3xl p-8 m-2 rounded-3xl"
+          onClick={showLoginWindow}
+        >
+          Join
+        </Button>
       </div>
-
-      <Link className="text-2xl underline" to={routes.collectionEdit.getUrl(1)}>
-        Test edit
-      </Link>
-
-      <Link className="text-2xl underline" to={routes.train.getUrl(1)}>
-        Test train
-      </Link>
     </div>
   );
 };
