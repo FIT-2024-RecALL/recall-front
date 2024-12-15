@@ -6,9 +6,13 @@ import { useAppStore } from '@/state';
 import { routes } from '@/routes';
 import { Button, LoadableComponent, ProgressBar } from '@/components/library';
 import { CardsList } from '@/components/card';
-import { useCollectionTrainCards } from '@/query/queryHooks/useCollectionTrainCards';
+import {
+  getCollectionTrainCardsQueryOptions,
+  useCollectionTrainCards,
+} from '@/query/queryHooks/useCollectionTrainCards';
 import { useCollection, useProfile } from '@/query/queryHooks';
 import { ErrorPage } from './ErrorPage';
+import { useQueryClient } from '@tanstack/react-query';
 
 export interface TrainPageParams {
   id: number;
@@ -34,14 +38,17 @@ export const TrainPage: React.FC = () => {
   const maxCount = useAppStore((state) => state.cardsToTrainInitialCount);
   const trainedCount = useAppStore((state) => state.trainedCount);
 
-  const setNewTrainCards = useCallback(() => {
+  const client = useQueryClient();
+  const refreshTrainCards = useCallback(() => {
+    client.invalidateQueries({
+      queryKey: getCollectionTrainCardsQueryOptions(id).queryKey,
+    });
+  }, [client, id]);
+
+  useEffect(() => {
     // if (trainedCount >= maxCount && cards) setTrainCards(cards);
     setTrainCards(cards ?? []);
   }, [cards, setTrainCards]);
-
-  useEffect(() => {
-    setNewTrainCards();
-  }, [setNewTrainCards]);
 
   if (!profile)
     return (
@@ -61,28 +68,27 @@ export const TrainPage: React.FC = () => {
         <h1 className="my-2 text-center text-2xl font-bold">
           Trainining {collection?.title}
         </h1>
-        {trainedCount < maxCount ? (
+        {maxCount === 0 && (
           <>
-            <ProgressBar
-              className="my-4 border-2 text-xl font-medium"
-              value={trainedCount}
-              minValue={0}
-              maxValue={maxCount}
-            />
-            <div className="center">
-              <Button
-                className="p-4 text-lg"
-                variant="plate"
-                onClick={setNewTrainCards}
+            <h2 className="text-center text-2xl my-2">
+              There{"'"}re no cards to train
+            </h2>
+            <h2 className="text-center text-2xl my-2">
+              Maybe chill or train other collection?
+            </h2>
+            <div className="vstack md:center">
+              <Link
+                className="my-2 md:m-2 w-fit"
+                to={routes.collections.getUrl()}
               >
-                Refresh train cards
-              </Button>
+                <Button className="w-full" variant="plate">
+                  Go to collections
+                </Button>
+              </Link>
             </div>
-            <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
-            <CardsList cardsIds={cardsIds.slice(0, 6)} mode="train" />
           </>
-        ) : (
-          <>
+        )}
+        {maxCount > 0 && trainedCount >= maxCount && (<>
             <h2 className="text-center text-2xl my-2">
               Congratulations! Training was completed
             </h2>
@@ -98,11 +104,31 @@ export const TrainPage: React.FC = () => {
               <Button
                 className="md:m-2"
                 variant="plate"
-                onClick={setNewTrainCards}
+                onClick={refreshTrainCards}
               >
                 Train this collection again
               </Button>
             </div>
+          </>)}
+        {maxCount > 0 && trainedCount < maxCount && (
+          <>
+            <ProgressBar
+              className="my-4 border-2 text-xl font-medium"
+              value={trainedCount}
+              minValue={0}
+              maxValue={maxCount}
+            />
+            <div className="center">
+              <Button
+                className="p-4 text-lg"
+                variant="plate"
+                onClick={refreshTrainCards}
+              >
+                Refresh train cards
+              </Button>
+            </div>
+            <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
+            <CardsList cardsIds={cardsIds.slice(0, 6)} mode="train" />
           </>
         )}
       </div>

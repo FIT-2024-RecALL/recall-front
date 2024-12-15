@@ -3,12 +3,9 @@ import React, { useEffect, useState } from 'react';
 
 import { Icon, Button } from '@/components/library';
 import { useAppStore } from '@/state';
-import { DescreteTrainButton, Mark, marks } from './DescreteTrainButton';
+import { DescreteTrainButton, marks } from './DescreteTrainButton';
 
 export const TrainCardControls: React.FC = () => {
-  const cardId = useAppStore((state) => state.activeCardId);
-  const executeTrainCard = useAppStore((state) => state.executeTrainCard);
-
   const [flippedCount, setFlippedCount] = useState(0);
   const flipped = useAppStore((state) => state.activeCardUI.flipped);
   const setUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
@@ -16,11 +13,6 @@ export const TrainCardControls: React.FC = () => {
   useEffect(() => setFlippedCount((val) => val + 1), [flipped]);
   useEffect(() => setFlippedCount(0), []);
 
-  const onClikcTrainButton = () => {
-    console.log('Train request to back');
-    executeTrainCard(cardId);
-    setUIFlag('zoomed', () => false);
-  };
 
   return (
     <div
