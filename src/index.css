@@ -91,16 +91,8 @@ body {
 
   font-family: "MontserratAlternates";
 
+  /* background: var(--color-white); */
   background: var(--color-1-12);
-  /* background: linear-gradient(
-    180deg, 
-    var(--color-1-1) 0%, 
-    var(--color-1-2) 20%,
-    var(--color-1-3) 40%,
-    var(--color-1-4) 60%,
-    var(--color-1-5) 80%,
-    var(--color-1-6) 100%
-  ); */
 }
 
 html,

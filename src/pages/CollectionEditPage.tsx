@@ -35,7 +35,12 @@ export const CollectionEditPage: React.FC = () => {
   } = useProfileCards();
 
   if (!profile || collection?.ownerId !== profile?.id)
-    return <ErrorPage message="Prohibited" />;
+    return (
+      <ErrorPage
+        isPending={isCollectionPending}
+        message="You're not allowed to edit other people's collections"
+      />
+    );
 
   return (
     <LoadableComponent
