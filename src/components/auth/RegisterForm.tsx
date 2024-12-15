@@ -10,6 +10,7 @@ import { createUserUserRegisterPost } from '@/api';
 import { useAppStore } from '@/state';
 import { dataExtractionWrapper } from '@/query';
 import { getProfileQueryOptions } from '@/query/queryHooks';
+import clsx from 'clsx';
 
 const userRegisterScheme = z
   .object({
@@ -64,7 +65,12 @@ export const RegisterForm: React.FC = () => {
       >
         <input
           placeholder="Email"
-          className="w-full p-2 bg-1-2 focus:bg-1-3 rounded-md placeholder-shown:text-1-8"
+          className={clsx(
+            'p-1 md:p-2 w-full',
+            'text-1-1 font-medium rounded',
+            'bg-transparent border-b border-1-1',
+            'focus:outline-none focus:border-b-2'
+          )}
           {...register('email')}
         />
       </FormItem>
@@ -74,7 +80,12 @@ export const RegisterForm: React.FC = () => {
       >
         <input
           placeholder="Nickname"
-          className="w-full p-2 bg-1-2 focus:bg-1-3 rounded-md placeholder-shown:text-1-8"
+          className={clsx(
+            'p-1 md:p-2 w-full',
+            'text-1-1 font-medium rounded',
+            'bg-transparent border-b border-1-1',
+            'focus:outline-none focus:border-b-2'
+          )}
           {...register('nickname')}
         />
       </FormItem>
@@ -84,7 +95,12 @@ export const RegisterForm: React.FC = () => {
       >
         <input
           placeholder="Create password"
-          className="w-full p-2 bg-1-2 focus:bg-1-3 rounded-md"
+          className={clsx(
+            'p-1 md:p-2 w-full',
+            'text-1-1 font-medium rounded',
+            'bg-transparent border-b border-1-1',
+            'focus:outline-none focus:border-b-2'
+          )}
           {...register('password1')}
           type="password"
         />
@@ -95,7 +111,12 @@ export const RegisterForm: React.FC = () => {
       >
         <input
           placeholder="Repeat password"
-          className="w-full p-2 bg-1-2 focus:bg-1-3 rounded-md"
+          className={clsx(
+            'p-1 md:p-2 w-full',
+            'text-1-1 font-medium rounded',
+            'bg-transparent border-b border-1-1',
+            'focus:outline-none focus:border-b-2'
+          )}
           {...register('password2')}
           type="password"
         />
@@ -103,9 +124,15 @@ export const RegisterForm: React.FC = () => {
       {error && (
         <FormItem className="vstack p-1 w-full" errorMessage={error.message} />
       )}
-      <Button variant="plate" type="submit" className="m-2">
-        Sign up
-      </Button>
+      <div className="center mt-2 mb-1">
+        <Button
+          variant="plate"
+          type="submit"
+          className="w-2/3 text-lg font-medium"
+        >
+          Sign up
+        </Button>
+      </div>
     </form>
   );
 };

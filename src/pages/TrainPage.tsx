@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Link, Redirect, useParams } from 'wouter';
+import React, { useCallback, useEffect } from 'react';
+import { Link, useParams } from 'wouter';
 import { useShallow } from 'zustand/react/shallow';
 
 import { useAppStore } from '@/state';
@@ -7,10 +7,11 @@ import { routes } from '@/routes';
 import { Button, LoadableComponent, ProgressBar } from '@/components/library';
 import { CardsList } from '@/components/card';
 import {
+  useCollection,
+  useProfile,
   getCollectionTrainCardsQueryOptions,
   useCollectionTrainCards,
-} from '@/query/queryHooks/useCollectionTrainCards';
-import { useCollection, useProfile } from '@/query/queryHooks';
+} from '@/query/queryHooks';
 import { ErrorPage } from './ErrorPage';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -46,7 +47,6 @@ export const TrainPage: React.FC = () => {
   }, [client, id]);
 
   useEffect(() => {
-    // if (trainedCount >= maxCount && cards) setTrainCards(cards);
     setTrainCards(cards ?? []);
   }, [cards, setTrainCards]);
 
@@ -88,7 +88,8 @@ export const TrainPage: React.FC = () => {
             </div>
           </>
         )}
-        {maxCount > 0 && trainedCount >= maxCount && (<>
+        {maxCount > 0 && trainedCount >= maxCount && (
+          <>
             <h2 className="text-center text-2xl my-2">
               Congratulations! Training was completed
             </h2>
@@ -109,7 +110,8 @@ export const TrainPage: React.FC = () => {
                 Train this collection again
               </Button>
             </div>
-          </>)}
+          </>
+        )}
         {maxCount > 0 && trainedCount < maxCount && (
           <>
             <ProgressBar
