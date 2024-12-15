@@ -1,12 +1,9 @@
-import React, { HTMLAttributes, useMemo, useState } from 'react';
+import React, { HTMLAttributes, useState } from 'react';
 import clsx from 'clsx';
-import { UploadDropdown } from './UploadDropdown';
-import { Button } from '../library/Button';
-import { Icon } from '../library/Icon';
 import { EditorControls } from './EditorControls';
 import { MarkdownRenderComponent } from './MarkdownRenderComponent';
 
-interface EditorComponentProps extends HTMLAttributes<React.FC> {
+interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
   state: string;
   setState: (newState: string) => void;
   extended?: boolean;
@@ -14,13 +11,9 @@ interface EditorComponentProps extends HTMLAttributes<React.FC> {
   previewClassName?: string;
 }
 
-export const EditorComponent: React.FC<EditorComponentProps> = ({
-  state,
-  setState,
-  extended,
-  placeholder,
-  previewClassName,
-}) => {
+export const MarkdownEditorComponent: React.FC<
+  MarkdownEditorComponentProps
+> = ({ state, setState, extended, placeholder, previewClassName }) => {
   const [active, setActive] = useState(true);
 
   return (
@@ -55,7 +48,7 @@ export const EditorComponent: React.FC<EditorComponentProps> = ({
         <MarkdownRenderComponent
           rawText={state}
           extended={extended}
-          className={clsx('text-lg w-full overflow-auto', previewClassName)}
+          className={clsx('text-lg w-full', previewClassName)}
         />
       )}
     </>

@@ -4,6 +4,7 @@ import { Link } from 'wouter';
 import { routes } from '@/routes';
 import { LoadableComponent, Button } from '@/components/library';
 import { useCollection, useProfile } from '@/query/queryHooks';
+import { useAppStore } from '@/state';
 
 interface CollectionCardProps {
   collectionId: number;
@@ -14,6 +15,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
 }) => {
   const { collection, isPending, error } = useCollection(collectionId);
   const { profile } = useProfile();
+  const showAuthWindow = useAppStore((state) => state.showLoginWindow);
 
   return (
     <LoadableComponent isPending={isPending} errorMessage={error?.message}>
@@ -38,15 +40,24 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
                   </Button>
                 </Link>
               )}
-
-              <Link to={routes.train.getUrl(collectionId)}>
+              {profile ? (
+                <Link to={routes.train.getUrl(collectionId)}>
+                  <Button
+                    variant="bordered-trans"
+                    className="border-1-8 py-1 px-4 rounded-full hover:bg-1-6 transition duration-200"
+                  >
+                    <p className="text-1-8">Train</p>
+                  </Button>
+                </Link>
+              ) : (
                 <Button
                   variant="bordered-trans"
                   className="border-1-8 py-1 px-4 rounded-full hover:bg-1-6 transition duration-200"
+                  onClick={showAuthWindow}
                 >
                   <p className="text-1-8">Train</p>
                 </Button>
-              </Link>
+              )}
             </div>
           </>
         )}

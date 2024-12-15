@@ -53,14 +53,17 @@ export type HTTPValidationError = {
 };
 
 export type TrainRecord = {
-  metaData: string;
+  mark: number;
   id: number;
   cardId: number;
   userId: number;
+  repeatDate: string;
+  nextRepeatDate: string;
+  progress: number;
 };
 
 export type TrainRecordCreate = {
-  metaData: string;
+  mark: number;
 };
 
 export type User = {
@@ -206,6 +209,30 @@ export type ReadCollectionCardsCollectionsCollectionIdCardsGetResponse =
 export type ReadCollectionCardsCollectionsCollectionIdCardsGetError =
   HTTPValidationError;
 
+export type TrainCardsCollectionsCollectionIdCardsTrainGetData = {
+  path: {
+    collection_id: number;
+  };
+};
+
+export type TrainCardsCollectionsCollectionIdCardsTrainGetResponse =
+  Array<number>;
+
+export type TrainCardsCollectionsCollectionIdCardsTrainGetError =
+  HTTPValidationError;
+
+export type ReadCardLastTrainRecordTrainRecordsLastCardIdGetData = {
+  path: {
+    card_id: number;
+  };
+};
+
+export type ReadCardLastTrainRecordTrainRecordsLastCardIdGetResponse =
+  TrainRecord | null;
+
+export type ReadCardLastTrainRecordTrainRecordsLastCardIdGetError =
+  HTTPValidationError;
+
 export type CreateTrainRecordTrainRecordsCardIdPostData = {
   body: TrainRecordCreate;
   path: {
@@ -216,18 +243,6 @@ export type CreateTrainRecordTrainRecordsCardIdPostData = {
 export type CreateTrainRecordTrainRecordsCardIdPostResponse = TrainRecord;
 
 export type CreateTrainRecordTrainRecordsCardIdPostError = HTTPValidationError;
-
-export type ReadCardLastTrainRecordTrainRecordsRecordCardIdGetData = {
-  path: {
-    card_id: number;
-  };
-};
-
-export type ReadCardLastTrainRecordTrainRecordsRecordCardIdGetResponse =
-  Array<TrainRecord>;
-
-export type ReadCardLastTrainRecordTrainRecordsRecordCardIdGetError =
-  HTTPValidationError;
 
 export type ReadUserUserProfileGetResponse = User;
 

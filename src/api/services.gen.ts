@@ -40,12 +40,15 @@ import type {
   ReadCollectionCardsCollectionsCollectionIdCardsGetData,
   ReadCollectionCardsCollectionsCollectionIdCardsGetError,
   ReadCollectionCardsCollectionsCollectionIdCardsGetResponse,
+  TrainCardsCollectionsCollectionIdCardsTrainGetData,
+  TrainCardsCollectionsCollectionIdCardsTrainGetError,
+  TrainCardsCollectionsCollectionIdCardsTrainGetResponse,
+  ReadCardLastTrainRecordTrainRecordsLastCardIdGetData,
+  ReadCardLastTrainRecordTrainRecordsLastCardIdGetError,
+  ReadCardLastTrainRecordTrainRecordsLastCardIdGetResponse,
   CreateTrainRecordTrainRecordsCardIdPostData,
   CreateTrainRecordTrainRecordsCardIdPostError,
   CreateTrainRecordTrainRecordsCardIdPostResponse,
-  ReadCardLastTrainRecordTrainRecordsRecordCardIdGetData,
-  ReadCardLastTrainRecordTrainRecordsRecordCardIdGetError,
-  ReadCardLastTrainRecordTrainRecordsRecordCardIdGetResponse,
   ReadUserUserProfileGetError,
   ReadUserUserProfileGetResponse,
   CreateUserUserRegisterPostData,
@@ -303,6 +306,48 @@ export const readCollectionCardsCollectionsCollectionIdCardsGet = <
 };
 
 /**
+ * Train Cards
+ */
+export const trainCardsCollectionsCollectionIdCardsTrainGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<
+    TrainCardsCollectionsCollectionIdCardsTrainGetData,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? client).get<
+    TrainCardsCollectionsCollectionIdCardsTrainGetResponse,
+    TrainCardsCollectionsCollectionIdCardsTrainGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/{collection_id}/cards/train',
+  });
+};
+
+/**
+ * Read Card Last Train Record
+ */
+export const readCardLastTrainRecordTrainRecordsLastCardIdGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<
+    ReadCardLastTrainRecordTrainRecordsLastCardIdGetData,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? client).get<
+    ReadCardLastTrainRecordTrainRecordsLastCardIdGetResponse,
+    ReadCardLastTrainRecordTrainRecordsLastCardIdGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/train_records/last/{card_id}',
+  });
+};
+
+/**
  * Create Train Record
  */
 export const createTrainRecordTrainRecordsCardIdPost = <
@@ -317,27 +362,6 @@ export const createTrainRecordTrainRecordsCardIdPost = <
   >({
     ...options,
     url: '/train_records/{card_id}',
-  });
-};
-
-/**
- * Read Card Last Train Record
- */
-export const readCardLastTrainRecordTrainRecordsRecordCardIdGet = <
-  ThrowOnError extends boolean = false
->(
-  options: Options<
-    ReadCardLastTrainRecordTrainRecordsRecordCardIdGetData,
-    ThrowOnError
-  >
-) => {
-  return (options?.client ?? client).get<
-    ReadCardLastTrainRecordTrainRecordsRecordCardIdGetResponse,
-    ReadCardLastTrainRecordTrainRecordsRecordCardIdGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/train_records/record/{card_id}',
   });
 };
 

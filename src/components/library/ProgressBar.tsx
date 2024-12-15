@@ -24,7 +24,11 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
       )}
     >
       <div
-        className={clsx('absolute bg-1-6 h-full', fillClassName)}
+        className={clsx(
+          'absolute bg-1-6 h-full',
+          'trainsition-all duration-500',
+          fillClassName
+        )}
         style={{
           width: `${((value - minValue) / (maxValue - minValue)) * 100}%`,
         }}

@@ -10,6 +10,7 @@ import { authenticateUserUserLoginPost } from '@/api';
 import { useAppStore } from '@/state';
 import { dataExtractionWrapper } from '@/query';
 import { getProfileQueryOptions } from '@/query/queryHooks';
+import clsx from 'clsx';
 
 const userLoginScheme = z.object({
   email: z.string().email().min(1, 'Email is required'),
@@ -48,7 +49,7 @@ export const LoginForm: React.FC = () => {
 
   return (
     <form
-      className="vstack w-full p-2 text-white"
+      className="vstack w-full"
       onSubmit={handleSubmit((data) => login(data))}
     >
       <FormItem
@@ -57,7 +58,12 @@ export const LoginForm: React.FC = () => {
       >
         <input
           placeholder="Email"
-          className="w-full p-2 bg-1-2 focus:bg-1-3 rounded-md"
+          className={clsx(
+            'p-1 md:p-2 w-full',
+            'text-1-1 font-medium rounded',
+            'bg-transparent border-b border-1-1',
+            'focus:outline-none focus:border-b-2'
+          )}
           {...register('email')}
         />
       </FormItem>
@@ -67,7 +73,12 @@ export const LoginForm: React.FC = () => {
       >
         <input
           placeholder="Password"
-          className="w-full p-2 bg-1-2 focus:bg-1-3 rounded-md"
+          className={clsx(
+            'p-1 md:p-2 w-full',
+            'text-1-1 font-medium rounded',
+            'bg-transparent border-b border-1-1',
+            'focus:outline-none focus:border-b-2'
+          )}
           {...register('password')}
           type="password"
         />
@@ -75,9 +86,15 @@ export const LoginForm: React.FC = () => {
       {error && (
         <FormItem className="vstack p-1 w-full" errorMessage={error.message} />
       )}
-      <Button variant="plate" type="submit" className="m-2">
-        Sign in
-      </Button>
+      <div className="center mt-2 mb-1">
+        <Button
+          variant="plate"
+          type="submit"
+          className="w-2/3 text-lg font-medium"
+        >
+          Sign in
+        </Button>
+      </div>
     </form>
   );
 };
