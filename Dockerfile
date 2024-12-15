@@ -2,9 +2,9 @@ FROM node:20.17-alpine AS build
 
 COPY package.json package.json
 RUN npm install
+RUN npm audit fix
 COPY . .
 RUN npm run build
-RUN npm audit fix
 
 FROM nginx:1.27.3-alpine
 
