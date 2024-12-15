@@ -205,9 +205,11 @@ export const HTTPValidationErrorSchema = {
 
 export const TrainRecordSchema = {
   properties: {
-    metaData: {
-      type: 'string',
-      title: 'Metadata',
+    mark: {
+      type: 'integer',
+      maximum: 5,
+      minimum: 1,
+      title: 'Mark',
     },
     id: {
       type: 'integer',
@@ -221,21 +223,47 @@ export const TrainRecordSchema = {
       type: 'integer',
       title: 'Userid',
     },
+    repeatDate: {
+      type: 'string',
+      format: 'date-time',
+      title: 'Repeatdate',
+    },
+    nextRepeatDate: {
+      type: 'string',
+      format: 'date-time',
+      title: 'Nextrepeatdate',
+    },
+    progress: {
+      type: 'number',
+      maximum: 1,
+      minimum: 0,
+      title: 'Progress',
+    },
   },
   type: 'object',
-  required: ['metaData', 'id', 'cardId', 'userId'],
+  required: [
+    'mark',
+    'id',
+    'cardId',
+    'userId',
+    'repeatDate',
+    'nextRepeatDate',
+    'progress',
+  ],
   title: 'TrainRecord',
 } as const;
 
 export const TrainRecordCreateSchema = {
   properties: {
-    metaData: {
-      type: 'string',
-      title: 'Metadata',
+    mark: {
+      type: 'integer',
+      maximum: 5,
+      minimum: 1,
+      title: 'Mark',
     },
   },
   type: 'object',
-  required: ['metaData'],
+  required: ['mark'],
   title: 'TrainRecordCreate',
 } as const;
 

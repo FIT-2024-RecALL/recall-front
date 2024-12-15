@@ -3,17 +3,18 @@ import React, { useEffect, useState } from 'react';
 
 import { Icon, Button } from '@/components/library';
 import { useAppStore } from '@/state';
+import { DescreteTrainButton, Mark, marks } from './DescreteTrainButton';
 
 export const TrainCardControls: React.FC = () => {
   const cardId = useAppStore((state) => state.activeCardId);
   const executeTrainCard = useAppStore((state) => state.executeTrainCard);
 
-  const [flippedOnce, setFlippedOnce] = useState(false);
+  const [flippedCount, setFlippedCount] = useState(0);
   const flipped = useAppStore((state) => state.activeCardUI.flipped);
   const setUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
 
-  useEffect(() => setFlippedOnce(true), [flipped]);
-  useEffect(() => setFlippedOnce(false), []);
+  useEffect(() => setFlippedCount((val) => val + 1), [flipped]);
+  useEffect(() => setFlippedCount(0), []);
 
   const onClikcTrainButton = () => {
     console.log('Train request to back');
@@ -29,43 +30,11 @@ export const TrainCardControls: React.FC = () => {
         flipped && 'animate-flip'
       )}
     >
-      {flippedOnce ? (
+      {flippedCount >= 2 ? (
         <div className="around flip-front">
-          <Button
-            className="m-1"
-            variant="bordered"
-            onClick={onClikcTrainButton}
-          >
-            1
-          </Button>
-          <Button
-            className="m-1"
-            variant="bordered"
-            onClick={onClikcTrainButton}
-          >
-            2
-          </Button>
-          <Button
-            className="m-1"
-            variant="bordered"
-            onClick={onClikcTrainButton}
-          >
-            3
-          </Button>
-          <Button
-            className="m-1"
-            variant="bordered"
-            onClick={onClikcTrainButton}
-          >
-            4
-          </Button>
-          <Button
-            className="m-1"
-            variant="bordered"
-            onClick={onClikcTrainButton}
-          >
-            5
-          </Button>
+          {marks.map((mark) => (
+            <DescreteTrainButton key={mark} mark={mark} />
+          ))}
         </div>
       ) : (
         <Button
@@ -78,21 +47,9 @@ export const TrainCardControls: React.FC = () => {
         </Button>
       )}
       <div className="around flip-back">
-        <Button className="m-1" variant="bordered" onClick={onClikcTrainButton}>
-          1
-        </Button>
-        <Button className="m-1" variant="bordered" onClick={onClikcTrainButton}>
-          2
-        </Button>
-        <Button className="m-1" variant="bordered" onClick={onClikcTrainButton}>
-          3
-        </Button>
-        <Button className="m-1" variant="bordered" onClick={onClikcTrainButton}>
-          4
-        </Button>
-        <Button className="m-1" variant="bordered" onClick={onClikcTrainButton}>
-          5
-        </Button>
+        {marks.map((mark) => (
+          <DescreteTrainButton key={mark} mark={mark} />
+        ))}
       </div>
     </div>
   );

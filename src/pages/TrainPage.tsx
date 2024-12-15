@@ -4,26 +4,11 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { useAppStore } from '@/state';
 import { routes } from '@/routes';
-import { Button, ProgressBar } from '@/components/library';
-import { Card } from '@/components/card';
-
-type CollectionType = {
-  id: number;
-  title: string;
-  description: string;
-}
-
-const getCollectionPseudoRequest = async (id: number) => {
-  return {
-    id: id,
-    title: 'Test collection',
-    description: 'Just test collection',
-  };
-};
-
-const getTrainCardsPseudoRequest = async (collectionId: number) => {
-  return [1, 2, 3, 4, 5, 6, 7];
-};
+import { Button, LoadableComponent, ProgressBar } from '@/components/library';
+import { CardsList } from '@/components/card';
+import { useCollectionTrainCards } from '@/query/queryHooks/useCollectionTrainCards';
+import { useCollection, useProfile } from '@/query/queryHooks';
+import { ErrorPage } from './ErrorPage';
 
 export interface TrainPageParams {
   id: number;
@@ -31,25 +16,47 @@ export interface TrainPageParams {
 
 export const TrainPage: React.FC = () => {
   const { id } = useParams<TrainPageParams>();
-  const [collection, setCollection] = useState<CollectionType>();
+
+  const { profile } = useProfile();
+  const {
+    collection,
+    isPending: isCollectionPending,
+    error: collectionError,
+  } = useCollection(id);
+  const {
+    cards,
+    isPending: isTrainCardsPending,
+    error: trainCardsError,
+  } = useCollectionTrainCards(id);
 
   const cardsIds = useAppStore(useShallow((state) => state.cardsToTrainIds));
   const setTrainCards = useAppStore((state) => state.setTrainCards);
   const maxCount = useAppStore((state) => state.cardsToTrainInitialCount);
   const trainedCount = useAppStore((state) => state.trainedCount);
 
-  const requestTrainCards = useCallback(() => {
-    getCollectionPseudoRequest(id).then((collection) =>
-      setCollection(collection)
-    );
-    getTrainCardsPseudoRequest(id).then((cards) => setTrainCards(cards));
-  }, [id, setTrainCards]);
+  const setNewTrainCards = useCallback(() => {
+    // if (trainedCount >= maxCount && cards) setTrainCards(cards);
+    setTrainCards(cards ?? []);
+  }, [cards, setTrainCards]);
 
-  useEffect(requestTrainCards, [requestTrainCards]);
+  useEffect(() => {
+    setNewTrainCards();
+  }, [setNewTrainCards]);
+
+  if (!profile)
+    return (
+      <ErrorPage
+        isPending={isCollectionPending || isTrainCardsPending}
+        message="Only authorized user can train"
+      />
+    );
 
   return (
-    <>
-      {!collection && <Redirect to="" />}
+    <LoadableComponent
+      isPending={isCollectionPending || isTrainCardsPending}
+      errorMessage={collectionError?.message || trainCardsError?.message}
+      animated
+    >
       <div className="vstack m-2 md:m-10 p-2 md:p-5">
         <h1 className="my-2 text-center text-2xl font-bold">
           Trainining {collection?.title}
@@ -62,17 +69,17 @@ export const TrainPage: React.FC = () => {
               minValue={0}
               maxValue={maxCount}
             />
-            <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
-            <div
-              className="grid gap-x-5 gap-y-1 w-full"
-              style={{
-                gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
-              }}
-            >
-              {cardsIds.slice(0, 6).map((cardId) => (
-                <Card cardId={cardId} mode="train" key={cardId} />
-              ))}
+            <div className="center">
+              <Button
+                className="p-4 text-lg"
+                variant="plate"
+                onClick={setNewTrainCards}
+              >
+                Refresh train cards
+              </Button>
             </div>
+            <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
+            <CardsList cardsIds={cardsIds.slice(0, 6)} mode="train" />
           </>
         ) : (
           <>
@@ -91,7 +98,7 @@ export const TrainPage: React.FC = () => {
               <Button
                 className="md:m-2"
                 variant="plate"
-                onClick={requestTrainCards}
+                onClick={setNewTrainCards}
               >
                 Train this collection again
               </Button>
@@ -99,6 +106,6 @@ export const TrainPage: React.FC = () => {
           </>
         )}
       </div>
-    </>
+    </LoadableComponent>
   );
 };
