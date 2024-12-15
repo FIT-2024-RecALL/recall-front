@@ -3,17 +3,38 @@ import { DropDown } from '../library/DropDown';
 import { Button } from '../library/Button';
 import { Icon } from '../library/Icon';
 import { useForm } from 'react-hook-form';
-// import { addFileStorageUserIdPost } from '@/api';
+import { addFileStoragePost } from '@/api';
 import { serverUrl } from '@/main';
 import clsx from 'clsx';
+import { dataExtractionWrapper } from '@/query';
+import { useMutation } from '@tanstack/react-query';
 
 interface UploadFormData {
   file: FileList;
 }
 
+export const getMediaMdMarkup = (url: string) => `![](${url})`;
+
 export const UploadDropdown: React.FC = () => {
   const { handleSubmit, register } = useForm<UploadFormData>();
-  const [uploadedLink, setUploadedLink] = useState<string>();
+
+  const {
+    mutate: uploadFile,
+    data: uploadResponse,
+    error,
+  } = useMutation({
+    mutationFn: (data: UploadFormData) =>
+      dataExtractionWrapper(
+        addFileStoragePost({
+          body: {
+            file: data.file[0],
+          },
+        })
+      ),
+    onSuccess: (response) => {
+      navigator.clipboard.writeText(getMediaMdMarkup(serverUrl + response.url));
+    },
+  });
 
   return (
     <DropDown
@@ -29,24 +50,7 @@ export const UploadDropdown: React.FC = () => {
           'bg-1-8 text-black',
           'border border-black rounded'
         )}
-        onSubmit={handleSubmit((data) => {
-          // addFileStorageUserIdPost({
-          //   path: {
-          //     user_id: 1,
-          //   },
-          //   body: {
-          //     file: data.file[0],
-          //   },
-          // })
-          //   .then((response) => {
-          //     if (response.response.ok)
-          //       setUploadedLink(serverUrl + response.data?.url);
-          //     else setUploadedLink(response.error?.detail?.toString());
-          //   })
-          //   .catch((error) => {
-          //     console.log(error);
-          //   });
-        })}
+        onSubmit={handleSubmit((data) => uploadFile(data))}
       >
         <div className="around">
           <input type="file" {...register('file', { required: true })} />
@@ -54,20 +58,11 @@ export const UploadDropdown: React.FC = () => {
             Upload
           </Button>
         </div>
-        {uploadedLink && (
-          <div
-            className="mt-2 around hover:cursor-pointer text-sm"
-            onClick={() => {
-              console.log('Copying ' + uploadedLink);
-              navigator.clipboard.writeText(uploadedLink);
-            }}
-          >
-            <span className="mr-1">Link to file (click to copy):</span>
-            <span>
-              {/* TODO: Добавить другое отображение для ошибочного ответа от сервера */}
-              <u>{uploadedLink}</u>
-            </span>
-          </div>
+        {error && <span className="text-red-500 p-1">{error.message}</span>}
+        {uploadResponse && (
+          <span className="p-1">
+            Paste text from your clipboard to editor window
+          </span>
         )}
       </form>
     </DropDown>

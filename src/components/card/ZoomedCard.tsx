@@ -1,27 +1,26 @@
 import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
-import { PopUp } from '@/components/library/PopUp';
-import { FlippingCard } from './FlippingCard';
-
-import { EditCardControls } from './EditCardControls';
-import { TrainCardControls } from './TrainCardControls';
+import { PopUp } from '@/components/library';
+import { FlippingCard } from './visuals';
+import {
+  CreateCardControls,
+  EditCardControls,
+  TrainCardControls,
+} from './controls';
 import { useAppStore } from '@/state';
-import { CardType } from '@/state/slices';
 
-interface ZoomedCardProps extends HTMLAttributes<React.FC> {
-  cardData: CardType
-}
+interface ZoomedCardProps extends HTMLAttributes<React.FC> {}
 
-export const ZoomedCard: React.FC<ZoomedCardProps> = ({ cardData }) => {
+export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
   const zoomed = useAppStore((state) => state.activeCardUI.zoomed);
-  const activeCardId = useAppStore((state) => state.activeCard.id);
   const setCardUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
   const mode = useAppStore((state) => state.activeCardUI.mode);
+  const isNew = useAppStore((state) => state.isNewActiveCard);
 
   return (
     <PopUp
-      isShown={zoomed && cardData.id === activeCardId}
+      isShown={zoomed}
       close={() => setCardUIFlag('zoomed', () => false)}
       className="center bg-1-5/50 backdrop-blur-sm"
     >
@@ -34,8 +33,9 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = ({ cardData }) => {
             'text-white'
           )}
         />
-        {mode == 'edit' && <EditCardControls />}
-        {mode == 'train' && <TrainCardControls />}
+        {mode === 'edit' && isNew && <CreateCardControls />}
+        {mode === 'edit' && !isNew && <EditCardControls />}
+        {mode === 'train' && <TrainCardControls />}
       </div>
     </PopUp>
   );

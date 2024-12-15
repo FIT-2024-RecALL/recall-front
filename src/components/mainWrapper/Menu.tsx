@@ -23,12 +23,19 @@ export const Menu: React.FC = () => {
       <div className="hidden md:flex justify-around">{links}</div>
       <div className="md:hidden text-center">
         <Button
-          variant="inline"
-          className="my-1 rounded:md w-full"
+          variant="plate"
+          className="my-1 rounded:md w-full transition-all duration-500"
           onClick={() => setMobileMenuShown(!mobileMenuShown)}
         >
-          <span>Menu</span>
-          <SliderCheckbox checked={mobileMenuShown} variant="default" />
+          <span className="font-medium">Menu</span>
+          <span
+            className={clsx(
+              'font-bold mx-2 trainsition-all duration-500',
+              mobileMenuShown ? '-rotate-90' : 'rotate-90'
+            )}
+          >
+            {'>'}
+          </span>
         </Button>
         <div
           className={clsx(

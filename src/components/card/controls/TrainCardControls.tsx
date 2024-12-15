@@ -1,13 +1,11 @@
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
-import { Icon } from '@/components/library/Icon';
 
-import { Button } from '@/components/library/Button';
-
+import { Icon, Button } from '@/components/library';
 import { useAppStore } from '@/state';
 
 export const TrainCardControls: React.FC = () => {
-  const cardId = useAppStore((state) => state.activeCard.id);
+  const cardId = useAppStore((state) => state.activeCardId);
   const executeTrainCard = useAppStore((state) => state.executeTrainCard);
 
   const [flippedOnce, setFlippedOnce] = useState(false);
@@ -18,7 +16,6 @@ export const TrainCardControls: React.FC = () => {
   useEffect(() => setFlippedOnce(false), []);
 
   const onClikcTrainButton = () => {
-    if (cardId === 'new') return;
     console.log('Train request to back');
     executeTrainCard(cardId);
     setUIFlag('zoomed', () => false);

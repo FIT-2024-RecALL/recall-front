@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
-import { EditorComponent } from '@/components/editor/EditorComponent';
+import { EditorComponent } from '@/components/editor';
 
 import { CardSide } from './CardSide';
 import { useAppStore } from '@/state';
@@ -50,9 +50,6 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
         onClick={() => setUIFlag('flipped', (f) => !f)}
       >
         {'> > >'}
-        {/* <Icon icon="arrowRight" className="w-4 h-4 md:w-6 md:h-6" />
-        <Icon icon="arrowRight" className="w-4 h-4 md:w-6 md:h-6" />
-        <Icon icon="arrowRight" className="w-4 h-4 md:w-6 md:h-6" /> */}
       </div>
     </div>
   );
