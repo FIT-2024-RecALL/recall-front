@@ -129,32 +129,48 @@ body,
 }
 
 .flip-inner {
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   position: relative;
 }
 
 .animate-flip {
   transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
 }
 
 .flip-front, .flip-back {
   position: absolute;
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+}
+
+/* Ужасный костыль. Надо будет убрать */
+.animate-flip .flip-front {
+  opacity: 0;
 }
 
 .flip-back {
   transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
 }
 
 
 .markdown {
   ul {
     list-style: disc;
+    margin-left: 5px;
   }
   
   ol {
     list-style: decimal;
+    margin-left: 5px;
   }
 
   pre {

@@ -24,7 +24,7 @@ export const routes: Record<RoutesEnum, RouteData> = {
   collections: {
     url: '/collections',
     getUrl: () => '/collections',
-    label: 'View collections',
+    label: 'Collections',
     content: <CollectionsPage />,
   },
   collectionEdit: {

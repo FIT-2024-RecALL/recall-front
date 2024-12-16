@@ -15,7 +15,7 @@ export const Menu: React.FC = () => {
   const links = menuRoutes.map((data) => (
     <Link
       to={data.url}
-      className="w-fit my-1 mx-2 p-0 center font-bold"
+      className="w-fit my-1 mx-2 p-0 center font-medium md:font-bold text-sm md:text-lg"
       key={data.url}
     >
       <Button variant="inline">{data.label}</Button>
@@ -61,7 +61,7 @@ export const Menu: React.FC = () => {
             {profile && (
               <Button
                 variant="inline"
-                className="my-1 mx-2 p-0 center font-bold"
+                className="my-1 mx-2 p-0 center font-medium md:font-bold text-sm md:text-lg"
                 onClick={() => logout()}
               >
                 Log out

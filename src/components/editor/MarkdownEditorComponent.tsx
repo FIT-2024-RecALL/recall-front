@@ -48,7 +48,7 @@ export const MarkdownEditorComponent: React.FC<
         <MarkdownRenderComponent
           rawText={state}
           extended={extended}
-          className={clsx('text-lg w-full', previewClassName)}
+          className={clsx('text-lg w-full m-2 md:m-8', previewClassName)}
         />
       )}
     </>

@@ -15,16 +15,16 @@ export const StartPage: React.FC = () => {
       <div className="w-full center vstack">
         {!profile ? (
           <>
-            <h1 className="text-4xl text-center my-6 font-bold">
-              Here{"'"}s so simple to recall anything
+            <h1 className="text-2xl md:text-4xl text-center my-6 font-bold">
+              RecAll anything easy!
             </h1>
-            <h2 className="text-2xl text-center my-4 font-bold">
+            <h2 className="text-md md:text-2xl text-center my-4 font-medium md:font-bold">
               Create collections by any topic, add cards with text, photos,
               audios or videos and train them
             </h2>
             <Button
               variant="plate"
-              className="font-bold text-3xl p-8 m-2 rounded-3xl"
+              className="font-bold text-2xl md:text-3xl p-4 md:p-6 m-2 rounded-3xl"
               onClick={showLoginWindow}
             >
               Join
@@ -35,18 +35,18 @@ export const StartPage: React.FC = () => {
             <h1 className="text-2xl md:text-4xl text-center my-6 font-bold">
               Hello, {profile.nickname}!
             </h1>
-            <div className="text-lg md:text-2xl center my-4 font-bold">
+            <div className="text-md md:text-2xl center my-4 font-medium">
+              <Link to="/profile" className="w-fit mx-2 center">
+                <Button variant="plate" className="p-2 md:p-4">
+                  My profile
+                </Button>
+              </Link>
               <Link
                 to={routes.collections.getUrl()}
                 className="w-fit mx-2 center"
               >
-                <Button variant="plate" className="p-4 md:p-8">
-                  Go to collections
-                </Button>
-              </Link>
-              <Link to="/profile" className="w-fit mx-2 center">
-                <Button variant="plate" className="p-4 md:p-8">
-                  Go to profile
+                <Button variant="plate" className="p-2 md:p-4">
+                  Collections
                 </Button>
               </Link>
             </div>

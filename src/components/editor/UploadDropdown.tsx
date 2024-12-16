@@ -17,12 +17,9 @@ export const getMediaMdMarkup = (url: string) => `![](${url})`;
 
 export const UploadDropdown: React.FC = () => {
   const { handleSubmit, register } = useForm<UploadFormData>();
+  const [responseMessage, setResponseMessage] = useState<string>();
 
-  const {
-    mutate: uploadFile,
-    data: uploadResponse,
-    error,
-  } = useMutation({
+  const { mutate: uploadFile, error } = useMutation({
     mutationFn: (data: UploadFormData) =>
       dataExtractionWrapper(
         addFileStoragePost({
@@ -32,7 +29,16 @@ export const UploadDropdown: React.FC = () => {
         })
       ),
     onSuccess: (response) => {
-      navigator.clipboard.writeText(getMediaMdMarkup(serverUrl + response.url));
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(
+          getMediaMdMarkup(serverUrl + response.url)
+        );
+        setResponseMessage('Paste text from your clipboard to editor window');
+      } else {
+        setResponseMessage(
+          'Paste next text into editor: ' + serverUrl + response.url
+        );
+      }
     },
   });
 
@@ -59,10 +65,8 @@ export const UploadDropdown: React.FC = () => {
           </Button>
         </div>
         {error && <span className="text-red-500 p-1">{error.message}</span>}
-        {uploadResponse && (
-          <span className="p-1">
-            Paste text from your clipboard to editor window
-          </span>
+        {!error && responseMessage && (
+          <span className="p-1">{responseMessage}</span>
         )}
       </form>
     </DropDown>

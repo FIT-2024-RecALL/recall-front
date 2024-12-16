@@ -19,7 +19,7 @@ export const Header: React.FC = () => {
     <header>
       <div className="grid grid-cols-3 m-0 p-2 w-full">
         <h2 className="flex justify-start items-center text-lg md:text-2xl text-1-1 font-bold mx-2">
-          <Link to="/">Let{"'"}s RecAll</Link>
+          <Link to="/">RecAll</Link>
         </h2>
         <Menu />
         <div className="flex justify-center md:justify-end w-full">
@@ -29,7 +29,7 @@ export const Header: React.FC = () => {
                 to="/profile"
                 className="my-1 mx-2 p-0 center font-medium w-full md:w-fit"
               >
-                <Button variant="bordered-trans">My profile</Button>
+                <Button variant="bordered-trans">Profile</Button>
               </Link>
             </>
           ) : (
