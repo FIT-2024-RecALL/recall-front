@@ -7,9 +7,7 @@ import { App } from '@/App';
 import { client } from '@/api';
 import '@/index.css';
 
-// export const serverUrl = import.meta.env.VITE_RECALL_API_HOSTNAME;
-// export const serverUrl = 'http://letsrecall.ru/api';
-export const serverUrl = 'http://127.0.0.1:8000';
+export const serverUrl = import.meta.env.VITE_RECALL_API_HOSTNAME;
 client.setConfig({
   baseUrl: serverUrl,
   credentials: 'include',
