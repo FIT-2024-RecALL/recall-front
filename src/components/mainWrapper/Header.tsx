@@ -15,6 +15,13 @@ export const Header: React.FC = () => {
 
   const { profile } = useProfile();
 
+  const client = useQueryClient();
+  const { mutate: logout } = useMutation({
+    mutationFn: () => dataExtractionWrapper(logoutUserUserLogoutPost()),
+    onSuccess: () =>
+      client.resetQueries({ queryKey: getProfileQueryOptions().queryKey }),
+  });
+
   return (
     <header>
       <div className="grid grid-cols-3 m-0 p-2 w-full">
@@ -31,6 +38,15 @@ export const Header: React.FC = () => {
               >
                 <Button variant="bordered-trans">Profile</Button>
               </Link>
+              <div className="hidden md:block">
+                <Button
+                  variant="bordered-trans"
+                  className="p-1 my-1 mx-2 font-medium md:text-md"
+                  onClick={() => logout()}
+                >
+                  Log out
+                </Button>
+              </div>
             </>
           ) : (
             <>
@@ -43,7 +59,7 @@ export const Header: React.FC = () => {
               </Button>
               <div className="hidden md:block">
                 <Button
-                  variant="plate"
+                  variant="bordered-trans"
                   className="p-1 my-1 mx-2 font-medium md:text-md"
                   onClick={showRegisterWindow}
                 >

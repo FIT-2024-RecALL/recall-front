@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'wouter';
 import { menuRoutes } from '@/routes';
 import { Button } from '@/components/library/Button';
-import { SliderCheckbox } from '../library/SliderCheckbox';
 import clsx from 'clsx';
-import { DropDown } from '../library/DropDown';
 import { PopUp } from '../library/PopUp';
 import { getProfileQueryOptions, useProfile } from '@/query/queryHooks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -27,7 +25,7 @@ export const Menu: React.FC = () => {
   const { profile } = useProfile();
 
   const client = useQueryClient();
-  const { mutate: logout, error: logoutError } = useMutation({
+  const { mutate: logout } = useMutation({
     mutationFn: () => dataExtractionWrapper(logoutUserUserLogoutPost()),
     onSuccess: () =>
       client.resetQueries({ queryKey: getProfileQueryOptions().queryKey }),
