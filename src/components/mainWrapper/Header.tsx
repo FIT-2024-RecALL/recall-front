@@ -15,42 +15,28 @@ export const Header: React.FC = () => {
 
   const { profile } = useProfile();
 
-  const client = useQueryClient();
-  const { mutate: logout, error: logoutError } = useMutation({
-    mutationFn: () => dataExtractionWrapper(logoutUserUserLogoutPost()),
-    onSuccess: () =>
-      client.resetQueries({ queryKey: getProfileQueryOptions().queryKey }),
-  });
-
   return (
     <header>
-      <div className="flex justify-between m-0 p-2 bg-transparent w-full transition-all">
-        <h2 className="text-lg md:text-2xl text-1-1 font-bold mx-2 center">
+      <div className="grid grid-cols-3 m-0 p-2 w-full">
+        <h2 className="flex justify-start items-center text-lg md:text-2xl text-1-1 font-bold mx-2">
           <Link to="/">Let{"'"}s RecAll</Link>
         </h2>
         <Menu />
-        <div className="center">
+        <div className="flex justify-center md:justify-end w-full">
           {profile ? (
             <>
-              <Link to="/profile" className="my-1 mx-2 p-0 center font-bold">
-                <Button variant="inline">{profile.nickname}</Button>
-              </Link>
-              <Button
-                variant="bordered-trans"
-                className="p-1 my-1 mx-2 text-sm md:text-md"
-                onClick={() => logout()}
+              <Link
+                to="/profile"
+                className="my-1 mx-2 p-0 center font-medium w-full md:w-fit"
               >
-                Log out
-              </Button>
-              {logoutError && (
-                <span>Failed to logout: {logoutError.message}</span>
-              )}
+                <Button variant="bordered-trans">My profile</Button>
+              </Link>
             </>
           ) : (
             <>
               <Button
                 variant="bordered-trans"
-                className="p-1 my-1 mx-2"
+                className="p-1 my-1 mx-2 font-medium text-sm md:text-md w-full md:w-fit"
                 onClick={showLoginWindow}
               >
                 Log in
@@ -58,7 +44,7 @@ export const Header: React.FC = () => {
               <div className="hidden md:block">
                 <Button
                   variant="plate"
-                  className="p-1 my-1 mx-2"
+                  className="p-1 my-1 mx-2 font-medium md:text-md"
                   onClick={showRegisterWindow}
                 >
                   Register
