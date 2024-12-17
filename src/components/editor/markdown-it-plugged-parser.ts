@@ -21,7 +21,17 @@ export const simpleRenderer = markdownit({
     }
     return '';
   },
-}).disable('image');
+})
+  .use(tex, {
+    render: (content, mode) => {
+      const texStr = katex.renderToString(content, {
+        output: 'mathml',
+        throwOnError: false,
+      });
+      return !mode ? texStr : `<p>${texStr}</p>`;
+    },
+  })
+  .disable('image');
 
 export const extendedMdRenderer = markdownit({ ...simpleRenderer.options })
   .use(markdownItMedia, {
