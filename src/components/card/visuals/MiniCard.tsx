@@ -14,14 +14,11 @@ export const MiniCard: React.FC<MiniCardProps> = ({
     <div
       className={clsx(
         'transition-all',
-        'p-2 w-full h-48',
+        'p-2 w-full h-48 center',
         'hover:cursor-pointer rounded-lg',
-        'bg-1-3',
-        'hover:bg-1-3/80',
-        'border border-1 border-1-1',
-        'center',
-        'hover:scale-105',
-        'text-1-12 text-2xl font-bold',
+        'bg-1-3 hover:bg-1-3/80',
+        'hover:scale-105 hover:shadow',
+        'text-1-12',
         className
       )}
       onClick={() => onClick?.()}

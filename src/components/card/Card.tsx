@@ -30,12 +30,16 @@ export const Card: React.FC<CardProps> = ({ mode, cardId, className }) => {
               setRealActiveCard(card);
             })
           }
-          className={clsx('overflow-hidden', className)}
+          className={clsx(
+            'overflow-hidden',
+            'text-lg md:text-xl font-medium',
+            className
+          )}
         >
           {error && error.message}
           {card && (
             <MarkdownRenderComponent
-              className="w-3/4 md:w-1/2"
+              className="full center overflow-hidden"
               rawText={card.frontSide}
               extended
             />
