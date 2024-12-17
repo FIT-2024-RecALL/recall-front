@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { Link, useParams } from 'wouter';
 import { useShallow } from 'zustand/react/shallow';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { useAppStore } from '@/state';
 import { routes } from '@/routes';
@@ -13,7 +14,6 @@ import {
   useCollectionTrainCards,
 } from '@/query/queryHooks';
 import { ErrorPage } from './ErrorPage';
-import { useQueryClient } from '@tanstack/react-query';
 
 export interface TrainPageParams {
   id: number;

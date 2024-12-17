@@ -13,7 +13,7 @@ export interface CollectionsSearchableListProps {
 export const CollectionsSearchableList: React.FC<
   CollectionsSearchableListProps
 > = ({ collections }) => {
-  const { profile, isPending: isProfilePending } = useProfile();
+  const { profile } = useProfile();
 
   const setIsCreateCollectionOpened = useAppStore(
     (state) => state.setIsCreateCollectionWindowOpened

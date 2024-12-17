@@ -1,22 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import clsx from 'clsx';
+import React from 'react';
 
-import { CollectionCard } from '../components/collection/CollectionCard';
-import { SearchBar, Button, LoadableComponent } from '@/components/library';
-import {
-  useProfile,
-  useProfileCollections,
-  useFilesList,
-  getFileFullPath,
-  getFilesListQueryOptions,
-} from '@/query/queryHooks';
-import { CollectionShort, deleteFileStorageFilenameDelete } from '@/api';
-import { useAppStore } from '@/state';
+import { LoadableComponent } from '@/components/library';
+import { useProfile, useProfileCollections } from '@/query/queryHooks';
 import { ErrorPage } from './ErrorPage';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { dataExtractionWrapper } from '@/query';
-import { FilesList } from '../components/profile/FilesList';
-import { CollectionsSearchableList } from '@/components/collection/CollectionsSearchableList';
+import { FilesList } from '@/components/profile';
+import { CollectionsSearchableList } from '@/components/collection';
 
 export const ProfilePage: React.FC = () => {
   const { profile, isPending: isProfilePending } = useProfile();
@@ -53,6 +41,10 @@ export const ProfilePage: React.FC = () => {
       <h2 className="text-center text-2xl font-bold mb-6">Your files</h2>
 
       <FilesList />
+
+      <hr className="border-2 border-1-1 rounded my-2 md:my-6 w-full" />
+
+      <h2 className="text-center text-2xl font-bold mb-6">Delete account</h2>
     </LoadableComponent>
   );
 };

@@ -1,7 +1,6 @@
-import clsx from 'clsx';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import { Icon, Button } from '@/components/library';
+import { Button } from '@/components/library';
 import { useAppStore } from '@/state';
 import { useMutation } from '@tanstack/react-query';
 import { dataExtractionWrapper } from '@/query';
@@ -42,7 +41,7 @@ export const DescreteTrainButton: React.FC<DescreteTrainButtonProps> = ({
           },
         })
       ),
-    onSuccess: (data) => {
+    onSuccess: () => {
       executeTrainCard(cardId);
       setUIFlag('zoomed', () => false);
     },

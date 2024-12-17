@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { CollectionCard } from '../components/collection/CollectionCard';
-import { SearchBar } from '@/components/library/SearchBar';
-import { Button } from '@/components/library/Button';
-import { useCollections, useProfile } from '@/query/queryHooks';
-import { CollectionShort } from '@/api';
-import { useAppStore } from '@/state';
-import clsx from 'clsx';
-import { CollectionsSearchableList } from '@/components/collection/CollectionsSearchableList';
-import { LoadableComponent } from '../components/library/LoadableComponent';
+import React from 'react';
+
+import { useCollections } from '@/query/queryHooks';
+import { CollectionsSearchableList } from '@/components/collection';
+import { LoadableComponent } from '@/components/library';
 
 export const CollectionsPage: React.FC = () => {
   const { collections, isPending, error } = useCollections();

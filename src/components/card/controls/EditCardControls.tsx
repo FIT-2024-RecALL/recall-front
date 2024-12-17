@@ -21,6 +21,7 @@ import {
 export const EditCardControls: React.FC = () => {
   const cardId = useAppStore((state) => state.activeCardId);
   const cardData = useAppStore((state) => state.activeCard);
+  const setUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
 
   const { cardCollections, isPending: cardCollectionsPending } =
     useCardCollections(cardId);
@@ -49,7 +50,7 @@ export const EditCardControls: React.FC = () => {
           },
         })
       ),
-    onSuccess: (responseData, requestData) => {
+    onSuccess: (responseData) => {
       client.invalidateQueries({ queryKey: ['collection'] }); // TODO: подумать, как оптимизировать этот запрос
       client.invalidateQueries({
         queryKey: getCardCollectionsQueryOptions(responseData.id).queryKey,
@@ -58,6 +59,7 @@ export const EditCardControls: React.FC = () => {
         getCardQueryOptions(responseData.id).queryKey,
         responseData
       );
+      setUIFlag('zoomed', () => false);
     },
   });
 

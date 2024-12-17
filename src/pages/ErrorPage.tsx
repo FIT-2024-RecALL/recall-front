@@ -1,8 +1,7 @@
 import { routes } from '@/routes';
 import React from 'react';
 import { Link } from 'wouter';
-import { Button } from '../components/library/Button';
-import { LoadableComponent } from '../components/library/LoadableComponent';
+import { Button, LoadableComponent } from '@/components/library';
 
 export interface ErrorPageProps {
   message: string;

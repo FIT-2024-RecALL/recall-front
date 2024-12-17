@@ -1,11 +1,10 @@
-import React, { HTMLAttributes, useRef, useState } from 'react';
+import React, { HTMLAttributes, useRef } from 'react';
 
 import { Icon, Button } from '@/components/library';
 import clsx from 'clsx';
 import { addFileStoragePost } from '@/api';
 import { dataExtractionWrapper } from '@/query';
 import { useMutation } from '@tanstack/react-query';
-import { serverUrl } from '@/main';
 import { getFileFullPath } from '@/query/queryHooks';
 
 interface EditorControlsProps extends HTMLAttributes<React.FC> {
@@ -26,10 +25,9 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
   editorState,
   setEditorState,
 }) => {
-  const [responseMessage, setResponseMessage] = useState<string>();
   const ref = useRef<HTMLInputElement>(null);
 
-  const { mutate: uploadFile, error } = useMutation({
+  const { mutate: uploadFile, isPending: isFilePending } = useMutation({
     mutationFn: (data: File) =>
       dataExtractionWrapper(
         addFileStoragePost({
@@ -61,7 +59,11 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           variant="bordered"
           onClick={() => ref.current?.click()}
         >
-          <Icon icon="upload" />
+          {!isFilePending ? (
+            <Icon icon="upload" />
+          ) : (
+            <Icon className="animate-spin" icon="loader" />
+          )}
         </Button>
       )}
 

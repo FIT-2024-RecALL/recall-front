@@ -13,7 +13,6 @@ export const TrainCardControls: React.FC = () => {
   useEffect(() => setFlippedCount((val) => val + 1), [flipped]);
   useEffect(() => setFlippedCount(0), []);
 
-
   return (
     <div
       className={clsx(

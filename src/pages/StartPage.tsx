@@ -1,9 +1,9 @@
 import React from 'react';
+import { Link } from 'wouter';
 
 import { useAppStore } from '@/state';
 import { Button } from '@/components/library';
 import { useProfile } from '@/query/queryHooks';
-import { Link } from 'wouter';
 import { routes } from '@/routes';
 
 export const StartPage: React.FC = () => {

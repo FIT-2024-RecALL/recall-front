@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'wouter';
-import { menuRoutes } from '@/routes';
-import { Button } from '@/components/library/Button';
-import clsx from 'clsx';
-import { PopUp } from '../library/PopUp';
-import { getProfileQueryOptions, useProfile } from '@/query/queryHooks';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import clsx from 'clsx';
+
+import { menuRoutes } from '@/routes';
+import { Button, PopUp } from '@/components/library';
+import { getProfileQueryOptions, useProfile } from '@/query/queryHooks';
 import { logoutUserUserLogoutPost } from '@/api';
 import { dataExtractionWrapper } from '@/query';
 

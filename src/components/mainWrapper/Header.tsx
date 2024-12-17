@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'wouter';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { Button } from '@/components/library/Button';
+import { Button } from '@/components/library';
 import { useAppStore } from '@/state/state';
 import { Menu } from './Menu';
 import { logoutUserUserLogoutPost } from '@/api';
