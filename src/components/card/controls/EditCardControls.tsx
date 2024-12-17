@@ -8,6 +8,7 @@ import {
   useCardCollections,
   getCardQueryOptions,
   getCardCollectionsQueryOptions,
+  getProfileCardsQueryOptions,
 } from '@/query/queryHooks';
 import { dataExtractionWrapper } from '@/query';
 import { deleteCardCardsCardIdDelete, updateCardCardsCardIdPut } from '@/api';
@@ -76,8 +77,11 @@ export const EditCardControls: React.FC = () => {
       client.resetQueries({
         queryKey: getCardCollectionsQueryOptions(id).queryKey,
       });
-      client.refetchQueries({
+      client.resetQueries({
         queryKey: getCardQueryOptions(id).queryKey,
+      });
+      client.invalidateQueries({
+        queryKey: getProfileCardsQueryOptions().queryKey,
       });
       setUIFlag('zoomed', () => false);
     },
