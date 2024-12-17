@@ -53,7 +53,7 @@ export const CollectionsSearchableList: React.FC<
           </Button>
         </div>
       ) : (
-        <h3 className="text-center text-xl font-medium col-span-full">
+        <h3 className="text-center text-xl mb-4 font-medium col-span-full">
           Authorize to create new collection
         </h3>
       )}
