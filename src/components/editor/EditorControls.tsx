@@ -6,6 +6,7 @@ import { addFileStoragePost } from '@/api';
 import { dataExtractionWrapper } from '@/query';
 import { useMutation } from '@tanstack/react-query';
 import { serverUrl } from '@/main';
+import { getFileFullPath } from '@/query/queryHooks';
 
 interface EditorControlsProps extends HTMLAttributes<React.FC> {
   isActive?: boolean;
@@ -38,7 +39,9 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
         })
       ),
     onSuccess: (response) => {
-      setEditorState(editorState + getMediaMdMarkup(serverUrl + response.url));
+      setEditorState(
+        editorState + getMediaMdMarkup(getFileFullPath(response.url))
+      );
     },
   });
 

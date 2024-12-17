@@ -46,6 +46,7 @@ export type CollectionShort = {
 
 export type FileUploadedScheme = {
   url: string;
+  filename: string;
 };
 
 export type HTTPValidationError = {

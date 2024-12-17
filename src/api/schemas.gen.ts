@@ -183,9 +183,13 @@ export const FileUploadedSchemeSchema = {
       type: 'string',
       title: 'Url',
     },
+    filename: {
+      type: 'string',
+      title: 'Filename',
+    },
   },
   type: 'object',
-  required: ['url'],
+  required: ['url', 'filename'],
   title: 'FileUploadedScheme',
 } as const;
 
@@ -271,7 +275,8 @@ export const UserSchema = {
   properties: {
     nickname: {
       type: 'string',
-      maxLength: 50,
+      maxLength: 35,
+      minLength: 1,
       title: 'Nickname',
     },
     email: {
@@ -298,8 +303,8 @@ export const UserAuthSchema = {
     },
     password: {
       type: 'string',
-      maxLength: 64,
-      minLength: 13,
+      maxLength: 40,
+      minLength: 8,
       title: 'Password',
     },
   },
@@ -312,7 +317,8 @@ export const UserBaseSchema = {
   properties: {
     nickname: {
       type: 'string',
-      maxLength: 50,
+      maxLength: 35,
+      minLength: 1,
       title: 'Nickname',
     },
     email: {
@@ -330,7 +336,8 @@ export const UserCreateSchema = {
   properties: {
     nickname: {
       type: 'string',
-      maxLength: 50,
+      maxLength: 35,
+      minLength: 1,
       title: 'Nickname',
     },
     email: {
@@ -340,8 +347,8 @@ export const UserCreateSchema = {
     },
     password: {
       type: 'string',
-      maxLength: 64,
-      minLength: 13,
+      maxLength: 40,
+      minLength: 8,
       title: 'Password',
     },
   },
