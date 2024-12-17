@@ -90,7 +90,15 @@ export const EditCardControls: React.FC = () => {
           </div>
         )}
       </div>
-      <div className="m-2 center h-1/12">
+      <div
+        className={clsx(
+          'm-2 center h-1/12',
+          'transition-all duration-300',
+          cardData.frontSide && cardData.backSide && selectedOptions.length > 0
+            ? 'opacity-1'
+            : 'opacity-0 invisible'
+        )}
+      >
         <Button
           className="text-xl m-3"
           variant="bordered"
@@ -98,7 +106,7 @@ export const EditCardControls: React.FC = () => {
             updateCard({
               id: cardId,
               new_card: { ...cardData },
-              collections: selectedOptions?.map((option) => option.value),
+              collections: selectedOptions.map((option) => option.value),
             });
           }}
         >

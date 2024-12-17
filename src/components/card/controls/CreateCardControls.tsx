@@ -61,9 +61,9 @@ export const CreateCardControls: React.FC = () => {
           'text-white'
         )}
       >
-        <div className={clsx('xs-md:vstack md:center', 'w-full p-1 md:p-4')}>
-          <span className="md:text-right w-full md:w-1/6 px-1">
-            Paired with:
+        <div className={clsx('vstack', 'w-full p-1 md:p-2')}>
+          <span className="text-sm md:text-md text-center text-lg w-full pb-1">
+            Paired with (at least one paired collection):
           </span>
           <CollectionsSelect
             selectedOptions={selectedOptions}
@@ -71,12 +71,20 @@ export const CreateCardControls: React.FC = () => {
           />
         </div>
         {createError && (
-          <div className={clsx('center mb-2', 'text-red-200 font-bold')}>
+          <div className={clsx('center mb-2', 'text-red-400 font-bold')}>
             {createError.message}
           </div>
         )}
       </div>
-      <div className="m-2 center h-1/12">
+      <div
+        className={clsx(
+          'm-2 center h-1/12',
+          'transition-all duration-300',
+          cardData.frontSide && cardData.backSide && selectedOptions.length > 0
+            ? 'opacity-1'
+            : 'opacity-0 invisible'
+        )}
+      >
         <Button
           className="text-xl m-3"
           variant="bordered"

@@ -33,7 +33,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
             state={frontSide}
             setState={(s) => setCardSide('frontSide', s)}
             extended
-            placeholder="First side"
+            placeholder="First side (required)"
           />
         )}
         {mode === 'train' && (
@@ -49,7 +49,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
           <MarkdownEditorComponent
             state={backSide}
             setState={(s) => setCardSide('backSide', s)}
-            placeholder="Second side"
+            placeholder="Second side (required)"
           />
         )}
         {mode === 'train' && (
