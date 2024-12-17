@@ -16,6 +16,7 @@ import { CollectionsSelect, Option } from './CollectionsSelect';
 
 export const CreateCardControls: React.FC = () => {
   const cardData = useAppStore((state) => state.activeCard);
+  const setUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
 
   const [selectedOptions, setSelectedOptions] = useState<
     MultiValue<Option<number>>
@@ -34,7 +35,7 @@ export const CreateCardControls: React.FC = () => {
           },
         })
       ),
-    onSuccess: (responseData, requestData) => {
+    onSuccess: (responseData) => {
       client.invalidateQueries({ queryKey: ['collection'] });
       client.invalidateQueries({
         queryKey: getCardCollectionsQueryOptions(responseData.id).queryKey,
@@ -46,6 +47,7 @@ export const CreateCardControls: React.FC = () => {
         getCardQueryOptions(responseData.id).queryKey,
         responseData
       );
+      setUIFlag('zoomed', () => false);
     },
   });
 

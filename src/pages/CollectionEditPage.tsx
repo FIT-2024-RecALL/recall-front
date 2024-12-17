@@ -6,10 +6,10 @@ import {
   useProfile,
   useProfileCards,
 } from '@/query/queryHooks';
-import { CollectionEditForm } from '@/components/collection/CollectionEditForm';
+import { CollectionEditForm } from '@/components/collection';
 import { ErrorPage } from '@/pages';
-import { CardsList } from '../components/card/CardsList';
-import { LoadableComponent } from '../components/library/LoadableComponent';
+import { CardsList } from '@/components/card';
+import { LoadableComponent } from '@/components/library';
 
 export interface EditPageParams {
   id: number;

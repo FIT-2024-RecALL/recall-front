@@ -1,6 +1,7 @@
 export * from './useProfile';
 export * from './useProfileCards';
 export * from './useProfileCollections';
+export * from './useFilesList';
 
 export * from './useCollections';
 export * from './useCollection';

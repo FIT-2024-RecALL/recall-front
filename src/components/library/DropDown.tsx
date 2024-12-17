@@ -1,12 +1,7 @@
 import clsx from 'clsx';
-import React, {
-  PropsWithChildren,
-  HTMLAttributes,
-  useState,
-  useRef,
-} from 'react';
+import React, { HTMLAttributes, useState } from 'react';
 
-interface DropDownProps extends PropsWithChildren<HTMLAttributes<React.FC>> {
+interface DropDownProps extends HTMLAttributes<React.FC> {
   buttonComponent: JSX.Element;
   isShownDefault?: boolean;
 }

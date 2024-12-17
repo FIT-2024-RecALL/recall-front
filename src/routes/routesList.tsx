@@ -4,6 +4,7 @@ import {
   CollectionsPage,
   CollectionEditPage,
   TrainPage,
+  ProfilePage,
 } from '@/pages';
 
 type RouteData = {
@@ -12,7 +13,12 @@ type RouteData = {
   label?: string;
   content: JSX.Element;
 };
-type RoutesEnum = 'main' | 'collections' | 'collectionEdit' | 'train' | 'about';
+type RoutesEnum =
+  | 'main'
+  | 'collections'
+  | 'collectionEdit'
+  | 'train'
+  | 'profile';
 
 export const routes: Record<RoutesEnum, RouteData> = {
   main: {
@@ -37,11 +43,10 @@ export const routes: Record<RoutesEnum, RouteData> = {
     getUrl: (id: number) => `/collections/${id}/train`,
     content: <TrainPage />,
   },
-  about: {
-    url: '/about',
-    getUrl: () => '/about',
-    label: 'Feed us',
-    content: <StartPage />,
+  profile: {
+    url: '/profile',
+    getUrl: () => '/profile',
+    content: <ProfilePage />,
   },
 };
 

@@ -165,12 +165,12 @@ body,
 .markdown {
   ul {
     list-style: disc;
-    margin-left: 5px;
+    margin-left: 20px;
   }
   
   ol {
     list-style: decimal;
-    margin-left: 5px;
+    margin-left: 20px;
   }
 
   pre {

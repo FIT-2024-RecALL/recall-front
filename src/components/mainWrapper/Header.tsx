@@ -2,18 +2,26 @@ import React from 'react';
 import { Link } from 'wouter';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { Button } from '@/components/library/Button';
+import { Button } from '@/components/library';
 import { useAppStore } from '@/state/state';
 import { Menu } from './Menu';
 import { logoutUserUserLogoutPost } from '@/api';
 import { dataExtractionWrapper } from '@/query';
 import { getProfileQueryOptions, useProfile } from '@/query/queryHooks';
+import { routes } from '@/routes';
 
 export const Header: React.FC = () => {
   const showLoginWindow = useAppStore((state) => state.showLoginWindow);
   const showRegisterWindow = useAppStore((state) => state.showRegisterWindow);
 
   const { profile } = useProfile();
+
+  const client = useQueryClient();
+  const { mutate: logout } = useMutation({
+    mutationFn: () => dataExtractionWrapper(logoutUserUserLogoutPost()),
+    onSuccess: () =>
+      client.resetQueries({ queryKey: getProfileQueryOptions().queryKey }),
+  });
 
   return (
     <header>
@@ -26,11 +34,22 @@ export const Header: React.FC = () => {
           {profile ? (
             <>
               <Link
-                to="/profile"
+                to={routes.profile.getUrl()}
                 className="my-1 mx-2 p-0 center font-medium w-full md:w-fit"
               >
-                <Button variant="bordered-trans">Profile</Button>
+                <Button className="w-full md:w-fit" variant="bordered-trans">
+                  Profile
+                </Button>
               </Link>
+              <div className="hidden md:block">
+                <Button
+                  variant="bordered-trans"
+                  className="p-1 my-1 mx-2 font-medium md:text-md"
+                  onClick={() => logout()}
+                >
+                  Log out
+                </Button>
+              </div>
             </>
           ) : (
             <>
@@ -43,7 +62,7 @@ export const Header: React.FC = () => {
               </Button>
               <div className="hidden md:block">
                 <Button
-                  variant="plate"
+                  variant="bordered-trans"
                   className="p-1 my-1 mx-2 font-medium md:text-md"
                   onClick={showRegisterWindow}
                 >

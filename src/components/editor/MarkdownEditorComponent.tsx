@@ -22,6 +22,8 @@ export const MarkdownEditorComponent: React.FC<
         isExtended={extended}
         isActive={active}
         switchActive={() => setActive((a) => !a)}
+        editorState={state}
+        setEditorState={setState}
       />
       {active ? (
         <div className="w-full h-full">
@@ -48,7 +50,7 @@ export const MarkdownEditorComponent: React.FC<
         <MarkdownRenderComponent
           rawText={state}
           extended={extended}
-          className={clsx('text-lg w-full m-2 md:m-8', previewClassName)}
+          className={clsx('text-lg w-full', previewClassName)}
         />
       )}
     </>
