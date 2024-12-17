@@ -10,8 +10,8 @@ import {
   getCardCollectionsQueryOptions,
 } from '@/query/queryHooks';
 import { dataExtractionWrapper } from '@/query';
-import { updateCardCardsCardIdPut } from '@/api';
-import { Button, LoadableComponent } from '@/components/library';
+import { deleteCardCardsCardIdDelete, updateCardCardsCardIdPut } from '@/api';
+import { Button, DropDown, LoadableComponent } from '@/components/library';
 import {
   collectionResponseToOptions,
   CollectionsSelect,
@@ -62,6 +62,26 @@ export const EditCardControls: React.FC = () => {
       setUIFlag('zoomed', () => false);
     },
   });
+  const { mutate: deleteCard, error: deleteError } = useMutation({
+    mutationFn: (id: number) =>
+      dataExtractionWrapper(
+        deleteCardCardsCardIdDelete({
+          path: {
+            card_id: id,
+          },
+        })
+      ),
+    onSuccess: (responseData, id) => {
+      client.invalidateQueries({ queryKey: ['collection'] }); // TODO: подумать, как оптимизировать этот запрос
+      client.resetQueries({
+        queryKey: getCardCollectionsQueryOptions(id).queryKey,
+      });
+      client.refetchQueries({
+        queryKey: getCardQueryOptions(id).queryKey,
+      });
+      setUIFlag('zoomed', () => false);
+    },
+  });
 
   return (
     <>
@@ -84,23 +104,23 @@ export const EditCardControls: React.FC = () => {
             />
           </LoadableComponent>
         </div>
-        {updateError && (
+        {(updateError || deleteError) && (
           <div className={clsx('center mb-2', 'text-red-200 font-bold')}>
-            {updateError.message}
+            {updateError?.message || deleteError?.message}
           </div>
         )}
       </div>
-      <div
-        className={clsx(
-          'm-2 center h-1/12',
-          'transition-all duration-300',
-          cardData.frontSide && cardData.backSide && selectedOptions.length > 0
-            ? 'opacity-1'
-            : 'opacity-0 invisible'
-        )}
-      >
+      <div className={clsx('m-2 center h-1/12')}>
         <Button
-          className="text-xl m-3"
+          className={clsx(
+            'text-xl m-3',
+            'transition-all duration-300',
+            cardData.frontSide &&
+              cardData.backSide &&
+              selectedOptions.length > 0
+              ? 'opacity-1'
+              : 'opacity-0 invisible'
+          )}
           variant="bordered"
           onClick={() => {
             updateCard({
@@ -112,6 +132,21 @@ export const EditCardControls: React.FC = () => {
         >
           Save card
         </Button>
+        <DropDown
+          buttonComponent={
+            <Button className="ml-3" variant="bordered">
+              Delete card
+            </Button>
+          }
+        >
+          <Button
+            className="m-3"
+            variant="bordered"
+            onClick={() => deleteCard(cardId)}
+          >
+            Confirm deletion
+          </Button>
+        </DropDown>
       </div>
     </>
   );
