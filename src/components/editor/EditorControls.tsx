@@ -62,7 +62,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           {!isFilePending ? (
             <Icon icon="upload" />
           ) : (
-            <Icon className="animate-spin" icon="loader" />
+            <Icon className="animate-spin" icon="loading-3/4" />
           )}
         </Button>
       )}
