@@ -24,8 +24,15 @@ export const LoginWindow: React.FC = () => {
       className="bg-1-8/25 backdrop-blur-sm"
     >
       <div className="center">
-        <div className="absolute top-1/4 w-3/4 m-2 md:w-1/2 lg:w-1/3 h-fit p-3 border border-1-1 rounded-lg bg-gradient-to-tr from-1-5 to-1-6">
-          <h1 className="text-lg md:text-xl text-center text-black">
+        <div
+          className={clsx(
+            'absolute top-1/4 w-3/4',
+            'bg-o-white',
+            'px-4 py-6 md:w-1/2 lg:w-1/3 h-fit',
+            'border border-1-1 rounded-lg'
+          )}
+        >
+          <h1 className="text-lg md:text-xl text-center text-black font-bold mb-2">
             {isLogin ? 'Log in to RecAll' : 'Register in RecAll'}
           </h1>
           <div className="vstack center transition-all relative">
@@ -45,10 +52,10 @@ export const LoginWindow: React.FC = () => {
             >
               {isRegister && <RegisterForm />}
             </div>
-            <div className="around w-full">
+            <div className="center w-full mt-2">
               <Button
-                className="m-1 p-2 rounded-lg"
-                variant="bordered"
+                className="p-2 rounded-lg"
+                variant="bordered-trans"
                 onClick={toggleActiveAuthWindow}
               >
                 {isRegister ? '< Go to Log in' : 'Go to Register >'}

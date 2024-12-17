@@ -1,31 +1,76 @@
-import { Card } from '@/components/card/Card';
-import { useAppStore } from '@/state';
-import { CollectionSelectorsFactories } from '@/state/slices';
 import React from 'react';
-import { Redirect, useParams } from 'wouter';
+import { useParams } from 'wouter';
+import {
+  useCollection,
+  useCollectionCards,
+  useProfile,
+  useProfileCards,
+} from '@/query/queryHooks';
+import { CollectionEditForm } from '@/components/collection';
+import { ErrorPage } from '@/pages';
+import { CardsList } from '@/components/card';
+import { LoadableComponent } from '@/components/library';
 
-interface EditPageParams {
+export interface EditPageParams {
   id: number;
 }
 
 export const CollectionEditPage: React.FC = () => {
   const { id } = useParams<EditPageParams>();
-  const collection = useAppStore(
-    CollectionSelectorsFactories.getCollection(Number(id))
-  );
-  const cards = collection?.cards.map((card) => (
-    <Card cardData={card} mode="edit" key={card.id} />
-  ));
+  const { profile } = useProfile();
+  const {
+    collection,
+    error: collectionError,
+    isPending: isCollectionPending,
+  } = useCollection(id);
+  const {
+    cards: collectionCardsIds,
+    error: collectionCardsError,
+    isPending: collectionCardsPending,
+  } = useCollectionCards(id);
+  const {
+    cards: profileCardsIds,
+    error: profileCardsError,
+    isPending: profileCardsPending,
+  } = useProfileCards();
+
+  if (!profile || collection?.ownerId !== profile?.id)
+    return (
+      <ErrorPage
+        isPending={isCollectionPending}
+        message="You're not allowed to edit other people's collections"
+      />
+    );
 
   return (
-    <>
-      {!collection && <Redirect to="" />}
-      <div className="vstack m-2 md:m-10 p-2 md:p-5 bg-1-8 text-black rounded-md">
-        <h1 className="text-4xl my-2 font-bold">Edit collection {id}</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
-          {cards}
-        </div>
+    <LoadableComponent
+      isPending={isCollectionPending}
+      errorMessage={collectionError?.message}
+    >
+      <div className="vstack m-2 md:m-10 p-2 md:p-5">
+        <CollectionEditForm id={id} />
+
+        <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
+        <h2 className="my-2 text-2xl text-center font-bold">Paired cards</h2>
+        <LoadableComponent
+          isPending={collectionCardsPending}
+          errorMessage={collectionCardsError?.message}
+        >
+          <CardsList
+            cardsIds={collectionCardsIds ?? []}
+            mode="edit"
+            addNewCard
+          />
+        </LoadableComponent>
+        <hr className="border border-1-1 rounded my-2 md:my-6" />
+        <h2 className="my-2 text-2xl text-center font-bold">All cards</h2>
+        <LoadableComponent
+          isPending={profileCardsPending}
+          errorMessage={profileCardsError?.message}
+        >
+          <CardsList cardsIds={profileCardsIds ?? []} mode="edit" />
+        </LoadableComponent>
       </div>
-    </>
+    </LoadableComponent>
   );
 };

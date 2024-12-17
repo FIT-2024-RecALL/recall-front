@@ -1,29 +1,51 @@
-import React, { HTMLAttributes, useState } from 'react';
-import { MiniCard } from './MiniCard';
-import { FlippingCard } from './FlippingCard';
-import { CardType } from '@/state/slices';
+import React, { HTMLAttributes } from 'react';
+
+import { MiniCard } from './visuals';
+import { ActiveCardUIModes } from '@/state/slices';
+import { useAppStore } from '@/state';
+import { useCard } from '@/query/queryHooks';
+import { LoadableComponent } from '@/components/library';
+import { MarkdownRenderComponent } from '@/components/editor';
+import clsx from 'clsx';
 
 interface CardProps extends HTMLAttributes<React.FC> {
-  mode: 'train' | 'edit';
-  cardData: CardType;
+  mode: ActiveCardUIModes;
+  cardId: number;
 }
 
-export const Card: React.FC<CardProps> = ({ mode, cardData, className }) => {
-  const [zoomed, setZoomed] = useState(false);
+export const Card: React.FC<CardProps> = ({ mode, cardId, className }) => {
+  const setRealActiveCard = useAppStore((state) => state.setRealActiveCard);
+  const setActiveCardUIMode = useAppStore((state) => state.setActiveCardUIMode);
+
+  const { card, error, isPending } = useCard(cardId);
 
   return (
     <>
-      <MiniCard
-        previewText={cardData.previewText}
-        onClick={() => setZoomed(true)}
-      />
-      <FlippingCard
-        isShown={zoomed}
-        close={() => setZoomed(false)}
-        mode={mode}
-        cardData={cardData}
-        className={className}
-      />
+      <LoadableComponent isPending={isPending} animated>
+        <MiniCard
+          onClick={
+            card &&
+            (() => {
+              setActiveCardUIMode(mode);
+              setRealActiveCard(card);
+            })
+          }
+          className={clsx(
+            'overflow-hidden',
+            'text-lg md:text-xl font-medium',
+            className
+          )}
+        >
+          {error && error.message}
+          {card && (
+            <MarkdownRenderComponent
+              className="full center overflow-hidden"
+              rawText={card.frontSide}
+              extended
+            />
+          )}
+        </MiniCard>
+      </LoadableComponent>
     </>
   );
 };

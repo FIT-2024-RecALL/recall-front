@@ -1,30 +1,54 @@
 import React from 'react';
-import { GeneratePage, GetSecretPage, StartPage, CollectionEditPage } from '@/pages';
+import {
+  StartPage,
+  CollectionsPage,
+  CollectionEditPage,
+  TrainPage,
+  ProfilePage,
+} from '@/pages';
 
 type RouteData = {
   url: string;
+  getUrl: (kwargs?: any) => string;
   label?: string;
   content: JSX.Element;
 };
+type RoutesEnum =
+  | 'main'
+  | 'collections'
+  | 'collectionEdit'
+  | 'train'
+  | 'profile';
 
-export const routesList: RouteData[] = [
-  {
+export const routes: Record<RoutesEnum, RouteData> = {
+  main: {
     url: '/',
+    getUrl: () => '/',
     label: 'Main page',
     content: <StartPage />,
   },
-  {
+  collections: {
     url: '/collections',
-    label: 'View collections',
-    content: <GetSecretPage />,
+    getUrl: () => '/collections',
+    label: 'Collections',
+    content: <CollectionsPage />,
   },
-  {
-    url: '/collections/edit/:id',
+  collectionEdit: {
+    url: '/collections/:id/edit',
+    getUrl: (id: number) => `/collections/${id}/edit`,
     content: <CollectionEditPage />,
   },
-  {
-    url: '/about',
-    label: 'Feed us',
-    content: <GeneratePage />,
+  train: {
+    url: '/collections/:id/train',
+    getUrl: (id: number) => `/collections/${id}/train`,
+    content: <TrainPage />,
   },
-];
+  profile: {
+    url: '/profile',
+    getUrl: () => '/profile',
+    content: <ProfilePage />,
+  },
+};
+
+const menuRoutesKeys: RoutesEnum[] = ['main', 'collections'];
+export const menuRoutes = menuRoutesKeys.map((menuKey) => routes[menuKey]);

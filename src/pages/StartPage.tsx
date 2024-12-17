@@ -1,39 +1,58 @@
 import React from 'react';
 import { Link } from 'wouter';
 
-export const StartPage: React.FC = () => {
-  return (
-    <div className="vstack m-2 md:m-10 p-2 md:p-5 bg-1-8 text-o-black rounded-md">
-      <h1 className="text-4xl text-center m-2 font-bold">
-        Make engrams for everything you want
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-3">
-        <div className="md:col-span-2 center vstack">
-          <p className="text-xl m-2">
-            Товарищ! Ты вступаешь на путь знаний, где ошибка стоит дорого, а
-            забывчивость — враг. Этот веб-приложение — не просто инструмент, а
-            твой строгий учитель в освоении материала. Интервальные повторения —
-            система, проверенная временем, и она не потерпит лености. Здесь
-            каждый забытый факт — шаг к поражению, а регулярная работа — залог
-            победы.
-          </p>
-          <p className="text-xl m-2">
-            Запомни: здесь нет места хаосу и слабости. Приложение точно
-            рассчитает, когда и что тебе нужно повторить, чтобы знания
-            закрепились в твоей голове навечно. Неукоснительное следование
-            рекомендациям — это твой долг.
-          </p>
-        </div>
-        <img
-          className="my-2 md:mx-2"
-          src="https://avatars.dzeninfra.ru/get-zen_brief/7731634/pub_63204e7cc0fd3557a72bae3c_632070daa32fa40d99e6362a/scale_1200"
-          alt="А ты уже?.."
-        />
-      </div>
+import { useAppStore } from '@/state';
+import { Button } from '@/components/library';
+import { useProfile } from '@/query/queryHooks';
+import { routes } from '@/routes';
 
-      <Link className="text-2xl underline" to="/collections/edit/1">
-        К карточкам!
-      </Link>
+export const StartPage: React.FC = () => {
+  const { profile } = useProfile();
+  const showLoginWindow = useAppStore((state) => state.showLoginWindow);
+
+  return (
+    <div className="vstack m-2 md:m-10 p-2 md:p-5 text-o-black rounded-md">
+      <div className="w-full center vstack">
+        {!profile ? (
+          <>
+            <h1 className="text-2xl md:text-4xl text-center my-6 font-bold">
+              RecAll anything easy!
+            </h1>
+            <h2 className="text-md md:text-2xl text-center my-4 font-medium md:font-bold">
+              Create collections by any topic, add cards with text, photos,
+              audios or videos and train them
+            </h2>
+            <Button
+              variant="plate"
+              className="font-bold text-2xl md:text-3xl p-4 md:p-6 m-2 rounded-3xl"
+              onClick={showLoginWindow}
+            >
+              Join
+            </Button>
+          </>
+        ) : (
+          <>
+            <h1 className="text-2xl md:text-4xl text-center my-6 font-bold">
+              Hello, {profile.nickname}!
+            </h1>
+            <div className="text-md md:text-2xl center my-4 font-medium">
+              <Link to="/profile" className="w-fit mx-2 center">
+                <Button variant="plate" className="p-2 md:p-4">
+                  My profile
+                </Button>
+              </Link>
+              <Link
+                to={routes.collections.getUrl()}
+                className="w-fit mx-2 center"
+              >
+                <Button variant="plate" className="p-2 md:p-4">
+                  Collections
+                </Button>
+              </Link>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };

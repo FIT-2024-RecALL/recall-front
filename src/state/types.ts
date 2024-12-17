@@ -11,11 +11,3 @@ export type Slice<T> = (
   get: StoreApi<T>['getState'],
   api: StoreApi<T>
 ) => T;
-
-// TODO: Очень хотелось бы понять, как через StateCreator сделать нечто похожее на тип выше
-// export type Slice2<T, U = T> = StateCreator<
-//   T,
-//   [],
-//   [],
-//   T & U
-// >;
