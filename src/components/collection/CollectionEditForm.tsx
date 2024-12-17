@@ -168,7 +168,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
             </Button>
             {isDeletePending && (
               <div className="mx-2">
-                <Icon className="animate-spin" icon="loader" />
+                <Icon className="animate-spin" icon="loading-3/4" />
               </div>
             )}
           </DropDown>

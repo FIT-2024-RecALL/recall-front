@@ -84,7 +84,7 @@ export const ProfilePage: React.FC = () => {
       <DropDown
         buttonComponent={
           <Button className="mx-3" variant="bordered-trans">
-            Delete collection
+            Delete account
           </Button>
         }
       >
@@ -97,7 +97,7 @@ export const ProfilePage: React.FC = () => {
         </Button>
         {isDeletePending && (
           <div className="mx-2">
-            <Icon className="animate-spin" icon="loader" />
+            <Icon className="animate-spin" icon="loading-3/4" />
           </div>
         )}
       </DropDown>
