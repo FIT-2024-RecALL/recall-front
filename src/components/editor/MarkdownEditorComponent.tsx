@@ -30,8 +30,7 @@ export const MarkdownEditorComponent: React.FC<
           <textarea
             className={clsx(
               'bg-1-2 focus:bg-1-3',
-              'p-1 md:p-2',
-              'w-full h-full',
+              'p-2 w-full h-full',
               'resize-none text-md',
               'rounded'
             )}

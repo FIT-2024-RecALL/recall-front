@@ -62,7 +62,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
       <div
         className={clsx(
           'absolute bottom-0',
-          'w-full h-1/12 p-2',
+          'w-full h-7 md:py-2',
           'center',
           'overflow-hidden transition-all',
           'hover:cursor-pointer hover:bg-1-8/10 hover:pl-10',

@@ -31,18 +31,21 @@ export const Card: React.FC<CardProps> = ({ mode, cardId, className }) => {
             })
           }
           className={clsx(
-            'overflow-hidden',
+            'overflow-hidden relative',
             'text-lg md:text-xl font-medium',
             className
           )}
         >
           {error && error.message}
           {card && (
-            <MarkdownRenderComponent
-              className="full center overflow-hidden"
-              rawText={card.frontSide}
-              extended
-            />
+            <>
+              <MarkdownRenderComponent
+                className="full overflow-hidden"
+                rawText={card.frontSide}
+                extended
+              />
+              <div className="full absolute"></div>
+            </>
           )}
         </MiniCard>
       </LoadableComponent>
