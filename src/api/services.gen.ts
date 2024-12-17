@@ -87,18 +87,6 @@ import type {
   ReadItemItemsItemIdGetData,
   ReadItemItemsItemIdGetError,
   ReadItemItemsItemIdGetResponse,
-  ReadCardsAdminCardsGetData,
-  ReadCardsAdminCardsGetError,
-  ReadCardsAdminCardsGetResponse,
-  ReadTrainRecordsAdminTrainRecordsGetData,
-  ReadTrainRecordsAdminTrainRecordsGetError,
-  ReadTrainRecordsAdminTrainRecordsGetResponse,
-  ReadUsersAdminUsersGetData,
-  ReadUsersAdminUsersGetError,
-  ReadUsersAdminUsersGetResponse,
-  ReadCollectionsAdminCollectionsGetData,
-  ReadCollectionsAdminCollectionsGetError,
-  ReadCollectionsAdminCollectionsGetResponse,
 } from './types.gen';
 
 export const client = createClient(createConfig());
@@ -607,73 +595,5 @@ export const readItemItemsItemIdGet = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: '/items/{item_id}',
-  });
-};
-
-/**
- * Read Cards
- */
-export const readCardsAdminCardsGet = <ThrowOnError extends boolean = false>(
-  options?: Options<ReadCardsAdminCardsGetData, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    ReadCardsAdminCardsGetResponse,
-    ReadCardsAdminCardsGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/admin/cards',
-  });
-};
-
-/**
- * Read Train Records
- */
-export const readTrainRecordsAdminTrainRecordsGet = <
-  ThrowOnError extends boolean = false
->(
-  options?: Options<ReadTrainRecordsAdminTrainRecordsGetData, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    ReadTrainRecordsAdminTrainRecordsGetResponse,
-    ReadTrainRecordsAdminTrainRecordsGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/admin/train_records',
-  });
-};
-
-/**
- * Read Users
- */
-export const readUsersAdminUsersGet = <ThrowOnError extends boolean = false>(
-  options?: Options<ReadUsersAdminUsersGetData, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    ReadUsersAdminUsersGetResponse,
-    ReadUsersAdminUsersGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/admin/users',
-  });
-};
-
-/**
- * Read Collections
- */
-export const readCollectionsAdminCollectionsGet = <
-  ThrowOnError extends boolean = false
->(
-  options?: Options<ReadCollectionsAdminCollectionsGetData, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    ReadCollectionsAdminCollectionsGetResponse,
-    ReadCollectionsAdminCollectionsGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/admin/collections',
   });
 };
