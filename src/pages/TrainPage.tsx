@@ -54,7 +54,7 @@ export const TrainPage: React.FC = () => {
     return (
       <ErrorPage
         isPending={isCollectionPending || isTrainCardsPending}
-        message="Only authorized user can train"
+        message="Only authorized users can train"
       />
     );
 
@@ -70,18 +70,18 @@ export const TrainPage: React.FC = () => {
         </h1>
         {maxCount === 0 && (
           <>
-            <h2 className="text-center text-2xl my-2">
+            <h2 className="text-center text-xl my-2">
               There{"'"}re no cards to train
             </h2>
-            <h2 className="text-center text-2xl my-2">
+            <h2 className="text-center text-xl my-2">
               Maybe chill or train other collection?
             </h2>
             <div className="vstack md:center">
               <Link
-                className="my-2 md:m-2 w-fit"
+                className="my-2 md:m-2 w-full md:w-1/3"
                 to={routes.collections.getUrl()}
               >
-                <Button className="w-full" variant="plate">
+                <Button className="w-full font-medium text-lg" variant="plate">
                   Go to collections
                 </Button>
               </Link>
@@ -93,17 +93,17 @@ export const TrainPage: React.FC = () => {
             <h2 className="text-center text-2xl my-2">
               Congratulations! Training was completed
             </h2>
-            <div className="vstack md:center">
+            <div className="xs-md:vstack md:center">
               <Link
-                className="my-2 md:m-2 w-fit"
+                className="w-full md:w-1/4"
                 to={routes.collections.getUrl()}
               >
-                <Button className="w-full" variant="plate">
+                <Button className="w-full font-medium text-lg" variant="plate">
                   Go to collections
                 </Button>
               </Link>
               <Button
-                className="md:m-2"
+                className="my-2 md:m-2 w-full md:w-1/4 font-medium text-lg"
                 variant="plate"
                 onClick={refreshTrainCards}
               >

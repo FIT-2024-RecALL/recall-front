@@ -36,7 +36,7 @@ export const StartPage: React.FC = () => {
               Hello, {profile.nickname}!
             </h1>
             <div className="text-md md:text-2xl center my-4 font-medium">
-              <Link to="/profile" className="w-fit mx-2 center">
+              <Link to={routes.profile.getUrl()} className="w-fit mx-2 center">
                 <Button variant="plate" className="p-2 md:p-4">
                   My profile
                 </Button>
