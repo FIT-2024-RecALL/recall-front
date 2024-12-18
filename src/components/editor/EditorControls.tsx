@@ -15,7 +15,7 @@ interface EditorControlsProps extends HTMLAttributes<React.FC> {
   setEditorState: (state: string) => void;
 }
 
-export const getMediaMdMarkup = (url: string) => `![](${url})`;
+export const getMediaMdMarkup = (url: string) => `\n![](${url})\n`;
 
 export const EditorControls: React.FC<EditorControlsProps> = ({
   isActive,
