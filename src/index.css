@@ -176,4 +176,16 @@ body,
   pre {
     @apply bg-1-1
   }
+
+  img {
+    @apply w-full md:w-1/2;
+  }
+
+  video {
+    @apply w-full md:w-1/2;
+  }
+
+  * {
+    @apply my-2;
+  }
 }
