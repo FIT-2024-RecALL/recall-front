@@ -93,6 +93,7 @@ body {
 
   /* background: var(--color-white); */
   background: var(--color-1-12);
+  background-image: url('/snow.gif');
 }
 
 html,
