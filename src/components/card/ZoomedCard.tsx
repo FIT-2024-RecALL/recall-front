@@ -22,13 +22,13 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
     <PopUp
       isShown={zoomed}
       close={() => setCardUIFlag('zoomed', () => false)}
-      className="center bg-o-white/75 backdrop-blur-md"
+      className="center bg-o-white/50 backdrop-blur-md"
     >
       <div className={clsx('w-11/12 lg:w-3/4 h-11/12 lg:h-5/6 center vstack')}>
         <FlippingCard
           className={clsx(
             'mb-1 md:mb-2 w-full h-5/6',
-            'bg-1-1 rounded-xl',
+            'bg-1-3 rounded-xl',
             'border border-2 border-black',
             'text-white'
           )}

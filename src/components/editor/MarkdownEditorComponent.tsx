@@ -38,7 +38,8 @@ export const MarkdownEditorComponent: React.FC<
       };
       // ... Ещё что-то
 
-      setState(mutate(editorElementState));
+      const newStr = mutate(editorElementState);
+      setState(newStr);
 
       // editorRef.current.focus();
       // .. Ещё что-то
@@ -61,10 +62,10 @@ export const MarkdownEditorComponent: React.FC<
           <textarea
             ref={editorRef}
             className={clsx(
-              'bg-1-2 focus:bg-1-3',
+              'bg-1-2 focus:bg-1-1',
               'p-2 w-full h-full',
               'resize-none text-md',
-              'rounded'
+              'rounded font-medium font-mono'
             )}
             placeholder={placeholder}
             value={state}

@@ -70,7 +70,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
               variant="bordered"
               onClick={() => editorActionWrapper(mutations.quote)}
             >
-              {'"'}
+              {'""'}
             </Button>
             <Button
               className=""
@@ -78,6 +78,20 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
               onClick={() => editorActionWrapper(mutations.code)}
             >
               {'</>'}
+            </Button>
+            <Button
+              className=""
+              variant="bordered"
+              onClick={() => editorActionWrapper(mutations.ul)}
+            >
+              {'ul'}
+            </Button>
+            <Button
+              className=""
+              variant="bordered"
+              onClick={() => editorActionWrapper(mutations.ol)}
+            >
+              {'ol'}
             </Button>
             {isExtended && (
               <>
