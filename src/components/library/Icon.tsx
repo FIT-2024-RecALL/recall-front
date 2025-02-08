@@ -31,6 +31,14 @@ import {
   AiOutlineLoading,
   AiOutlineLoading3Quarters,
 } from 'react-icons/ai';
+import {
+  BsListOl,
+  BsListUl,
+  BsBlockquoteLeft,
+  BsCodeSlash,
+  BsTypeBold,
+  BsTypeItalic
+} from 'react-icons/bs';
 import {} from 'react-icons/ai';
 import React from 'react';
 import { match } from 'ts-pattern';
@@ -66,6 +74,12 @@ export const icons = [
   'save',
   'loading-1/4',
   'loading-3/4',
+  'list-ol',
+  'list-ul',
+  'blockquote',
+  'codeblock',
+  'type-bold',
+  'type-italic',
 ] as const;
 export type IconType = (typeof icons)[number];
 
@@ -110,6 +124,12 @@ export const Icon: React.FC<IconProps> = ({
     .with('save', () => AiFillSave)
     .with('loading-1/4', () => AiOutlineLoading)
     .with('loading-3/4', () => AiOutlineLoading3Quarters)
+    .with('list-ol', () => BsListOl)
+    .with('list-ul', () => BsListUl)
+    .with('blockquote', () => BsBlockquoteLeft)
+    .with('codeblock', () => BsCodeSlash)
+    .with('type-bold', () => BsTypeBold)
+    .with('type-italic', () => BsTypeItalic)
     .exhaustive();
 
   const modifiers = match(icon)
@@ -119,7 +139,6 @@ export const Icon: React.FC<IconProps> = ({
   return (
     <Component
       className={className + ` ${modifiers}`}
-      size={'1.1em'}
       color={color}
       {...rest}
     />

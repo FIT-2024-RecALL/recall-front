@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { Icon, IconType } from './Icon';
+import clsx from 'clsx';
 
 interface IconButtonProps
   extends PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>> {
@@ -24,13 +25,13 @@ export const Button: React.FC<IconButtonProps> = ({
 }) => (
   <button
     type={'button'}
-    className={
-      `${
-        variants[variant || 'inline']
-      } center h-10 min-w-[40px] space-x-2 rounded-md p-2 transition-colors` +
-      ' ' +
+    className={clsx(
+      variants[variant || 'inline'],
+      'center rounded-md',
+      'min-w-[16px] min-h-[16px] md:min-w-[32px] md:min-h-[32px]',
+      'space-x-2 p-1 md:p-2 transition-colors',
       className
-    }
+    )}
     disabled={loading}
     {...rest}
   >

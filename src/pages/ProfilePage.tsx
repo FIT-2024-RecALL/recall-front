@@ -56,7 +56,7 @@ export const ProfilePage: React.FC = () => {
 
   return (
     <LoadableComponent
-      className="flex flex-col items-center m-4 md:m-10 p-5"
+      className="flex flex-col items-center p-4 md:p-8"
       isPending={isProfilePending || isCollectionsPending}
       animated
     >

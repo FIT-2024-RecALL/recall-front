@@ -74,7 +74,7 @@ export const CollectionsSearchableList: React.FC<
           <div
             className="grid align-center justify-center w-full gap-4 pt-4"
             style={{
-              gridTemplateColumns: 'repeat( auto-fit, 320px )',
+              gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
             }}
           >
             {activeCollections.length > 0 ? (

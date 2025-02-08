@@ -47,82 +47,87 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
   });
 
   return (
-    <div className={clsx('around w-full my-1', className)}>
-      <>
-        {isActive && (
-          <>
-            <Button
-              className=""
-              variant="bordered"
-              onClick={() => editorActionWrapper(mutations.bold)}
-            >
-              <b>B</b>
-            </Button>
-            <Button
-              className=""
-              variant="bordered"
-              onClick={() => editorActionWrapper(mutations.italic)}
-            >
-              <i>I</i>
-            </Button>
-            <Button
-              className=""
-              variant="bordered"
-              onClick={() => editorActionWrapper(mutations.quote)}
-            >
-              {'""'}
-            </Button>
-            <Button
-              className=""
-              variant="bordered"
-              onClick={() => editorActionWrapper(mutations.code)}
-            >
-              {'</>'}
-            </Button>
-            <Button
-              className=""
-              variant="bordered"
-              onClick={() => editorActionWrapper(mutations.ul)}
-            >
-              {'ul'}
-            </Button>
-            <Button
-              className=""
-              variant="bordered"
-              onClick={() => editorActionWrapper(mutations.ol)}
-            >
-              {'ol'}
-            </Button>
-            {isExtended && (
-              <>
-                <input
-                  ref={uploadRef}
-                  type="file"
-                  className="hidden"
-                  onChange={(e) => {
-                    if (e.target.files) uploadFile(e.target.files[0]);
-                  }}
-                />
-                <Button
-                  title="Upload file for card"
-                  variant="bordered"
-                  onClick={() => uploadRef.current?.click()}
-                >
-                  {!isFilePending ? (
-                    <Icon icon="upload" />
-                  ) : (
-                    <Icon className="animate-spin" icon="loading-3/4" />
-                  )}
-                </Button>
-              </>
-            )}
-          </>
-        )}
+    <div className={clsx('around w-full my-1 flex-wrap', className)}>
+      {isActive && (
+        <div className="bg-1-7 border-2 border-1-1 rounded-md around font-medium">
+          <Button
+            className="rounded-none m-0 p-0 min-h-0 text-black"
+            variant="inline"
+            title="Bold"
+            onClick={() => editorActionWrapper(mutations.bold)}
+          >
+            <Icon icon="type-bold" />
+          </Button>
+          <Button
+            className="rounded-none m-0 p-0 min-h-0 text-black"
+            variant="inline"
+            title="Italic"
+            onClick={() => editorActionWrapper(mutations.italic)}
+          >
+            <Icon icon="type-italic" />
+          </Button>
+          <Button
+            className="rounded-none m-0 p-0 min-h-0 text-black"
+            variant="inline"
+            title="Quoting block"
+            onClick={() => editorActionWrapper(mutations.quote)}
+          >
+            <Icon icon="blockquote" />
+          </Button>
+          <Button
+            className="rounded-none m-0 p-0 min-h-0 text-black"
+            variant="inline"
+            title="Code block"
+            onClick={() => editorActionWrapper(mutations.code)}
+          >
+            <Icon icon="codeblock" />
+          </Button>
+          <Button
+            className="rounded-none m-0 p-0 min-h-0 text-black"
+            variant="inline"
+            title="Unordered list"
+            onClick={() => editorActionWrapper(mutations.ul)}
+          >
+            <Icon icon="list-ul" />
+          </Button>
+          <Button
+            className="rounded-none m-0 p-0 min-h-0 text-black"
+            variant="inline"
+            title="Ordered list"
+            onClick={() => editorActionWrapper(mutations.ol)}
+          >
+            <Icon icon="list-ol" />
+          </Button>
+        </div>
+      )}
 
-        <Button className="" variant="bordered" onClick={switchActive}>
-          {isActive ? <Icon icon="eye" /> : <Icon icon="editor" />}
-        </Button>
-      </>
+      {isActive && isExtended && (
+        <>
+          <input
+            ref={uploadRef}
+            type="file"
+            className="hidden"
+            onChange={(e) => {
+              if (e.target.files) uploadFile(e.target.files[0]);
+            }}
+          />
+          <Button
+            title="Upload file for card"
+            className="ml-2"
+            variant="bordered"
+            onClick={() => uploadRef.current?.click()}
+          >
+            {!isFilePending ? (
+              <Icon icon="upload" />
+            ) : (
+              <Icon className="animate-spin" icon="loading-3/4" />
+            )}
+          </Button>
+        </>
+      )}
+      <Button className="ml-2" variant="bordered" onClick={switchActive}>
+        {isActive ? <Icon icon="eye" /> : <Icon icon="editor" />}
+      </Button>
     </div>
   );
 };
