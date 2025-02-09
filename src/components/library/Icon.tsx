@@ -37,9 +37,10 @@ import {
   BsBlockquoteLeft,
   BsCodeSlash,
   BsTypeBold,
-  BsTypeItalic
+  BsTypeItalic,
+  BsLink,
 } from 'react-icons/bs';
-import {} from 'react-icons/ai';
+import { LuSigma } from 'react-icons/lu';
 import React from 'react';
 import { match } from 'ts-pattern';
 import { IconBaseProps } from 'react-icons/lib/cjs/iconBase';
@@ -80,6 +81,8 @@ export const icons = [
   'codeblock',
   'type-bold',
   'type-italic',
+  'link',
+  'sigma',
 ] as const;
 export type IconType = (typeof icons)[number];
 
@@ -130,6 +133,8 @@ export const Icon: React.FC<IconProps> = ({
     .with('codeblock', () => BsCodeSlash)
     .with('type-bold', () => BsTypeBold)
     .with('type-italic', () => BsTypeItalic)
+    .with('link', () => BsLink)
+    .with('sigma', () => LuSigma)
     .exhaustive();
 
   const modifiers = match(icon)

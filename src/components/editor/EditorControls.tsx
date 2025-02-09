@@ -69,6 +69,14 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
+            title="Add link"
+            onClick={() => editorActionWrapper(mutations.link)}
+          >
+            <Icon icon="link" />
+          </Button>
+          <Button
+            className="rounded-none m-0 p-0 min-h-0 text-black"
+            variant="inline"
             title="Quoting block"
             onClick={() => editorActionWrapper(mutations.quote)}
           >
@@ -112,9 +120,9 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
             }}
           />
           <Button
-            title="Upload file for card"
-            className="ml-2"
+            className=""
             variant="bordered"
+            title="Upload file for card"
             onClick={() => uploadRef.current?.click()}
           >
             {!isFilePending ? (
@@ -125,7 +133,20 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           </Button>
         </>
       )}
-      <Button className="ml-2" variant="bordered" onClick={switchActive}>
+      <Button
+        className="min-h-0 text-black"
+        variant="bordered"
+        title="Add LaTeX (math) block"
+        onClick={() => editorActionWrapper(mutations.math)}
+      >
+        <Icon icon="sigma" />
+      </Button>
+      <Button
+        className="min-h-0 text-black"
+        variant="bordered"
+        title={isActive ? 'Toggle to preview' : 'Toggle to editing'}
+        onClick={switchActive}
+      >
         {isActive ? <Icon icon="eye" /> : <Icon icon="editor" />}
       </Button>
     </div>

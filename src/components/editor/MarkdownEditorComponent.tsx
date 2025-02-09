@@ -27,22 +27,15 @@ export const MarkdownEditorComponent: React.FC<
   const editorActionWrapper: EditorMutatorWrapper = useCallback(
     (mutate: EditorStateMutator) => {
       if (!editorRef.current) return;
-      const selectionStart = editorRef.current.selectionStart;
-      const selectionEnd = editorRef.current.selectionEnd;
       const editorElementState: EditorElementState = {
-        selectionStart,
-        selectionEnd,
-        prevPart: state.slice(0, selectionStart),
-        midPart: state.slice(selectionStart, selectionEnd),
-        nextPart: state.slice(selectionEnd),
+        selectionStart: editorRef.current.selectionStart,
+        selectionEnd: editorRef.current.selectionEnd,
+        str: state,
       };
-      // ... Ещё что-то
 
       const newStr = mutate(editorElementState);
       setState(newStr);
 
-      // editorRef.current.focus();
-      // .. Ещё что-то
     },
     [editorRef, state, setState]
   );
