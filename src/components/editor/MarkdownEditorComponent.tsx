@@ -9,6 +9,7 @@ import {
   EditorMutatorWrapper,
   mutations,
 } from './editorElementTypes';
+import { Immutable, produce } from 'immer';
 
 interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
   state: string;
@@ -22,21 +23,37 @@ export const MarkdownEditorComponent: React.FC<
   MarkdownEditorComponentProps
 > = ({ state, setState, extended, placeholder, previewClassName }) => {
   const [active, setActive] = useState(true);
-  const editorRef = useRef<HTMLTextAreaElement>(null);
-  const editorActionWrapper: EditorMutatorWrapper = useCallback(
-    (mutate, payload) => {
-      if (!editorRef.current) return;
-      const editorElementState: EditorElementState = {
-        selectionStart: editorRef.current.selectionStart,
-        selectionEnd: editorRef.current.selectionEnd,
-        str: state,
-      };
 
-      const newStr = mutate(editorElementState, payload);
-      setState(newStr);
+  const historyRef = useRef<Immutable<string[]>>([state]);
+  const pushHistory = useCallback(
+    (value: string) => {
+      historyRef.current = produce(historyRef.current, (history) => {
+        history.push(value);
+      });
     },
-    [editorRef, state, setState]
+    [historyRef]
   );
+  const popHistory = useCallback(() => {
+    if (historyRef.current.length === 1) return historyRef.current[0];
+    historyRef.current = produce(historyRef.current, (history) => {
+      history.pop();
+    });
+    return historyRef.current[historyRef.current.length - 1];
+  }, [historyRef]);
+
+  const editorRef = useRef<HTMLTextAreaElement>(null);
+  const editorActionWrapper: EditorMutatorWrapper = (mutate, payload) => {
+    if (!editorRef.current) return;
+    const editorElementState: EditorElementState = {
+      selectionStart: editorRef.current.selectionStart,
+      selectionEnd: editorRef.current.selectionEnd,
+      str: state,
+    };
+
+    const newStr = mutate(editorElementState, payload);
+    setState(newStr);
+    pushHistory(newStr);
+  };
 
   return (
     <>
@@ -60,6 +77,7 @@ export const MarkdownEditorComponent: React.FC<
             value={state}
             onChange={(e) => {
               setState(e.target.value);
+              pushHistory(e.target.value);
             }}
             onKeyDown={(e) => {
               if (e.key === 'Tab') {
@@ -69,7 +87,11 @@ export const MarkdownEditorComponent: React.FC<
               if (e.ctrlKey) {
                 match(e.key)
                   .with('b', () => editorActionWrapper(mutations.bold))
-                  .with('i', () => editorActionWrapper(mutations.italic));
+                  .with('i', () => editorActionWrapper(mutations.italic))
+                  .with('z', () => {
+                    e.preventDefault();
+                    setState(popHistory());
+                  });
               }
             }}
           />
