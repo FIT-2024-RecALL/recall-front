@@ -13,8 +13,6 @@ interface EditorControlsProps extends HTMLAttributes<React.FC> {
   switchActive: () => void;
   isExtended?: boolean;
   editorActionWrapper: EditorMutatorWrapper;
-  editorState: string;
-  setEditorState: (state: string) => void;
 }
 
 export const getMediaMdMarkup = (url: string) => `\n![](${url})\n`;
@@ -25,8 +23,6 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
   isExtended,
   className,
   editorActionWrapper,
-  editorState,
-  setEditorState,
 }) => {
   const uploadRef = useRef<HTMLInputElement>(null);
 
@@ -40,9 +36,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
         })
       ),
     onSuccess: (response) => {
-      setEditorState(
-        editorState + getMediaMdMarkup(getFileFullPath(response.url))
-      );
+      editorActionWrapper(mutations.media, getFileFullPath(response.url));
     },
   });
 

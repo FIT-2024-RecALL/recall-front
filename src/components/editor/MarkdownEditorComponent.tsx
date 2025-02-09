@@ -7,7 +7,6 @@ import { MarkdownRenderComponent } from './MarkdownRenderComponent';
 import {
   EditorElementState,
   EditorMutatorWrapper,
-  EditorStateMutator,
   mutations,
 } from './editorElementTypes';
 
@@ -25,7 +24,7 @@ export const MarkdownEditorComponent: React.FC<
   const [active, setActive] = useState(true);
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const editorActionWrapper: EditorMutatorWrapper = useCallback(
-    (mutate: EditorStateMutator) => {
+    (mutate, payload) => {
       if (!editorRef.current) return;
       const editorElementState: EditorElementState = {
         selectionStart: editorRef.current.selectionStart,
@@ -33,9 +32,8 @@ export const MarkdownEditorComponent: React.FC<
         str: state,
       };
 
-      const newStr = mutate(editorElementState);
+      const newStr = mutate(editorElementState, payload);
       setState(newStr);
-
     },
     [editorRef, state, setState]
   );
@@ -47,8 +45,6 @@ export const MarkdownEditorComponent: React.FC<
         isActive={active}
         switchActive={() => setActive((a) => !a)}
         editorActionWrapper={editorActionWrapper}
-        editorState={state}
-        setEditorState={setState}
       />
       {active ? (
         <div className="w-full h-full">

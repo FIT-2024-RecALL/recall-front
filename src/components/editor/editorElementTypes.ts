@@ -14,7 +14,10 @@ const getCursorSplittedStr = (state: EditorElementState) => ({
   nextPart: state.str.slice(state.selectionEnd),
 });
 
-export type EditorStateMutator = (editorState: EditorElementState) => string;
+export type EditorStateMutator = (
+  editorState: EditorElementState,
+  payload?: string
+) => string;
 
 const getCursorPositionFillerMutation = (fillStr: string) => {
   return (state: EditorElementState) => {
@@ -77,7 +80,8 @@ export type MutationsEnum =
   | 'ul'
   | 'ol'
   | 'link'
-  | 'math';
+  | 'math'
+  | 'media';
 export type Mutations = Record<MutationsEnum, EditorStateMutator>;
 export const mutations: Mutations = {
   bold: getSelectionBordersFillerMutation('**'),
@@ -86,8 +90,22 @@ export const mutations: Mutations = {
   code: getSelectedBorderLinesMutation('```'),
   ul: getEverySelectedLineStartMutation('- '),
   ol: getEverySelectedLineStartMutation('1. '),
-  link: getSelectionBordersFillerMutation('[', '](url)'),
+  link: (state, payload) => {
+    const url = payload ? payload : 'url';
+    return state.selectionStart !== state.selectionEnd
+      ? getSelectionBordersFillerMutation('[', `](${url})`)(state)
+      : getCursorPositionFillerMutation(`\n[Link label](${url})\n`)(state);
+  },
   math: getSelectedBorderLinesMutation('$$'),
+  media: (state, payload) => {
+    const url = payload ? payload : 'media_url';
+    return state.selectionStart !== state.selectionEnd
+      ? getSelectionBordersFillerMutation('![', `](${url})`)(state)
+      : getCursorPositionFillerMutation(`\n![Media label](${url})\n`)(state);
+  },
 };
 
-export type EditorMutatorWrapper = (mutate: EditorStateMutator) => void;
+export type EditorMutatorWrapper = (
+  mutate: EditorStateMutator,
+  payload?: string
+) => void;
