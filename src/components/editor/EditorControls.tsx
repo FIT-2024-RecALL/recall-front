@@ -13,6 +13,7 @@ interface EditorControlsProps extends HTMLAttributes<React.FC> {
   switchActive: () => void;
   isExtended?: boolean;
   editorActionWrapper: EditorMutatorWrapper;
+  undo: false | (() => void);
 }
 
 export const getMediaMdMarkup = (url: string) => `\n![](${url})\n`;
@@ -23,6 +24,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
   isExtended,
   className,
   editorActionWrapper,
+  undo,
 }) => {
   const uploadRef = useRef<HTMLInputElement>(null);
 
@@ -127,14 +129,27 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           </Button>
         </>
       )}
-      <Button
-        className="min-h-0 text-black"
-        variant="bordered"
-        title="Add LaTeX (math) block"
-        onClick={() => editorActionWrapper(mutations.math)}
-      >
-        <Icon icon="sigma" />
-      </Button>
+      {isActive && (
+        <>
+          <Button
+            className="min-h-0 text-black"
+            variant="bordered"
+            title="Add LaTeX (math) block"
+            onClick={() => editorActionWrapper(mutations.math)}
+          >
+            <Icon icon="sigma" />
+          </Button>
+          <Button
+            className="min-h-0 text-black"
+            variant="bordered"
+            title="Undo last change"
+            disabled={undo ? false : true}
+            onClick={undo ? undo : () => {}}
+          >
+            <Icon icon="revert" />
+          </Button>
+        </>
+      )}
       <Button
         className="min-h-0 text-black"
         variant="bordered"

@@ -53,6 +53,7 @@ export const MarkdownEditorComponent: React.FC<
     const newStr = mutate(editorElementState, payload);
     setState(newStr);
     pushHistory(newStr);
+    editorRef.current.focus();
   };
 
   return (
@@ -62,6 +63,7 @@ export const MarkdownEditorComponent: React.FC<
         isActive={active}
         switchActive={() => setActive((a) => !a)}
         editorActionWrapper={editorActionWrapper}
+        undo={historyRef.current.length > 1 && (() => setState(popHistory()))}
       />
       {active ? (
         <div className="w-full h-full">

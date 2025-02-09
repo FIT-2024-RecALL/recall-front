@@ -41,6 +41,7 @@ import {
   BsLink,
 } from 'react-icons/bs';
 import { LuSigma } from 'react-icons/lu';
+import { GrRevert } from 'react-icons/gr';
 import React from 'react';
 import { match } from 'ts-pattern';
 import { IconBaseProps } from 'react-icons/lib/cjs/iconBase';
@@ -83,6 +84,7 @@ export const icons = [
   'type-italic',
   'link',
   'sigma',
+  'revert',
 ] as const;
 export type IconType = (typeof icons)[number];
 
@@ -135,6 +137,7 @@ export const Icon: React.FC<IconProps> = ({
     .with('type-italic', () => BsTypeItalic)
     .with('link', () => BsLink)
     .with('sigma', () => LuSigma)
+    .with('revert', () => GrRevert)
     .exhaustive();
 
   const modifiers = match(icon)
