@@ -65,6 +65,14 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
+            title="Italic"
+            onClick={() => editorActionWrapper(mutations.h1)}
+          >
+            <Icon icon="h1" />
+          </Button>
+          <Button
+            className="rounded-none m-0 p-0 min-h-0 text-black"
+            variant="inline"
             title="Add link"
             onClick={() => editorActionWrapper(mutations.link)}
           >

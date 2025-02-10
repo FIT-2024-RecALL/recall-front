@@ -81,7 +81,8 @@ export type MutationsEnum =
   | 'ol'
   | 'link'
   | 'math'
-  | 'media';
+  | 'media'
+  | 'h1';
 export type Mutations = Record<MutationsEnum, EditorStateMutator>;
 export const mutations: Mutations = {
   bold: getSelectionBordersFillerMutation('**'),
@@ -103,6 +104,7 @@ export const mutations: Mutations = {
       ? getSelectionBordersFillerMutation('![', `](${url})`)(state)
       : getCursorPositionFillerMutation(`\n![Media label](${url})\n`)(state);
   },
+  h1: getEverySelectedLineStartMutation('# '),
 };
 
 export type EditorMutatorWrapper = (

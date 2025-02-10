@@ -39,6 +39,7 @@ import {
   BsTypeBold,
   BsTypeItalic,
   BsLink,
+  BsTypeH1,
 } from 'react-icons/bs';
 import { LuSigma } from 'react-icons/lu';
 import { GrRevert } from 'react-icons/gr';
@@ -85,6 +86,7 @@ export const icons = [
   'link',
   'sigma',
   'revert',
+  'h1',
 ] as const;
 export type IconType = (typeof icons)[number];
 
@@ -138,6 +140,7 @@ export const Icon: React.FC<IconProps> = ({
     .with('link', () => BsLink)
     .with('sigma', () => LuSigma)
     .with('revert', () => GrRevert)
+    .with('h1', () => BsTypeH1)
     .exhaustive();
 
   const modifiers = match(icon)
