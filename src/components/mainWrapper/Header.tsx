@@ -55,7 +55,7 @@ export const Header: React.FC = () => {
             <>
               <Button
                 variant="bordered-trans"
-                className="p-1 my-1 mx-2 font-medium text-sm md:text-md w-full md:w-fit"
+                className="p-1 my-1 mx-2 font-medium text-md w-full md:w-fit"
                 onClick={showLoginWindow}
               >
                 Log in

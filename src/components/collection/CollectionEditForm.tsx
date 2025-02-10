@@ -142,25 +142,29 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
           className="m-2 md:m-4 text-lg"
           errorMessage={saveError?.message || deleteError?.message}
         />
-        <div className="w-full center">
-          <Button className="mx-3" variant="plate" type="submit">
+        <div className="w-full center flex-wrap">
+          <Button
+            className="mt-2 md:m-2 w-1/2 md:w-fit"
+            variant="plate"
+            type="submit"
+          >
             Save collection
           </Button>
           {(isSavePending || isSaveSuccess) && (
-            <div className="mx-2">
+            <div className="mt-1 md:m-2">
               {isSavePending && <Icon className="animate-spin" icon="loader" />}
               {isSaveSuccess && 'Saved'}
             </div>
           )}
           <DropDown
             buttonComponent={
-              <Button className="mx-3" variant="bordered-trans">
+              <Button className="mt-2 md:m-2" variant="bordered-trans">
                 Delete collection
               </Button>
             }
           >
             <Button
-              className="m-3"
+              className="mt-1 md:mx-2"
               variant="bordered"
               onClick={() => deleteCollection(id)}
             >

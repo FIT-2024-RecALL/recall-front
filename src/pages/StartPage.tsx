@@ -5,6 +5,7 @@ import { useAppStore } from '@/state';
 import { Button } from '@/components/library';
 import { useProfile } from '@/query/queryHooks';
 import { routes } from '@/routes';
+import clsx from 'clsx';
 
 export const StartPage: React.FC = () => {
   const { profile } = useProfile();
@@ -24,7 +25,11 @@ export const StartPage: React.FC = () => {
             </h2>
             <Button
               variant="plate"
-              className="font-bold text-2xl md:text-3xl p-4 md:p-6 m-2 rounded-3xl"
+              className={clsx(
+                'font-bold text-xl md:text-2xl',
+                'w-1/2 md:w-1/4 rounded-3xl',
+                'py-2 md:py-3 my-2 md:my-4'
+              )}
               onClick={showLoginWindow}
             >
               Join

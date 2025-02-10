@@ -5,6 +5,7 @@ import { routes } from '@/routes';
 import { LoadableComponent, Button } from '@/components/library';
 import { useCollection, useProfile } from '@/query/queryHooks';
 import { useAppStore } from '@/state';
+import clsx from 'clsx';
 
 interface CollectionCardProps {
   collectionId: number;
@@ -34,7 +35,11 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
                 <Link to={routes.collectionEdit.getUrl(collectionId)}>
                   <Button
                     variant="plate"
-                    className="bg-1-8 text-1-2 border-2 border-1-8 rounded-full hover:bg-1-6 hover:border-1-6 transition duration-200"
+                    className={clsx(
+                      'bg-1-9 border-1-9 hover:bg-1-7 hover:border-1-7',
+                      'text-1-2 py-1 px-4 rounded-full',
+                      'transtition duration-200'
+                    )}
                   >
                     Edit
                   </Button>
@@ -44,7 +49,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
                 <Link to={routes.train.getUrl(collectionId)}>
                   <Button
                     variant="bordered-trans"
-                    className="border-1-8 rounded-full hover:bg-1-6 transition duration-200"
+                    className="border-1-8 py-1 px-4 rounded-full hover:bg-1-6 transition duration-200"
                   >
                     <span className="text-1-8">Train</span>
                   </Button>
