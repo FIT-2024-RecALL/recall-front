@@ -53,7 +53,14 @@ export const MarkdownEditorComponent: React.FC<
     const newStr = mutate(editorElementState, payload);
     setState(newStr);
     pushHistory(newStr);
-    editorRef.current.focus();
+
+    requestAnimationFrame(() => {
+      if (!editorRef.current) return;
+      const newPos =
+        editorElementState.selectionEnd + newStr.length - state.length;
+      editorRef.current.focus();
+      editorRef.current.setSelectionRange(newPos, newPos);
+    });
   };
 
   return (

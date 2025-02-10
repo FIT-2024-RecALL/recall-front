@@ -174,7 +174,11 @@ body,
   }
 
   pre {
-    @apply bg-1-1
+    @apply bg-gray-700 p-2 rounded-md
+  }
+
+  blockquote {
+    @apply bg-1-2 px-1 pl-2 md:pl-4 rounded-md border-l-2 border-1-5 italic
   }
 
   img {
