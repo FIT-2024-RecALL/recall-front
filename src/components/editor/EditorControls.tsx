@@ -45,7 +45,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
   return (
     <div className={clsx('around w-full my-1 flex-wrap', className)}>
       {isActive && (
-        <div className="bg-1-7 border-2 border-1-1 rounded-md around font-medium">
+        <div className="w-full md:w-fit bg-1-7 border-2 border-1-1 rounded-md around font-medium">
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
@@ -97,6 +97,14 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
+            title="Add LaTeX (math) block"
+            onClick={() => editorActionWrapper(mutations.math)}
+          >
+            <Icon icon="sigma" />
+          </Button>
+          <Button
+            className="rounded-none m-0 p-0 min-h-0 text-black"
+            variant="inline"
             title="Unordered list"
             onClick={() => editorActionWrapper(mutations.ul)}
           >
@@ -139,14 +147,6 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
       )}
       {isActive && (
         <>
-          <Button
-            className="min-h-0 text-black"
-            variant="bordered"
-            title="Add LaTeX (math) block"
-            onClick={() => editorActionWrapper(mutations.math)}
-          >
-            <Icon icon="sigma" />
-          </Button>
           <Button
             className="min-h-0 text-black"
             variant="bordered"
