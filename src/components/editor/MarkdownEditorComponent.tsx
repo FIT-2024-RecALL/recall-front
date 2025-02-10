@@ -54,14 +54,6 @@ export const MarkdownEditorComponent: React.FC<
     setState(newStr);
     pushHistory(newStr);
     editorRef.current.focus();
-    editorRef.current.dispatchEvent(
-      new InputEvent('input', {
-        data: newStr,
-        bubbles: true,
-        cancelable: true,
-        inputType: 'insertText',
-      })
-    );
   };
 
   return (
@@ -89,23 +81,19 @@ export const MarkdownEditorComponent: React.FC<
               setState(e.target.value);
               pushHistory(e.target.value);
             }}
-            onInput={(e) => {
-              if (e.nativeEvent.inputType === 'historyUndo') {
-                setState(popHistory());
-                e.preventDefault();
-                // Не работает, если мы вносили изменения только кнопками форматирования
-              }
-              console.log(e);
-            }}
             onKeyDown={(e) => {
               if (e.key === 'Tab') {
                 e.preventDefault();
-                // TODO: Добавить замену таба двумя пробелами
+                editorActionWrapper(mutations.tab);
               }
               if (e.ctrlKey) {
-                match(e.key)
-                  .with('b', () => editorActionWrapper(mutations.bold))
-                  .with('i', () => editorActionWrapper(mutations.italic));
+                match(e.code)
+                  .with('KeyB', () => editorActionWrapper(mutations.bold))
+                  .with('KeyI', () => editorActionWrapper(mutations.italic))
+                  .with('KeyZ', () => {
+                    e.preventDefault();
+                    setState(popHistory());
+                  });
               }
             }}
           />
