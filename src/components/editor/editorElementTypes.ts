@@ -17,12 +17,17 @@ const getCursorSplittedStr = (state: EditorElementState) => ({
 export type EditorStateMutator = (
   editorState: EditorElementState,
   payload?: string
-) => string;
+) => EditorElementState;
 
 const getCursorPositionFillerMutation = (fillStr: string) => {
   return (state: EditorElementState) => {
     const { prevPart, nextPart } = getCursorSplittedStr(state);
-    return `${prevPart}${fillStr}${nextPart}`;
+    const res: EditorElementState = {
+      selectionStart: state.selectionEnd + fillStr.length, // It's cursor, not selection!
+      selectionEnd: state.selectionEnd + fillStr.length,
+      str: `${prevPart}${fillStr}${nextPart}`,
+    };
+    return res;
   };
 };
 const getSelectionBordersFillerMutation = (
@@ -31,16 +36,21 @@ const getSelectionBordersFillerMutation = (
 ) => {
   return (state: EditorElementState) => {
     const { prevPart, midPart, nextPart } = getSelectionSplittedStr(state);
-    return `${prevPart}${fillStr1}${midPart}${
-      fillStr2 ? fillStr2 : fillStr1
-    }${nextPart}`;
+    const res: EditorElementState = {
+      selectionStart: state.selectionStart + fillStr1.length,
+      selectionEnd: state.selectionEnd + fillStr1.length,
+      str: `${prevPart}${fillStr1}${midPart}${
+        fillStr2 ? fillStr2 : fillStr1
+      }${nextPart}`,
+    };
+    return res;
   };
 };
 const getEverySelectedLineStartMutation = (prefixStr: string) => {
   return (state: EditorElementState) => {
     const { prevPart, midPart, nextPart } = getSelectionSplittedStr(state);
     const lastPrevPartNewline = prevPart.lastIndexOf('\n');
-    return (
+    const newStr =
       (lastPrevPartNewline < 0
         ? prefixStr + prevPart
         : prevPart.slice(0, lastPrevPartNewline) +
@@ -48,15 +58,20 @@ const getEverySelectedLineStartMutation = (prefixStr: string) => {
           prefixStr +
           prevPart.slice(lastPrevPartNewline + 1)) +
       midPart.replaceAll('\n', '\n' + prefixStr) +
-      nextPart
-    );
+      nextPart;
+    const res: EditorElementState = {
+      selectionStart: state.selectionStart + prefixStr.length,
+      selectionEnd: state.selectionEnd + newStr.length - state.str.length,
+      str: newStr,
+    };
+    return res;
   };
 };
 const getSelectedBorderLinesMutation = (borderLine: string) => {
   return (state: EditorElementState) => {
     const { prevPart, midPart, nextPart } = getSelectionSplittedStr(state);
     const lastPrevPartNewline = prevPart.lastIndexOf('\n');
-    return (
+    const newStr =
       (lastPrevPartNewline < 0
         ? borderLine + '\n' + prevPart
         : prevPart.slice(0, lastPrevPartNewline) +
@@ -67,8 +82,19 @@ const getSelectedBorderLinesMutation = (borderLine: string) => {
       midPart +
       (nextPart.includes('\n')
         ? nextPart.replace('\n', '\n' + borderLine + '\n')
-        : nextPart + '\n' + borderLine)
-    );
+        : nextPart + '\n' + borderLine);
+    const res: EditorElementState = {
+      selectionStart:
+        state.selectionStart +
+        borderLine.length +
+        (lastPrevPartNewline < 0 ? 1 : 2),
+      selectionEnd:
+        state.selectionEnd +
+        borderLine.length +
+        (lastPrevPartNewline < 0 ? 1 : 2),
+      str: newStr,
+    };
+    return res;
   };
 };
 

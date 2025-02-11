@@ -50,16 +50,33 @@ export const MarkdownEditorComponent: React.FC<
       str: state,
     };
 
-    const newStr = mutate(editorElementState, payload);
-    setState(newStr);
-    pushHistory(newStr);
+    const newEditorElementState = mutate(editorElementState, payload);
+    setState(newEditorElementState.str);
+    pushHistory(newEditorElementState.str);
 
     requestAnimationFrame(() => {
       if (!editorRef.current) return;
-      const newPos =
-        editorElementState.selectionEnd + newStr.length - state.length;
       editorRef.current.focus();
-      editorRef.current.setSelectionRange(newPos, newPos);
+      editorRef.current.setSelectionRange(
+        newEditorElementState.selectionStart,
+        newEditorElementState.selectionEnd
+      );
+    });
+  };
+  const restoreStateFromHistory = () => {
+    if (!editorRef.current) return;
+    const start = editorRef.current.selectionStart;
+    const end = editorRef.current.selectionEnd;
+    const restoredStr = popHistory();
+    const selectionDelta = restoredStr.length - state.length;
+    setState(restoredStr);
+    requestAnimationFrame(() => {
+      if (!editorRef.current) return;
+      editorRef.current.focus();
+      editorRef.current.setSelectionRange(
+        start + selectionDelta,
+        end + selectionDelta
+      );
     });
   };
 
@@ -70,7 +87,7 @@ export const MarkdownEditorComponent: React.FC<
         isActive={active}
         switchActive={() => setActive((a) => !a)}
         editorActionWrapper={editorActionWrapper}
-        undo={historyRef.current.length > 1 && (() => setState(popHistory()))}
+        undo={historyRef.current.length > 1 && restoreStateFromHistory}
       />
       {active ? (
         <div className="w-full h-full">
@@ -97,10 +114,7 @@ export const MarkdownEditorComponent: React.FC<
                 match(e.code)
                   .with('KeyB', () => editorActionWrapper(mutations.bold))
                   .with('KeyI', () => editorActionWrapper(mutations.italic))
-                  .with('KeyZ', () => {
-                    e.preventDefault();
-                    setState(popHistory());
-                  });
+                  .with('KeyZ', () => restoreStateFromHistory());
               }
             }}
           />
