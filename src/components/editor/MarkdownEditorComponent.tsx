@@ -24,9 +24,11 @@ export const MarkdownEditorComponent: React.FC<
 > = ({ state, setState, extended, placeholder, previewClassName }) => {
   const [active, setActive] = useState(true);
 
-  const historyRef = useRef<Immutable<string[]>>([state]);
+  const historyRef = useRef<Immutable<EditorElementState[]>>([
+    { selectionStart: 0, selectionEnd: 0, str: state },
+  ]);
   const pushHistory = useCallback(
-    (value: string) => {
+    (value: EditorElementState) => {
       historyRef.current = produce(historyRef.current, (history) => {
         history.push(value);
       });
@@ -52,7 +54,7 @@ export const MarkdownEditorComponent: React.FC<
 
     const newEditorElementState = mutate(editorElementState, payload);
     setState(newEditorElementState.str);
-    pushHistory(newEditorElementState.str);
+    pushHistory(newEditorElementState);
 
     requestAnimationFrame(() => {
       if (!editorRef.current) return;
@@ -64,19 +66,23 @@ export const MarkdownEditorComponent: React.FC<
     });
   };
   const restoreStateFromHistory = () => {
-    if (!editorRef.current) return;
-    const start = editorRef.current.selectionStart;
-    const end = editorRef.current.selectionEnd;
-    const restoredStr = popHistory();
-    const selectionDelta = restoredStr.length - state.length;
-    setState(restoredStr);
+    const restoredEditorState = popHistory();
+    setState(restoredEditorState.str);
     requestAnimationFrame(() => {
       if (!editorRef.current) return;
       editorRef.current.focus();
       editorRef.current.setSelectionRange(
-        start + selectionDelta,
-        end + selectionDelta
+        restoredEditorState.selectionStart,
+        restoredEditorState.selectionEnd
       );
+    });
+  };
+  const updateSelection = () => {
+    historyRef.current = produce(historyRef.current, (history) => {
+      if (!editorRef.current) return;
+      history[history.length - 1].selectionStart =
+        editorRef.current.selectionStart;
+      history[history.length - 1].selectionEnd = editorRef.current.selectionEnd;
     });
   };
 
@@ -103,8 +109,14 @@ export const MarkdownEditorComponent: React.FC<
             value={state}
             onChange={(e) => {
               setState(e.target.value);
-              pushHistory(e.target.value);
+              pushHistory({
+                selectionStart: 0,
+                selectionEnd: 0,
+                str: e.target.value,
+              });
+              updateSelection();
             }}
+            onSelect={updateSelection}
             onKeyDown={(e) => {
               if (e.key === 'Tab') {
                 e.preventDefault();
