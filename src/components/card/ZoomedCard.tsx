@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
-import { PopUp } from '@/components/library';
+import { PopUp, Button, Icon } from '@/components/library';
 import { FlippingCard } from './visuals';
 import {
   CreateCardControls,
@@ -10,7 +10,7 @@ import {
 } from './controls';
 import { useAppStore } from '@/state';
 
-interface ZoomedCardProps extends HTMLAttributes<React.FC> {}
+type ZoomedCardProps = HTMLAttributes<React.FC>;
 
 export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
   const zoomed = useAppStore((state) => state.activeCardUI.zoomed);
@@ -22,9 +22,14 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
     <PopUp
       isShown={zoomed}
       close={() => setCardUIFlag('zoomed', () => false)}
-      className="center bg-o-white/50 backdrop-blur-md"
+      showCloseBtn
+      className={clsx(
+        'center py-2',
+        'bg-o-white/50 backdrop-blur-md',
+        'overflow-y-scroll md:overflow-y-hidden overflow-x-hidden'
+      )}
     >
-      <div className={clsx('w-11/12 lg:w-3/4 h-11/12 lg:h-5/6 center vstack')}>
+      <div className={clsx('w-11/12 lg:w-3/4 h-11/12 lg:h-5/6')}>
         <FlippingCard
           className={clsx(
             'mb-1 md:mb-2 w-full h-5/6',

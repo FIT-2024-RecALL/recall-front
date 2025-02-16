@@ -45,7 +45,7 @@ export const Menu: React.FC = () => {
         <PopUp
           isShown={mobileMenuShown}
           close={() => setMobileMenuShown(false)}
-          className="center"
+          className="center backdrop-blur-[2px]"
         >
           <div
             className={clsx(

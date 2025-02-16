@@ -13,6 +13,7 @@ import { routes } from '@/routes';
 export const Header: React.FC = () => {
   const showLoginWindow = useAppStore((state) => state.showLoginWindow);
   const showRegisterWindow = useAppStore((state) => state.showRegisterWindow);
+  const disableScroll = useAppStore((state) => state.disableGlobalScroll);
 
   const { profile } = useProfile();
 
@@ -56,7 +57,10 @@ export const Header: React.FC = () => {
               <Button
                 variant="bordered-trans"
                 className="p-1 my-1 mx-2 font-medium text-md w-full md:w-fit"
-                onClick={showLoginWindow}
+                onClick={() => {
+                  showLoginWindow();
+                  disableScroll();
+                }}
               >
                 Log in
               </Button>
@@ -64,7 +68,10 @@ export const Header: React.FC = () => {
                 <Button
                   variant="bordered-trans"
                   className="p-1 my-1 mx-2 font-medium md:text-md"
-                  onClick={showRegisterWindow}
+                  onClick={() => {
+                    showRegisterWindow();
+                    disableScroll();
+                  }}
                 >
                   Register
                 </Button>

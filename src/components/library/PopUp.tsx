@@ -1,9 +1,12 @@
 import clsx from 'clsx';
 import React, { PropsWithChildren } from 'react';
 
+import { Button, Icon } from '@/components/library';
+
 interface PopUpProps extends PropsWithChildren<React.HTMLAttributes<React.FC>> {
   isShown: boolean;
   close: () => void;
+  showCloseBtn?: boolean;
 }
 
 /**
@@ -18,7 +21,7 @@ interface PopUpProps extends PropsWithChildren<React.HTMLAttributes<React.FC>> {
  * - other parameters will be forwarded to the wrapper div tag
  */
 export const PopUp: React.FC<PopUpProps> = (
-  { isShown, close, className, children },
+  { isShown, close, showCloseBtn, className, children },
   ...props
 ) => {
   return (
@@ -33,6 +36,13 @@ export const PopUp: React.FC<PopUpProps> = (
       }}
       {...props}
     >
+      {showCloseBtn && (
+        <div className="absolute top-0 w-full center" onClick={close}>
+          <Button className="p-0 m-0" variant="inline">
+            <Icon icon="close" /> <span>Close</span>
+          </Button>
+        </div>
+      )}
       {isShown && children}
     </div>
   );

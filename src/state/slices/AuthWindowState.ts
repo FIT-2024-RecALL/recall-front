@@ -2,6 +2,7 @@ import { Immutable } from 'immer';
 
 import { Slice } from '@/state';
 import { match } from 'ts-pattern';
+import { GlobalState } from './GlobalState';
 
 export type AuthWindowState = Immutable<{
   authWindow: 'hidden' | 'login' | 'register';
