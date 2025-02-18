@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
-import { PopUp, Button, Icon } from '@/components/library';
+import { PopUp } from '@/components/library';
 import { FlippingCard } from './visuals';
 import {
   CreateCardControls,

@@ -14,7 +14,7 @@ export const App: React.FC = () => {
     <div
       className={clsx(
         'flex flex-col min-h-screen',
-        !scrollEnabled && 'h-screen overflow-hidden'
+        // !scrollEnabled && 'h-screen overflow-hidden'
       )}
     >
       <LoginWindow />

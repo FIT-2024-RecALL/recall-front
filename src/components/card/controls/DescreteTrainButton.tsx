@@ -5,6 +5,7 @@ import { useAppStore } from '@/state';
 import { useMutation } from '@tanstack/react-query';
 import { dataExtractionWrapper } from '@/query';
 import { createTrainRecordTrainRecordsCardIdPost } from '@/api';
+import clsx from 'clsx';
 
 export enum Mark {
   One = 1,
@@ -19,10 +20,12 @@ export const marks: Mark[] = Object.values(Mark).filter(
 
 export interface DescreteTrainButtonProps {
   mark: Mark;
+  recommended?: boolean;
 }
 
 export const DescreteTrainButton: React.FC<DescreteTrainButtonProps> = ({
   mark,
+  recommended,
 }) => {
   const cardId = useAppStore((state) => state.activeCardId);
   const executeTrainCard = useAppStore((state) => state.executeTrainCard);
@@ -49,7 +52,7 @@ export const DescreteTrainButton: React.FC<DescreteTrainButtonProps> = ({
 
   return (
     <Button
-      className="m-1"
+      className={clsx('m-1 px-2', recommended && 'border-4')}
       variant="bordered"
       onClick={() => trainCard({ cardId, mark })}
     >
