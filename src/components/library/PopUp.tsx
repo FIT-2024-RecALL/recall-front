@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React, { PropsWithChildren } from 'react';
 
 import { Button, Icon } from '@/components/library';
+import { useAppStore } from '@/state';
 
 interface PopUpProps extends PropsWithChildren<React.HTMLAttributes<React.FC>> {
   isShown: boolean;
@@ -24,6 +25,12 @@ export const PopUp: React.FC<PopUpProps> = (
   { isShown, close, showCloseBtn, className, children },
   ...props
 ) => {
+  const enableScroll = useAppStore((state) => state.enableGlobalScroll);
+  const scrollOnClose = () => {
+    enableScroll();
+    close();
+  };
+
   return (
     <div
       className={clsx(
@@ -32,12 +39,12 @@ export const PopUp: React.FC<PopUpProps> = (
         className
       )}
       onClick={(e) => {
-        if (e.target === e.currentTarget) close();
+        if (e.target === e.currentTarget) scrollOnClose();
       }}
       {...props}
     >
       {showCloseBtn && (
-        <div className="absolute top-0 w-full center" onClick={close}>
+        <div className="absolute top-0 w-full center" onClick={scrollOnClose}>
           <Button className="p-0 m-0" variant="inline">
             <Icon icon="close" /> <span>Close</span>
           </Button>
