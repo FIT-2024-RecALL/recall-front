@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'wouter';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 
 import { menuRoutes } from '@/routes';
 import { Button, PopUp } from '@/components/library';
-import { getProfileQueryOptions, useProfile } from '@/query/queryHooks';
-import { logoutUserUserLogoutPost } from '@/api';
-import { dataExtractionWrapper } from '@/query';
+import { useProfile } from '@/query/queryHooks';
+import { useLogout } from '@/query/mutationHooks';
 
 export const Menu: React.FC = () => {
   const links = menuRoutes.map((data) => (
@@ -24,12 +22,7 @@ export const Menu: React.FC = () => {
 
   const { profile } = useProfile();
 
-  const client = useQueryClient();
-  const { mutate: logout } = useMutation({
-    mutationFn: () => dataExtractionWrapper(logoutUserUserLogoutPost()),
-    onSuccess: () =>
-      client.resetQueries({ queryKey: getProfileQueryOptions().queryKey }),
-  });
+  const { logout } = useLogout();
 
   return (
     <>

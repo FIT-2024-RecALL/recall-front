@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
-import { PopUp, Button, Icon } from '@/components/library';
+import { PopUp } from '@/components/library';
 import { FlippingCard } from './visuals';
 import {
   CreateCardControls,
@@ -26,7 +26,7 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
       className={clsx(
         'center py-2',
         'bg-o-white/50 backdrop-blur-md',
-        'overflow-y-scroll md:overflow-y-hidden overflow-x-hidden'
+        'overflow-y-scroll overflow-x-hidden'
       )}
     >
       <div className={clsx('w-11/12 lg:w-3/4 h-11/12 lg:h-5/6')}>

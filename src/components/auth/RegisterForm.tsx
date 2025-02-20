@@ -2,15 +2,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Button } from '@/components/library/Button';
 import { FormItem } from '@/components/library/FormItem';
-import { createUserUserRegisterPost } from '@/api';
 import { useAppStore } from '@/state';
-import { dataExtractionWrapper } from '@/query';
-import { getProfileQueryOptions } from '@/query/queryHooks';
 import clsx from 'clsx';
+import { useRegister } from '@/query/mutationHooks';
 
 const userRegisterScheme = z
   .object({
@@ -36,22 +33,8 @@ export const RegisterForm: React.FC = () => {
     resolver: zodResolver(userRegisterScheme),
   });
 
-  const queryClient = useQueryClient();
-  const { mutate: registerUser, error } = useMutation({
-    mutationFn: (data: UserRegisterData) =>
-      dataExtractionWrapper(
-        createUserUserRegisterPost({
-          body: {
-            email: data.email,
-            nickname: data.nickname,
-            password: data.password1,
-          },
-        })
-      ),
-    onSuccess: (data) => {
-      closeAuthWindow();
-      queryClient.setQueryData(getProfileQueryOptions().queryKey, data);
-    },
+  const { registerUser, error } = useRegister(() => {
+    closeAuthWindow();
   });
 
   return (

@@ -11,6 +11,10 @@
     @apply flex items-center justify-around
   }
 
+  .between {
+    @apply flex items-center justify-between
+  }
+
   .vstack {
     @apply flex flex-col
   }
@@ -144,6 +148,7 @@ body,
 }
 
 .flip-front, .flip-back {
+  top: 0;
   position: absolute;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;

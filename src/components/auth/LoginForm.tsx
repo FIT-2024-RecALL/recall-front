@@ -2,15 +2,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Button } from '@/components/library/Button';
 import { FormItem } from '@/components/library/FormItem';
-import { authenticateUserUserLoginPost } from '@/api';
 import { useAppStore } from '@/state';
-import { dataExtractionWrapper } from '@/query';
-import { getProfileQueryOptions } from '@/query/queryHooks';
 import clsx from 'clsx';
+import { useLogin } from '@/query/mutationHooks';
 
 const userLoginScheme = z.object({
   email: z.string().email().min(1, 'Email is required'),
@@ -31,21 +28,7 @@ export const LoginForm: React.FC = () => {
     resolver: zodResolver(userLoginScheme),
   });
 
-  const queryClient = useQueryClient();
-  const { mutate: login, error } = useMutation({
-    mutationFn: (data: UserLoginData) =>
-      dataExtractionWrapper(
-        authenticateUserUserLoginPost({
-          body: {
-            ...data,
-          },
-        })
-      ),
-    onSuccess: (data) => {
-      closeAuthWindow();
-      queryClient.setQueryData(getProfileQueryOptions().queryKey, data);
-    },
-  });
+  const { login, error } = useLogin(() => closeAuthWindow());
 
   return (
     <form

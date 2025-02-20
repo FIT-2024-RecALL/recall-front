@@ -2,11 +2,9 @@ import React, { HTMLAttributes, useRef } from 'react';
 
 import { Icon, Button } from '@/components/library';
 import clsx from 'clsx';
-import { addFileStoragePost } from '@/api';
-import { dataExtractionWrapper } from '@/query';
-import { useMutation } from '@tanstack/react-query';
 import { getFileFullPath } from '@/query/queryHooks';
 import { EditorMutatorWrapper, mutations } from './editorElementTypes';
+import { useFileUpload } from '@/query/mutationHooks';
 
 interface EditorControlsProps extends HTMLAttributes<React.FC> {
   isActive?: boolean;
@@ -28,18 +26,8 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
 }) => {
   const uploadRef = useRef<HTMLInputElement>(null);
 
-  const { mutate: uploadFile, isPending: isFilePending } = useMutation({
-    mutationFn: (data: File) =>
-      dataExtractionWrapper(
-        addFileStoragePost({
-          body: {
-            file: data,
-          },
-        })
-      ),
-    onSuccess: (response) => {
-      editorActionWrapper(mutations.media, getFileFullPath(response.url));
-    },
+  const { uploadFile, isPending: isFilePending } = useFileUpload((response) => {
+    editorActionWrapper(mutations.media, getFileFullPath(response.url));
   });
 
   return (
