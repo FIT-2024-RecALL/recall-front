@@ -2,19 +2,13 @@ import React from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { navigate } from 'wouter/use-browser-location';
 
 import { Button, FormItem, Icon, PopUp } from '@/components/library';
 import { useAppStore } from '@/state';
 import clsx from 'clsx';
-import {
-  getCollectionQueryOptions,
-  getCollectionsQueryOptions,
-} from '@/query/queryHooks';
-import { createCollectionCollectionsPost } from '@/api';
-import { dataExtractionWrapper } from '@/query';
 import { routes } from '@/routes';
+import { useCollectionCreate } from '@/query/mutationHooks';
 
 export const collectionScheme = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -36,31 +30,9 @@ export const CreateCollectionWindow: React.FC = () => {
     resolver: zodResolver(collectionScheme),
   });
 
-  const queryClient = useQueryClient();
-  const {
-    mutate: saveCollectionData,
-    error,
-    isPending,
-  } = useMutation({
-    mutationFn: (data: CollectionEditType) =>
-      dataExtractionWrapper(
-        createCollectionCollectionsPost({
-          body: {
-            ...data,
-          },
-        })
-      ),
-    onSuccess: (data) => {
-      queryClient.setQueryData(
-        getCollectionQueryOptions(data.id).queryKey,
-        data
-      );
-      queryClient.invalidateQueries({
-        queryKey: getCollectionsQueryOptions().queryKey,
-      });
-      navigate(routes.collectionEdit.getUrl(data.id), { replace: true });
-      setIsOpened(false);
-    },
+  const { createCollection, error, isPending } = useCollectionCreate((data) => {
+    navigate(routes.collectionEdit.getUrl(data.id), { replace: true });
+    setIsOpened(false);
   });
 
   return (
@@ -81,7 +53,7 @@ export const CreateCollectionWindow: React.FC = () => {
           <h2 className="text-xl font-medium text-center">
             Collection{"'"}s creation
           </h2>
-          <form onSubmit={handleSubmit((data) => saveCollectionData(data))}>
+          <form onSubmit={handleSubmit((data) => createCollection(data))}>
             <FormItem
               className="m-2 md:m-4 text-2xl"
               errorMessage={errors.title?.message}

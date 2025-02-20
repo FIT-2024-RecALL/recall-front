@@ -17,11 +17,10 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
   const { collection, isPending, error } = useCollection(collectionId);
   const { profile } = useProfile();
   const showAuthWindow = useAppStore((state) => state.showLoginWindow);
-  const disableScroll = useAppStore((state) => state.disableGlobalScroll);
 
   return (
     <LoadableComponent isPending={isPending} errorMessage={error?.message}>
-      <div className="bg-1-3 text-o-black p-6 m-2 rounded-lg shadow-lg between">
+      <div className="bg-1-3 text-o-black p-6 m-2 rounded-lg shadow-lg">
         {collection && (
           <>
             <div>
@@ -59,10 +58,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
                 <Button
                   variant="bordered-trans"
                   className="border-1-8 py-1 px-4 rounded-full hover:bg-1-6 transition duration-200"
-                  onClick={() => {
-                    showAuthWindow();
-                    disableScroll();
-                  }}
+                  onClick={showAuthWindow}
                 >
                   <span className="text-1-8">Train</span>
                 </Button>

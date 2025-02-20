@@ -2,7 +2,6 @@ import clsx from 'clsx';
 import React, { PropsWithChildren, useEffect } from 'react';
 
 import { Button, Icon } from '@/components/library';
-import { useAppStore } from '@/state';
 
 interface PopUpProps extends PropsWithChildren<React.HTMLAttributes<React.FC>> {
   isShown: boolean;

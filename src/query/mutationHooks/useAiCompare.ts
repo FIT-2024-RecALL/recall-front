@@ -5,9 +5,9 @@ import {
   compareAnswersByAiTrainRecordsCardIdComparePost,
 } from '@/api';
 
-export const useAiComparePost = (
+export const useAiCompare = (
   cardId: number,
-  onSuccess: (response: AIFeedback) => void
+  onSuccess?: (response: AIFeedback) => void
 ) => {
   const { mutate: compareAnswers, ...rest } = useMutation({
     mutationFn: (answer: string) =>

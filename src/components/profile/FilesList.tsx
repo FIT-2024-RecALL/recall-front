@@ -1,31 +1,14 @@
 import React from 'react';
-import { Button } from '../library/Button';
-import {
-  getFileFullPath,
-  getFilesListQueryOptions,
-  useFilesList,
-} from '@/query/queryHooks';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { dataExtractionWrapper } from '@/query';
-import { deleteFileStorageFilenameDelete } from '@/api';
 import clsx from 'clsx';
-import { LoadableComponent } from '../library';
+
+import { LoadableComponent, Button } from '@/components/library';
+import { getFileFullPath, useFilesList } from '@/query/queryHooks';
+import { useFileDelete } from '@/query/mutationHooks';
 
 export const FilesList: React.FC = () => {
   const { files, isPending: isFilesPending } = useFilesList();
 
-  const client = useQueryClient();
-  const { mutate: deleteFile } = useMutation({
-    mutationFn: (filename: string) =>
-      dataExtractionWrapper(
-        deleteFileStorageFilenameDelete({ path: { filename } })
-      ),
-    onSuccess: () => {
-      client.invalidateQueries({
-        queryKey: getFilesListQueryOptions().queryKey,
-      });
-    },
-  });
+  const { deleteFile } = useFileDelete();
 
   return (
     <LoadableComponent

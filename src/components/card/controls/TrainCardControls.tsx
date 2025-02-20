@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Icon, Button } from '@/components/library';
 import { useAppStore } from '@/state';
-import { useAiComparePost } from '@/query/mutationHooks';
+import { useAiCompare } from '@/query/mutationHooks';
 import { TrainContraolsBacksideContent } from './TrainControlsBacksideContent';
 import { AIFeedback } from '@/api';
 
@@ -18,7 +18,7 @@ export const TrainCardControls: React.FC = () => {
 
   const [userAnswer, setUserAnswer] = useState('');
   const [aiFeedBack, setAiFeedback] = useState<AIFeedback>();
-  const { compareAnswers, isPending } = useAiComparePost(cardId, (feedBack) => {
+  const { compareAnswers, isPending } = useAiCompare(cardId, (feedBack) => {
     setAiFeedback(feedBack);
     setUIFlag('flipped', () => true);
   });

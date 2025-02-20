@@ -1,28 +1,20 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Button } from '@/components/library';
 import { useAppStore } from '@/state/state';
 import { Menu } from './Menu';
-import { logoutUserUserLogoutPost } from '@/api';
-import { dataExtractionWrapper } from '@/query';
-import { getProfileQueryOptions, useProfile } from '@/query/queryHooks';
+import { useProfile } from '@/query/queryHooks';
 import { routes } from '@/routes';
+import { useLogout } from '@/query/mutationHooks';
 
 export const Header: React.FC = () => {
   const showLoginWindow = useAppStore((state) => state.showLoginWindow);
   const showRegisterWindow = useAppStore((state) => state.showRegisterWindow);
-  const disableScroll = useAppStore((state) => state.disableGlobalScroll);
 
   const { profile } = useProfile();
 
-  const client = useQueryClient();
-  const { mutate: logout } = useMutation({
-    mutationFn: () => dataExtractionWrapper(logoutUserUserLogoutPost()),
-    onSuccess: () =>
-      client.resetQueries({ queryKey: getProfileQueryOptions().queryKey }),
-  });
+  const { logout } = useLogout();
 
   return (
     <header>
@@ -57,10 +49,7 @@ export const Header: React.FC = () => {
               <Button
                 variant="bordered-trans"
                 className="p-1 my-1 mx-2 font-medium text-md w-full md:w-fit"
-                onClick={() => {
-                  showLoginWindow();
-                  disableScroll();
-                }}
+                onClick={showLoginWindow}
               >
                 Log in
               </Button>
@@ -68,10 +57,7 @@ export const Header: React.FC = () => {
                 <Button
                   variant="bordered-trans"
                   className="p-1 my-1 mx-2 font-medium md:text-md"
-                  onClick={() => {
-                    showRegisterWindow();
-                    disableScroll();
-                  }}
+                  onClick={showRegisterWindow}
                 >
                   Register
                 </Button>
