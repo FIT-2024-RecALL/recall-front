@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 
 import { Button, Icon } from '@/components/library';
 import { useAppStore } from '@/state';
@@ -25,11 +25,13 @@ export const PopUp: React.FC<PopUpProps> = (
   { isShown, close, showCloseBtn, className, children },
   ...props
 ) => {
-  const enableScroll = useAppStore((state) => state.enableGlobalScroll);
-  const scrollOnClose = () => {
-    enableScroll();
-    close();
-  };
+  useEffect(() => {
+    if (isShown) {
+      document.body.classList.add('overflow-y-hidden');
+    } else {
+      document.body.classList.remove('overflow-y-hidden');
+    }
+  }, [isShown]);
 
   return (
     <div
@@ -39,12 +41,12 @@ export const PopUp: React.FC<PopUpProps> = (
         className
       )}
       onClick={(e) => {
-        if (e.target === e.currentTarget) scrollOnClose();
+        if (e.target === e.currentTarget) close();
       }}
       {...props}
     >
       {showCloseBtn && (
-        <div className="absolute top-0 w-full center" onClick={scrollOnClose}>
+        <div className="absolute top-0 w-full center" onClick={close}>
           <Button className="p-0 m-0" variant="inline">
             <Icon icon="close" /> <span>Close</span>
           </Button>

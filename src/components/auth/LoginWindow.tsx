@@ -10,7 +10,6 @@ import clsx from 'clsx';
 export const LoginWindow: React.FC = () => {
   const authWindowState = useAppStore((state) => state.authWindow);
   const closeAuthWindow = useAppStore((state) => state.closeAuthWindow);
-  const enableScroll = useAppStore((state) => state.enableGlobalScroll);
   const toggleActiveAuthWindow = useAppStore(
     (state) => state.toggleActiveAuthWindow
   );
@@ -21,10 +20,7 @@ export const LoginWindow: React.FC = () => {
   return (
     <PopUp
       isShown={authWindowState !== 'hidden'}
-      close={() => {
-        closeAuthWindow();
-        enableScroll();
-      }}
+      close={closeAuthWindow}
       className="bg-1-8/25 backdrop-blur-sm"
     >
       <div className="center">

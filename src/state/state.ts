@@ -10,13 +10,10 @@ import {
   createAuthWindowStateSlice,
   CreateCollectionState,
   createCreateCollectionState,
-  createGlobalStateSlice,
-  GlobalState,
 } from './slices';
 import { createTrainStateSlice, TrainState } from './slices/TrainState';
 
-type StoreType = GlobalState &
-  AuthWindowState &
+type StoreType = AuthWindowState &
   ActiveCardState &
   TrainState &
   CreateCollectionState;
@@ -26,7 +23,6 @@ export const useAppStore = create<StoreType>()(
     const mutate: Mutator<StoreType> = (mutator) => set(produce(mutator));
 
     return {
-      ...createGlobalStateSlice(mutate, set, ...rest),
       ...createAuthWindowStateSlice(mutate, set, ...rest),
       ...createActiveCardStateSlice(mutate, set, ...rest),
       ...createTrainStateSlice(mutate, set, ...rest),
