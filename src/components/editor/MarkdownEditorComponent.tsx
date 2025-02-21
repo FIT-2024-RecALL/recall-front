@@ -8,8 +8,8 @@ import {
   EditorElementState,
   EditorMutatorWrapper,
   mutations,
+  SelectionType,
 } from './editorElementTypes';
-import { Immutable, produce } from 'immer';
 
 interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
   state: string;
@@ -24,67 +24,52 @@ export const MarkdownEditorComponent: React.FC<
 > = ({ state, setState, extended, placeholder, previewClassName }) => {
   const [active, setActive] = useState(true);
 
-  const historyRef = useRef<Immutable<EditorElementState[]>>([
-    { selectionStart: 0, selectionEnd: 0, str: state },
-  ]);
+  const historyRef = useRef<EditorElementState[]>([]);
   const pushHistory = useCallback(
     (value: EditorElementState) => {
-      historyRef.current = produce(historyRef.current, (history) => {
-        history.push(value);
-      });
+      historyRef.current.push(value);
     },
     [historyRef]
   );
   const popHistory = useCallback(() => {
-    if (historyRef.current.length === 1) return historyRef.current[0];
-    historyRef.current = produce(historyRef.current, (history) => {
-      history.pop();
-    });
-    return historyRef.current[historyRef.current.length - 1];
+    return historyRef.current.pop();
   }, [historyRef]);
 
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const editorActionWrapper: EditorMutatorWrapper = (mutate, payload) => {
-    if (!editorRef.current) return;
+    const selection = getEditorSelection();
+    if (!selection) return;
     const editorElementState: EditorElementState = {
-      selectionStart: editorRef.current.selectionStart,
-      selectionEnd: editorRef.current.selectionEnd,
+      ...selection,
       str: state,
     };
+    pushHistory(editorElementState);
 
     const newEditorElementState = mutate(editorElementState, payload);
+    setEditorSelection(newEditorElementState);
     setState(newEditorElementState.str);
-    pushHistory(newEditorElementState);
-
-    requestAnimationFrame(() => {
-      if (!editorRef.current) return;
-      editorRef.current.focus();
-      editorRef.current.setSelectionRange(
-        newEditorElementState.selectionStart,
-        newEditorElementState.selectionEnd
-      );
-    });
   };
-  const restoreStateFromHistory = () => {
-    const restoredEditorState = popHistory();
-    setState(restoredEditorState.str);
-    requestAnimationFrame(() => {
-      if (!editorRef.current) return;
-      editorRef.current.focus();
-      editorRef.current.setSelectionRange(
-        restoredEditorState.selectionStart,
-        restoredEditorState.selectionEnd
-      );
-    });
+  const undo = () => {
+    const prevEditorState = popHistory();
+    if (!prevEditorState) return;
+    setState(prevEditorState.str);
+    setEditorSelection(prevEditorState);
   };
-  const updateSelection = () => {
-    historyRef.current = produce(historyRef.current, (history) => {
-      if (!editorRef.current) return;
-      history[history.length - 1].selectionStart =
-        editorRef.current.selectionStart;
-      history[history.length - 1].selectionEnd = editorRef.current.selectionEnd;
-    });
-  };
+  const getEditorSelection = useCallback(() => {
+    if (!editorRef.current) return;
+    const { selectionStart, selectionEnd } = editorRef.current;
+    return { selectionStart, selectionEnd } satisfies SelectionType;
+  }, [editorRef]);
+  const setEditorSelection = useCallback(
+    ({ selectionStart, selectionEnd }: SelectionType) => {
+      requestAnimationFrame(() => {
+        if (!editorRef.current) return;
+        editorRef.current.focus();
+        editorRef.current.setSelectionRange(selectionStart, selectionEnd);
+      });
+    },
+    [editorRef]
+  );
 
   return (
     <>
@@ -93,7 +78,7 @@ export const MarkdownEditorComponent: React.FC<
         isActive={active}
         switchActive={() => setActive((a) => !a)}
         editorActionWrapper={editorActionWrapper}
-        undo={historyRef.current.length > 1 && restoreStateFromHistory}
+        undo={historyRef.current.length > 0 && undo}
       />
       {active ? (
         <div className="w-full h-full">
@@ -107,16 +92,17 @@ export const MarkdownEditorComponent: React.FC<
             )}
             placeholder={placeholder}
             value={state}
+            onBeforeInput={() => {
+              const selection = getEditorSelection();
+              if (!selection) return;
+              pushHistory({
+                ...selection,
+                str: state,
+              });
+            }}
             onChange={(e) => {
               setState(e.target.value);
-              pushHistory({
-                selectionStart: 0,
-                selectionEnd: 0,
-                str: e.target.value,
-              });
-              updateSelection();
             }}
-            onSelect={updateSelection}
             onKeyDown={(e) => {
               if (e.key === 'Tab') {
                 e.preventDefault();
@@ -126,7 +112,7 @@ export const MarkdownEditorComponent: React.FC<
                 match(e.code)
                   .with('KeyB', () => editorActionWrapper(mutations.bold))
                   .with('KeyI', () => editorActionWrapper(mutations.italic))
-                  .with('KeyZ', () => restoreStateFromHistory());
+                  .with('KeyZ', () => undo());
               }
             }}
           />

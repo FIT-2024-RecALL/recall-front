@@ -1,6 +1,8 @@
-export type EditorElementState = {
+export type SelectionType = {
   selectionStart: number;
   selectionEnd: number;
+};
+export type EditorElementState = SelectionType & {
   str: string;
 };
 
@@ -27,7 +29,7 @@ const getCursorPositionFillerMutation = (fillStr: string) => {
       selectionEnd: state.selectionEnd + fillStr.length,
       str: `${prevPart}${fillStr}${nextPart}`,
     };
-    return res;
+    return res satisfies EditorElementState;
   };
 };
 const getSelectionBordersFillerMutation = (
@@ -43,7 +45,7 @@ const getSelectionBordersFillerMutation = (
         fillStr2 ? fillStr2 : fillStr1
       }${nextPart}`,
     };
-    return res;
+    return res satisfies EditorElementState;
   };
 };
 const getEverySelectedLineStartMutation = (prefixStr: string) => {
@@ -64,7 +66,7 @@ const getEverySelectedLineStartMutation = (prefixStr: string) => {
       selectionEnd: state.selectionEnd + newStr.length - state.str.length,
       str: newStr,
     };
-    return res;
+    return res satisfies EditorElementState;
   };
 };
 const getSelectedBorderLinesMutation = (borderLine: string) => {
@@ -94,7 +96,7 @@ const getSelectedBorderLinesMutation = (borderLine: string) => {
         (lastPrevPartNewline < 0 ? 1 : 2),
       str: newStr,
     };
-    return res;
+    return res satisfies EditorElementState;
   };
 };
 
