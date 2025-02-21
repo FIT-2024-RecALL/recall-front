@@ -25,7 +25,7 @@ export const ErrorPage: React.FC<ErrorPageProps> = ({ message, isPending }) => {
             </Button>
           </Link>
           <Link to={routes.main.getUrl()}>
-            <Button className="m-2" variant="plate">
+            <Button className="m-2" variant="plate-blue">
               Go to main page
             </Button>
           </Link>

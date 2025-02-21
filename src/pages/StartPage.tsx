@@ -24,7 +24,7 @@ export const StartPage: React.FC = () => {
               audios or videos and train them
             </h2>
             <Button
-              variant="plate"
+              variant="plate-green"
               className={clsx(
                 'font-bold text-xl md:text-2xl',
                 'w-1/2 md:w-1/4 rounded-3xl',
@@ -42,7 +42,7 @@ export const StartPage: React.FC = () => {
             </h1>
             <div className="text-md md:text-2xl center my-4 font-medium">
               <Link to={routes.profile.getUrl()} className="w-fit mx-2 center">
-                <Button variant="plate" className="p-2 md:p-4">
+                <Button variant="plate-yellow" className="p-2 md:p-4">
                   My profile
                 </Button>
               </Link>
@@ -50,7 +50,7 @@ export const StartPage: React.FC = () => {
                 to={routes.collections.getUrl()}
                 className="w-fit mx-2 center"
               >
-                <Button variant="plate" className="p-2 md:p-4">
+                <Button variant="plate-green" className="p-2 md:p-4">
                   Collections
                 </Button>
               </Link>

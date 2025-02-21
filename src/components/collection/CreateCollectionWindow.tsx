@@ -39,7 +39,7 @@ export const CreateCollectionWindow: React.FC = () => {
     <PopUp
       isShown={isOpened}
       close={() => setIsOpened(false)}
-      className="bg-1-8/25 backdrop-blur-sm"
+      className="bg-o-gray/25 backdrop-blur-sm"
     >
       <div className="center">
         <div
@@ -47,7 +47,7 @@ export const CreateCollectionWindow: React.FC = () => {
             'absolute top-1/4 w-3/4',
             'bg-o-white',
             'm-2 p-3 md:w-1/2 lg:w-1/3 h-fit',
-            'border border-1-1 rounded-lg'
+            'border-2 border-o-black rounded-lg'
           )}
         >
           <h2 className="text-xl font-medium text-center">
@@ -61,8 +61,9 @@ export const CreateCollectionWindow: React.FC = () => {
               <input
                 className={clsx(
                   'p-1 md:p-2 w-full',
-                  'text-1-1 font-medium rounded',
-                  'bg-transparent border-b border-1-1',
+                  'text-o-black font-medium rounded',
+                  'bg-transparent border-b border-o-black',
+                  'transition-all duration-200',
                   'focus:outline-none focus:border-b-2'
                 )}
                 placeholder="Title"
@@ -77,9 +78,11 @@ export const CreateCollectionWindow: React.FC = () => {
               <textarea
                 className={clsx(
                   'p-1 md:p-2 w-full h-24 lg:h-32',
-                  'bg-transparent border border-1-1',
-                  'focus:outline-none focus:border-2',
-                  'rounded text-black'
+                  'bg-transparent border border-o-black',
+                  'focus:outline-none focus:border-o-green-lg',
+                  'focus:border-2 hover:border-2',
+                  'transition-all duration-200',
+                  'rounded text-o-black'
                 )}
                 placeholder="Description"
                 id="description"
@@ -91,7 +94,7 @@ export const CreateCollectionWindow: React.FC = () => {
               errorMessage={error?.message}
             />
             <div className="w-full center">
-              <Button variant="plate" type="submit">
+              <Button variant="plate-green" type="submit">
                 Create
               </Button>
               {isPending && (

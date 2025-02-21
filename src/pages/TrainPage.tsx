@@ -81,7 +81,10 @@ export const TrainPage: React.FC = () => {
                 className="my-2 md:m-2 w-full md:w-1/3"
                 to={routes.collections.getUrl()}
               >
-                <Button className="w-full font-medium text-lg" variant="plate">
+                <Button
+                  className="w-full font-medium text-lg"
+                  variant="plate-green"
+                >
                   Go to collections
                 </Button>
               </Link>
@@ -98,13 +101,16 @@ export const TrainPage: React.FC = () => {
                 className="w-full md:w-1/4"
                 to={routes.collections.getUrl()}
               >
-                <Button className="w-full font-medium text-lg" variant="plate">
+                <Button
+                  className="w-full font-medium text-lg"
+                  variant="plate-yellow"
+                >
                   Go to collections
                 </Button>
               </Link>
               <Button
                 className="my-2 md:m-2 w-full md:w-1/4 font-medium text-lg"
-                variant="plate"
+                variant="plate-green"
                 onClick={refreshTrainCards}
               >
                 Train this collection again
@@ -123,7 +129,7 @@ export const TrainPage: React.FC = () => {
             <div className="center">
               <Button
                 className="p-4 text-lg"
-                variant="plate"
+                variant="plate-yellow"
                 onClick={refreshTrainCards}
               >
                 Refresh train cards

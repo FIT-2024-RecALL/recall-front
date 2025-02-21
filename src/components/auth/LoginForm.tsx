@@ -43,8 +43,8 @@ export const LoginForm: React.FC = () => {
           placeholder="Email"
           className={clsx(
             'p-1 md:p-2 w-full',
-            'text-1-1 font-medium rounded',
-            'bg-transparent border-b border-1-1',
+            'text-o-black font-medium rounded',
+            'bg-transparent border-b border-o-black',
             'focus:outline-none focus:border-b-2'
           )}
           {...register('email')}
@@ -58,8 +58,8 @@ export const LoginForm: React.FC = () => {
           placeholder="Password"
           className={clsx(
             'p-1 md:p-2 w-full',
-            'text-1-1 font-medium rounded',
-            'bg-transparent border-b border-1-1',
+            'text-o-black font-medium rounded',
+            'bg-transparent border-b border-o-black',
             'focus:outline-none focus:border-b-2'
           )}
           {...register('password')}
@@ -71,7 +71,7 @@ export const LoginForm: React.FC = () => {
       )}
       <div className="center mt-2 mb-1">
         <Button
-          variant="plate"
+          variant="plate-green"
           type="submit"
           className="w-2/3 text-lg font-medium"
         >

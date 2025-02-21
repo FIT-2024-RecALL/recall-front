@@ -19,7 +19,7 @@ export const Header: React.FC = () => {
   return (
     <header>
       <div className="grid grid-cols-3 m-0 p-2 w-full">
-        <h2 className="flex justify-start items-center text-lg md:text-2xl text-1-1 font-bold mx-2">
+        <h2 className="flex justify-start items-center text-lg md:text-2xl font-bold mx-2">
           <Link to="/">RecAll</Link>
         </h2>
         <Menu />
@@ -30,14 +30,14 @@ export const Header: React.FC = () => {
                 to={routes.profile.getUrl()}
                 className="my-1 mx-2 p-0 center font-medium w-full md:w-fit"
               >
-                <Button className="w-full md:w-fit" variant="bordered-trans">
+                <Button className="w-full md:w-fit" variant="plate-yellow">
                   Profile
                 </Button>
               </Link>
-              <div className="hidden md:block">
+              <div className="hidden md:block md:my-1 md:mx-2 md:p-1 md:center md:font-medium md:w-fit">
                 <Button
-                  variant="bordered-trans"
-                  className="p-1 my-1 mx-2 font-medium md:text-md"
+                  variant="plate-red"
+                  className="w-full md:w-fit"
                   onClick={() => logout()}
                 >
                   Log out
@@ -47,7 +47,7 @@ export const Header: React.FC = () => {
           ) : (
             <>
               <Button
-                variant="bordered-trans"
+                variant="plate-green"
                 className="p-1 my-1 mx-2 font-medium text-md w-full md:w-fit"
                 onClick={showLoginWindow}
               >
@@ -55,7 +55,7 @@ export const Header: React.FC = () => {
               </Button>
               <div className="hidden md:block">
                 <Button
-                  variant="bordered-trans"
+                  variant="plate-blue"
                   className="p-1 my-1 mx-2 font-medium md:text-md"
                   onClick={showRegisterWindow}
                 >

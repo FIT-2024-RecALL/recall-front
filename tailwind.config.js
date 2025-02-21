@@ -21,9 +21,8 @@ module.exports = {
         'o-green-lg': '#60D394',
         'o-yellow-sm': '#FFD97D',
         'o-yellow-lg': '#FFED66',
-        'o-blue-sm': '#A8DADC',
-        'o-blue-md': '#457B9D',
-        'o-blue-lg': '#00CECB',
+        'o-blue-sm': '#6CB7E6',
+        'o-blue-lg': '#437bd4',
       },
       keyframes: {
         appear: {

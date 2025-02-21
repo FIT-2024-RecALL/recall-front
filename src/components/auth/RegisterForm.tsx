@@ -50,8 +50,8 @@ export const RegisterForm: React.FC = () => {
           placeholder="Email"
           className={clsx(
             'p-1 md:p-2 w-full',
-            'text-1-1 font-medium rounded',
-            'bg-transparent border-b border-1-1',
+            'text-o-black font-medium rounded',
+            'bg-transparent border-b border-o-black',
             'focus:outline-none focus:border-b-2'
           )}
           {...register('email')}
@@ -65,8 +65,8 @@ export const RegisterForm: React.FC = () => {
           placeholder="Nickname"
           className={clsx(
             'p-1 md:p-2 w-full',
-            'text-1-1 font-medium rounded',
-            'bg-transparent border-b border-1-1',
+            'text-o-black font-medium rounded',
+            'bg-transparent border-b border-o-black',
             'focus:outline-none focus:border-b-2'
           )}
           {...register('nickname')}
@@ -80,8 +80,8 @@ export const RegisterForm: React.FC = () => {
           placeholder="Create password"
           className={clsx(
             'p-1 md:p-2 w-full',
-            'text-1-1 font-medium rounded',
-            'bg-transparent border-b border-1-1',
+            'text-o-black font-medium rounded',
+            'bg-transparent border-b border-o-black',
             'focus:outline-none focus:border-b-2'
           )}
           {...register('password1')}
@@ -96,8 +96,8 @@ export const RegisterForm: React.FC = () => {
           placeholder="Repeat password"
           className={clsx(
             'p-1 md:p-2 w-full',
-            'text-1-1 font-medium rounded',
-            'bg-transparent border-b border-1-1',
+            'text-o-black font-medium rounded',
+            'bg-transparent border-b border-o-black',
             'focus:outline-none focus:border-b-2'
           )}
           {...register('password2')}
@@ -109,7 +109,7 @@ export const RegisterForm: React.FC = () => {
       )}
       <div className="center mt-2 mb-1">
         <Button
-          variant="plate"
+          variant="plate-blue"
           type="submit"
           className="w-2/3 text-lg font-medium"
         >

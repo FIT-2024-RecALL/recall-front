@@ -10,10 +10,12 @@ interface IconButtonProps
 }
 
 const variants = {
-  inline: `text-1-1 hover:bg-1-1/25`,
-  plate: `bg-1-3 text-1-12 hover:bg-1-4 border-2 border-1-3 hover:border-1-4`,
-  bordered: `bg-1-7 text-black border-2 border-1-1 hover:bg-1-5 disabled:bg-1-5/75`,
-  'bordered-trans': `bg-transparent text-black border-2 border-1-1 hover:bg-1-1/25`,
+  inline: `hover:bg-o-gray/50`,
+  'bordered-trans': `text-black bg-transparent ring-2 ring-o-black hover:bg-o-gray/50`,
+  'plate-green': `bg-o-green-sm text-o-black hover:bg-o-green-lg hover:shadow-md`,
+  'plate-yellow': `bg-o-yellow-lg text-o-black hover:bg-o-yellow-sm hover:shadow-md`,
+  'plate-blue': `bg-o-blue-sm text-o-black hover:bg-o-blue-lg hover:shadow-md`,
+  'plate-red': `bg-o-red-md text-o-black hover:bg-o-red-sm hover:shadow-md`,
 };
 export const Button: React.FC<IconButtonProps> = ({
   variant,
@@ -29,7 +31,7 @@ export const Button: React.FC<IconButtonProps> = ({
       variants[variant || 'inline'],
       'center rounded-md',
       'min-w-[16px] min-h-[16px] md:min-w-[32px] md:min-h-[32px]',
-      'space-x-2 p-1 md:p-2 transition-colors',
+      'space-x-2 p-1 md:p-2 transition-all duration-200',
       className
     )}
     disabled={loading}

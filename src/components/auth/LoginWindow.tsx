@@ -21,7 +21,7 @@ export const LoginWindow: React.FC = () => {
     <PopUp
       isShown={authWindowState !== 'hidden'}
       close={closeAuthWindow}
-      className="bg-1-8/25 backdrop-blur-sm"
+      className="bg-o-gray/25 backdrop-blur-sm"
     >
       <div className="center">
         <div
@@ -29,7 +29,7 @@ export const LoginWindow: React.FC = () => {
             'absolute top-1/4 w-3/4',
             'bg-o-white',
             'px-4 py-6 md:w-1/2 lg:w-1/3 h-fit',
-            'border border-1-1 rounded-lg'
+            'border-2 border-o-black rounded-lg'
           )}
         >
           <h1 className="text-lg md:text-xl text-center text-black font-bold mb-2">

@@ -68,7 +68,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         <input
           type="search"
           placeholder="Search collections..."
-          className="w-full h-12 p-4 rounded-full bg-1-8"
+          className="w-full h-12 p-4 rounded-full"
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
@@ -84,7 +84,15 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       {highlightedIndex >= 0 && searchTerm && activeSearch.length > 0 && (
         <div
           ref={resultsContainerRef}
-          className="absolute top-20 bg-1-5 text-white w-full rounded-xl p-4 overflow-auto max-h-[300px] grid grid-cols-1 gap-2"
+          className={clsx(
+            'absolute top-20',
+            'border-2 border-o-black text-o-black',
+            'bg-o-white shadow-lg',
+            'w-full max-h-[300px]',
+            'rounded-xl p-4 overflow-auto',
+            'grid grid-cols-1 gap-2',
+            'transition-all duration-400'
+          )}
         >
           {activeSearch.map((item, index) => (
             <div
@@ -92,7 +100,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               key={index}
               className={clsx(
                 'flex justify-between items-center p-2 cursor-pointer',
-                highlightedIndex === index && 'bg-1-4 rounded-[5px]'
+                highlightedIndex === index && 'bg-o-blue-sm rounded-[5px]'
               )}
               onMouseEnter={() => setHighlightedIndex(index)}
               onClick={() => handleItemClick(item)}
