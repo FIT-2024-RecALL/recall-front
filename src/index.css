@@ -62,31 +62,18 @@
 }
 
 :root {
-  --color-1-1: #178058;
-  --color-1-2: #2d8b67;
-  --color-1-3: #27a876;
-  --color-1-4: #53BD94;
-  --color-1-5: #77BFA3;
-  --color-1-6: #98C9A3;
-  --color-1-7: #BFD8BD;
-  --color-1-8: #DDE7C7;
-  --color-1-9: #EDEEC9;
-  --color-1-10: #F5F0C4;
-  --color-1-11: #FEF4D2;
-  --color-1-12: #f8f3e4;
-  
-  --color-2-1: #02132A;
-  --color-2-2: #0F233F;
-  --color-2-3: #1D3456;
-  --color-2-4: #2A5D6C;
-  --color-2-5: #388A83;
-  --color-2-6: #4CCAA4;
-  --color-black: #02132A;
-  --color-red: #E63946;
-  --color-white: #F1FAEE;
-  --color-blue: #A8DADC;
-  --color-mid-blue: #457B9D;
-  --color-dark-blue: #1D3557;
+  --color-o-white: #FFFFEF;
+  --color-o-gray: #D8D8D8;
+  --color-o-black: #02132A;
+  --color-o-red-sm: #FF9B85;
+  --color-o-red-md: #EE6055;
+  --color-o-red-lg: #FF5E5B;
+  --color-o-green-sm: #AAF683;
+  --color-o-green-lg: #60D394;
+  --color-o-yellow-sm: #FFD97D;
+  --color-o-yellow-lg: #FFED66;
+  --color-o-blue-sm: #A8DADC;
+  --color-o-blue-lg: #00CECB;
 }
 
 body {
@@ -95,8 +82,7 @@ body {
 
   font-family: "MontserratAlternates";
 
-  /* background: var(--color-white); */
-  background: var(--color-1-12);
+  background: var(--color-o-white);
 }
 
 html,
@@ -118,7 +104,7 @@ body,
 }
 
 *::-webkit-scrollbar-thumb {
-  background: var(--color-1-6);
+  background: var(--color-o-grey);
   background-clip: content-box;
   border-radius: 10px;
 }
@@ -129,7 +115,7 @@ body,
 }
 
 *::placeholder {
-  color: var(--color-1-10);
+  color: var(--color-o-gray);
 }
 
 .flip-inner {
@@ -191,7 +177,7 @@ body,
   }
 
   blockquote {
-    @apply bg-1-2 px-1 pl-2 md:pl-4 rounded-md border-l-2 border-1-5 italic
+    @apply bg-gray-700 px-1 pl-2 md:pl-4 rounded-md border-l-2 border-o-yellow-sm italic
   }
 
   img {
