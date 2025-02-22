@@ -25,7 +25,7 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
       showCloseBtn
       className={clsx(
         'center py-2',
-        'bg-o-white/50 backdrop-blur-md',
+        'bg-o-gray/75 backdrop-blur-md',
         'overflow-y-scroll overflow-x-hidden'
       )}
     >
@@ -33,9 +33,8 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
         <FlippingCard
           className={clsx(
             'mb-1 md:mb-2 w-full h-5/6',
-            'bg-1-1 rounded-xl',
+            'bg-o-white text-o-black rounded-xl',
             'border border-2 border-black',
-            'text-white'
           )}
         />
         {mode === 'edit' && isNew && <CreateCardControls />}

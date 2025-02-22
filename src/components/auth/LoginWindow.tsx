@@ -55,7 +55,7 @@ export const LoginWindow: React.FC = () => {
             <div className="center w-full mt-2">
               <Button
                 className="p-2 rounded-lg"
-                variant="bordered-trans"
+                variant="bordered"
                 onClick={toggleActiveAuthWindow}
               >
                 {isRegister ? '< Go to Log in' : 'Go to Register >'}

@@ -81,42 +81,44 @@ export const MarkdownEditorComponent: React.FC<
         undo={historyRef.current.length > 0 && undo}
       />
       {active ? (
-        <div className="w-full h-full">
-          <textarea
-            ref={editorRef}
-            className={clsx(
-              'bg-1-2 focus:bg-1-1',
-              'p-2 w-full h-full',
-              'resize-none text-md',
-              'rounded font-medium font-mono'
-            )}
-            placeholder={placeholder}
-            value={state}
-            onBeforeInput={() => {
-              const selection = getEditorSelection();
-              if (!selection) return;
-              pushHistory({
-                ...selection,
-                str: state,
-              });
-            }}
-            onChange={(e) => {
-              setState(e.target.value);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Tab') {
-                e.preventDefault();
-                editorActionWrapper(mutations.tab);
-              }
-              if (e.ctrlKey) {
-                match(e.code)
-                  .with('KeyB', () => editorActionWrapper(mutations.bold))
-                  .with('KeyI', () => editorActionWrapper(mutations.italic))
-                  .with('KeyZ', () => undo());
-              }
-            }}
-          />
-        </div>
+        <textarea
+          ref={editorRef}
+          className={clsx(
+            'p-1 md:p-2 full',
+            'bg-transparent border-2 border-o-black',
+            'transition-all duration-200',
+            'rounded-lg text-o-black font-mono',
+            'hover:border-4',
+            'focus:shadow-lg focus:outline-none',
+            'focus:border-4 focus:border-o-green-lg',
+            'resize-none'
+          )}
+          placeholder={placeholder}
+          value={state}
+          onBeforeInput={() => {
+            const selection = getEditorSelection();
+            if (!selection) return;
+            pushHistory({
+              ...selection,
+              str: state,
+            });
+          }}
+          onChange={(e) => {
+            setState(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Tab') {
+              e.preventDefault();
+              editorActionWrapper(mutations.tab);
+            }
+            if (e.ctrlKey) {
+              match(e.code)
+                .with('KeyB', () => editorActionWrapper(mutations.bold))
+                .with('KeyI', () => editorActionWrapper(mutations.italic))
+                .with('KeyZ', () => undo());
+            }
+          }}
+        />
       ) : (
         <MarkdownRenderComponent
           rawText={state}

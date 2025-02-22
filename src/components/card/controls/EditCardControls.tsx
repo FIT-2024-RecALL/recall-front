@@ -72,7 +72,7 @@ export const EditCardControls: React.FC = () => {
               ? 'opacity-1'
               : 'opacity-0 invisible'
           )}
-          variant="bordered"
+          variant="plate-green"
           onClick={() => {
             updateCard({
               new_card: { ...cardData },
@@ -91,7 +91,7 @@ export const EditCardControls: React.FC = () => {
         >
           <Button
             className="m-3"
-            variant="bordered"
+            variant="plate-red"
             onClick={() => deleteCard()}
           >
             Confirm deletion
