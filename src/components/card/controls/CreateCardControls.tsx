@@ -1,18 +1,11 @@
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import { MultiValue } from 'react-select';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Button } from '@/components/library';
 import { useAppStore } from '@/state';
-import {
-  getCardQueryOptions,
-  getProfileCardsQueryOptions,
-  getCardCollectionsQueryOptions,
-} from '@/query/queryHooks';
-import { dataExtractionWrapper } from '@/query';
-import { createCardCardsPost } from '@/api';
 import { CollectionsSelect, Option } from './CollectionsSelect';
+import { useCardCreate } from '@/query/mutationHooks';
 
 export const CreateCardControls: React.FC = () => {
   const cardData = useAppStore((state) => state.activeCard);
@@ -22,34 +15,9 @@ export const CreateCardControls: React.FC = () => {
     MultiValue<Option<number>>
   >([]);
 
-  const client = useQueryClient();
-  const { mutate: createCard, error: createError } = useMutation({
-    mutationFn: (data: {
-      card: { frontSide: string; backSide: string };
-      collections: number[];
-    }) =>
-      dataExtractionWrapper(
-        createCardCardsPost({
-          body: {
-            ...data,
-          },
-        })
-      ),
-    onSuccess: (responseData) => {
-      client.invalidateQueries({ queryKey: ['collection'] });
-      client.invalidateQueries({
-        queryKey: getCardCollectionsQueryOptions(responseData.id).queryKey,
-      });
-      client.invalidateQueries({
-        queryKey: getProfileCardsQueryOptions().queryKey,
-      });
-      client.setQueryData(
-        getCardQueryOptions(responseData.id).queryKey,
-        responseData
-      );
-      setUIFlag('zoomed', () => false);
-    },
-  });
+  const { createCard, error: createError } = useCardCreate(() =>
+    setUIFlag('zoomed', () => false)
+  );
 
   return (
     <>

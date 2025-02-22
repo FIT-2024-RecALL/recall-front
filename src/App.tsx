@@ -4,10 +4,11 @@ import { Header, Footer } from '@/components/mainWrapper';
 import { LoginWindow } from '@/components/auth/LoginWindow';
 import { CreateCollectionWindow } from '@/components/collection/CreateCollectionWindow';
 import { ZoomedCard } from '@/components/card';
+import clsx from 'clsx';
 
 export const App: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className={clsx('flex flex-col min-h-screen')}>
       <LoginWindow />
       <CreateCollectionWindow />
       <ZoomedCard />

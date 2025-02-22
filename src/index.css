@@ -11,6 +11,10 @@
     @apply flex items-center justify-around
   }
 
+  .between {
+    @apply flex items-center justify-between
+  }
+
   .vstack {
     @apply flex flex-col
   }
@@ -144,6 +148,7 @@ body,
 }
 
 .flip-front, .flip-back {
+  top: 0;
   position: absolute;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -163,6 +168,14 @@ body,
 
 
 .markdown {
+  h1 { font-size: x-large; }
+
+  h2 { font-size: large; }
+
+  h3 { font-size: larger; }
+
+  h4 { font-size: medium; }
+
   ul {
     list-style: disc;
     margin-left: 20px;
@@ -174,7 +187,11 @@ body,
   }
 
   pre {
-    @apply bg-1-1
+    @apply bg-gray-700 p-2 rounded-md
+  }
+
+  blockquote {
+    @apply bg-1-2 px-1 pl-2 md:pl-4 rounded-md border-l-2 border-1-5 italic
   }
 
   img {

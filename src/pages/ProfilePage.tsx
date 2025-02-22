@@ -6,45 +6,18 @@ import {
   Icon,
   LoadableComponent,
 } from '@/components/library';
-import {
-  getProfileCardsQueryOptions,
-  getProfileCollectionsQueryOptions,
-  getProfileQueryOptions,
-  useProfile,
-  useProfileCollections,
-} from '@/query/queryHooks';
+import { useProfile, useProfileCollections } from '@/query/queryHooks';
 import { ErrorPage } from './ErrorPage';
 import { FilesList } from '@/components/profile';
 import { CollectionsSearchableList } from '@/components/collection';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { dataExtractionWrapper } from '@/query';
-import { deleteUserUserDeleteProfileDelete } from '@/api';
+import { useProfileDelete } from '@/query/mutationHooks';
 
 export const ProfilePage: React.FC = () => {
   const { profile, isPending: isProfilePending } = useProfile();
   const { collections, isPending: isCollectionsPending } =
     useProfileCollections();
 
-  const queryClient = useQueryClient();
-  const {
-    mutate: deleteProfile,
-    error: deleteError,
-    isPending: isDeletePending,
-  } = useMutation({
-    mutationFn: () =>
-      dataExtractionWrapper(deleteUserUserDeleteProfileDelete()),
-    onSuccess: () => {
-      queryClient.resetQueries({
-        queryKey: getProfileQueryOptions().queryKey,
-      });
-      queryClient.resetQueries({
-        queryKey: getProfileCardsQueryOptions().queryKey,
-      });
-      queryClient.resetQueries({
-        queryKey: getProfileCollectionsQueryOptions().queryKey,
-      });
-    },
-  });
+  const { deleteProfile, isPending: isDeletePending } = useProfileDelete();
 
   if (!profile)
     return (
@@ -56,7 +29,7 @@ export const ProfilePage: React.FC = () => {
 
   return (
     <LoadableComponent
-      className="flex flex-col items-center m-4 md:m-10 p-5"
+      className="flex flex-col items-center p-4 md:p-8"
       isPending={isProfilePending || isCollectionsPending}
       animated
     >

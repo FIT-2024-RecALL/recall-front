@@ -2,24 +2,22 @@ import React from 'react';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { navigate } from 'wouter/use-browser-location';
 
 import {
   Button,
   FormItem,
   LoadableComponent,
   Icon,
+  DropDown,
 } from '@/components/library';
-import { dataExtractionWrapper } from '@/query';
-import { getCollectionQueryOptions, useCollection } from '@/query/queryHooks';
+import { useCollection } from '@/query/queryHooks';
 import {
-  deleteCollectionCollectionsCollectionIdDelete,
-  updateCollectionCollectionsCollectionIdPut,
-} from '@/api';
+  useCollectionDelete,
+  useCollectionUpdate,
+} from '@/query/mutationHooks';
 import { CollectionEditType, collectionScheme } from './CreateCollectionWindow';
-import { navigate } from 'wouter/use-browser-location';
 import { routes } from '@/routes';
-import { DropDown } from '../library/DropDown';
 
 export type CollectionType = CollectionEditType & {
   id: number;
@@ -46,47 +44,18 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
     resolver: zodResolver(collectionScheme),
   });
 
-  const queryClient = useQueryClient();
   const {
-    mutate: saveCollectionData,
+    updateCollection,
     error: saveError,
     isPending: isSavePending,
     isSuccess: isSaveSuccess,
-  } = useMutation({
-    mutationFn: (data: CollectionEditType) =>
-      dataExtractionWrapper(
-        updateCollectionCollectionsCollectionIdPut({
-          path: {
-            collection_id: id,
-          },
-          body: {
-            ...data,
-          },
-        })
-      ),
-    onSuccess: (data) => {
-      queryClient.setQueryData(getCollectionQueryOptions(id).queryKey, data);
-    },
-  });
+  } = useCollectionUpdate(id);
   const {
-    mutate: deleteCollection,
+    deleteCollection,
     error: deleteError,
     isPending: isDeletePending,
-  } = useMutation({
-    mutationFn: (id: number) =>
-      dataExtractionWrapper(
-        deleteCollectionCollectionsCollectionIdDelete({
-          path: {
-            collection_id: id,
-          },
-        })
-      ),
-    onSuccess: (data, id) => {
-      queryClient.resetQueries({
-        queryKey: getCollectionQueryOptions(id).queryKey,
-      });
-      navigate(routes.collections.getUrl(), { replace: true });
-    },
+  } = useCollectionDelete(id, () => {
+    navigate(routes.collections.getUrl(), { replace: true });
   });
 
   return (
@@ -96,7 +65,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
     >
       <form
         className="my-2 md:my-6"
-        onSubmit={handleSubmit((data) => saveCollectionData(data))}
+        onSubmit={handleSubmit((data) => updateCollection(data))}
       >
         <FormItem
           className="m-2 md:m-4 text-2xl"
@@ -142,27 +111,31 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
           className="m-2 md:m-4 text-lg"
           errorMessage={saveError?.message || deleteError?.message}
         />
-        <div className="w-full center">
-          <Button className="mx-3" variant="plate" type="submit">
+        <div className="w-full center flex-wrap">
+          <Button
+            className="mt-2 md:m-2 w-1/2 md:w-fit"
+            variant="plate"
+            type="submit"
+          >
             Save collection
           </Button>
           {(isSavePending || isSaveSuccess) && (
-            <div className="mx-2">
+            <div className="mt-1 md:m-2">
               {isSavePending && <Icon className="animate-spin" icon="loader" />}
               {isSaveSuccess && 'Saved'}
             </div>
           )}
           <DropDown
             buttonComponent={
-              <Button className="mx-3" variant="bordered-trans">
+              <Button className="mt-2 md:m-2" variant="bordered-trans">
                 Delete collection
               </Button>
             }
           >
             <Button
-              className="m-3"
+              className="mt-1 md:mx-2"
               variant="bordered"
-              onClick={() => deleteCollection(id)}
+              onClick={() => deleteCollection()}
             >
               Confirm deletion
             </Button>

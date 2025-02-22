@@ -1,7 +1,15 @@
-import React, { HTMLAttributes, useState } from 'react';
+import React, { HTMLAttributes, useState, useRef, useCallback } from 'react';
 import clsx from 'clsx';
+import { match } from 'ts-pattern';
+
 import { EditorControls } from './EditorControls';
 import { MarkdownRenderComponent } from './MarkdownRenderComponent';
+import {
+  EditorElementState,
+  EditorMutatorWrapper,
+  mutations,
+  SelectionType,
+} from './editorElementTypes';
 
 interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
   state: string;
@@ -16,31 +24,95 @@ export const MarkdownEditorComponent: React.FC<
 > = ({ state, setState, extended, placeholder, previewClassName }) => {
   const [active, setActive] = useState(true);
 
+  const historyRef = useRef<EditorElementState[]>([]);
+  const pushHistory = useCallback(
+    (value: EditorElementState) => {
+      historyRef.current.push(value);
+    },
+    [historyRef]
+  );
+  const popHistory = useCallback(() => {
+    return historyRef.current.pop();
+  }, [historyRef]);
+
+  const editorRef = useRef<HTMLTextAreaElement>(null);
+  const editorActionWrapper: EditorMutatorWrapper = (mutate, payload) => {
+    const selection = getEditorSelection();
+    if (!selection) return;
+    const editorElementState: EditorElementState = {
+      ...selection,
+      str: state,
+    };
+    pushHistory(editorElementState);
+
+    const newEditorElementState = mutate(editorElementState, payload);
+    setEditorSelection(newEditorElementState);
+    setState(newEditorElementState.str);
+  };
+  const undo = () => {
+    const prevEditorState = popHistory();
+    if (!prevEditorState) return;
+    setState(prevEditorState.str);
+    setEditorSelection(prevEditorState);
+  };
+  const getEditorSelection = useCallback(() => {
+    if (!editorRef.current) return;
+    const { selectionStart, selectionEnd } = editorRef.current;
+    return { selectionStart, selectionEnd } satisfies SelectionType;
+  }, [editorRef]);
+  const setEditorSelection = useCallback(
+    ({ selectionStart, selectionEnd }: SelectionType) => {
+      requestAnimationFrame(() => {
+        if (!editorRef.current) return;
+        editorRef.current.focus();
+        editorRef.current.setSelectionRange(selectionStart, selectionEnd);
+      });
+    },
+    [editorRef]
+  );
+
   return (
     <>
       <EditorControls
         isExtended={extended}
         isActive={active}
         switchActive={() => setActive((a) => !a)}
-        editorState={state}
-        setEditorState={setState}
+        editorActionWrapper={editorActionWrapper}
+        undo={historyRef.current.length > 0 && undo}
       />
       {active ? (
         <div className="w-full h-full">
           <textarea
+            ref={editorRef}
             className={clsx(
-              'bg-1-2 focus:bg-1-3',
+              'bg-1-2 focus:bg-1-1',
               'p-2 w-full h-full',
               'resize-none text-md',
-              'rounded'
+              'rounded font-medium font-mono'
             )}
             placeholder={placeholder}
             value={state}
-            onChange={(e) => setState(e.target.value)}
+            onBeforeInput={() => {
+              const selection = getEditorSelection();
+              if (!selection) return;
+              pushHistory({
+                ...selection,
+                str: state,
+              });
+            }}
+            onChange={(e) => {
+              setState(e.target.value);
+            }}
             onKeyDown={(e) => {
               if (e.key === 'Tab') {
                 e.preventDefault();
-                // TODO: Добавить замену таба двумя пробелами
+                editorActionWrapper(mutations.tab);
+              }
+              if (e.ctrlKey) {
+                match(e.code)
+                  .with('KeyB', () => editorActionWrapper(mutations.bold))
+                  .with('KeyI', () => editorActionWrapper(mutations.italic))
+                  .with('KeyZ', () => undo());
               }
             }}
           />

@@ -36,13 +36,13 @@ export const CollectionsSearchableList: React.FC<
   }, [searchTerm, collections]);
 
   return (
-    <>
+    <div className="center flex-col w-full">
       {profile ? (
         <div className="flex justify-center mb-4">
           <Button
             variant="plate"
             className={clsx(
-              'py-3 px-6 rounded-full',
+              'py-2 px-4 rounded-full',
               'text-lg font-medium',
               'shadow-md hover:shadow-lg',
               'transition duration-200'
@@ -72,9 +72,9 @@ export const CollectionsSearchableList: React.FC<
           />
 
           <div
-            className="grid align-center justify-center w-full gap-4 pt-4"
+            className="grid align-center justify-center gap-4 pt-4"
             style={{
-              gridTemplateColumns: 'repeat( auto-fit, 320px )',
+              gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
             }}
           >
             {activeCollections.length > 0 ? (
@@ -89,6 +89,6 @@ export const CollectionsSearchableList: React.FC<
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };

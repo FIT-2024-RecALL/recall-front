@@ -1,17 +1,10 @@
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 import { MultiValue } from 'react-select';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useAppStore } from '@/state';
-import {
-  useCardCollections,
-  getCardQueryOptions,
-  getCardCollectionsQueryOptions,
-  getProfileCardsQueryOptions,
-} from '@/query/queryHooks';
-import { dataExtractionWrapper } from '@/query';
-import { deleteCardCardsCardIdDelete, updateCardCardsCardIdPut } from '@/api';
+import { useCardCollections } from '@/query/queryHooks';
+import { useCardDelete, useCardUpdate } from '@/query/mutationHooks';
 import { Button, DropDown, LoadableComponent } from '@/components/library';
 import {
   collectionResponseToOptions,
@@ -34,57 +27,11 @@ export const EditCardControls: React.FC = () => {
     setSelectedOptions(collectionResponseToOptions(cardCollections));
   }, [cardCollections]);
 
-  const client = useQueryClient();
-  const { mutate: updateCard, error: updateError } = useMutation({
-    mutationFn: (data: {
-      id: number;
-      new_card: { frontSide: string; backSide: string };
-      collections: number[];
-    }) =>
-      dataExtractionWrapper(
-        updateCardCardsCardIdPut({
-          path: {
-            card_id: data.id,
-          },
-          body: {
-            ...data,
-          },
-        })
-      ),
-    onSuccess: (responseData) => {
-      client.invalidateQueries({ queryKey: ['collection'] }); // TODO: подумать, как оптимизировать этот запрос
-      client.invalidateQueries({
-        queryKey: getCardCollectionsQueryOptions(responseData.id).queryKey,
-      });
-      client.setQueryData(
-        getCardQueryOptions(responseData.id).queryKey,
-        responseData
-      );
-      setUIFlag('zoomed', () => false);
-    },
+  const { updateCard, error: updateError } = useCardUpdate(cardId, () => {
+    setUIFlag('zoomed', () => false);
   });
-  const { mutate: deleteCard, error: deleteError } = useMutation({
-    mutationFn: (id: number) =>
-      dataExtractionWrapper(
-        deleteCardCardsCardIdDelete({
-          path: {
-            card_id: id,
-          },
-        })
-      ),
-    onSuccess: (responseData, id) => {
-      client.invalidateQueries({ queryKey: ['collection'] }); // TODO: подумать, как оптимизировать этот запрос
-      client.resetQueries({
-        queryKey: getCardCollectionsQueryOptions(id).queryKey,
-      });
-      client.resetQueries({
-        queryKey: getCardQueryOptions(id).queryKey,
-      });
-      client.invalidateQueries({
-        queryKey: getProfileCardsQueryOptions().queryKey,
-      });
-      setUIFlag('zoomed', () => false);
-    },
+  const { deleteCard, error: deleteError } = useCardDelete(cardId, () => {
+    setUIFlag('zoomed', () => false);
   });
 
   return (
@@ -128,7 +75,6 @@ export const EditCardControls: React.FC = () => {
           variant="bordered"
           onClick={() => {
             updateCard({
-              id: cardId,
               new_card: { ...cardData },
               collections: selectedOptions.map((option) => option.value),
             });
@@ -146,7 +92,7 @@ export const EditCardControls: React.FC = () => {
           <Button
             className="m-3"
             variant="bordered"
-            onClick={() => deleteCard(cardId)}
+            onClick={() => deleteCard()}
           >
             Confirm deletion
           </Button>

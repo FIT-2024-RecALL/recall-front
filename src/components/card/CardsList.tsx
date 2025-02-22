@@ -20,7 +20,7 @@ export const CardsList: React.FC<CardsListProps> = ({
     <div
       className={clsx('grid gap-x-5 gap-y-3 w-full', className)}
       style={{
-        gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
+        gridTemplateColumns: 'repeat( auto-fit, minmax(280px, 1fr) )',
       }}
     >
       {addNewCard && <NewCard />}
