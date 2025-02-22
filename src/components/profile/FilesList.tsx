@@ -43,7 +43,7 @@ export const FilesList: React.FC = () => {
             <div className="col-span-4 md:col-span-1">
               <Button
                 className="w-full"
-                variant="bordered-trans"
+                variant="bordered"
                 onClick={() => deleteFile(file.filename)}
               >
                 Delete file

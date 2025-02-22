@@ -27,10 +27,12 @@ export const StartPage: React.FC = () => {
               variant="plate-green"
               className={clsx(
                 'font-bold text-xl md:text-2xl',
-                'w-1/2 md:w-1/4 rounded-3xl',
-                'py-2 md:py-3 my-2 md:my-4'
+                'w-full rounded-3xl',
+                'py-1 md:py-2'
               )}
               onClick={showLoginWindow}
+              withShadow
+              shadowBoxClassName="my-2 md:my-4 w-1/2 md:w-1/6"
             >
               Join
             </Button>
@@ -42,7 +44,11 @@ export const StartPage: React.FC = () => {
             </h1>
             <div className="text-md md:text-2xl center my-4 font-medium">
               <Link to={routes.profile.getUrl()} className="w-fit mx-2 center">
-                <Button variant="plate-yellow" className="p-2 md:p-4">
+                <Button
+                  variant="plate-yellow"
+                  className="p-2 md:p-4"
+                  withShadow
+                >
                   My profile
                 </Button>
               </Link>
@@ -50,7 +56,7 @@ export const StartPage: React.FC = () => {
                 to={routes.collections.getUrl()}
                 className="w-fit mx-2 center"
               >
-                <Button variant="plate-green" className="p-2 md:p-4">
+                <Button variant="plate-green" className="p-2 md:p-4" withShadow>
                   Collections
                 </Button>
               </Link>

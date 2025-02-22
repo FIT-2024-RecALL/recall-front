@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 
-import { Icon, Button } from '@/components/library';
+import { Button } from '@/components/library';
 import { useAppStore } from '@/state';
 import { useAiCompare } from '@/query/mutationHooks';
 import { TrainContraolsBacksideContent } from './TrainControlsBacksideContent';
@@ -23,7 +23,11 @@ export const TrainCardControls: React.FC = () => {
     setUIFlag('flipped', () => true);
   });
 
-  return (
+  return flippedCount > 1 ? (
+    <div className="w-full vstack">
+      <TrainContraolsBacksideContent aiFeedBack={aiFeedBack} />
+    </div>
+  ) : (
     <div
       className={clsx(
         'transition-all duration-500 flip-inner',
@@ -39,48 +43,37 @@ export const TrainCardControls: React.FC = () => {
           'flip-front w-full vstack'
         )}
       >
-        {flippedCount > 1 ? (
-          <TrainContraolsBacksideContent aiFeedBack={aiFeedBack} />
-        ) : (
-          <>
-            <div className="grid grid-cols-4 gap-2 mb-2">
-              <textarea
-                className={clsx(
-                  'p-1 mx-1 col-span-4 md:col-span-3',
-                  'bg-transparent border-2 border-o-black',
-                  'transition-all duration-200',
-                  'rounded-lg text-o-black',
-                  'hover:border-2 hover:border-o-green-lg',
-                  'focus:outline-none',
-                  'focus:border-2 focus:border-o-green-sm',
-                  'resize-none'
-                )}
-                value={userAnswer}
-                onChange={(e) => setUserAnswer(e.target.value)}
-                placeholder="Type your answer"
-              ></textarea>
-              <div className="center col-span-4 md:col-span-1">
-                <Button
-                  variant="plate-green"
-                  className="p-2"
-                  onClick={() => compareAnswers(userAnswer)}
-                >
-                  {!isPending ? 'Check answer' : 'Checking answer...'}
-                </Button>
-              </div>
-            </div>
-            <div className="center">
-              <Button
-                className="w-1/2 md:w-1/4"
-                variant="plate-yellow"
-                onClick={() => setUIFlag('flipped', () => true)}
-              >
-                <span>Flip card</span>
-                <Icon icon="arrowRight" className="ml-1 w-7 h-7" />
-              </Button>
-            </div>
-          </>
-        )}
+        <span className="center">
+          Flip card and grade yourself or check you aknowledgements using AI
+        </span>
+        <div className="grid grid-cols-4 gap-2 mt-2">
+          <textarea
+            className={clsx(
+              'p-1 mx-1 col-span-4 md:col-span-3',
+              'bg-transparent border-2 border-o-black',
+              'transition-all duration-200',
+              'rounded-lg text-o-black',
+              'hover:border-2 hover:border-o-green-lg',
+              'focus:outline-none',
+              'focus:border-2 focus:border-o-green-sm',
+              'resize-none'
+            )}
+            value={userAnswer}
+            onChange={(e) => setUserAnswer(e.target.value)}
+            placeholder="Type your answer"
+          ></textarea>
+          <div className="center col-span-4 md:col-span-1">
+            <Button
+              variant="plate-yellow"
+              className="p-2"
+              onClick={() => compareAnswers(userAnswer)}
+              disabled={isPending}
+              withShadow
+            >
+              {!isPending ? 'Check answer' : 'Checking answer...'}
+            </Button>
+          </div>
+        </div>
       </div>
       <div className="flip-back w-full vstack">
         <TrainContraolsBacksideContent aiFeedBack={aiFeedBack} />

@@ -45,7 +45,7 @@ export const CreateCollectionWindow: React.FC = () => {
       <div className="center">
         <div
           className={clsx(
-            'absolute top-1/4 w-3/4',
+            'absolute top-1/4 w-5/6',
             'bg-o-white',
             'm-2 p-3 md:w-1/2 lg:w-1/3 h-fit',
             'border-2 border-o-black rounded-lg'
@@ -56,7 +56,7 @@ export const CreateCollectionWindow: React.FC = () => {
           </h2>
           <form onSubmit={handleSubmit((data) => createCollection(data))}>
             <FormItem
-              className="m-2 md:m-4 text-2xl"
+              className="m-2 md:m-4 text-xl md:text-2xl"
               errorMessage={errors.title?.message}
             >
               <Controller
@@ -85,12 +85,19 @@ export const CreateCollectionWindow: React.FC = () => {
                 {...register('description')}
               />
             </FormItem>
-            <FormItem
-              className="m-2 md:m-4 text-lg"
-              errorMessage={error?.message}
-            />
+            {error?.message && (
+              <FormItem
+                className="m-2 md:m-4 text-lg"
+                errorMessage={error?.message}
+              />
+            )}
             <div className="w-full center">
-              <Button variant="plate-green" type="submit">
+              <Button
+                variant="plate-green"
+                type="submit"
+                withShadow
+                shadowBoxClassName="w-2/3 md:w-1/3"
+              >
                 Create
               </Button>
               {isPending && (

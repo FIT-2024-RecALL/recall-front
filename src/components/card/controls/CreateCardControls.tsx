@@ -53,7 +53,7 @@ export const CreateCardControls: React.FC = () => {
         )}
       >
         <Button
-          className={clsx('text-xl')}
+          className="text-xl"
           variant="plate-green"
           onClick={() => {
             createCard({
@@ -61,6 +61,7 @@ export const CreateCardControls: React.FC = () => {
               collections: selectedOptions?.map((option) => option.value),
             });
           }}
+          withShadow
         >
           Create card
         </Button>

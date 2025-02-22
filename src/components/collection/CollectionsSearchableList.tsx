@@ -43,6 +43,7 @@ export const CollectionsSearchableList: React.FC<
             variant="plate-green"
             className={clsx('py-2 px-4 rounded-full', 'text-lg font-medium')}
             onClick={() => setIsCreateCollectionOpened(true)}
+            withShadow
           >
             Create collection
           </Button>

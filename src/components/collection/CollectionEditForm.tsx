@@ -116,11 +116,12 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
           className="m-2 md:m-4 text-lg"
           errorMessage={saveError?.message || deleteError?.message}
         />
-        <div className="w-full center flex-wrap">
+        <div className="w-full xs-md:vstack center flex-wrap">
           <Button
-            className="mt-2 md:m-2 w-1/2 md:w-fit"
             variant="plate-green"
             type="submit"
+            withShadow
+            shadowBoxClassName="mt-2 md:m-2 w-1/2 md:w-fit"
           >
             Save collection
           </Button>
@@ -132,7 +133,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
           )}
           <DropDown
             buttonComponent={
-              <Button className="mt-2 md:m-2" variant="plate-red">
+              <Button className="mt-2 md:m-2" variant="bordered">
                 Delete collection
               </Button>
             }

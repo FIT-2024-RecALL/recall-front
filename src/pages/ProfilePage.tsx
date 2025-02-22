@@ -56,7 +56,7 @@ export const ProfilePage: React.FC = () => {
 
       <DropDown
         buttonComponent={
-          <Button className="mx-3" variant="bordered-trans">
+          <Button className="mx-3" variant="bordered">
             Delete account
           </Button>
         }

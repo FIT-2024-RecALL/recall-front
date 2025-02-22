@@ -37,11 +37,11 @@ export const RegisterForm: React.FC = () => {
 
   return (
     <form
-      className="vstack w-full p-2 text-white"
+      className="vstack center w-full"
       onSubmit={handleSubmit((data) => registerUser(data))}
     >
       <FormItem
-        className="vstack p-1 w-full"
+        className="vstack mb-2 w-full"
         errorMessage={errors.email?.message}
       >
         <Controller
@@ -51,7 +51,7 @@ export const RegisterForm: React.FC = () => {
         />
       </FormItem>
       <FormItem
-        className="vstack p-1 w-full"
+        className="vstack mb-2 w-full"
         errorMessage={errors.nickname?.message}
       >
         <Controller
@@ -61,7 +61,7 @@ export const RegisterForm: React.FC = () => {
         />
       </FormItem>
       <FormItem
-        className="vstack p-1 w-full"
+        className="vstack mb-2 w-full"
         errorMessage={errors.password1?.message}
       >
         <Controller
@@ -73,7 +73,7 @@ export const RegisterForm: React.FC = () => {
         />
       </FormItem>
       <FormItem
-        className="vstack p-1 w-full"
+        className="vstack mb-2 w-full"
         errorMessage={errors.password2?.message}
       >
         <Controller
@@ -85,17 +85,17 @@ export const RegisterForm: React.FC = () => {
         />
       </FormItem>
       {error && (
-        <FormItem className="vstack p-1 w-full" errorMessage={error.message} />
+        <FormItem className="vstack mb-2 w-full" errorMessage={error.message} />
       )}
-      <div className="center mt-2 mb-1">
-        <Button
-          variant="plate-blue"
-          type="submit"
-          className="w-2/3 text-lg font-medium"
-        >
-          Sign up
-        </Button>
-      </div>
+      <Button
+        variant="plate-blue"
+        type="submit"
+        className="full text-lg font-medium"
+        withShadow
+        shadowBoxClassName="w-2/3 mt-1 mb-2"
+      >
+        Sign up
+      </Button>
     </form>
   );
 };

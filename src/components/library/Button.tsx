@@ -41,7 +41,7 @@ export const Button: React.FC<IconButtonProps> = ({
       type={'button'}
       className={clsx(
         variants[variant || 'inline'],
-        withShadow && 'relative',
+        withShadow && 'full relative',
         'center rounded-md',
         'min-w-[16px] min-h-[16px] md:min-w-[32px] md:min-h-[32px]',
         'space-x-2 p-1 md:p-2 transition-all duration-200',
@@ -67,7 +67,7 @@ export const Button: React.FC<IconButtonProps> = ({
     <div
       className={clsx(
         'relative transition-all duration-200',
-        'before:absolute before:full before:bg-black/50 before:rounded',
+        'before:absolute before:full before:bg-black/50 before:rounded-md',
         'before:transition-all before:duration-200',
         'hover:-translate-x-1 hover:-translate-y-1',
         'hover:before:translate-x-1 hover:before:translate-y-1',

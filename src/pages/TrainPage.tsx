@@ -84,6 +84,7 @@ export const TrainPage: React.FC = () => {
                 <Button
                   className="w-full font-medium text-lg"
                   variant="plate-green"
+                  withShadow
                 >
                   Go to collections
                 </Button>
@@ -104,14 +105,17 @@ export const TrainPage: React.FC = () => {
                 <Button
                   className="w-full font-medium text-lg"
                   variant="plate-yellow"
+                  withShadow
                 >
                   Go to collections
                 </Button>
               </Link>
               <Button
-                className="my-2 md:m-2 w-full md:w-1/4 font-medium text-lg"
+                className="font-medium text-lg full"
                 variant="plate-green"
                 onClick={refreshTrainCards}
+                withShadow
+                shadowBoxClassName="my-2 md:m-2 w-full md:w-1/4 "
               >
                 Train this collection again
               </Button>
@@ -131,6 +135,7 @@ export const TrainPage: React.FC = () => {
                 className="p-1 md:p-2 text-lg"
                 variant="plate-yellow"
                 onClick={refreshTrainCards}
+                withShadow
               >
                 Refresh train cards
               </Button>

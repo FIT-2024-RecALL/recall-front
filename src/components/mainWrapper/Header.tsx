@@ -28,40 +28,47 @@ export const Header: React.FC = () => {
             <>
               <Link
                 to={routes.profile.getUrl()}
-                className="my-1 mx-2 p-0 center font-medium w-full md:w-fit"
+                className="my-1 mx-2 w-full md:w-fit"
               >
-                <Button className="w-full md:w-fit" variant="plate-yellow">
+                <Button
+                  className="font-medium px-2 md:px-4 full"
+                  variant="plate-yellow"
+                  withShadow
+                  shadowBoxClassName="full"
+                >
                   Profile
                 </Button>
               </Link>
-              <div className="hidden md:block md:my-1 md:mx-2 md:p-1 md:center md:font-medium md:w-fit">
-                <Button
-                  variant="plate-red"
-                  className="w-full md:w-fit"
-                  onClick={() => logout()}
-                >
-                  Log out
-                </Button>
-              </div>
+              <Button
+                className="font-medium px-2 md:px-4 full"
+                variant="plate-red"
+                onClick={() => logout()}
+                withShadow
+                shadowBoxClassName="hidden md:block my-1 mx-2 w-full md:w-fit"
+              >
+                Log out
+              </Button>
             </>
           ) : (
             <>
               <Button
+                className="font-medium px-2 md:px-4 full"
                 variant="plate-green"
-                className="p-1 my-1 mx-2 font-medium text-md w-full md:w-fit"
                 onClick={showLoginWindow}
+                withShadow
+                shadowBoxClassName="my-1 mx-2 w-full md:w-fit"
               >
                 Log in
               </Button>
-              <div className="hidden md:block">
-                <Button
-                  variant="plate-blue"
-                  className="p-1 my-1 mx-2 font-medium md:text-md"
-                  onClick={showRegisterWindow}
-                >
-                  Register
-                </Button>
-              </div>
+              <Button
+                className="font-medium px-2 md:px-4 full"
+                variant="plate-blue"
+                onClick={showRegisterWindow}
+                withShadow
+                shadowBoxClassName="hidden md:block my-1 mx-2 w-full md:w-fit"
+              >
+                Register
+              </Button>
             </>
           )}
         </div>

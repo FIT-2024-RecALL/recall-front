@@ -57,17 +57,9 @@ export const EditCardControls: React.FC = () => {
           {updateError?.message || deleteError?.message}
         </div>
       )}
-      <div className={clsx('mt-1 center')}>
+      <div className="mt-2 center">
         <Button
-          className={clsx(
-            'text-xl m-3',
-            'transition-all duration-300',
-            cardData.frontSide &&
-              cardData.backSide &&
-              selectedOptions.length > 0
-              ? 'opacity-1'
-              : 'opacity-0 invisible'
-          )}
+          className="text-xl"
           variant="plate-green"
           onClick={() => {
             updateCard({
@@ -75,6 +67,14 @@ export const EditCardControls: React.FC = () => {
               collections: selectedOptions.map((option) => option.value),
             });
           }}
+          withShadow
+          shadowBoxClassName={
+            cardData.frontSide &&
+            cardData.backSide &&
+            selectedOptions.length > 0
+              ? 'opacity-1'
+              : 'opacity-0 invisible'
+          }
         >
           Save card
         </Button>

@@ -30,11 +30,11 @@ export const LoginForm: React.FC = () => {
 
   return (
     <form
-      className="vstack w-full"
+      className="vstack center w-full"
       onSubmit={handleSubmit((data) => login(data))}
     >
       <FormItem
-        className="vstack p-1 w-full"
+        className="vstack mb-2 w-full"
         errorMessage={errors.email?.message}
       >
         <Controller
@@ -46,7 +46,7 @@ export const LoginForm: React.FC = () => {
         />
       </FormItem>
       <FormItem
-        className="vstack p-1 w-full"
+        className="vstack mb-2 w-full"
         errorMessage={errors.password?.message}
       >
         <Controller
@@ -58,17 +58,17 @@ export const LoginForm: React.FC = () => {
         />
       </FormItem>
       {error && (
-        <FormItem className="vstack p-1 w-full" errorMessage={error.message} />
+        <FormItem className="vstack mb-2 w-full" errorMessage={error.message} />
       )}
-      <div className="center mt-2 mb-1">
-        <Button
-          variant="plate-green"
-          type="submit"
-          className="w-2/3 text-lg font-medium"
-        >
-          Sign in
-        </Button>
-      </div>
+      <Button
+        variant="plate-green"
+        type="submit"
+        className="full text-lg font-medium"
+        withShadow
+        shadowBoxClassName="w-2/3 mt-1 mb-2"
+      >
+        Sign in
+      </Button>
     </form>
   );
 };
