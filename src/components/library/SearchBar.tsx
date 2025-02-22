@@ -1,6 +1,7 @@
 import { IoSearch } from 'react-icons/io5';
 import React, { useRef, useEffect, useState } from 'react';
 import clsx from 'clsx';
+import { Button } from './Button';
 
 export interface SearchBarProps {
   searchTerm: string;
@@ -68,7 +69,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         <input
           type="search"
           placeholder="Search collections..."
-          className="w-full h-12 p-4 rounded-full"
+          className={clsx(
+            'w-full h-12 p-4 rounded-full',
+            'bg-transparent border-2 border-o-black',
+            'transition-all duration-200',
+            'hover:shadow-md hover:shadow-o-blue-sm',
+            'focus:outline-none focus:shadow-o-blue-sm'
+          )}
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
@@ -76,9 +83,12 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           }}
           onKeyDown={handleKeyDown}
         />
-        <button className="absolute p-0 right-1 h-10 w-10 top-1/2 -translate-y-1/2 bg-1-5 rounded-full flex justify-center items-center">
+        <Button
+          variant="inline"
+          className="absolute p-0 right-1 h-10 w-10 top-1 rounded-[100%]"
+        >
           <IoSearch />
-        </button>
+        </Button>
       </div>
 
       {highlightedIndex >= 0 && searchTerm && activeSearch.length > 0 && (

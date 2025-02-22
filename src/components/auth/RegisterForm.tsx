@@ -1,12 +1,10 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 
-import { Button } from '@/components/library/Button';
-import { FormItem } from '@/components/library/FormItem';
+import { Button, Input, FormItem } from '@/components/library';
 import { useAppStore } from '@/state';
-import clsx from 'clsx';
 import { useRegister } from '@/query/mutationHooks';
 
 const userRegisterScheme = z
@@ -26,7 +24,7 @@ export const RegisterForm: React.FC = () => {
   const closeAuthWindow = useAppStore((state) => state.closeAuthWindow);
 
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<UserRegisterData>({
@@ -46,62 +44,44 @@ export const RegisterForm: React.FC = () => {
         className="vstack p-1 w-full"
         errorMessage={errors.email?.message}
       >
-        <input
-          placeholder="Email"
-          className={clsx(
-            'p-1 md:p-2 w-full',
-            'text-o-black font-medium rounded',
-            'bg-transparent border-b border-o-black',
-            'focus:outline-none focus:border-b-2'
-          )}
-          {...register('email')}
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => <Input placeholder="Email" {...field} />}
         />
       </FormItem>
       <FormItem
         className="vstack p-1 w-full"
         errorMessage={errors.nickname?.message}
       >
-        <input
-          placeholder="Nickname"
-          className={clsx(
-            'p-1 md:p-2 w-full',
-            'text-o-black font-medium rounded',
-            'bg-transparent border-b border-o-black',
-            'focus:outline-none focus:border-b-2'
-          )}
-          {...register('nickname')}
+        <Controller
+          name="nickname"
+          control={control}
+          render={({ field }) => <Input placeholder="Nickname" {...field} />}
         />
       </FormItem>
       <FormItem
         className="vstack p-1 w-full"
         errorMessage={errors.password1?.message}
       >
-        <input
-          placeholder="Create password"
-          className={clsx(
-            'p-1 md:p-2 w-full',
-            'text-o-black font-medium rounded',
-            'bg-transparent border-b border-o-black',
-            'focus:outline-none focus:border-b-2'
+        <Controller
+          name="password1"
+          control={control}
+          render={({ field }) => (
+            <Input placeholder="Create password" type="password" {...field} />
           )}
-          {...register('password1')}
-          type="password"
         />
       </FormItem>
       <FormItem
         className="vstack p-1 w-full"
         errorMessage={errors.password2?.message}
       >
-        <input
-          placeholder="Repeat password"
-          className={clsx(
-            'p-1 md:p-2 w-full',
-            'text-o-black font-medium rounded',
-            'bg-transparent border-b border-o-black',
-            'focus:outline-none focus:border-b-2'
+        <Controller
+          name="password2"
+          control={control}
+          render={({ field }) => (
+            <Input placeholder="Repeat password" type="password" {...field} />
           )}
-          {...register('password2')}
-          type="password"
         />
       </FormItem>
       {error && (

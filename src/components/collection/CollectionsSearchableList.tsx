@@ -40,13 +40,8 @@ export const CollectionsSearchableList: React.FC<
       {profile ? (
         <div className="flex justify-center mb-4">
           <Button
-            variant="plate"
-            className={clsx(
-              'py-2 px-4 rounded-full',
-              'text-lg font-medium',
-              'shadow-md hover:shadow-lg',
-              'transition duration-200'
-            )}
+            variant="plate-green"
+            className={clsx('py-2 px-4 rounded-full', 'text-lg font-medium')}
             onClick={() => setIsCreateCollectionOpened(true)}
           >
             Create collection
@@ -72,7 +67,7 @@ export const CollectionsSearchableList: React.FC<
           />
 
           <div
-            className="grid align-center justify-center gap-4 pt-4"
+            className="w-full grid align-center justify-center gap-4 pt-4"
             style={{
               gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
             }}

@@ -10,6 +10,7 @@ import {
   LoadableComponent,
   Icon,
   DropDown,
+  Input,
 } from '@/components/library';
 import { useCollection } from '@/query/queryHooks';
 import {
@@ -72,13 +73,8 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
           errorMessage={errors.title?.message}
         >
           {collection && (
-            <input
-              className={clsx(
-                'p-1 md:p-2 w-full',
-                'text-1-1 font-medium rounded',
-                'bg-transparent border-b border-1-1',
-                'focus:outline-none focus:border-b-2'
-              )}
+            <Input
+              className="border-b-2 focus:border-b-4"
               placeholder="Title"
               id="title"
               defaultValue={collection.title}
@@ -94,9 +90,11 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
             <textarea
               className={clsx(
                 'p-1 md:p-2 w-full h-24 lg:h-32',
-                'bg-transparent border border-1-1',
-                'focus:outline-none focus:border-2',
-                'rounded text-black'
+                'bg-transparent border border-o-black',
+                'focus:outline-none focus:border-o-yellow-sm',
+                'focus:border-2 hover:border-2',
+                'transition-all duration-200',
+                'rounded text-o-black'
               )}
               placeholder="Description"
               id="description"
@@ -114,7 +112,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
         <div className="w-full center flex-wrap">
           <Button
             className="mt-2 md:m-2 w-1/2 md:w-fit"
-            variant="plate"
+            variant="plate-green"
             type="submit"
           >
             Save collection
@@ -127,14 +125,14 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
           )}
           <DropDown
             buttonComponent={
-              <Button className="mt-2 md:m-2" variant="bordered-trans">
+              <Button className="mt-2 md:m-2" variant="plate-red">
                 Delete collection
               </Button>
             }
           >
             <Button
               className="mt-1 md:mx-2"
-              variant="bordered"
+              variant="plate-red"
               onClick={() => deleteCollection()}
             >
               Confirm deletion

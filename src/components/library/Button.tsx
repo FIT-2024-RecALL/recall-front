@@ -12,10 +12,10 @@ interface IconButtonProps
 const variants = {
   inline: `hover:bg-o-gray/50`,
   'bordered-trans': `text-black bg-transparent ring-2 ring-o-black hover:bg-o-gray/50`,
-  'plate-green': `bg-o-green-sm text-o-black hover:bg-o-green-lg hover:shadow-md`,
+  'plate-green': `bg-o-green-sm text-o-black hover:bg-o-green-lg hover:shadow-md hover:text-o-white`,
   'plate-yellow': `bg-o-yellow-lg text-o-black hover:bg-o-yellow-sm hover:shadow-md`,
-  'plate-blue': `bg-o-blue-sm text-o-black hover:bg-o-blue-lg hover:shadow-md`,
-  'plate-red': `bg-o-red-md text-o-black hover:bg-o-red-sm hover:shadow-md`,
+  'plate-blue': `bg-o-blue-sm text-o-black hover:bg-o-blue-lg hover:shadow-md hover:text-o-white`,
+  'plate-red': `bg-o-red-sm text-o-black hover:bg-o-red-md hover:shadow-md hover:text-o-white`,
 };
 export const Button: React.FC<IconButtonProps> = ({
   variant,

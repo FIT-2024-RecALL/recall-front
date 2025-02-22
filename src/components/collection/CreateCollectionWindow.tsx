@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 import { navigate } from 'wouter/use-browser-location';
 
-import { Button, FormItem, Icon, PopUp } from '@/components/library';
+import { Button, FormItem, Icon, Input, PopUp } from '@/components/library';
 import { useAppStore } from '@/state';
 import clsx from 'clsx';
 import { routes } from '@/routes';
@@ -58,14 +58,7 @@ export const CreateCollectionWindow: React.FC = () => {
               className="m-2 md:m-4 text-2xl"
               errorMessage={errors.title?.message}
             >
-              <input
-                className={clsx(
-                  'p-1 md:p-2 w-full',
-                  'text-o-black font-medium rounded',
-                  'bg-transparent border-b border-o-black',
-                  'transition-all duration-200',
-                  'focus:outline-none focus:border-b-2'
-                )}
+              <Input
                 placeholder="Title"
                 id="title"
                 {...register('title', { required: true })}
