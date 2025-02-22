@@ -1,6 +1,6 @@
 import React from 'react';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 import { navigate } from 'wouter/use-browser-location';
 
@@ -24,6 +24,7 @@ export const CreateCollectionWindow: React.FC = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<CollectionEditType>({
@@ -58,10 +59,12 @@ export const CreateCollectionWindow: React.FC = () => {
               className="m-2 md:m-4 text-2xl"
               errorMessage={errors.title?.message}
             >
-              <Input
-                placeholder="Title"
-                id="title"
-                {...register('title', { required: true })}
+              <Controller
+                control={control}
+                name="title"
+                render={({ field }) => (
+                  <Input placeholder="Title" id="title" {...field} />
+                )}
               />
             </FormItem>
             <FormItem

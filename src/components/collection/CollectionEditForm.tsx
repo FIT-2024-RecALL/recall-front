@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 import { navigate } from 'wouter/use-browser-location';
 
@@ -39,6 +39,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<CollectionEditType>({
@@ -73,12 +74,18 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
           errorMessage={errors.title?.message}
         >
           {collection && (
-            <Input
-              className="border-b-2 focus:border-b-4"
-              placeholder="Title"
-              id="title"
+            <Controller
+              name="title"
+              control={control}
               defaultValue={collection.title}
-              {...register('title', { required: true })}
+              render={({ field }) => (
+                <Input
+                  className="border-b-2 focus:border-b-4"
+                  placeholder="Title"
+                  id="title"
+                  {...field}
+                />
+              )}
             />
           )}
         </FormItem>

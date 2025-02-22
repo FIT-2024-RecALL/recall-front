@@ -30,12 +30,13 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
       <Select
         unstyled
         classNames={{
-          container: () => 'w-full',
-          control: () => 'bg-1-2 rounded px-1',
-          multiValue: () => 'bg-1-3 m-1 px-2 rounded center',
+          container: () => 'w-full px-1',
+          control: () => 'bg-o-white border border-black rounded ',
+          multiValue: () => 'bg-o-blue-sm/25 m-1 px-1 rounded center',
           multiValueRemove: () => 'pl-1',
-          menuList: () => 'bg-1-2 my-1 py-1 divide-y-2 divide-black rounded',
-          option: () => 'p-2 hover:bg-1-3',
+          menuList: () =>
+            'bg-o-white border border-black mr-2 my-1 p-1 divide-y-2 divide-black rounded',
+          option: () => 'px-2 py-1 rounded hover:bg-o-blue-sm/50 active:',
           dropdownIndicator: () => 'mx-2',
         }}
         // components={animatedSelectComponents}

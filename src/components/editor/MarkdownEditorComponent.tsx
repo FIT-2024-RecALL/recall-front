@@ -88,9 +88,9 @@ export const MarkdownEditorComponent: React.FC<
             'bg-transparent border-2 border-o-black',
             'transition-all duration-200',
             'rounded-lg text-o-black font-mono',
-            'hover:border-4',
+            'hover:border-2 hover:border-o-green-lg',
             'focus:shadow-lg focus:outline-none',
-            'focus:border-4 focus:border-o-green-lg',
+            'focus:border-2 focus:border-o-green-sm',
             'resize-none'
           )}
           placeholder={placeholder}

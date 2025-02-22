@@ -35,33 +35,29 @@ export const EditCardControls: React.FC = () => {
   });
 
   return (
-    <>
-      <div
-        className={clsx(
-          'bg-1-1 rounded-xl',
-          'w-full vstack',
-          'border border-2 border-black',
-          'text-white'
-        )}
-      >
-        <div className={clsx('xs-md:vstack md:center', 'w-full p-1 md:p-4')}>
-          <span className="md:text-right w-full md:w-1/6 px-1">
-            Paired with:
-          </span>
-          <LoadableComponent isPending={cardCollectionsPending}>
-            <CollectionsSelect
-              selectedOptions={selectedOptions}
-              setSelectedOptions={setSelectedOptions}
-            />
-          </LoadableComponent>
-        </div>
-        {(updateError || deleteError) && (
-          <div className={clsx('center mb-2', 'text-red-200 font-bold')}>
-            {updateError?.message || deleteError?.message}
-          </div>
-        )}
+    <div
+      className={clsx(
+        'bg-o-white text-o-black rounded-xl',
+        'w-full vstack',
+        'border border-2 border-black',
+        'px-1 py-2'
+      )}
+    >
+      <div className={clsx('xs-md:vstack md:center w-full')}>
+        <span className="md:text-right w-full md:w-1/6 px-1">Paired with:</span>
+        <LoadableComponent isPending={cardCollectionsPending}>
+          <CollectionsSelect
+            selectedOptions={selectedOptions}
+            setSelectedOptions={setSelectedOptions}
+          />
+        </LoadableComponent>
       </div>
-      <div className={clsx('m-2 center h-1/12')}>
+      {(updateError || deleteError) && (
+        <div className={clsx('center mb-2', 'text-red-200 font-bold')}>
+          {updateError?.message || deleteError?.message}
+        </div>
+      )}
+      <div className={clsx('mt-1 center')}>
         <Button
           className={clsx(
             'text-xl m-3',
@@ -98,6 +94,6 @@ export const EditCardControls: React.FC = () => {
           </Button>
         </DropDown>
       </div>
-    </>
+    </div>
   );
 };
