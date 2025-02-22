@@ -11,19 +11,22 @@ export const TrainContraolsBacksideContent: React.FC<
   TrainContraolsBacksideProps
 > = ({ aiFeedBack }) => {
   return (
-    <>
-      {aiFeedBack && (
-        <span
-          className={clsx(
-            'p-2 mb-1',
-            'bg-1-2 text-white',
-            'rounded-xl border-2 border-black'
-          )}
-        >
-          {aiFeedBack.comment}
-        </span>
+    <div
+      className={clsx(
+        'bg-o-white text-o-black rounded-xl',
+        'w-full vstack',
+        'border-2 border-black',
+        'px-1 py-2',
+        'w-full vstack'
       )}
-      <div className="center">
+    >
+      {aiFeedBack && (
+        <div className="p-1 mb-1 font-mono text-center grid grid-cols-1 md:grid-cols-6">
+          <span>AI mark: {aiFeedBack.mark}</span>
+          <span className="col-span-5">{aiFeedBack.comment}</span>
+        </div>
+      )}
+      <div className="grid grid-cols-5">
         {marks.map((mark) => (
           <DescreteTrainButton
             key={mark}
@@ -32,6 +35,6 @@ export const TrainContraolsBacksideContent: React.FC<
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };

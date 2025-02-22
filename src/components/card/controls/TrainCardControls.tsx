@@ -26,23 +26,34 @@ export const TrainCardControls: React.FC = () => {
   return (
     <div
       className={clsx(
-        'mt-2 md:mt-6 center vstack',
         'transition-all duration-500 flip-inner',
         flipped && 'animate-flip'
       )}
     >
-      <div className="flip-front w-full vstack">
+      <div
+        className={clsx(
+          'bg-o-white text-o-black rounded-xl',
+          'w-full vstack',
+          'border-2 border-black',
+          'px-1 py-2',
+          'flip-front w-full vstack'
+        )}
+      >
         {flippedCount > 1 ? (
           <TrainContraolsBacksideContent aiFeedBack={aiFeedBack} />
         ) : (
           <>
-            <div className="grid grid-cols-4 gap-x-2 mb-1">
+            <div className="grid grid-cols-4 gap-2 mb-2">
               <textarea
                 className={clsx(
-                  'p-1 mb-1 col-span-4 md:col-span-3 bg-1-11',
-                  'border border-1-1',
-                  'focus:outline-none focus:border-2',
-                  'rounded text-black'
+                  'p-1 mx-1 col-span-4 md:col-span-3',
+                  'bg-transparent border-2 border-o-black',
+                  'transition-all duration-200',
+                  'rounded-lg text-o-black',
+                  'hover:border-2 hover:border-o-green-lg',
+                  'focus:outline-none',
+                  'focus:border-2 focus:border-o-green-sm',
+                  'resize-none'
                 )}
                 value={userAnswer}
                 onChange={(e) => setUserAnswer(e.target.value)}
@@ -50,8 +61,8 @@ export const TrainCardControls: React.FC = () => {
               ></textarea>
               <div className="center col-span-4 md:col-span-1">
                 <Button
-                  className=""
-                  variant="bordered"
+                  variant="plate-green"
+                  className="p-2"
                   onClick={() => compareAnswers(userAnswer)}
                 >
                   {!isPending ? 'Check answer' : 'Checking answer...'}
@@ -61,7 +72,7 @@ export const TrainCardControls: React.FC = () => {
             <div className="center">
               <Button
                 className="w-1/2 md:w-1/4"
-                variant="bordered"
+                variant="plate-yellow"
                 onClick={() => setUIFlag('flipped', () => true)}
               >
                 <span>Flip card</span>

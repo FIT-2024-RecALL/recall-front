@@ -128,14 +128,14 @@ export const TrainPage: React.FC = () => {
             />
             <div className="center">
               <Button
-                className="p-4 text-lg"
+                className="p-1 md:p-2 text-lg"
                 variant="plate-yellow"
                 onClick={refreshTrainCards}
               >
                 Refresh train cards
               </Button>
             </div>
-            <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
+            <hr className="border-2 border-o-black rounded my-2 md:my-6" />
             <CardsList cardsIds={cardsIds.slice(0, 6)} mode="train" />
           </>
         )}

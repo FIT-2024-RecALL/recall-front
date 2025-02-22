@@ -39,7 +39,7 @@ export const EditCardControls: React.FC = () => {
       className={clsx(
         'bg-o-white text-o-black rounded-xl',
         'w-full vstack',
-        'border border-2 border-black',
+        'border-2 border-black',
         'px-1 py-2'
       )}
     >

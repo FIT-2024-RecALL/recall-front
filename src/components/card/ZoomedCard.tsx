@@ -34,7 +34,7 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
           className={clsx(
             'mb-1 md:mb-2 w-full h-5/6',
             'bg-o-white text-o-black rounded-xl',
-            'border border-2 border-black',
+            'border border-2 border-black'
           )}
         />
         {mode === 'edit' && isNew && <CreateCardControls />}

@@ -40,27 +40,21 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
             <div className="flex space-x-2 mt-4">
               {collection.ownerId === profile?.id && (
                 <Link to={routes.collectionEdit.getUrl(collectionId)}>
-                  <Button
-                    variant="plate-yellow"
-                    className="py-1 px-4 rounded-full"
-                  >
+                  <Button variant="plate-yellow" className="py-1 px-4">
                     Edit
                   </Button>
                 </Link>
               )}
               {profile ? (
                 <Link to={routes.train.getUrl(collectionId)}>
-                  <Button
-                    variant="plate-green"
-                    className="py-1 px-4 rounded-full"
-                  >
+                  <Button variant="plate-green" className="py-1 px-4">
                     Train
                   </Button>
                 </Link>
               ) : (
                 <Button
                   variant="plate-green"
-                  className="py-1 px-4 rounded-full"
+                  className="py-1 px-4"
                   onClick={showAuthWindow}
                 >
                   Train

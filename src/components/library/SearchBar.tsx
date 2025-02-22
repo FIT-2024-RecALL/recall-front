@@ -85,7 +85,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         />
         <Button
           variant="inline"
-          className="absolute p-0 right-1 h-10 w-10 top-1 rounded-[100%]"
+          className="absolute right-1 h-10 w-10 top-1 rounded-r-full rounded-l-full"
         >
           <IoSearch />
         </Button>
