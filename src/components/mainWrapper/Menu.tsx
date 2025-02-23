@@ -45,8 +45,12 @@ export const Menu: React.FC = () => {
               'absolute top-16',
               'w-1/2 vstack center',
               'p-2 bg-o-white',
-              'rounded-xl shadow'
+              'border-2 border-o-black',
+              'rounded-xl shadow-md'
             )}
+            onClick={(e) => {
+              if (e.target !== e.currentTarget) setMobileMenuShown(false);
+            }}
           >
             {links}
             {profile && (
