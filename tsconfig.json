@@ -22,10 +22,12 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ] 
+      ],
     },
   },
   "include": [
-    "src"
+    "src",
+    "public", 
+    "@types/i18n.d.ts"
   ]
 }

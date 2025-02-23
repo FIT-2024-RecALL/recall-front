@@ -6,10 +6,12 @@ import { Button } from '@/components/library';
 import { useProfile } from '@/query/queryHooks';
 import { routes } from '@/routes';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 export const StartPage: React.FC = () => {
   const { profile } = useProfile();
   const showLoginWindow = useAppStore((state) => state.showLoginWindow);
+  const { t } = useTranslation();
 
   return (
     <div className="vstack m-2 md:m-10 p-2 md:p-5 text-o-black rounded-md">
@@ -17,11 +19,10 @@ export const StartPage: React.FC = () => {
         {!profile ? (
           <>
             <h1 className="text-2xl md:text-4xl text-center my-6 font-bold">
-              RecAll anything easy!
+              {t('startPage.title')}
             </h1>
             <h2 className="text-md md:text-2xl text-center my-4 font-medium md:font-bold">
-              Create collections by any topic, add cards with text, photos,
-              audios or videos and train them
+              {t('startPage.p1')}
             </h2>
             <Button
               variant="plate-green"
