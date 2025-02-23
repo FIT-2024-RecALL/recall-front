@@ -53,9 +53,9 @@ export const TrainCardControls: React.FC = () => {
               'bg-transparent border-2 border-o-black',
               'transition-all duration-200',
               'rounded-lg text-o-black',
-              'hover:border-2 hover:border-o-green-lg',
+              'hover:border-2 hover:border-green-600',
               'focus:outline-none',
-              'focus:border-2 focus:border-o-green-sm',
+              'focus:border-2 focus:border-green-300',
               'resize-none'
             )}
             value={userAnswer}

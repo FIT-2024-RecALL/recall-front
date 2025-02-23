@@ -40,7 +40,7 @@ export const CreateCollectionWindow: React.FC = () => {
     <PopUp
       isShown={isOpened}
       close={() => setIsOpened(false)}
-      className="bg-o-gray/25 backdrop-blur-sm"
+      className="bg-neutral-300/25 backdrop-blur-sm"
     >
       <div className="center">
         <div
@@ -75,7 +75,7 @@ export const CreateCollectionWindow: React.FC = () => {
                 className={clsx(
                   'p-1 md:p-2 w-full h-24 lg:h-32',
                   'bg-transparent border border-o-black',
-                  'focus:outline-none focus:border-o-green-lg',
+                  'focus:outline-none focus:border-green-600',
                   'focus:border-2 hover:border-2',
                   'transition-all duration-200',
                   'rounded text-o-black'

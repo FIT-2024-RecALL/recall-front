@@ -98,7 +98,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
               className={clsx(
                 'p-1 md:p-2 w-full h-24 lg:h-32',
                 'bg-transparent border border-o-black',
-                'focus:outline-none focus:border-o-yellow-sm',
+                'focus:outline-none focus:border-yellow-200',
                 'focus:border-2 hover:border-2',
                 'transition-all duration-200',
                 'rounded text-o-black'

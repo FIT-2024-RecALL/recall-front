@@ -12,17 +12,7 @@ module.exports = {
       },
       colors: {
         'o-white': '#FFFFEF',
-        'o-gray': '#D8D8D8',
         'o-black': '#02132A',
-        'o-red-sm': '#FF9B85',
-        'o-red-md': '#EE6055',
-        'o-red-lg': '#FF5E5B',
-        'o-green-sm': '#AAF683',
-        'o-green-lg': '#60D394',
-        'o-yellow-sm': '#FFD97D',
-        'o-yellow-lg': '#FFED66',
-        'o-blue-sm': '#6CB7E6',
-        'o-blue-lg': '#437bd4',
       },
       keyframes: {
         appear: {

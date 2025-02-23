@@ -27,7 +27,7 @@ export const FilesList: React.FC = () => {
         files?.map((file) => (
           <div
             className={clsx(
-              'bg-o-gray/25 px-2 py-4',
+              'bg-neutral-300/25 px-2 py-4',
               'grid grid-cols-4',
               'gap-x-4 rounded-lg'
             )}

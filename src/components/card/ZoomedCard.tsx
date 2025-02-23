@@ -25,7 +25,7 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
       showCloseBtn
       className={clsx(
         'center py-2',
-        'bg-o-gray/75 backdrop-blur-md',
+        'bg-neutral-300/75 backdrop-blur-md',
         'overflow-y-scroll overflow-x-hidden'
       )}
     >

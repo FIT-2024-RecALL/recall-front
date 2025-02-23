@@ -26,7 +26,7 @@ export const TrainContraolsBacksideContent: React.FC<
           <span className="col-span-5">{aiFeedBack.comment}</span>
         </div>
       )}
-      <div className="grid grid-cols-5">
+      <div className="grid grid-cols-5 gap-x-2 m-1">
         {marks.map((mark) => (
           <DescreteTrainButton
             key={mark}

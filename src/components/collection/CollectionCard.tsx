@@ -23,10 +23,10 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
       <div
         className={clsx(
           'bg-o-white text-o-black',
-          'hover:bg-o-gray/20',
+          'hover:bg-neutral-300/20',
           'p-6 m-2 rounded-lg',
-          'ring-2 ring-o-black hover:ring-o-green-lg',
-          'hover:shadow-lg hover:shadow-o-green-sm',
+          'ring-2 ring-o-black hover:ring-green-600',
+          'hover:shadow-lg hover:shadow-green-300',
           'transition-all duration-200'
         )}
       >

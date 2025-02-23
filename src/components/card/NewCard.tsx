@@ -16,7 +16,7 @@ export const NewCard: React.FC<NewCardProps> = ({ className }) => {
         setDraftActiveCard();
       }}
       className={clsx(
-        'bg-o-green-lg text-o-white text-7xl font-normal',
+        'bg-green-500 text-o-white text-7xl font-normal',
         className
       )}
     >
