@@ -21,13 +21,18 @@
     "jsx": "react-jsx",
     "paths": {
       "@/*": [
-        "./src/*"
+        "./src/*",
+      ],
+      "@public/*": [
+        "./public/*"
+      ],
+      "@types/*": [
+        "./types/*"
       ],
     },
   },
   "include": [
     "src",
-    "public", 
-    "@types/i18n.d.ts"
-  ]
+    "types",
+  ],
 }

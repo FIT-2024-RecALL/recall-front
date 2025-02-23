@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Link } from 'wouter';
 
 import { Button } from '@/components/library';
@@ -7,8 +7,11 @@ import { Menu } from './Menu';
 import { useProfile } from '@/query/queryHooks';
 import { routes } from '@/routes';
 import { useLogout } from '@/query/mutationHooks';
+import { useTranslation } from 'react-i18next';
 
 export const Header: React.FC = () => {
+  const { t } = useTranslation();
+
   const showLoginWindow = useAppStore((state) => state.showLoginWindow);
   const showRegisterWindow = useAppStore((state) => state.showRegisterWindow);
 
@@ -36,7 +39,7 @@ export const Header: React.FC = () => {
                   withShadow
                   shadowBoxClassName="full"
                 >
-                  Profile
+                  {t('common.profile')}
                 </Button>
               </Link>
               <Button
@@ -46,7 +49,7 @@ export const Header: React.FC = () => {
                 withShadow
                 shadowBoxClassName="hidden md:block my-1 mx-2 w-full md:w-fit"
               >
-                Log out
+                {t('common.logout')}
               </Button>
             </>
           ) : (
@@ -58,7 +61,7 @@ export const Header: React.FC = () => {
                 withShadow
                 shadowBoxClassName="my-1 mx-2 w-full md:w-fit"
               >
-                Log in
+                {t('common.login')}
               </Button>
               <Button
                 className="font-medium px-2 md:px-4 full"
@@ -67,7 +70,7 @@ export const Header: React.FC = () => {
                 withShadow
                 shadowBoxClassName="hidden md:block my-1 mx-2 w-full md:w-fit"
               >
-                Register
+                {t('common.register')}
               </Button>
             </>
           )}

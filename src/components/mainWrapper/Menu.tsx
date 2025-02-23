@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'wouter';
 import clsx from 'clsx';
 
@@ -6,15 +6,19 @@ import { menuRoutes } from '@/routes';
 import { Button, PopUp } from '@/components/library';
 import { useProfile } from '@/query/queryHooks';
 import { useLogout } from '@/query/mutationHooks';
+import { useTranslation } from 'react-i18next';
 
 export const Menu: React.FC = () => {
+  const { t } = useTranslation();
   const links = menuRoutes.map((data) => (
     <Link
       to={data.url}
       className="w-fit my-1 mx-2 p-0 center font-medium md:font-bold text-sm md:text-lg"
       key={data.url}
     >
-      <Button variant="inline">{data.label}</Button>
+      <Button variant="inline">
+        {data.label ? t(data.label) : 'NOT TRANSLATED'}
+      </Button>
     </Link>
   ));
 
@@ -33,7 +37,7 @@ export const Menu: React.FC = () => {
           className="my-1 rounded-md w-full font-medium"
           onClick={() => setMobileMenuShown(!mobileMenuShown)}
         >
-          Menu
+          {t('menu.menu')}
         </Button>
         <PopUp
           isShown={mobileMenuShown}
@@ -59,7 +63,7 @@ export const Menu: React.FC = () => {
                 className="my-1 mx-2 p-0 center font-medium md:font-bold text-sm md:text-lg"
                 onClick={() => logout()}
               >
-                Log out
+                {t('common.logout')}
               </Button>
             )}
           </div>

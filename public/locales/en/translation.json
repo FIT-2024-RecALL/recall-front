@@ -1,6 +1,20 @@
 {
+  "common": {
+    "profile": "My profile",
+    "collections": "Collections",
+    "404": "Page not found",
+    "login": "Log in",
+    "logout": "Log out",
+    "register": "Register"
+  },
+  "menu": {
+    "menu": "Menu",
+    "main": "Main page"
+  },
   "startPage": {
     "title": "Recall anything easy!",
-    "p1": "Create collections by any topic, add cards with text, photos, audios or videos and train them"
+    "p1": "Create collections by any topic, add cards with text, photos, audios or videos and train them",
+    "join": "Let's go!",
+    "hello": "Hello"
   }
 }
