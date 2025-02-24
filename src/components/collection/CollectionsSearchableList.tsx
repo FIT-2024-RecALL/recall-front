@@ -68,6 +68,7 @@ export const CollectionsSearchableList: React.FC<
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
             activeSearch={activeCollections.map((item) => item.title)}
+            placeholder={t('collection.searchPlaceholder')}
           />
 
           <div

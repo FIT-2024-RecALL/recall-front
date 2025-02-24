@@ -32,6 +32,7 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
       <Select
         unstyled
         classNames={{
+          placeholder: () => 'text-neutral-500/75',
           container: () => 'w-full',
           control: () => 'bg-o-white border border-black rounded px-1',
           multiValue: () => 'bg-blue-200/75 mx-1 px-1 rounded center',
@@ -46,7 +47,7 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
         isSearchable
         isClearable={false}
         defaultMenuIsOpen={false}
-        closeMenuOnSelect={false}
+        closeMenuOnSelect={true}
         maxMenuHeight={100}
         placeholder={t('card.pairedWithPlaceholder')}
         options={collectionResponseToOptions(collections)}

@@ -1,4 +1,5 @@
 import React, { HTMLAttributes, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Icon, Button } from '@/components/library';
 import clsx from 'clsx';
@@ -24,6 +25,8 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
   editorActionWrapper,
   undo,
 }) => {
+  const { t } = useTranslation();
+
   const uploadRef = useRef<HTMLInputElement>(null);
 
   const { uploadFile, isPending: isFilePending } = useFileUpload((response) => {
@@ -37,7 +40,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
-            title="Bold"
+            title={t('editor.bold')}
             onClick={() => editorActionWrapper(mutations.bold)}
           >
             <Icon icon="type-bold" />
@@ -45,7 +48,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
-            title="Italic"
+            title={t('editor.italic')}
             onClick={() => editorActionWrapper(mutations.italic)}
           >
             <Icon icon="type-italic" />
@@ -53,7 +56,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
-            title="Italic"
+            title={t('editor.h1')}
             onClick={() => editorActionWrapper(mutations.h1)}
           >
             <Icon icon="h1" />
@@ -61,7 +64,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
-            title="Add link"
+            title={t('editor.link')}
             onClick={() => editorActionWrapper(mutations.link)}
           >
             <Icon icon="link" />
@@ -69,7 +72,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
-            title="Quoting block"
+            title={t('editor.quote')}
             onClick={() => editorActionWrapper(mutations.quote)}
           >
             <Icon icon="blockquote" />
@@ -77,7 +80,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
-            title="Code block"
+            title={t('editor.code')}
             onClick={() => editorActionWrapper(mutations.code)}
           >
             <Icon icon="codeblock" />
@@ -85,7 +88,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
-            title="Add LaTeX (math) block"
+            title={t('editor.math')}
             onClick={() => editorActionWrapper(mutations.math)}
           >
             <Icon icon="sigma" />
@@ -93,7 +96,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
-            title="Unordered list"
+            title={t('editor.ul')}
             onClick={() => editorActionWrapper(mutations.ul)}
           >
             <Icon icon="list-ul" />
@@ -101,7 +104,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
-            title="Ordered list"
+            title={t('editor.ol')}
             onClick={() => editorActionWrapper(mutations.ol)}
           >
             <Icon icon="list-ol" />
@@ -122,7 +125,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="min-h-0 text-o-black"
             variant="bordered"
-            title="Upload file for card"
+            title={t('editor.uploadFile')}
             onClick={() => uploadRef.current?.click()}
           >
             {!isFilePending ? (
@@ -138,7 +141,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <Button
             className="min-h-0 text-o-black"
             variant="bordered"
-            title="Undo last change"
+            title={t('editor.undo')}
             disabled={undo ? false : true}
             onClick={undo ? undo : () => {}}
           >
@@ -149,7 +152,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
       <Button
         className="min-h-0 text-o-black"
         variant="bordered"
-        title={isActive ? 'Toggle to preview' : 'Toggle to editing'}
+        title={isActive ? t('editor.togglePreview') : t('editor.toggleEdit')}
         onClick={switchActive}
       >
         {isActive ? <Icon icon="eye" /> : <Icon icon="editor" />}

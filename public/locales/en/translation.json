@@ -61,7 +61,8 @@
     "trainButton": "Train",
     "notAllowedToEdit": "You're not allowed to edit other people's collections",
     "pairedCards": "Paired cards",
-    "allCards": "All cards"
+    "allCards": "All cards",
+    "searchPlaceholder": "Type collection's title..."
   },
   "card": {
     "aiMark": "AI mark",
@@ -84,5 +85,20 @@
     "congratulations": "Congratulations! Training was completed",
     "trainAgain": "Train this collection again",
     "refreshCards": "Refresh train cards"
+  },
+  "editor": {
+    "bold": "Bold",
+    "italic": "Italic",
+    "h1": "Heading 1",
+    "link": "Add link",
+    "quote": "Quote",
+    "code": "Code block",
+    "math": "Math block",
+    "ul": "Unordered list",
+    "ol": "Ordered list",
+    "uploadFile": "Upload file for card",
+    "undo": "Undo last change",
+    "togglePreview": "Preview",
+    "toggleEdit": "Editing"
   }
 }
