@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'wouter';
+import { useTranslation } from 'react-i18next';
 
 import { routes } from '@/routes';
 import { LoadableComponent, Button } from '@/components/library';
@@ -14,6 +15,7 @@ interface CollectionCardProps {
 export const CollectionCard: React.FC<CollectionCardProps> = ({
   collectionId,
 }) => {
+  const { t } = useTranslation();
   const { collection, isPending, error } = useCollection(collectionId);
   const { profile } = useProfile();
   const showAuthWindow = useAppStore((state) => state.showLoginWindow);
@@ -44,8 +46,9 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
                     variant="plate-yellow"
                     className="py-1 px-4"
                     withShadow
+                    title={t('common.edit')}
                   >
-                    Edit
+                    {t('common.edit')}
                   </Button>
                 </Link>
               )}
@@ -55,8 +58,9 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
                     variant="plate-green"
                     className="py-1 px-4"
                     withShadow
+                    title={t('collection.trainButton')}
                   >
-                    Train
+                    {t('collection.trainButton')}
                   </Button>
                 </Link>
               ) : (
@@ -65,8 +69,9 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
                   className="py-1 px-4"
                   onClick={showAuthWindow}
                   withShadow
+                  title={t('collection.trainButton')}
                 >
-                  Train
+                  {t('collection.trainButton')}
                 </Button>
               )}
             </div>

@@ -5,6 +5,7 @@ import { useAppStore } from '@/state';
 import { CollectionShort } from '@/api';
 import clsx from 'clsx';
 import { CollectionCard } from './CollectionCard';
+import { useTranslation } from 'react-i18next';
 
 export interface CollectionsSearchableListProps {
   collections: CollectionShort[];
@@ -13,6 +14,7 @@ export interface CollectionsSearchableListProps {
 export const CollectionsSearchableList: React.FC<
   CollectionsSearchableListProps
 > = ({ collections }) => {
+  const { t } = useTranslation();
   const { profile } = useProfile();
 
   const setIsCreateCollectionOpened = useAppStore(
@@ -44,19 +46,20 @@ export const CollectionsSearchableList: React.FC<
             className={clsx('py-2 px-4 rounded-full', 'text-lg font-medium')}
             onClick={() => setIsCreateCollectionOpened(true)}
             withShadow
+            title={t('collection.createButton')}
           >
-            Create collection
+            {t('collection.createButton')}
           </Button>
         </div>
       ) : (
         <h3 className="text-center text-xl mb-4 font-medium col-span-full">
-          Authorize to create new collection
+          {t('collection.authorizeToCreate')}
         </h3>
       )}
 
       {collections.length == 0 && (
         <h3 className="text-center text-xl font-medium col-span-full">
-          There{"'"}re no collections yet. Create the first!
+          {t('collection.noCollections')}
         </h3>
       )}
       {collections.length > 0 && (
@@ -79,7 +82,7 @@ export const CollectionsSearchableList: React.FC<
               ))
             ) : (
               <h3 className="text-center text-xl font-medium col-span-full">
-                No collections found. Maybe create new one?
+                {t('collection.noCollectionsFound')}
               </h3>
             )}
           </div>

@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 import { navigate } from 'wouter/use-browser-location';
+import { useTranslation } from 'react-i18next';
 
 import { Button, FormItem, Icon, Input, PopUp } from '@/components/library';
 import { useAppStore } from '@/state';
@@ -11,12 +12,15 @@ import { routes } from '@/routes';
 import { useCollectionCreate } from '@/query/mutationHooks';
 
 export const collectionScheme = z.object({
-  title: z.string().min(1, 'Title is required'),
+  title: z
+    .string({ message: 'collection.titleRequired' })
+    .min(1, 'collection.titleRequired'),
   description: z.string(),
 });
 export type CollectionEditType = z.infer<typeof collectionScheme>;
 
 export const CreateCollectionWindow: React.FC = () => {
+  const { t } = useTranslation();
   const isOpened = useAppStore((state) => state.isCreateCollectionWindowOpened);
   const setIsOpened = useAppStore(
     (state) => state.setIsCreateCollectionWindowOpened
@@ -52,7 +56,7 @@ export const CreateCollectionWindow: React.FC = () => {
           )}
         >
           <h2 className="text-xl font-medium text-center">
-            Collection{"'"}s creation
+            {t('collection.creationTitle')}
           </h2>
           <form onSubmit={handleSubmit((data) => createCollection(data))}>
             <FormItem
@@ -63,7 +67,11 @@ export const CreateCollectionWindow: React.FC = () => {
                 control={control}
                 name="title"
                 render={({ field }) => (
-                  <Input placeholder="Title" id="title" {...field} />
+                  <Input
+                    placeholder={t('collection.titlePlaceholder')}
+                    id="title"
+                    {...field}
+                  />
                 )}
               />
             </FormItem>
@@ -80,7 +88,7 @@ export const CreateCollectionWindow: React.FC = () => {
                   'transition-all duration-200',
                   'rounded text-o-black'
                 )}
-                placeholder="Description"
+                placeholder={t('collection.descriptionPlaceholder')}
                 id="description"
                 {...register('description')}
               />
@@ -97,8 +105,9 @@ export const CreateCollectionWindow: React.FC = () => {
                 type="submit"
                 withShadow
                 shadowBoxClassName="w-2/3 md:w-1/3"
+                title={t('collection.createButton')}
               >
-                Create
+                {t('common.create')}
               </Button>
               {isPending && (
                 <div className="mx-2">

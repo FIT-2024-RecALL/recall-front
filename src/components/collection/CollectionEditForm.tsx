@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 import { navigate } from 'wouter/use-browser-location';
+import { useTranslation } from 'react-i18next';
 
 import {
   Button,
@@ -31,6 +32,7 @@ export interface CollectionEditFormProps {
 export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
   id,
 }) => {
+  const { t } = useTranslation();
   const {
     collection,
     error: collectionError,
@@ -81,7 +83,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
               render={({ field }) => (
                 <Input
                   className="border-b-2 focus:border-b-4"
-                  placeholder="Title"
+                  placeholder={t('collection.titlePlaceholder')}
                   id="title"
                   {...field}
                 />
@@ -103,7 +105,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
                 'transition-all duration-200',
                 'rounded text-o-black'
               )}
-              placeholder="Description"
+              placeholder={t('collection.descriptionPlaceholder')}
               id="description"
               defaultValue={
                 collection.description === null ? '' : collection.description
@@ -122,19 +124,24 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
             type="submit"
             withShadow
             shadowBoxClassName="mt-2 md:m-2 w-1/2 md:w-fit"
+            title={t('common.saveChanges')}
           >
-            Save collection
+            {t('common.saveChanges')}
           </Button>
           {(isSavePending || isSaveSuccess) && (
             <div className="mt-1 md:m-2">
               {isSavePending && <Icon className="animate-spin" icon="loader" />}
-              {isSaveSuccess && 'Saved'}
+              {isSaveSuccess && t('common.saved')}
             </div>
           )}
           <DropDown
             buttonComponent={
-              <Button className="mt-2 md:m-2" variant="bordered">
-                Delete collection
+              <Button
+                className="mt-2 md:m-2"
+                variant="bordered"
+                title={t('collection.deleteButton')}
+              >
+                {t('collection.deleteButton')}
               </Button>
             }
           >
@@ -142,8 +149,9 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
               className="mt-1 md:mx-2"
               variant="plate-red"
               onClick={() => deleteCollection()}
+              title={t('common.confirmDeletion')}
             >
-              Confirm deletion
+              {t('common.confirmDeletion')}
             </Button>
             {isDeletePending && (
               <div className="mx-2">

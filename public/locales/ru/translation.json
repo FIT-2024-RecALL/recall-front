@@ -5,7 +5,12 @@
     "404": "Страница не найдена",
     "login": "Войти",
     "logout": "Выйти",
-    "register": "Регистрация"
+    "register": "Регистрация",
+    "confirmDeletion": "Подтвердить удаление",
+    "create": "Создать",
+    "edit": "Изменить",
+    "saveChanges": "Сохранить изменения",
+    "saved": "Сохранено"
   },
   "menu": {
     "menu": "Меню",
@@ -21,20 +26,35 @@
     "required": "Field is required",
     "invalidEmail": "Некорректная почта",
     "minPassword": "Пароль должен быть не менее 8 символов",
-    "emailRequired": "Email обязателен",
-    "nicknameRequired": "Ник обязателен",
+    "emailRequired": "Эл. почта обязательна",
+    "nicknameRequired": "Логин обязателен",
     "passwordRequired": "Пароль обязателен",
     "passwordMinLength": "Пароль должен быть >= 8 символов",
     "passwordRepeatRequired": "Повторение пароля обязательно",
     "passwordMismatch": "Повторите пароль правильно",
     "emailPlaceholder": "Эл. почта",
-    "nicknamePlaceholder": "Ник",
-    "createPasswordPlaceholder": "Создайте пароль",
+    "nicknamePlaceholder": "Логин",
+    "createPasswordPlaceholder": "Придумайте пароль",
     "repeatPasswordPlaceholder": "Повторите пароль",
     "loginTitle": "Войти в RecAll",
     "registerTitle": "Зарегистрироваться в RecAll",
     "goToLogin": "< Вход",
     "goToRegister": "Регистрация >",
     "passwordPlaceholder": "Пароль"
+  },
+  "collection": {
+    "titleRequired": "Название обязательно",
+    "titlePlaceholder": "Название",
+    "descriptionPlaceholder": "Описание",
+    "creationTitle": "Создание коллекции",
+    "createButton": "Создать коллекцию",
+    "authorizeToCreate": "Авторизуйтесь, чтобы создать новую коллекцию",
+    "noCollections": "Коллекций пока нет. Создайте первую!",
+    "noCollectionsFound": "Коллекции не найдены. Возможно, создайте новую?",
+    "deleteButton": "Удалить коллекцию",
+    "trainButton": "Учить",
+    "notAllowedToEdit": "Вам не разрешено редактировать чужие коллекции",
+    "pairedCards": "Связанные карточки",
+    "allCards": "Все карточки"
   }
 }

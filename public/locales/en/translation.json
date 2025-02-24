@@ -5,7 +5,12 @@
     "404": "Page not found",
     "login": "Log in",
     "logout": "Log out",
-    "register": "Register"
+    "register": "Register",
+    "confirmDeletion": "Confirm deletion",
+    "create": "Create",
+    "edit": "Edit",
+    "saveChanges": "Сохранить изменения",
+    "saved": "Сохранено"
   },
   "menu": {
     "menu": "Menu",
@@ -35,5 +40,20 @@
     "goToLogin": "< Go to Log in",
     "goToRegister": "Go to Register >",
     "passwordPlaceholder": "Password"
+  },
+  "collection": {
+    "titleRequired": "Title is required",
+    "titlePlaceholder": "Title",
+    "descriptionPlaceholder": "Description",
+    "creationTitle": "Collection's creation",
+    "createButton": "Create collection",
+    "authorizeToCreate": "Authorize to create new collection",
+    "noCollections": "There're no collections yet. Create the first!",
+    "noCollectionsFound": "No collections found. Maybe create new one?",
+    "deleteButton": "Delete collection",
+    "trainButton": "Train",
+    "notAllowedToEdit": "You're not allowed to edit other people's collections",
+    "pairedCards": "Paired cards",
+    "allCards": "All cards"
   }
 }
