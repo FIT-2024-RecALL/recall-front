@@ -72,9 +72,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
           'overflow-hidden transition-all duration-500',
           'hover:cursor-pointer hover:pl-10',
           'text-xl font-bold',
-          mode === 'train'
-            ? 'bg-green-300 hover:bg-green-300/75'
-            : 'bg-blue-300 hover:bg-blue-300/75'
+          'bg-blue-300 hover:bg-blue-300/75'
         )}
         onClick={() => setUIFlag('flipped', (f) => !f)}
       >

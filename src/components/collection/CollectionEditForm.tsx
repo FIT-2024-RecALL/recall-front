@@ -82,7 +82,10 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
               defaultValue={collection.title}
               render={({ field }) => (
                 <Input
-                  className="text-center"
+                  className={clsx(
+                    'text-center font-black',
+                    'text-lg md:text-xl lg:text-2xl xl:text-4xl'
+                  )}
                   placeholder={t('collection.titlePlaceholder')}
                   id="title"
                   {...field}
@@ -98,7 +101,8 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
           {collection && (
             <textarea
               className={clsx(
-                'p-1 md:p-2 w-full text-center',
+                'p-1 md:p-2 w-full text-center font-medium',
+                'text-base md:text-lg lg:text-xl xl:text-3xl',
                 'bg-transparent resize-none',
                 'focus:outline-none',
                 'transition-all duration-200',
@@ -119,12 +123,12 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
           className="m-2 md:m-4 text-lg"
           errorMessage={saveError?.message || deleteError?.message}
         />
-        <div className="w-full xs-md:vstack center flex-wrap">
+        <div className="w-full xs-md:vstack center">
           <Button
             variant="plate-green"
             type="submit"
             withShadow
-            shadowBoxClassName="mt-2 md:m-2 w-1/2 md:w-fit"
+            shadowBoxClassName="mt-2 md:m-2"
             title={t('common.saveChanges')}
           >
             {t('common.saveChanges')}

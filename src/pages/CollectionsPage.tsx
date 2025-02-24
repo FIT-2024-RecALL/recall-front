@@ -10,7 +10,7 @@ export const CollectionsPage: React.FC = () => {
   const { collections, isPending, error } = useCollections();
 
   return (
-    <div className="flex flex-col items-center m-4 md:m-10 p-5 text-o-black">
+    <div className="flex flex-col items-center text-o-black">
       <h1 className="text-center text-2xl font-bold mb-6">
         {t('common.collections')}
       </h1>

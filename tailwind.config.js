@@ -11,6 +11,7 @@ module.exports = {
         '11/12': '91.666666%',
       },
       colors: {
+        'o-white-max': '#FFFFF4',
         'o-white': '#FFFFEF',
         'o-black': '#02132A',
       },

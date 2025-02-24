@@ -31,25 +31,21 @@ export const ProfilePage: React.FC = () => {
 
   return (
     <LoadableComponent
-      className="flex flex-col items-center p-4 md:p-8"
+      className="flex flex-col items-center"
       isPending={isProfilePending || isCollectionsPending}
       animated
     >
-      <h1 className="text-center text-2xl font-bold mb-6">
-        {profile?.nickname}
+      <h1 className="text-center text-2xl font-bold mb-4">
+        {t('startPage.hello')}, {profile?.nickname}!
       </h1>
 
-      <hr className="border-2 border-o-black rounded my-2 md:my-6 w-full" />
-
-      <h2 className="text-center text-2xl font-bold mb-6">
+      <h2 className="text-center text-2xl font-bold mt-8 mb-4">
         {t('profile.myCollections')}
       </h2>
 
       {collections && <CollectionsSearchableList collections={collections} />}
 
-      <hr className="border-2 border-o-black rounded my-2 md:my-6 w-full" />
-
-      <h2 className="text-center text-2xl font-bold mb-6">
+      <h2 className="text-center text-2xl font-bold mt-8 mb-4">
         {t('profile.myFiles')}
       </h2>
 

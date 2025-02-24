@@ -66,7 +66,7 @@ export const TrainPage: React.FC = () => {
       errorMessage={collectionError?.message || trainCardsError?.message}
       animated
     >
-      <div className="vstack m-2 md:m-10 p-2 md:p-5">
+      <div className="vstack">
         <h1 className="my-2 text-center text-2xl font-bold">
           {t('train.training')} {collection?.title}
         </h1>

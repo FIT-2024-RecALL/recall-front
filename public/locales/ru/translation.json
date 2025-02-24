@@ -61,9 +61,9 @@
     "deleteButton": "Удалить коллекцию",
     "trainButton": "Учить",
     "notAllowedToEdit": "Вам не разрешено редактировать чужие коллекции",
-    "pairedCards": "Связанные карточки",
+    "pairedCards": "Привязанные карточки",
     "allCards": "Все карточки",
-    "searchPlaceholder": "Напишите название коллекции..."
+    "searchPlaceholder": "Искать по названию"
   },
   "card": {
     "aiMark": "Оценка ИИ",
@@ -85,7 +85,7 @@
     "goToCollections": "К коллекциям",
     "congratulations": "Поздравляем! Тренировка завершена",
     "trainAgain": "Ещё карточек!",
-    "refreshCards": "Обновить карточки для повторения"
+    "refreshCards": "Обновить карточки"
   },
   "editor": {
     "bold": "Жирный",

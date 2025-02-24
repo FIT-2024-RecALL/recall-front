@@ -45,18 +45,17 @@ export const TrainCardControls: React.FC = () => {
           'flip-front w-full vstack'
         )}
       >
-        <span className="center">{t('card.flipCard')}</span>
+        <span className="text-center mx-1">{t('card.flipCard')}</span>
         <div className="grid grid-cols-4 gap-2 mt-2">
           <textarea
             className={clsx(
               'p-1 mx-1 col-span-4 md:col-span-3',
-              'bg-transparent border-2 border-o-black',
-              'transition-all duration-200',
-              'rounded-lg text-o-black',
-              'hover:border-2 hover:border-green-600',
+              'text-center bg-transparent resize-none',
               'focus:outline-none',
-              'focus:border-2 focus:border-green-300',
-              'resize-none'
+              'transition-all duration-200',
+              'hover:shadow-inner hover:shadow-neutral-400',
+              'focus:shadow-inner hover:shadow-neutral-400',
+              'rounded text-o-black'
             )}
             value={userAnswer}
             onChange={(e) => setUserAnswer(e.target.value)}

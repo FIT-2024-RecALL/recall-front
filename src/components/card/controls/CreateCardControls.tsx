@@ -31,9 +31,6 @@ export const CreateCardControls: React.FC = () => {
       )}
     >
       <div className={clsx('vstack', 'w-full p-1 md:p-2')}>
-        {/* <span className="text-sm md:text-md text-center text-lg w-full pb-1">
-          {t('card.pairedWith')}
-        </span> */}
         <CollectionsSelect
           selectedOptions={selectedOptions}
           setSelectedOptions={setSelectedOptions}

@@ -31,7 +31,7 @@ export const Card: React.FC<CardProps> = ({ mode, cardId, className }) => {
             })
           }
           className={clsx(
-            'bg-o-white text-lg md:text-xl font-medium',
+            'bg-o-white-max text-lg md:text-xl font-medium',
             className
           )}
         >

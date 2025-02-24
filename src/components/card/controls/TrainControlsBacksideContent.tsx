@@ -18,7 +18,7 @@ export const TrainContraolsBacksideContent: React.FC<
       className={clsx(
         'bg-o-white text-o-black rounded-xl',
         'w-full vstack',
-        'border-2 border-black',
+        'border border-black',
         'px-1 py-2',
         'w-full vstack'
       )}

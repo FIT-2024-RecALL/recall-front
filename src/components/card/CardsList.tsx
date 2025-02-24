@@ -18,9 +18,13 @@ export const CardsList: React.FC<CardsListProps> = ({
 }) => {
   return (
     <div
-      className={clsx('w-full grid gap-5', className)}
+      className={clsx(
+        'w-full',
+        'grid align-center justify-center gap-4',
+        className
+      )}
       style={{
-        gridTemplateColumns: 'repeat( auto-fit, minmax(280px, 1fr) )',
+        gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr))',
       }}
     >
       {addNewCard && <NewCard />}

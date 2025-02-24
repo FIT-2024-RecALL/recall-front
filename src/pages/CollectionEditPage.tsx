@@ -11,6 +11,7 @@ import { ErrorPage } from '@/pages';
 import { CardsList } from '@/components/card';
 import { LoadableComponent } from '@/components/library';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 
 export interface EditPageParams {
   id: number;
@@ -49,10 +50,16 @@ export const CollectionEditPage: React.FC = () => {
       isPending={isCollectionPending}
       errorMessage={collectionError?.message}
     >
-      <div className="vstack m-2 md:m-10 p-2 md:p-5">
+      <div className="vstack">
         <CollectionEditForm id={id} />
 
-        <h2 className="mt-4 md:mt-8 mb-2 md:mb-4 text-2xl text-center font-bold">
+        <h2
+          className={clsx(
+            'mt-4 md:mt-8 mb-2 md:mb-4',
+            'text-center font-medium',
+            'text-base md:text-lg lg:text-xl xl:text-3xl'
+          )}
+        >
           {t('collection.pairedCards')}
         </h2>
         <LoadableComponent
@@ -66,7 +73,13 @@ export const CollectionEditPage: React.FC = () => {
           />
         </LoadableComponent>
 
-        <h2 className="mt-4 md:mt-8 mb-2 md:mb-4 text-2xl text-center font-bold">
+        <h2
+          className={clsx(
+            'mt-4 md:mt-8 mb-2 md:mb-4',
+            'text-center font-medium',
+            'text-base md:text-lg lg:text-xl xl:text-3xl'
+          )}
+        >
           {t('collection.allCards')}
         </h2>
         <LoadableComponent

@@ -10,7 +10,7 @@ export interface ErrorPageProps {
 
 export const ErrorPage: React.FC<ErrorPageProps> = ({ message, isPending }) => {
   return (
-    <div className="vstack m-2 md:m-10 p-2 md:p-5 rounded-md">
+    <div className="vstack rounded-md">
       <LoadableComponent isPending={isPending} animated>
         <h1 className="text-4xl text-center m-2 font-bold text-red-600">
           Error!

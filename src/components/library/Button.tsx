@@ -73,8 +73,8 @@ export const Button: React.FC<IconButtonProps> = ({
         'relative transition-all duration-200',
         'before:absolute before:full before:bg-black/50 before:rounded-md',
         'before:transition-all before:duration-200',
-        'hover:-translate-x-1 hover:-translate-y-1',
-        'hover:before:translate-x-1 hover:before:translate-y-1',
+        'md:hover:-translate-x-1 md:hover:-translate-y-1',
+        'md:hover:before:translate-x-1 md:hover:before:translate-y-1',
         shadowBoxClassName
       )}
     >

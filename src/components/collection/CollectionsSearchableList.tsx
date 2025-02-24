@@ -72,9 +72,12 @@ export const CollectionsSearchableList: React.FC<
           />
 
           <div
-            className="w-full grid align-center justify-center gap-4 pt-4"
+            className={clsx(
+              'w-full mt-4',
+              'grid align-center justify-center gap-4'
+            )}
             style={{
-              gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr) )',
+              gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr))',
             }}
           >
             {activeCollections.length > 0 ? (
