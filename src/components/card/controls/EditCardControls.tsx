@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 import { MultiValue } from 'react-select';
+import { useTranslation } from 'react-i18next';
 
 import { useAppStore } from '@/state';
 import { useCardCollections } from '@/query/queryHooks';
@@ -13,6 +14,7 @@ import {
 } from './CollectionsSelect';
 
 export const EditCardControls: React.FC = () => {
+  const { t } = useTranslation();
   const cardId = useAppStore((state) => state.activeCardId);
   const cardData = useAppStore((state) => state.activeCard);
   const setUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
@@ -44,7 +46,9 @@ export const EditCardControls: React.FC = () => {
       )}
     >
       <div className={clsx('xs-md:vstack md:center w-full')}>
-        <span className="md:text-right w-full md:w-1/6 px-1">Paired with:</span>
+        {/* <span className="md:text-right w-full md:w-1/6 px-1">
+          {t('card.pairedWithShort')}
+        </span> */}
         <LoadableComponent isPending={cardCollectionsPending}>
           <CollectionsSelect
             selectedOptions={selectedOptions}
@@ -75,13 +79,18 @@ export const EditCardControls: React.FC = () => {
               ? 'opacity-1'
               : 'opacity-0 invisible'
           }
+          title={t('common.saveChanges')}
         >
-          Save card
+          {t('common.saveChanges')}
         </Button>
         <DropDown
           buttonComponent={
-            <Button className="ml-3" variant="bordered">
-              Delete card
+            <Button
+              className="ml-3"
+              variant="bordered"
+              title={t('card.deleteCard')}
+            >
+              {t('card.deleteCard')}
             </Button>
           }
         >
@@ -89,8 +98,9 @@ export const EditCardControls: React.FC = () => {
             className="m-3"
             variant="plate-red"
             onClick={() => deleteCard()}
+            title={t('common.confirmDeletion')}
           >
-            Confirm deletion
+            {t('common.confirmDeletion')}
           </Button>
         </DropDown>
       </div>

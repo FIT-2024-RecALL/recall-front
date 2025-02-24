@@ -6,11 +6,12 @@ import {
   TrainPage,
   ProfilePage,
 } from '@/pages';
+import { CustomTKeys } from '@/i18n';
 
 type RouteData = {
   url: string;
   getUrl: (kwargs?: any) => string;
-  label?: string;
+  label?: CustomTKeys;
   content: JSX.Element;
 };
 type RoutesEnum =
@@ -24,13 +25,13 @@ export const routes: Record<RoutesEnum, RouteData> = {
   main: {
     url: '/',
     getUrl: () => '/',
-    label: 'Main page',
+    label: 'menu.main',
     content: <StartPage />,
   },
   collections: {
     url: '/collections',
     getUrl: () => '/collections',
-    label: 'Collections',
+    label: 'common.collections',
     content: <CollectionsPage />,
   },
   collectionEdit: {

@@ -5,6 +5,7 @@ import { Button } from './Button';
 
 export interface SearchBarProps {
   searchTerm: string;
+  placeholder?: string;
   setSearchTerm: (term: string) => void;
   activeSearch: string[];
 }
@@ -13,6 +14,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   searchTerm,
   setSearchTerm,
   activeSearch,
+  placeholder,
 }) => {
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const resultsContainerRef = useRef<HTMLDivElement>(null);
@@ -68,7 +70,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       <div className="relative">
         <input
           type="search"
-          placeholder="Search collections..."
+          placeholder={placeholder}
           className={clsx(
             'w-full h-12 p-4 rounded-full',
             'bg-transparent border-2 border-o-black',

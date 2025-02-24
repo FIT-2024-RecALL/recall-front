@@ -4,6 +4,7 @@ import Select, { MultiValue } from 'react-select';
 
 import { useProfileCollections } from '@/query/queryHooks';
 import { CollectionShort } from '@/api';
+import { useTranslation } from 'react-i18next';
 
 export type Option<V> = { value: V; label: string };
 
@@ -22,6 +23,7 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
   selectedOptions,
   setSelectedOptions,
 }) => {
+  const { t } = useTranslation();
   const { collections, isPending: collectionsPending } =
     useProfileCollections();
 
@@ -30,6 +32,7 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
       <Select
         unstyled
         classNames={{
+          placeholder: () => 'text-neutral-500/75',
           container: () => 'w-full',
           control: () => 'bg-o-white border border-black rounded px-1',
           multiValue: () => 'bg-blue-200/75 mx-1 px-1 rounded center',
@@ -44,14 +47,12 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
         isSearchable
         isClearable={false}
         defaultMenuIsOpen={false}
-        closeMenuOnSelect={false}
+        closeMenuOnSelect={true}
         maxMenuHeight={100}
+        placeholder={t('card.pairedWithPlaceholder')}
         options={collectionResponseToOptions(collections)}
         value={selectedOptions}
-        onChange={(values) => {
-          if (values.length == 0) return;
-          setSelectedOptions(values);
-        }}
+        onChange={setSelectedOptions}
       />
     </LoadableComponent>
   );

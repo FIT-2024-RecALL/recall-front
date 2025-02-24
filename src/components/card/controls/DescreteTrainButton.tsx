@@ -4,7 +4,6 @@ import { Button, Variants } from '@/components/library';
 import { useAppStore } from '@/state';
 import clsx from 'clsx';
 import { useCardTrain } from '@/query/mutationHooks';
-import { match } from 'ts-pattern';
 
 export enum Mark {
   One = 1,
@@ -49,6 +48,7 @@ export const DescreteTrainButton: React.FC<DescreteTrainButtonProps> = ({
       variant={MarksBtnVariants[mark]}
       onClick={() => trainCard(mark)}
       withShadow
+      title={mark.toString()}
     >
       {mark}
     </Button>

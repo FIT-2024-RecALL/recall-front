@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Input, FormItem } from '@/components/library';
 import { useAppStore } from '@/state';
@@ -9,18 +10,25 @@ import { useRegister } from '@/query/mutationHooks';
 
 const userRegisterScheme = z
   .object({
-    email: z.string().email('Invalid email').min(1, 'Email is required'),
-    nickname: z.string().min(1, 'Nickname is required'),
-    password1: z.string().min(8, 'Password must be >= 8 symbols'),
-    password2: z.string().min(8, 'Repetition of password is required'),
+    email: z
+      .string({ message: 'auth.emailRequired' })
+      .email('auth.invalidEmail'),
+    nickname: z.string({ message: 'auth.nicknameRequired' }),
+    password1: z
+      .string({ message: 'auth.passwordRequired' })
+      .min(8, 'auth.passwordMinLength'),
+    password2: z
+      .string({ message: 'auth.passwordRepeatRequired' })
+      .min(8, 'auth.passwordMinLength'),
   })
   .refine((data) => data.password1 === data.password2, {
-    message: 'Repeat your password correctly',
+    message: 'auth.passwordMismatch',
     path: ['password2'],
   });
 export type UserRegisterData = z.infer<typeof userRegisterScheme>;
 
 export const RegisterForm: React.FC = () => {
+  const { t } = useTranslation();
   const closeAuthWindow = useAppStore((state) => state.closeAuthWindow);
 
   const {
@@ -47,7 +55,9 @@ export const RegisterForm: React.FC = () => {
         <Controller
           name="email"
           control={control}
-          render={({ field }) => <Input placeholder="Email" {...field} />}
+          render={({ field }) => (
+            <Input placeholder={t('auth.emailPlaceholder')} {...field} />
+          )}
         />
       </FormItem>
       <FormItem
@@ -57,7 +67,9 @@ export const RegisterForm: React.FC = () => {
         <Controller
           name="nickname"
           control={control}
-          render={({ field }) => <Input placeholder="Nickname" {...field} />}
+          render={({ field }) => (
+            <Input placeholder={t('auth.nicknamePlaceholder')} {...field} />
+          )}
         />
       </FormItem>
       <FormItem
@@ -68,7 +80,11 @@ export const RegisterForm: React.FC = () => {
           name="password1"
           control={control}
           render={({ field }) => (
-            <Input placeholder="Create password" type="password" {...field} />
+            <Input
+              placeholder={t('auth.createPasswordPlaceholder')}
+              type="password"
+              {...field}
+            />
           )}
         />
       </FormItem>
@@ -80,7 +96,11 @@ export const RegisterForm: React.FC = () => {
           name="password2"
           control={control}
           render={({ field }) => (
-            <Input placeholder="Repeat password" type="password" {...field} />
+            <Input
+              placeholder={t('auth.repeatPasswordPlaceholder')}
+              type="password"
+              {...field}
+            />
           )}
         />
       </FormItem>
@@ -94,7 +114,7 @@ export const RegisterForm: React.FC = () => {
         withShadow
         shadowBoxClassName="w-2/3 mt-1 mb-2"
       >
-        Sign up
+        {t('common.register')}
       </Button>
     </form>
   );

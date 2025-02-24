@@ -10,12 +10,14 @@ import { CollectionEditForm } from '@/components/collection';
 import { ErrorPage } from '@/pages';
 import { CardsList } from '@/components/card';
 import { LoadableComponent } from '@/components/library';
+import { useTranslation } from 'react-i18next';
 
 export interface EditPageParams {
   id: number;
 }
 
 export const CollectionEditPage: React.FC = () => {
+  const { t } = useTranslation();
   const { id } = useParams<EditPageParams>();
   const { profile } = useProfile();
   const {
@@ -38,7 +40,7 @@ export const CollectionEditPage: React.FC = () => {
     return (
       <ErrorPage
         isPending={isCollectionPending}
-        message="You're not allowed to edit other people's collections"
+        message={t('collection.notAllowedToEdit')}
       />
     );
 
@@ -51,7 +53,9 @@ export const CollectionEditPage: React.FC = () => {
         <CollectionEditForm id={id} />
 
         <hr className="border-2 border-o-black rounded my-2 md:my-6" />
-        <h2 className="my-2 text-2xl text-center font-bold">Paired cards</h2>
+        <h2 className="my-2 md:my-4 text-2xl text-center font-bold">
+          {t('collection.pairedCards')}
+        </h2>
         <LoadableComponent
           isPending={collectionCardsPending}
           errorMessage={collectionCardsError?.message}
@@ -63,7 +67,9 @@ export const CollectionEditPage: React.FC = () => {
           />
         </LoadableComponent>
         <hr className="border border-o-black rounded my-2 md:my-6" />
-        <h2 className="my-2 text-2xl text-center font-bold">All cards</h2>
+        <h2 className="my-2 md:my-4 text-2xl text-center font-bold">
+          {t('collection.allCards')}
+        </h2>
         <LoadableComponent
           isPending={profileCardsPending}
           errorMessage={profileCardsError?.message}

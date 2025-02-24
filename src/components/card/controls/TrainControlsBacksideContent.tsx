@@ -2,6 +2,7 @@ import React from 'react';
 import { DescreteTrainButton, marks } from './DescreteTrainButton';
 import clsx from 'clsx';
 import { AIFeedback } from '@/api';
+import { useTranslation } from 'react-i18next';
 
 export type TrainContraolsBacksideProps = {
   aiFeedBack?: AIFeedback;
@@ -10,6 +11,8 @@ export type TrainContraolsBacksideProps = {
 export const TrainContraolsBacksideContent: React.FC<
   TrainContraolsBacksideProps
 > = ({ aiFeedBack }) => {
+  const { t } = useTranslation();
+
   return (
     <div
       className={clsx(
@@ -22,7 +25,9 @@ export const TrainContraolsBacksideContent: React.FC<
     >
       {aiFeedBack && (
         <div className="p-1 mb-1 font-mono text-center grid grid-cols-1 md:grid-cols-6">
-          <span>AI mark: {aiFeedBack.mark}</span>
+          <span>
+            {t('card.aiMark')}: {aiFeedBack.mark}
+          </span>
           <span className="col-span-5">{aiFeedBack.comment}</span>
         </div>
       )}
