@@ -3,7 +3,7 @@ import { MiniCard } from './visuals';
 import { useAppStore } from '@/state';
 import clsx from 'clsx';
 
-interface NewCardProps extends HTMLAttributes<React.FC> {}
+type NewCardProps = HTMLAttributes<React.FC>;
 
 export const NewCard: React.FC<NewCardProps> = ({ className }) => {
   const setDraftActiveCard = useAppStore((state) => state.setDraftActiveCard);
@@ -15,7 +15,10 @@ export const NewCard: React.FC<NewCardProps> = ({ className }) => {
         setActiveCardUIMode('edit');
         setDraftActiveCard();
       }}
-      className={clsx('bg-1-4 text-7xl font-normal', className)}
+      className={clsx(
+        'bg-green-500 text-o-white text-7xl font-normal',
+        className
+      )}
     >
       <h2>+</h2>
     </MiniCard>

@@ -20,26 +20,30 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
 
   return (
     <LoadableComponent isPending={isPending} errorMessage={error?.message}>
-      <div className="bg-1-3 text-o-black p-6 m-2 rounded-lg shadow-lg">
+      <div
+        className={clsx(
+          'bg-o-white text-o-black',
+          'hover:bg-neutral-300/20',
+          'p-6 m-2 rounded-lg',
+          'ring-2 ring-o-black hover:ring-green-600',
+          'hover:shadow-lg hover:shadow-green-300',
+          'transition-all duration-200'
+        )}
+      >
         {collection && (
           <>
             <div>
-              <h2 className="text-lg font-bold text-1-12 mb-2">
-                {collection.title}
-              </h2>
-              <p className="text-md text-1-11 mb-2">{collection.description}</p>
+              <h2 className="text-lg font-bold mb-2">{collection.title}</h2>
+              <p className="text-md mb-2">{collection.description}</p>
             </div>
 
             <div className="flex space-x-2 mt-4">
               {collection.ownerId === profile?.id && (
                 <Link to={routes.collectionEdit.getUrl(collectionId)}>
                   <Button
-                    variant="plate"
-                    className={clsx(
-                      'bg-1-9 border-1-9 hover:bg-1-7 hover:border-1-7',
-                      'text-1-2 py-1 px-4 rounded-full',
-                      'transtition duration-200'
-                    )}
+                    variant="plate-yellow"
+                    className="py-1 px-4"
+                    withShadow
                   >
                     Edit
                   </Button>
@@ -48,19 +52,21 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
               {profile ? (
                 <Link to={routes.train.getUrl(collectionId)}>
                   <Button
-                    variant="bordered-trans"
-                    className="border-1-8 py-1 px-4 rounded-full hover:bg-1-6 transition duration-200"
+                    variant="plate-green"
+                    className="py-1 px-4"
+                    withShadow
                   >
-                    <span className="text-1-8">Train</span>
+                    Train
                   </Button>
                 </Link>
               ) : (
                 <Button
-                  variant="bordered-trans"
-                  className="border-1-8 py-1 px-4 rounded-full hover:bg-1-6 transition duration-200"
+                  variant="plate-green"
+                  className="py-1 px-4"
                   onClick={showAuthWindow}
+                  withShadow
                 >
-                  <span className="text-1-8">Train</span>
+                  Train
                 </Button>
               )}
             </div>

@@ -1,12 +1,10 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 
-import { Button } from '@/components/library/Button';
-import { FormItem } from '@/components/library/FormItem';
+import { Button, Input, FormItem } from '@/components/library';
 import { useAppStore } from '@/state';
-import clsx from 'clsx';
 import { useLogin } from '@/query/mutationHooks';
 
 const userLoginScheme = z.object({
@@ -21,8 +19,8 @@ export const LoginForm: React.FC = () => {
   const closeAuthWindow = useAppStore((state) => state.closeAuthWindow);
 
   const {
-    register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<UserLoginData>({
     resolver: zodResolver(userLoginScheme),
@@ -32,52 +30,45 @@ export const LoginForm: React.FC = () => {
 
   return (
     <form
-      className="vstack w-full"
+      className="vstack center w-full"
       onSubmit={handleSubmit((data) => login(data))}
     >
       <FormItem
-        className="vstack p-1 w-full"
+        className="vstack mb-2 w-full"
         errorMessage={errors.email?.message}
       >
-        <input
-          placeholder="Email"
-          className={clsx(
-            'p-1 md:p-2 w-full',
-            'text-1-1 font-medium rounded',
-            'bg-transparent border-b border-1-1',
-            'focus:outline-none focus:border-b-2'
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <Input placeholder="Email" inputMode="email" {...field} />
           )}
-          {...register('email')}
         />
       </FormItem>
       <FormItem
-        className="vstack p-1 w-full"
+        className="vstack mb-2 w-full"
         errorMessage={errors.password?.message}
       >
-        <input
-          placeholder="Password"
-          className={clsx(
-            'p-1 md:p-2 w-full',
-            'text-1-1 font-medium rounded',
-            'bg-transparent border-b border-1-1',
-            'focus:outline-none focus:border-b-2'
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => (
+            <Input placeholder="Password" type="password" {...field} />
           )}
-          {...register('password')}
-          type="password"
         />
       </FormItem>
       {error && (
-        <FormItem className="vstack p-1 w-full" errorMessage={error.message} />
+        <FormItem className="vstack mb-2 w-full" errorMessage={error.message} />
       )}
-      <div className="center mt-2 mb-1">
-        <Button
-          variant="plate"
-          type="submit"
-          className="w-2/3 text-lg font-medium"
-        >
-          Sign in
-        </Button>
-      </div>
+      <Button
+        variant="plate-green"
+        type="submit"
+        className="full text-lg font-medium"
+        withShadow
+        shadowBoxClassName="w-2/3 mt-1 mb-2"
+      >
+        Sign in
+      </Button>
     </form>
   );
 };

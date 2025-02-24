@@ -19,7 +19,7 @@ export const Header: React.FC = () => {
   return (
     <header>
       <div className="grid grid-cols-3 m-0 p-2 w-full">
-        <h2 className="flex justify-start items-center text-lg md:text-2xl text-1-1 font-bold mx-2">
+        <h2 className="flex justify-start items-center text-lg md:text-2xl font-bold mx-2">
           <Link to="/">RecAll</Link>
         </h2>
         <Menu />
@@ -28,40 +28,47 @@ export const Header: React.FC = () => {
             <>
               <Link
                 to={routes.profile.getUrl()}
-                className="my-1 mx-2 p-0 center font-medium w-full md:w-fit"
+                className="my-1 mx-2 w-full md:w-fit"
               >
-                <Button className="w-full md:w-fit" variant="bordered-trans">
+                <Button
+                  className="font-medium px-2 md:px-4 full"
+                  variant="plate-yellow"
+                  withShadow
+                  shadowBoxClassName="full"
+                >
                   Profile
                 </Button>
               </Link>
-              <div className="hidden md:block">
-                <Button
-                  variant="bordered-trans"
-                  className="p-1 my-1 mx-2 font-medium md:text-md"
-                  onClick={() => logout()}
-                >
-                  Log out
-                </Button>
-              </div>
+              <Button
+                className="font-medium px-2 md:px-4 full"
+                variant="plate-red"
+                onClick={() => logout()}
+                withShadow
+                shadowBoxClassName="hidden md:block my-1 mx-2 w-full md:w-fit"
+              >
+                Log out
+              </Button>
             </>
           ) : (
             <>
               <Button
-                variant="bordered-trans"
-                className="p-1 my-1 mx-2 font-medium text-md w-full md:w-fit"
+                className="font-medium px-2 md:px-4 full"
+                variant="plate-green"
                 onClick={showLoginWindow}
+                withShadow
+                shadowBoxClassName="my-1 mx-2 w-full md:w-fit"
               >
                 Log in
               </Button>
-              <div className="hidden md:block">
-                <Button
-                  variant="bordered-trans"
-                  className="p-1 my-1 mx-2 font-medium md:text-md"
-                  onClick={showRegisterWindow}
-                >
-                  Register
-                </Button>
-              </div>
+              <Button
+                className="font-medium px-2 md:px-4 full"
+                variant="plate-blue"
+                onClick={showRegisterWindow}
+                withShadow
+                shadowBoxClassName="hidden md:block my-1 mx-2 w-full md:w-fit"
+              >
+                Register
+              </Button>
             </>
           )}
         </div>

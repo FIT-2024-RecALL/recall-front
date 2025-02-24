@@ -18,7 +18,7 @@ export const CardsList: React.FC<CardsListProps> = ({
 }) => {
   return (
     <div
-      className={clsx('grid gap-x-5 gap-y-3 w-full', className)}
+      className={clsx('w-full grid gap-5', className)}
       style={{
         gridTemplateColumns: 'repeat( auto-fit, minmax(280px, 1fr) )',
       }}

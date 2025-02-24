@@ -81,7 +81,11 @@ export const TrainPage: React.FC = () => {
                 className="my-2 md:m-2 w-full md:w-1/3"
                 to={routes.collections.getUrl()}
               >
-                <Button className="w-full font-medium text-lg" variant="plate">
+                <Button
+                  className="w-full font-medium text-lg"
+                  variant="plate-green"
+                  withShadow
+                >
                   Go to collections
                 </Button>
               </Link>
@@ -98,14 +102,20 @@ export const TrainPage: React.FC = () => {
                 className="w-full md:w-1/4"
                 to={routes.collections.getUrl()}
               >
-                <Button className="w-full font-medium text-lg" variant="plate">
+                <Button
+                  className="w-full font-medium text-lg"
+                  variant="plate-yellow"
+                  withShadow
+                >
                   Go to collections
                 </Button>
               </Link>
               <Button
-                className="my-2 md:m-2 w-full md:w-1/4 font-medium text-lg"
-                variant="plate"
+                className="font-medium text-lg full"
+                variant="plate-green"
                 onClick={refreshTrainCards}
+                withShadow
+                shadowBoxClassName="my-2 md:m-2 w-full md:w-1/4 "
               >
                 Train this collection again
               </Button>
@@ -122,14 +132,15 @@ export const TrainPage: React.FC = () => {
             />
             <div className="center">
               <Button
-                className="p-4 text-lg"
-                variant="plate"
+                className="p-1 md:p-2 text-lg"
+                variant="plate-yellow"
                 onClick={refreshTrainCards}
+                withShadow
               >
                 Refresh train cards
               </Button>
             </div>
-            <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
+            <hr className="border-2 border-o-black rounded my-2 md:my-6" />
             <CardsList cardsIds={cardsIds.slice(0, 6)} mode="train" />
           </>
         )}

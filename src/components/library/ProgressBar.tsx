@@ -25,7 +25,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
     >
       <div
         className={clsx(
-          'absolute bg-1-6 h-full',
+          'absolute bg-green-300 h-full',
           'trainsition-all duration-500',
           fillClassName
         )}

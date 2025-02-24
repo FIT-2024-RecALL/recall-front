@@ -38,32 +38,32 @@ export const ProfilePage: React.FC = () => {
         {"'"}s profile
       </h1>
 
-      <hr className="border-2 border-1-1 rounded my-2 md:my-6 w-full" />
+      <hr className="border-2 border-o-black rounded my-2 md:my-6 w-full" />
 
       <h2 className="text-center text-2xl font-bold mb-6">Your collections</h2>
 
       {collections && <CollectionsSearchableList collections={collections} />}
 
-      <hr className="border-2 border-1-1 rounded my-2 md:my-6 w-full" />
+      <hr className="border-2 border-o-black rounded my-2 md:my-6 w-full" />
 
       <h2 className="text-center text-2xl font-bold mb-6">Your files</h2>
 
       <FilesList />
 
-      <hr className="border-2 border-1-1 rounded my-2 md:my-6 w-full" />
+      <hr className="border-2 border-o-black rounded my-2 md:my-6 w-full" />
 
       <h2 className="text-center text-2xl font-bold mb-6">Delete account</h2>
 
       <DropDown
         buttonComponent={
-          <Button className="mx-3" variant="bordered-trans">
+          <Button className="mx-3" variant="bordered">
             Delete account
           </Button>
         }
       >
         <Button
           className="m-3"
-          variant="bordered"
+          variant="plate-red"
           onClick={() => deleteProfile()}
         >
           Confirm deletion

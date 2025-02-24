@@ -50,7 +50,7 @@ export const CollectionEditPage: React.FC = () => {
       <div className="vstack m-2 md:m-10 p-2 md:p-5">
         <CollectionEditForm id={id} />
 
-        <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
+        <hr className="border-2 border-o-black rounded my-2 md:my-6" />
         <h2 className="my-2 text-2xl text-center font-bold">Paired cards</h2>
         <LoadableComponent
           isPending={collectionCardsPending}
@@ -62,7 +62,7 @@ export const CollectionEditPage: React.FC = () => {
             addNewCard
           />
         </LoadableComponent>
-        <hr className="border border-1-1 rounded my-2 md:my-6" />
+        <hr className="border border-o-black rounded my-2 md:my-6" />
         <h2 className="my-2 text-2xl text-center font-bold">All cards</h2>
         <LoadableComponent
           isPending={profileCardsPending}

@@ -31,9 +31,9 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
   });
 
   return (
-    <div className={clsx('around w-full my-1 flex-wrap', className)}>
+    <div className={clsx('around w-full my-1 gap-y-1 flex-wrap', className)}>
       {isActive && (
-        <div className="w-full md:w-fit bg-1-7 border-2 border-1-1 rounded-md around font-medium">
+        <div className="w-full md:w-fit bg-1-7 ring-2 ring-o-black rounded-md around font-medium overflow-hidden">
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"
@@ -120,7 +120,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
             }}
           />
           <Button
-            className=""
+            className="min-h-0 text-o-black"
             variant="bordered"
             title="Upload file for card"
             onClick={() => uploadRef.current?.click()}
@@ -136,7 +136,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
       {isActive && (
         <>
           <Button
-            className="min-h-0 text-black"
+            className="min-h-0 text-o-black"
             variant="bordered"
             title="Undo last change"
             disabled={undo ? false : true}
@@ -147,7 +147,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
         </>
       )}
       <Button
-        className="min-h-0 text-black"
+        className="min-h-0 text-o-black"
         variant="bordered"
         title={isActive ? 'Toggle to preview' : 'Toggle to editing'}
         onClick={switchActive}

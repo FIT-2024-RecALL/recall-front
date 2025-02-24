@@ -45,7 +45,10 @@ export const PopUp: React.FC<PopUpProps> = (
       {...props}
     >
       {showCloseBtn && (
-        <div className="absolute top-0 w-full center" onClick={close}>
+        <div
+          className="absolute top-[1px] md:top-1 w-full center"
+          onClick={close}
+        >
           <Button className="p-0 m-0" variant="inline">
             <Icon icon="close" /> <span>Close</span>
           </Button>

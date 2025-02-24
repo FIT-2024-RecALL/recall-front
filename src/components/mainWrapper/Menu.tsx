@@ -29,7 +29,7 @@ export const Menu: React.FC = () => {
       <nav className="hidden md:flex justify-around">{links}</nav>
       <nav className="md:hidden w-full">
         <Button
-          variant="bordered-trans"
+          variant="bordered"
           className="my-1 rounded-md w-full font-medium"
           onClick={() => setMobileMenuShown(!mobileMenuShown)}
         >
@@ -45,8 +45,12 @@ export const Menu: React.FC = () => {
               'absolute top-16',
               'w-1/2 vstack center',
               'p-2 bg-o-white',
-              'rounded-xl shadow'
+              'border-2 border-o-black',
+              'rounded-xl shadow-md'
             )}
+            onClick={(e) => {
+              if (e.target !== e.currentTarget) setMobileMenuShown(false);
+            }}
           >
             {links}
             {profile && (

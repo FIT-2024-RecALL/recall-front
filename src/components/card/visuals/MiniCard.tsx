@@ -13,17 +13,26 @@ export const MiniCard: React.FC<MiniCardProps> = ({
   return (
     <div
       className={clsx(
-        'transition-all',
-        'px-4 py-2 w-full h-48 center',
-        'hover:cursor-pointer rounded-lg',
-        'bg-1-3 hover:bg-1-3/80',
-        'hover:scale-105 hover:shadow',
-        'text-1-12',
-        className
+        'relative transition-all duration-200',
+        'before:absolute before:full before:bg-black/50 before:rounded-lg',
+        'before:transition-all before:duration-200',
+        'hover:-translate-x-2 hover:-translate-y-2',
+        'hover:before:translate-x-2 hover:before:translate-y-2'
       )}
-      onClick={() => onClick?.()}
     >
-      {children}
+      <div
+        className={clsx(
+          'transition-all duration-200',
+          'overflow-hidden relative',
+          'px-4 py-2 w-full h-48 center rounded-lg',
+          'ring-2 ring-o-black',
+          'hover:cursor-pointer',
+          className
+        )}
+        onClick={() => onClick?.()}
+      >
+        {children}
+      </div>
     </div>
   );
 };

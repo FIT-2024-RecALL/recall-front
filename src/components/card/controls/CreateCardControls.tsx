@@ -20,33 +20,32 @@ export const CreateCardControls: React.FC = () => {
   );
 
   return (
-    <>
-      <div
-        className={clsx(
-          'bg-1-1 rounded-xl',
-          'w-full vstack',
-          'border border-2 border-black',
-          'text-white'
-        )}
-      >
-        <div className={clsx('vstack', 'w-full p-1 md:p-2')}>
-          <span className="text-sm md:text-md text-center text-lg w-full pb-1">
-            Paired with (at least one paired collection):
-          </span>
-          <CollectionsSelect
-            selectedOptions={selectedOptions}
-            setSelectedOptions={setSelectedOptions}
-          />
-        </div>
-        {createError && (
-          <div className={clsx('center mb-2', 'text-red-400 font-bold')}>
-            {createError.message}
-          </div>
-        )}
+    <div
+      className={clsx(
+        'bg-o-white text-o-black rounded-xl',
+        'w-full vstack',
+        'border-2 border-black',
+        'px-1 py-2'
+      )}
+    >
+      <div className={clsx('vstack', 'w-full p-1 md:p-2')}>
+        <span className="text-sm md:text-md text-center text-lg w-full pb-1">
+          Paired with (at least one paired collection):
+        </span>
+        <CollectionsSelect
+          selectedOptions={selectedOptions}
+          setSelectedOptions={setSelectedOptions}
+        />
       </div>
+      {createError && (
+        <div className={clsx('center mb-2', 'text-red-400 font-bold')}>
+          {createError.message}
+        </div>
+      )}
+
       <div
         className={clsx(
-          'm-2 center h-1/12',
+          'mt-1 center',
           'transition-all duration-300',
           cardData.frontSide && cardData.backSide && selectedOptions.length > 0
             ? 'opacity-1'
@@ -54,18 +53,19 @@ export const CreateCardControls: React.FC = () => {
         )}
       >
         <Button
-          className="text-xl m-3"
-          variant="bordered"
+          className="text-xl"
+          variant="plate-green"
           onClick={() => {
             createCard({
               card: { ...cardData },
               collections: selectedOptions?.map((option) => option.value),
             });
           }}
+          withShadow
         >
           Create card
         </Button>
       </div>
-    </>
+    </div>
   );
 };

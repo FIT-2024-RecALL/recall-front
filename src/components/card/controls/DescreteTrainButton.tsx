@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Button } from '@/components/library';
+import { Button, Variants } from '@/components/library';
 import { useAppStore } from '@/state';
 import clsx from 'clsx';
 import { useCardTrain } from '@/query/mutationHooks';
+import { match } from 'ts-pattern';
 
 export enum Mark {
   One = 1,
@@ -15,6 +16,13 @@ export enum Mark {
 export const marks: Mark[] = Object.values(Mark).filter(
   (value) => typeof value === 'number'
 ) as Mark[];
+const MarksBtnVariants: Record<Mark, Variants> = {
+  '1': 'plate-red',
+  '2': 'plate-orange',
+  '3': 'plate-yellow',
+  '4': 'plate-lime',
+  '5': 'plate-green',
+};
 
 export interface DescreteTrainButtonProps {
   mark: Mark;
@@ -37,9 +45,10 @@ export const DescreteTrainButton: React.FC<DescreteTrainButtonProps> = ({
 
   return (
     <Button
-      className={clsx('m-1 px-2', recommended && 'border-4')}
-      variant="bordered"
+      className={clsx('px-2', recommended && 'border-4 border-o-black')}
+      variant={MarksBtnVariants[mark]}
       onClick={() => trainCard(mark)}
+      withShadow
     >
       {mark}
     </Button>

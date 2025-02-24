@@ -1,7 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 import { Icon } from './Icon';
 import clsx from 'clsx';
-import { animated } from '@react-spring/web';
 
 interface LoadableComponentProps extends HTMLAttributes<React.FC> {
   isPending?: boolean;

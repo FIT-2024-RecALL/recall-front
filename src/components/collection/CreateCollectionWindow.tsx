@@ -1,10 +1,10 @@
 import React from 'react';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 import { navigate } from 'wouter/use-browser-location';
 
-import { Button, FormItem, Icon, PopUp } from '@/components/library';
+import { Button, FormItem, Icon, Input, PopUp } from '@/components/library';
 import { useAppStore } from '@/state';
 import clsx from 'clsx';
 import { routes } from '@/routes';
@@ -24,6 +24,7 @@ export const CreateCollectionWindow: React.FC = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<CollectionEditType>({
@@ -39,15 +40,15 @@ export const CreateCollectionWindow: React.FC = () => {
     <PopUp
       isShown={isOpened}
       close={() => setIsOpened(false)}
-      className="bg-1-8/25 backdrop-blur-sm"
+      className="bg-neutral-300/25 backdrop-blur-sm"
     >
       <div className="center">
         <div
           className={clsx(
-            'absolute top-1/4 w-3/4',
+            'absolute top-1/4 w-5/6',
             'bg-o-white',
             'm-2 p-3 md:w-1/2 lg:w-1/3 h-fit',
-            'border border-1-1 rounded-lg'
+            'border-2 border-o-black rounded-lg'
           )}
         >
           <h2 className="text-xl font-medium text-center">
@@ -55,19 +56,15 @@ export const CreateCollectionWindow: React.FC = () => {
           </h2>
           <form onSubmit={handleSubmit((data) => createCollection(data))}>
             <FormItem
-              className="m-2 md:m-4 text-2xl"
+              className="m-2 md:m-4 text-xl md:text-2xl"
               errorMessage={errors.title?.message}
             >
-              <input
-                className={clsx(
-                  'p-1 md:p-2 w-full',
-                  'text-1-1 font-medium rounded',
-                  'bg-transparent border-b border-1-1',
-                  'focus:outline-none focus:border-b-2'
+              <Controller
+                control={control}
+                name="title"
+                render={({ field }) => (
+                  <Input placeholder="Title" id="title" {...field} />
                 )}
-                placeholder="Title"
-                id="title"
-                {...register('title', { required: true })}
               />
             </FormItem>
             <FormItem
@@ -77,21 +74,30 @@ export const CreateCollectionWindow: React.FC = () => {
               <textarea
                 className={clsx(
                   'p-1 md:p-2 w-full h-24 lg:h-32',
-                  'bg-transparent border border-1-1',
-                  'focus:outline-none focus:border-2',
-                  'rounded text-black'
+                  'bg-transparent border border-o-black',
+                  'focus:outline-none focus:border-green-600',
+                  'focus:border-2 hover:border-2',
+                  'transition-all duration-200',
+                  'rounded text-o-black'
                 )}
                 placeholder="Description"
                 id="description"
                 {...register('description')}
               />
             </FormItem>
-            <FormItem
-              className="m-2 md:m-4 text-lg"
-              errorMessage={error?.message}
-            />
+            {error?.message && (
+              <FormItem
+                className="m-2 md:m-4 text-lg"
+                errorMessage={error?.message}
+              />
+            )}
             <div className="w-full center">
-              <Button variant="plate" type="submit">
+              <Button
+                variant="plate-green"
+                type="submit"
+                withShadow
+                shadowBoxClassName="w-2/3 md:w-1/3"
+              >
                 Create
               </Button>
               {isPending && (

@@ -31,8 +31,7 @@ export const Card: React.FC<CardProps> = ({ mode, cardId, className }) => {
             })
           }
           className={clsx(
-            'overflow-hidden relative',
-            'text-lg md:text-xl font-medium',
+            'bg-o-white text-lg md:text-xl font-medium',
             className
           )}
         >
@@ -44,7 +43,6 @@ export const Card: React.FC<CardProps> = ({ mode, cardId, className }) => {
                 rawText={card.frontSide}
                 extended
               />
-              <div className="full absolute"></div>
             </>
           )}
         </MiniCard>
