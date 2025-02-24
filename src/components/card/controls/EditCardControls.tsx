@@ -41,14 +41,11 @@ export const EditCardControls: React.FC = () => {
       className={clsx(
         'bg-o-white text-o-black rounded-xl',
         'w-full vstack',
-        'border-2 border-black',
+        'border border-black',
         'px-1 py-2'
       )}
     >
       <div className={clsx('xs-md:vstack md:center w-full')}>
-        {/* <span className="md:text-right w-full md:w-1/6 px-1">
-          {t('card.pairedWithShort')}
-        </span> */}
         <LoadableComponent isPending={cardCollectionsPending}>
           <CollectionsSelect
             selectedOptions={selectedOptions}

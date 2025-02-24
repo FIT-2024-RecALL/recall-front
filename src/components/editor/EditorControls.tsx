@@ -36,7 +36,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
   return (
     <div className={clsx('around w-full my-1 gap-y-1 flex-wrap', className)}>
       {isActive && (
-        <div className="w-full md:w-fit bg-1-7 ring-2 ring-o-black rounded-md around font-medium overflow-hidden">
+        <div className="w-full md:w-fit bg-1-7 ring-1 ring-o-black rounded-md around font-medium overflow-hidden">
           <Button
             className="rounded-none m-0 p-0 min-h-0 text-black"
             variant="inline"

@@ -52,8 +52,7 @@ export const CollectionEditPage: React.FC = () => {
       <div className="vstack m-2 md:m-10 p-2 md:p-5">
         <CollectionEditForm id={id} />
 
-        <hr className="border-2 border-o-black rounded my-2 md:my-6" />
-        <h2 className="my-2 md:my-4 text-2xl text-center font-bold">
+        <h2 className="mt-4 md:mt-8 mb-2 md:mb-4 text-2xl text-center font-bold">
           {t('collection.pairedCards')}
         </h2>
         <LoadableComponent
@@ -66,8 +65,8 @@ export const CollectionEditPage: React.FC = () => {
             addNewCard
           />
         </LoadableComponent>
-        <hr className="border border-o-black rounded my-2 md:my-6" />
-        <h2 className="my-2 md:my-4 text-2xl text-center font-bold">
+
+        <h2 className="mt-4 md:mt-8 mb-2 md:mb-4 text-2xl text-center font-bold">
           {t('collection.allCards')}
         </h2>
         <LoadableComponent

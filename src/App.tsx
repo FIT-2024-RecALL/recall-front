@@ -13,7 +13,7 @@ export const App: React.FC = () => {
       <CreateCollectionWindow />
       <ZoomedCard />
       <Header />
-      <main className="flex-grow">
+      <main className="flex-grow sm:px-16 md:px-32 lg:px-48 xl:px-64">
         <AppRoutes />
       </main>
       <Footer />

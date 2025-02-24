@@ -82,9 +82,8 @@ export const CreateCollectionWindow: React.FC = () => {
               <textarea
                 className={clsx(
                   'p-1 md:p-2 w-full h-24 lg:h-32',
-                  'bg-transparent border border-o-black',
-                  'focus:outline-none focus:border-green-600',
-                  'focus:border-2 hover:border-2',
+                  'bg-transparent resize-none',
+                  'focus:outline-none',
                   'transition-all duration-200',
                   'rounded text-o-black'
                 )}

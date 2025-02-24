@@ -85,13 +85,12 @@ export const MarkdownEditorComponent: React.FC<
           ref={editorRef}
           className={clsx(
             'p-1 md:p-2 full',
-            'bg-transparent border-2 border-o-black',
+            'bg-transparent resize-none',
             'transition-all duration-200',
             'rounded-lg text-o-black font-mono',
-            'hover:border-2 hover:border-green-600',
-            'focus:shadow-lg focus:outline-none',
-            'focus:border-2 focus:border-green-300',
-            'resize-none'
+            'hover:shadow-inner hover:shadow-neutral-400',
+            'focus:shadow-inner hover:shadow-neutral-400',
+            'focus:outline-none'
           )}
           placeholder={placeholder}
           value={state}

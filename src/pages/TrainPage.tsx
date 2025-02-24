@@ -144,8 +144,11 @@ export const TrainPage: React.FC = () => {
                 {t('train.refreshCards')}
               </Button>
             </div>
-            <hr className="border-2 border-o-black rounded my-2 md:my-6" />
-            <CardsList cardsIds={cardsIds.slice(0, 6)} mode="train" />
+            <CardsList
+              className="mt-4 md:mt-8"
+              cardsIds={cardsIds.slice(0, 6)}
+              mode="train"
+            />
           </>
         )}
       </div>

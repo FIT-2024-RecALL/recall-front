@@ -25,7 +25,7 @@ export const MiniCard: React.FC<MiniCardProps> = ({
           'transition-all duration-200',
           'overflow-hidden relative',
           'px-4 py-2 w-full h-48 center rounded-lg',
-          'ring-2 ring-o-black',
+          'ring-1 ring-o-black',
           'hover:cursor-pointer',
           className
         )}

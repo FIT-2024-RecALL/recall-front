@@ -22,7 +22,7 @@ export type Variants =
   | 'plate-red';
 const variants: Record<Variants, string> = {
   inline: `hover:bg-neutral-300/50 hover:shadow-inner`,
-  bordered: `text-black bg-o-white border-2 border-o-black hover:bg-neutral-300/50 hover:shadow-inner`,
+  bordered: `text-black bg-o-white border border-o-black hover:bg-neutral-300/50 hover:shadow-inner`,
   'plate-green': `bg-green-300 text-o-black hover:bg-green-600 hover:shadow-inner hover:text-o-white`,
   'plate-lime': `bg-lime-300 text-o-black hover:bg-lime-600 hover:shadow-inner hover:text-o-white`,
   'plate-yellow': `bg-yellow-200 text-o-black hover:bg-amber-400 hover:shadow-inner hover:text-o-white`,

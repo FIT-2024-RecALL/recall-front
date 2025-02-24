@@ -34,7 +34,8 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
         classNames={{
           placeholder: () => 'text-neutral-500/75',
           container: () => 'w-full',
-          control: () => 'bg-o-white border border-black rounded px-1',
+          control: () =>
+            'bg-o-white hover:shadow-inner hover:shadow-neutral-400 rounded px-1',
           multiValue: () => 'bg-blue-200/75 mx-1 px-1 rounded center',
           multiValueRemove: () => 'pl-1',
           menuList: () =>

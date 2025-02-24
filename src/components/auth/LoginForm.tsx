@@ -46,6 +46,7 @@ export const LoginForm: React.FC = () => {
             <Input
               placeholder={t('auth.emailPlaceholder')}
               inputMode="email"
+              bottomBorder
               {...field}
             />
           )}
@@ -62,6 +63,7 @@ export const LoginForm: React.FC = () => {
             <Input
               placeholder={t('auth.passwordPlaceholder')}
               type="password"
+              bottomBorder
               {...field}
             />
           )}

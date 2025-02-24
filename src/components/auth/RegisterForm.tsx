@@ -56,7 +56,11 @@ export const RegisterForm: React.FC = () => {
           name="email"
           control={control}
           render={({ field }) => (
-            <Input placeholder={t('auth.emailPlaceholder')} {...field} />
+            <Input
+              placeholder={t('auth.emailPlaceholder')}
+              bottomBorder
+              {...field}
+            />
           )}
         />
       </FormItem>
@@ -68,7 +72,11 @@ export const RegisterForm: React.FC = () => {
           name="nickname"
           control={control}
           render={({ field }) => (
-            <Input placeholder={t('auth.nicknamePlaceholder')} {...field} />
+            <Input
+              placeholder={t('auth.nicknamePlaceholder')}
+              bottomBorder
+              {...field}
+            />
           )}
         />
       </FormItem>
@@ -82,6 +90,7 @@ export const RegisterForm: React.FC = () => {
           render={({ field }) => (
             <Input
               placeholder={t('auth.createPasswordPlaceholder')}
+              bottomBorder
               type="password"
               {...field}
             />
@@ -98,6 +107,7 @@ export const RegisterForm: React.FC = () => {
           render={({ field }) => (
             <Input
               placeholder={t('auth.repeatPasswordPlaceholder')}
+              bottomBorder
               type="password"
               {...field}
             />

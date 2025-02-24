@@ -40,7 +40,7 @@ export const TrainCardControls: React.FC = () => {
         className={clsx(
           'bg-o-white text-o-black rounded-xl',
           'w-full vstack',
-          'border-2 border-black',
+          'border border-black',
           'px-1 py-2',
           'flip-front w-full vstack'
         )}
