@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import React, { PropsWithChildren, useEffect } from 'react';
 
 import { Button, Icon } from '@/components/library';
+import { useTranslation } from 'react-i18next';
 
 interface PopUpProps extends PropsWithChildren<React.HTMLAttributes<React.FC>> {
   isShown: boolean;
@@ -24,6 +25,8 @@ export const PopUp: React.FC<PopUpProps> = (
   { isShown, close, showCloseBtn, className, children },
   ...props
 ) => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (isShown) {
       document.body.classList.add('overflow-y-hidden');
@@ -49,8 +52,8 @@ export const PopUp: React.FC<PopUpProps> = (
           className="absolute top-[1px] md:top-1 w-full center"
           onClick={close}
         >
-          <Button className="p-0 m-0" variant="inline">
-            <Icon icon="close" /> <span>Close</span>
+          <Button className="p-0 m-0 font-medium" variant="inline">
+            <Icon icon="close" /> <span>{t('common.close')}</span>
           </Button>
         </div>
       )}

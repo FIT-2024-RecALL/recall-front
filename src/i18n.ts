@@ -5,7 +5,7 @@ import { initReactI18next } from 'react-i18next';
 import { DeepestPaths } from '@/utils/helpers';
 
 i18next.use(languageDetector).use(localesBackend).use(initReactI18next).init({
-  fallbackLng: 'ru',
+  fallbackLng: 'en',
 });
 
 export type CustomTKeys = DeepestPaths<

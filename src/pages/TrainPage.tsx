@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { Link, useParams } from 'wouter';
 import { useShallow } from 'zustand/react/shallow';
 import { useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 import { useAppStore } from '@/state';
 import { routes } from '@/routes';
@@ -20,6 +21,7 @@ export interface TrainPageParams {
 }
 
 export const TrainPage: React.FC = () => {
+  const { t } = useTranslation();
   const { id } = useParams<TrainPageParams>();
 
   const { profile } = useProfile();
@@ -54,7 +56,7 @@ export const TrainPage: React.FC = () => {
     return (
       <ErrorPage
         isPending={isCollectionPending || isTrainCardsPending}
-        message="Only authorized users can train"
+        message={t('train.onlyAuthorized')}
       />
     );
 
@@ -66,15 +68,13 @@ export const TrainPage: React.FC = () => {
     >
       <div className="vstack m-2 md:m-10 p-2 md:p-5">
         <h1 className="my-2 text-center text-2xl font-bold">
-          Trainining {collection?.title}
+          {t('train.training')} {collection?.title}
         </h1>
         {maxCount === 0 && (
           <>
+            <h2 className="text-center text-xl my-2">{t('train.noCards')}</h2>
             <h2 className="text-center text-xl my-2">
-              There{"'"}re no cards to train
-            </h2>
-            <h2 className="text-center text-xl my-2">
-              Maybe chill or train other collection?
+              {t('train.chillOrTrain')}
             </h2>
             <div className="vstack md:center">
               <Link
@@ -85,8 +85,9 @@ export const TrainPage: React.FC = () => {
                   className="w-full font-medium text-lg"
                   variant="plate-green"
                   withShadow
+                  title={t('train.goToCollections')}
                 >
-                  Go to collections
+                  {t('train.goToCollections')}
                 </Button>
               </Link>
             </div>
@@ -95,7 +96,7 @@ export const TrainPage: React.FC = () => {
         {maxCount > 0 && trainedCount >= maxCount && (
           <>
             <h2 className="text-center text-2xl my-2">
-              Congratulations! Training was completed
+              {t('train.congratulations')}
             </h2>
             <div className="xs-md:vstack md:center">
               <Link
@@ -106,8 +107,9 @@ export const TrainPage: React.FC = () => {
                   className="w-full font-medium text-lg"
                   variant="plate-yellow"
                   withShadow
+                  title={t('train.goToCollections')}
                 >
-                  Go to collections
+                  {t('train.goToCollections')}
                 </Button>
               </Link>
               <Button
@@ -116,8 +118,9 @@ export const TrainPage: React.FC = () => {
                 onClick={refreshTrainCards}
                 withShadow
                 shadowBoxClassName="my-2 md:m-2 w-full md:w-1/4 "
+                title={t('train.trainAgain')}
               >
-                Train this collection again
+                {t('train.trainAgain')}
               </Button>
             </div>
           </>
@@ -136,8 +139,9 @@ export const TrainPage: React.FC = () => {
                 variant="plate-yellow"
                 onClick={refreshTrainCards}
                 withShadow
+                title={t('train.refreshCards')}
               >
-                Refresh train cards
+                {t('train.refreshCards')}
               </Button>
             </div>
             <hr className="border-2 border-o-black rounded my-2 md:my-6" />

@@ -14,7 +14,7 @@ type FlippingCardProps = HTMLAttributes<React.FC>;
 
 export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
   const { t } = useTranslation();
-  
+
   const mode = useAppStore((state) => state.activeCardUI.mode);
   const frontSide = useAppStore((state) => state.activeCard.frontSide);
   const backSide = useAppStore((state) => state.activeCard.backSide);

@@ -9,8 +9,9 @@
     "confirmDeletion": "Confirm deletion",
     "create": "Create",
     "edit": "Edit",
-    "saveChanges": "Сохранить изменения",
-    "saved": "Сохранено"
+    "saveChanges": "Save changes",
+    "saved": "Saved",
+    "close": "Close"
   },
   "menu": {
     "menu": "Menu",
@@ -73,5 +74,15 @@
     "pairedWithPlaceholder": "Select paired collections (at least one)",
     "createCard": "Create card",
     "deleteCard": "Delete card"
+  },
+  "train": {
+    "onlyAuthorized": "Only authorized users can train",
+    "training": "Training",
+    "noCards": "There're no cards to train",
+    "chillOrTrain": "Maybe chill or train other collection?",
+    "goToCollections": "Go to collections",
+    "congratulations": "Congratulations! Training was completed",
+    "trainAgain": "Train this collection again",
+    "refreshCards": "Refresh train cards"
   }
 }
