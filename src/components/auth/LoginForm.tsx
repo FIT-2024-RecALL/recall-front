@@ -2,20 +2,22 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Input, FormItem } from '@/components/library';
 import { useAppStore } from '@/state';
 import { useLogin } from '@/query/mutationHooks';
 
 const userLoginScheme = z.object({
-  email: z.string().email().min(1, 'Email is required'),
+  email: z.string({ message: 'auth.emailRequired' }).email('auth.invalidEmail'),
   password: z
-    .string()
-    .min(8, 'Password must be more than or equal to 8 symbols'),
+    .string({ message: 'auth.passwordRequired' })
+    .min(8, 'auth.passwordMinLength'),
 });
 export type UserLoginData = z.infer<typeof userLoginScheme>;
 
 export const LoginForm: React.FC = () => {
+  const { t } = useTranslation();
   const closeAuthWindow = useAppStore((state) => state.closeAuthWindow);
 
   const {
@@ -41,7 +43,11 @@ export const LoginForm: React.FC = () => {
           name="email"
           control={control}
           render={({ field }) => (
-            <Input placeholder="Email" inputMode="email" {...field} />
+            <Input
+              placeholder={t('auth.emailPlaceholder')}
+              inputMode="email"
+              {...field}
+            />
           )}
         />
       </FormItem>
@@ -53,7 +59,11 @@ export const LoginForm: React.FC = () => {
           name="password"
           control={control}
           render={({ field }) => (
-            <Input placeholder="Password" type="password" {...field} />
+            <Input
+              placeholder={t('auth.passwordPlaceholder')}
+              type="password"
+              {...field}
+            />
           )}
         />
       </FormItem>
@@ -67,7 +77,7 @@ export const LoginForm: React.FC = () => {
         withShadow
         shadowBoxClassName="w-2/3 mt-1 mb-2"
       >
-        Sign in
+        {t('common.login')}
       </Button>
     </form>
   );

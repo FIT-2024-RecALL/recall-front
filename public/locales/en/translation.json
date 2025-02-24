@@ -16,5 +16,24 @@
     "p1": "Create collections by any topic, add cards with text, photos, audios or videos and train them",
     "join": "Let's go!",
     "hello": "Hello"
+  },
+  "auth": {
+    "required": "Field is required",
+    "emailRequired": "Email is required",
+    "invalidEmail": "Invalid email",
+    "nicknameRequired": "Nickname is required",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be >= 8 symbols",
+    "passwordRepeatRequired": "Repetition of password is required",
+    "passwordMismatch": "Repeat your password correctly",
+    "emailPlaceholder": "Email",
+    "nicknamePlaceholder": "Nickname",
+    "createPasswordPlaceholder": "Create password",
+    "repeatPasswordPlaceholder": "Repeat password",
+    "loginTitle": "Log in to RecAll",
+    "registerTitle": "Register in RecAll",
+    "goToLogin": "< Go to Log in",
+    "goToRegister": "Go to Register >",
+    "passwordPlaceholder": "Password"
   }
 }

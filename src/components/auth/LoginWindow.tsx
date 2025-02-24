@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { PopUp } from '@/components/library/PopUp';
 import { Button } from '@/components/library/Button';
@@ -8,6 +9,7 @@ import { RegisterForm } from './RegisterForm';
 import clsx from 'clsx';
 
 export const LoginWindow: React.FC = () => {
+  const { t } = useTranslation();
   const authWindowState = useAppStore((state) => state.authWindow);
   const closeAuthWindow = useAppStore((state) => state.closeAuthWindow);
   const toggleActiveAuthWindow = useAppStore(
@@ -34,7 +36,7 @@ export const LoginWindow: React.FC = () => {
           )}
         >
           <h1 className="text-lg md:text-xl text-center text-black font-bold mb-2">
-            {isLogin ? 'Log in to RecAll' : 'Register in RecAll'}
+            {isLogin ? t('auth.loginTitle') : t('auth.registerTitle')}
           </h1>
           <div className="vstack center transition-all duration-300 relative">
             <div
@@ -59,7 +61,7 @@ export const LoginWindow: React.FC = () => {
                 variant="bordered"
                 onClick={toggleActiveAuthWindow}
               >
-                {isRegister ? '< Go to Log in' : 'Go to Register >'}
+                {isRegister ? t('auth.goToLogin') : t('auth.goToRegister')}
               </Button>
             </div>
           </div>

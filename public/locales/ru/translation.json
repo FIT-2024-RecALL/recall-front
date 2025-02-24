@@ -16,5 +16,25 @@
     "p1": "Создавайте коллекции по любой тематике, добавляйте карточки с текстом, фотографиями, аудио или видео и тренируйтесь, пока не запомните всё",
     "join": "Начать",
     "hello": "Привет"
+  },
+  "auth": {
+    "required": "Field is required",
+    "invalidEmail": "Некорректная почта",
+    "minPassword": "Пароль должен быть не менее 8 символов",
+    "emailRequired": "Email обязателен",
+    "nicknameRequired": "Ник обязателен",
+    "passwordRequired": "Пароль обязателен",
+    "passwordMinLength": "Пароль должен быть >= 8 символов",
+    "passwordRepeatRequired": "Повторение пароля обязательно",
+    "passwordMismatch": "Повторите пароль правильно",
+    "emailPlaceholder": "Эл. почта",
+    "nicknamePlaceholder": "Ник",
+    "createPasswordPlaceholder": "Создайте пароль",
+    "repeatPasswordPlaceholder": "Повторите пароль",
+    "loginTitle": "Войти в RecAll",
+    "registerTitle": "Зарегистрироваться в RecAll",
+    "goToLogin": "< Вход",
+    "goToRegister": "Регистрация >",
+    "passwordPlaceholder": "Пароль"
   }
 }
