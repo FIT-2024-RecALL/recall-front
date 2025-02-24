@@ -8,10 +8,13 @@ import {
 
 import { CardSide } from './CardSide';
 import { useAppStore } from '@/state';
+import { useTranslation } from 'react-i18next';
 
 type FlippingCardProps = HTMLAttributes<React.FC>;
 
 export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
+  const { t } = useTranslation();
+  
   const mode = useAppStore((state) => state.activeCardUI.mode);
   const frontSide = useAppStore((state) => state.activeCard.frontSide);
   const backSide = useAppStore((state) => state.activeCard.backSide);
@@ -33,7 +36,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
             state={frontSide}
             setState={(s) => setCardSide('frontSide', s)}
             extended
-            placeholder="First side (required)"
+            placeholder={t('card.frontSidePlaceholder')}
             previewClassName="font-sans"
           />
         )}
@@ -50,7 +53,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
           <MarkdownEditorComponent
             state={backSide}
             setState={(s) => setCardSide('backSide', s)}
-            placeholder="Second side (required)"
+            placeholder={t('card.backSidePlaceholder')}
             previewClassName="font-sans"
           />
         )}

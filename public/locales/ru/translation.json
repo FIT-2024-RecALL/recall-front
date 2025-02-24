@@ -42,6 +42,12 @@
     "goToRegister": "Регистрация >",
     "passwordPlaceholder": "Пароль"
   },
+  "profile": {
+    "onlyAuthorized": "Только авторизованные пользователи могут просматривать свои профили",
+    "myCollections": "Мои коллекции",
+    "myFiles": "Мои файлы",
+    "deleteAccount": "Удалить аккаунт"
+  },
   "collection": {
     "titleRequired": "Название обязательно",
     "titlePlaceholder": "Название",
@@ -56,5 +62,17 @@
     "notAllowedToEdit": "Вам не разрешено редактировать чужие коллекции",
     "pairedCards": "Связанные карточки",
     "allCards": "Все карточки"
+  },
+  "card": {
+    "aiMark": "Оценка ИИ",
+    "flipCard": "Переверните карточку и оцените себя или проверьте свои знания с помощью ИИ",
+    "typeAnswer": "Введите свой ответ",
+    "checkAnswer": "Проверить ответ",
+    "checkingAnswer": "Проверка ответа...",
+    "frontSidePlaceholder": "Первая сторона (обязательно)",
+    "backSidePlaceholder": "Обратная сторона (обязательно)",
+    "pairedWithPlaceholder": "Выберите связанные коллекции (минимум одну)",
+    "deleteCard": "Удалить карточку",
+    "createCard": "Создать карточку"
   }
 }

@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import { MultiValue } from 'react-select';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/library';
 import { useAppStore } from '@/state';
@@ -8,6 +9,7 @@ import { CollectionsSelect, Option } from './CollectionsSelect';
 import { useCardCreate } from '@/query/mutationHooks';
 
 export const CreateCardControls: React.FC = () => {
+  const { t } = useTranslation();
   const cardData = useAppStore((state) => state.activeCard);
   const setUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
 
@@ -29,9 +31,9 @@ export const CreateCardControls: React.FC = () => {
       )}
     >
       <div className={clsx('vstack', 'w-full p-1 md:p-2')}>
-        <span className="text-sm md:text-md text-center text-lg w-full pb-1">
-          Paired with (at least one paired collection):
-        </span>
+        {/* <span className="text-sm md:text-md text-center text-lg w-full pb-1">
+          {t('card.pairedWith')}
+        </span> */}
         <CollectionsSelect
           selectedOptions={selectedOptions}
           setSelectedOptions={setSelectedOptions}
@@ -62,8 +64,9 @@ export const CreateCardControls: React.FC = () => {
             });
           }}
           withShadow
+          title={t('card.createCard')}
         >
-          Create card
+          {t('card.createCard')}
         </Button>
       </div>
     </div>

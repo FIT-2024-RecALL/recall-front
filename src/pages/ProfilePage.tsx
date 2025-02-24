@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   Button,
@@ -13,6 +14,7 @@ import { CollectionsSearchableList } from '@/components/collection';
 import { useProfileDelete } from '@/query/mutationHooks';
 
 export const ProfilePage: React.FC = () => {
+  const { t } = useTranslation();
   const { profile, isPending: isProfilePending } = useProfile();
   const { collections, isPending: isCollectionsPending } =
     useProfileCollections();
@@ -23,7 +25,7 @@ export const ProfilePage: React.FC = () => {
     return (
       <ErrorPage
         isPending={isProfilePending}
-        message="Only authorized users can view their profiles"
+        message={t('profile.onlyAuthorized')}
       />
     );
 
@@ -35,29 +37,38 @@ export const ProfilePage: React.FC = () => {
     >
       <h1 className="text-center text-2xl font-bold mb-6">
         {profile?.nickname}
-        {"'"}s profile
       </h1>
 
       <hr className="border-2 border-o-black rounded my-2 md:my-6 w-full" />
 
-      <h2 className="text-center text-2xl font-bold mb-6">Your collections</h2>
+      <h2 className="text-center text-2xl font-bold mb-6">
+        {t('profile.myCollections')}
+      </h2>
 
       {collections && <CollectionsSearchableList collections={collections} />}
 
       <hr className="border-2 border-o-black rounded my-2 md:my-6 w-full" />
 
-      <h2 className="text-center text-2xl font-bold mb-6">Your files</h2>
+      <h2 className="text-center text-2xl font-bold mb-6">
+        {t('profile.myFiles')}
+      </h2>
 
       <FilesList />
 
       <hr className="border-2 border-o-black rounded my-2 md:my-6 w-full" />
 
-      <h2 className="text-center text-2xl font-bold mb-6">Delete account</h2>
+      <h2 className="text-center text-2xl font-bold mb-6">
+        {t('profile.deleteAccount')}
+      </h2>
 
       <DropDown
         buttonComponent={
-          <Button className="mx-3" variant="bordered">
-            Delete account
+          <Button
+            className="mx-3"
+            variant="bordered"
+            title={t('profile.deleteAccount')}
+          >
+            {t('profile.deleteAccount')}
           </Button>
         }
       >
@@ -65,8 +76,9 @@ export const ProfilePage: React.FC = () => {
           className="m-3"
           variant="plate-red"
           onClick={() => deleteProfile()}
+          title={t('common.confirmDeletion')}
         >
-          Confirm deletion
+          {t('common.confirmDeletion')}
         </Button>
         {isDeletePending && (
           <div className="mx-2">

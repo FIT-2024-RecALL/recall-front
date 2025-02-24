@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/library';
 import { useAppStore } from '@/state';
@@ -8,6 +9,7 @@ import { TrainContraolsBacksideContent } from './TrainControlsBacksideContent';
 import { AIFeedback } from '@/api';
 
 export const TrainCardControls: React.FC = () => {
+  const { t } = useTranslation();
   const [flippedCount, setFlippedCount] = useState(0);
   const cardId = useAppStore((state) => state.activeCardId);
   const flipped = useAppStore((state) => state.activeCardUI.flipped);
@@ -43,9 +45,7 @@ export const TrainCardControls: React.FC = () => {
           'flip-front w-full vstack'
         )}
       >
-        <span className="center">
-          Flip card and grade yourself or check you aknowledgements using AI
-        </span>
+        <span className="center">{t('card.flipCard')}</span>
         <div className="grid grid-cols-4 gap-2 mt-2">
           <textarea
             className={clsx(
@@ -60,7 +60,7 @@ export const TrainCardControls: React.FC = () => {
             )}
             value={userAnswer}
             onChange={(e) => setUserAnswer(e.target.value)}
-            placeholder="Type your answer"
+            placeholder={t('card.typeAnswer')}
           ></textarea>
           <div className="center col-span-4 md:col-span-1">
             <Button
@@ -69,8 +69,9 @@ export const TrainCardControls: React.FC = () => {
               onClick={() => compareAnswers(userAnswer)}
               disabled={isPending}
               withShadow
+              title={t('card.checkAnswer')}
             >
-              {!isPending ? 'Check answer' : 'Checking answer...'}
+              {!isPending ? t('card.checkAnswer') : t('card.checkingAnswer')}
             </Button>
           </div>
         </div>
