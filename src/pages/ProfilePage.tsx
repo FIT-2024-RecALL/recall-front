@@ -51,7 +51,7 @@ export const ProfilePage: React.FC = () => {
 
       <FilesList />
 
-      <hr className="border-2 border-o-black rounded my-2 md:my-6 w-full" />
+      <hr className="border-2 border-o-black rounded-sm my-2 md:my-6 w-full" />
 
       <h2 className="text-center text-2xl font-bold mb-6">
         {t('profile.deleteAccount')}

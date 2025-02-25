@@ -73,7 +73,7 @@ export const EditCardControls: React.FC = () => {
             cardData.frontSide &&
             cardData.backSide &&
             selectedOptions.length > 0
-              ? 'opacity-1'
+              ? 'opacity-100'
               : 'opacity-0 invisible'
           }
           title={t('common.saveChanges')}

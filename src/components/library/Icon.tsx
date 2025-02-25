@@ -15,7 +15,6 @@ import {
   TbLoader,
   TbMoon,
   TbPlus,
-  TbQuestionCircle,
   TbSend,
   TbSun,
   TbTrash,
@@ -54,7 +53,6 @@ export const icons = [
   'warn',
   'circuit',
   'loader',
-  'question',
   'eye',
   'editor',
   'projects',
@@ -119,7 +117,6 @@ export const Icon: React.FC<IconProps> = ({
     .with('play', () => TbTriangleFilled)
     .with('dark', () => TbMoon)
     .with('fire', () => TbFlame)
-    .with('question', () => TbQuestionCircle)
     .with('eye', () => TbEyeFilled)
     .with('trash', () => TbTrash)
     .with('loader', () => TbLoader)

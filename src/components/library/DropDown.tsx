@@ -22,7 +22,7 @@ export const DropDown: React.FC<DropDownProps> = ({
       <div
         className={clsx(
           'absolute transition-all',
-          isShown ? 'opacity-1 visible z-50' : 'opacity-0 invisible'
+          isShown ? 'neutral-300visible z-50' : 'opacity-0 invisible'
         )}
       >
         <div

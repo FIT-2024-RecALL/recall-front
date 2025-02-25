@@ -90,7 +90,7 @@ export const MarkdownEditorComponent: React.FC<
             'rounded-lg text-o-black font-mono',
             'hover:shadow-inner hover:shadow-neutral-400',
             'focus:shadow-inner hover:shadow-neutral-400',
-            'focus:outline-none'
+            'focus:outline-hidden'
           )}
           placeholder={placeholder}
           value={state}
