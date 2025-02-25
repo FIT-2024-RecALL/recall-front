@@ -5,6 +5,7 @@ import Select, { MultiValue } from 'react-select';
 import { useProfileCollections } from '@/query/queryHooks';
 import { CollectionShort } from '@/api';
 import { useTranslation } from 'react-i18next';
+import { useAppStore } from '@/state';
 
 export type Option<V> = { value: V; label: string };
 
@@ -24,6 +25,9 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
   setSelectedOptions,
 }) => {
   const { t } = useTranslation();
+
+  const switchOnChangedFlag = useAppStore((state) => state.switchOnChangedFlag);
+
   const { collections, isPending: collectionsPending } =
     useProfileCollections();
 
@@ -37,13 +41,14 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
           control: () =>
             'bg-o-white hover:shadow-inner hover:shadow-neutral-400 rounded-sm px-1',
           multiValue: () => 'bg-blue-200/75 mx-1 px-1 rounded-sm center',
-          multiValueRemove: () => 'pl-1',
+          multiValueRemove: () =>
+            'ml-1 cursor-pointer rounded-xs transition-all duration-400 hover:bg-neutral-300/50',
           menuList: () =>
             'bg-o-white border border-black my-1 p-1 divide-y-2 divide-neutral-300 rounded-sm',
           option: () => 'px-2 py-1 rounded-sm hover:bg-blue-200/50 active:',
-          dropdownIndicator: () => 'mx-2',
+          dropdownIndicator: () =>
+            'mx-2 cursor-pointer rounded-xs transition-all duration-400 hover:bg-neutral-300/50',
         }}
-        // components={animatedSelectComponents}
         isMulti
         isSearchable
         isClearable={false}
@@ -53,7 +58,10 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
         placeholder={t('card.pairedWithPlaceholder')}
         options={collectionResponseToOptions(collections)}
         value={selectedOptions}
-        onChange={setSelectedOptions}
+        onChange={(options) => {
+          setSelectedOptions(options);
+          switchOnChangedFlag();
+        }}
       />
     </LoadableComponent>
   );

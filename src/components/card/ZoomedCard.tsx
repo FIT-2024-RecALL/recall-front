@@ -9,19 +9,28 @@ import {
   TrainCardControls,
 } from './controls';
 import { useAppStore } from '@/state';
+import { useTranslation } from 'react-i18next';
 
 type ZoomedCardProps = HTMLAttributes<React.FC>;
 
 export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
+  const { t } = useTranslation();
+
   const zoomed = useAppStore((state) => state.activeCardUI.zoomed);
   const setCardUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
   const mode = useAppStore((state) => state.activeCardUI.mode);
   const isNew = useAppStore((state) => state.isNewActiveCard);
+  const isChanged = useAppStore((state) => state.isActiveCardChanged);
 
   return (
     <PopUp
       isShown={zoomed}
-      close={() => setCardUIFlag('zoomed', () => false)}
+      close={() => {
+        if (mode === 'edit' && isChanged) {
+          if (confirm(t('card.confirmClose')))
+            setCardUIFlag('zoomed', () => false);
+        } else setCardUIFlag('zoomed', () => false);
+      }}
       showCloseBtn
       className={clsx(
         'center py-2',
