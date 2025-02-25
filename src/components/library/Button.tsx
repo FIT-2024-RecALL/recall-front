@@ -49,6 +49,7 @@ export const Button: React.FC<IconButtonProps> = ({
         'center rounded-md',
         'min-w-[16px] min-h-[16px] md:min-w-[32px] md:min-h-[32px]',
         'space-x-2 p-1 md:p-2 transition-all duration-200',
+        'cursor-pointer disabled:cursor-not-allowed',
         className
       )}
       disabled={loading}

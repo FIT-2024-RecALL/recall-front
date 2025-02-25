@@ -39,7 +39,7 @@ export const PopUp: React.FC<PopUpProps> = (
     <div
       className={clsx(
         'transition-all fixed z-50 inset-0 full',
-        isShown ? 'opacity-1' : 'opacity-0 invisible',
+        isShown ? 'opacity-100' : 'opacity-0 invisible',
         className
       )}
       onClick={(e) => {

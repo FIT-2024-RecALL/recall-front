@@ -23,7 +23,7 @@ export const LoginWindow: React.FC = () => {
     <PopUp
       isShown={authWindowState !== 'hidden'}
       close={closeAuthWindow}
-      className="bg-neutral-300/25 backdrop-blur-sm"
+      className="bg-neutral-300/25 backdrop-blur-xs"
     >
       <div className="center">
         <div
@@ -42,7 +42,7 @@ export const LoginWindow: React.FC = () => {
             <div
               className={clsx(
                 'transition-all duration-300 w-full',
-                isLogin ? 'h-fit opacity-1' : 'h-0 opacity-0 -translate-x-12'
+                isLogin ? 'h-fit opacity-100' : 'h-0 opacity-0 -translate-x-12'
               )}
             >
               {isLogin && <LoginForm />}
@@ -50,7 +50,9 @@ export const LoginWindow: React.FC = () => {
             <div
               className={clsx(
                 'transition-all duration-300 w-full',
-                isRegister ? 'h-fit opacity-1' : 'h-0 opacity-0 translate-x-12'
+                isRegister
+                  ? 'h-fit opacity-100'
+                  : 'h-0 opacity-0 translate-x-12'
               )}
             >
               {isRegister && <RegisterForm />}
