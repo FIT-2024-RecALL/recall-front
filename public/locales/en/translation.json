@@ -70,6 +70,7 @@
     "typeAnswer": "Type your answer",
     "checkAnswer": "Check answer",
     "checkingAnswer": "Checking answer...",
+    "confirmClose": "Are you sure you want to close card? Some changes may be unsaved",
     "frontSidePlaceholder": "Front side (required)",
     "backSidePlaceholder": "Back side (required)",
     "pairedWithPlaceholder": "Select paired collections (at least one)",
