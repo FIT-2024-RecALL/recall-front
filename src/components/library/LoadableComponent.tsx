@@ -45,7 +45,7 @@ export const LoadableComponent: React.FC<LoadableComponentProps> = ({
         <div
           className={clsx(
             'trainsition-all duration-300',
-            isPending || errorMessage ? 'invisible opacity-0' : 'opacity-1',
+            isPending || errorMessage ? 'invisible opacity-0' : 'opacity-100',
             className
           )}
         >

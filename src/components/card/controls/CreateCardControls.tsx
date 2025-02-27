@@ -47,7 +47,7 @@ export const CreateCardControls: React.FC = () => {
           'mt-1 center',
           'transition-all duration-300',
           cardData.frontSide && cardData.backSide && selectedOptions.length > 0
-            ? 'opacity-1'
+            ? 'opacity-100'
             : 'opacity-0 invisible'
         )}
       >

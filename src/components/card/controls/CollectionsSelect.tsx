@@ -35,12 +35,12 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
           placeholder: () => 'text-neutral-500/75',
           container: () => 'w-full',
           control: () =>
-            'bg-o-white hover:shadow-inner hover:shadow-neutral-400 rounded px-1',
-          multiValue: () => 'bg-blue-200/75 mx-1 px-1 rounded center',
+            'bg-o-white hover:shadow-inner hover:shadow-neutral-400 rounded-sm px-1',
+          multiValue: () => 'bg-blue-200/75 mx-1 px-1 rounded-sm center',
           multiValueRemove: () => 'pl-1',
           menuList: () =>
-            'bg-o-white border border-black my-1 p-1 divide-y-2 divide-neutral-300 rounded',
-          option: () => 'px-2 py-1 rounded hover:bg-blue-200/50 active:',
+            'bg-o-white border border-black my-1 p-1 divide-y-2 divide-neutral-300 rounded-sm',
+          option: () => 'px-2 py-1 rounded-sm hover:bg-blue-200/50 active:',
           dropdownIndicator: () => 'mx-2',
         }}
         // components={animatedSelectComponents}
