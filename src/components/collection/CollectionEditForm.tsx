@@ -10,7 +10,6 @@ import {
   FormItem,
   LoadableComponent,
   Icon,
-  DropDown,
   Input,
 } from '@/components/library';
 import { useCollection } from '@/query/queryHooks';
@@ -20,6 +19,12 @@ import {
 } from '@/query/mutationHooks';
 import { CollectionEditType, collectionScheme } from './CreateCollectionWindow';
 import { routes } from '@/routes';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui';
 
 export type CollectionType = CollectionEditType & {
   id: number;
@@ -51,15 +56,15 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
   const {
     updateCollection,
     error: saveError,
-    isPending: isSavePending,
-    isSuccess: isSaveSuccess,
+    isPending: isUpdatePending,
+    isSuccess: isUpdateSuccess,
   } = useCollectionUpdate(id);
   const {
     deleteCollection,
     error: deleteError,
     isPending: isDeletePending,
   } = useCollectionDelete(id, () => {
-    navigate(routes.collections.getUrl(), { replace: true });
+    navigate(routes.collections.getUrl(), { replace: true }); // TODO: change to setLocation from useLocation
   });
 
   return (
@@ -133,37 +138,39 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
           >
             {t('common.saveChanges')}
           </Button>
-          {(isSavePending || isSaveSuccess) && (
+          {(isUpdatePending || isUpdateSuccess) && (
             <div className="mt-1 md:m-2">
-              {isSavePending && <Icon className="animate-spin" icon="loader" />}
-              {isSaveSuccess && t('common.saved')}
+              {isUpdatePending && (
+                <Icon className="animate-spin" icon="loader" />
+              )}
+              {isUpdateSuccess && t('common.saved')}
             </div>
           )}
-          <DropDown
-            buttonComponent={
-              <Button
-                className="mt-2 md:m-2"
-                variant="bordered"
-                title={t('collection.deleteButton')}
-              >
-                {t('collection.deleteButton')}
-              </Button>
-            }
-          >
-            <Button
-              className="mt-1 md:mx-2"
-              variant="plate-red"
-              onClick={() => deleteCollection()}
-              title={t('common.confirmDeletion')}
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              className="mt-2 md:m-2"
+              disabled={isUpdatePending || isDeletePending}
             >
-              {t('common.confirmDeletion')}
-            </Button>
-            {isDeletePending && (
-              <div className="mx-2">
-                <Icon className="animate-spin" icon="loading-3/4" />
-              </div>
-            )}
-          </DropDown>
+              <Button variant="bordered" title={t('collection.deleteButton')}>
+                {!isDeletePending ? (
+                  t('collection.deleteButton')
+                ) : (
+                  <Icon className="animate-spin" icon="loading-3/4" />
+                )}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>
+                <Button
+                  variant="plate-red"
+                  onClick={() => deleteCollection()}
+                  title={t('common.confirmDeletion')}
+                >
+                  {t('common.confirmDeletion')}
+                </Button>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </form>
     </LoadableComponent>

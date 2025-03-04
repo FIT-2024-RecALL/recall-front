@@ -6,12 +6,18 @@ import { useTranslation } from 'react-i18next';
 import { useAppStore } from '@/state';
 import { useCardCollections } from '@/query/queryHooks';
 import { useCardDelete, useCardUpdate } from '@/query/mutationHooks';
-import { Button, DropDown, LoadableComponent } from '@/components/library';
+import { Button, Icon, LoadableComponent } from '@/components/library';
 import {
   collectionResponseToOptions,
   CollectionsSelect,
   Option,
 } from './CollectionsSelect';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+} from '@/components/ui';
 
 export const EditCardControls: React.FC = () => {
   const { t } = useTranslation();
@@ -29,10 +35,18 @@ export const EditCardControls: React.FC = () => {
     setSelectedOptions(collectionResponseToOptions(cardCollections));
   }, [cardCollections]);
 
-  const { updateCard, error: updateError } = useCardUpdate(cardId, () => {
+  const {
+    updateCard,
+    isPending: isUpdatePending,
+    error: updateError,
+  } = useCardUpdate(cardId, () => {
     setUIFlag('zoomed', () => false);
   });
-  const { deleteCard, error: deleteError } = useCardDelete(cardId, () => {
+  const {
+    deleteCard,
+    isPending: isDeletePending,
+    error: deleteError,
+  } = useCardDelete(cardId, () => {
     setUIFlag('zoomed', () => false);
   });
 
@@ -58,9 +72,8 @@ export const EditCardControls: React.FC = () => {
           {updateError?.message || deleteError?.message}
         </div>
       )}
-      <div className="mt-2 center">
+      <div className="mt-2 text-sm md:text-md center">
         <Button
-          className="text-xl"
           variant="plate-green"
           onClick={() => {
             updateCard({
@@ -69,6 +82,7 @@ export const EditCardControls: React.FC = () => {
             });
           }}
           withShadow
+          disabled={isUpdatePending || isDeletePending}
           shadowBoxClassName={
             cardData.frontSide &&
             cardData.backSide &&
@@ -78,28 +92,37 @@ export const EditCardControls: React.FC = () => {
           }
           title={t('common.saveChanges')}
         >
-          {t('common.saveChanges')}
+          {!isUpdatePending ? (
+            t('common.saveChanges')
+          ) : (
+            <Icon className="animate-spin" icon="loading-3/4" />
+          )}
         </Button>
-        <DropDown
-          buttonComponent={
-            <Button
-              className="ml-3"
-              variant="bordered"
-              title={t('card.deleteCard')}
-            >
-              {t('card.deleteCard')}
-            </Button>
-          }
-        >
-          <Button
-            className="m-3"
-            variant="plate-red"
-            onClick={() => deleteCard()}
-            title={t('common.confirmDeletion')}
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            className="ml-3"
+            disabled={isUpdatePending || isDeletePending}
           >
-            {t('common.confirmDeletion')}
-          </Button>
-        </DropDown>
+            <Button variant="bordered" title={t('card.deleteCard')}>
+              {!isDeletePending ? (
+                t('card.deleteCard')
+              ) : (
+                <Icon className="animate-spin" icon="loading-3/4" />
+              )}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>
+              <Button
+                variant="plate-red"
+                onClick={() => deleteCard()}
+                title={t('common.confirmDeletion')}
+              >
+                {t('common.confirmDeletion')}
+              </Button>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );

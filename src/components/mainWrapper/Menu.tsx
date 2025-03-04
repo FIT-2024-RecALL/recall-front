@@ -1,25 +1,31 @@
 import React, { useState } from 'react';
-import { Link } from 'wouter';
-import clsx from 'clsx';
+import { useLocation } from 'wouter';
+import { useTranslation } from 'react-i18next';
 
 import { menuRoutes } from '@/routes';
-import { Button, PopUp } from '@/components/library';
+import { Button } from '@/components/library';
 import { useProfile } from '@/query/queryHooks';
 import { useLogout } from '@/query/mutationHooks';
-import { useTranslation } from 'react-i18next';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+  DropdownMenuGroup,
+} from '@/components/ui';
 
 export const Menu: React.FC = () => {
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
   const links = menuRoutes.map((data) => (
-    <Link
-      to={data.url}
-      className="w-fit my-1 mx-2 p-0 center font-medium md:font-bold text-sm md:text-lg"
+    <Button
+      variant="inline"
+      className="w-full md:w-fit md:my-1 md:mx-2 center font-medium md:font-bold text-sm md:text-lg"
       key={data.url}
+      onClick={() => setLocation(data.url)}
     >
-      <Button variant="inline">
-        {data.label ? t(data.label) : 'NOT TRANSLATED'}
-      </Button>
-    </Link>
+      {data.label ? t(data.label) : 'NOT TRANSLATED'}
+    </Button>
   ));
 
   const [mobileMenuShown, setMobileMenuShown] = useState(false);
@@ -31,44 +37,37 @@ export const Menu: React.FC = () => {
   return (
     <>
       <nav className="hidden md:flex justify-around">{links}</nav>
-      <nav className="md:hidden w-full">
-        <Button
-          variant="bordered"
-          className="my-1 rounded-md w-full font-medium"
-          onClick={() => setMobileMenuShown(!mobileMenuShown)}
-        >
-          {t('menu.menu')}
-        </Button>
-        <PopUp
-          isShown={mobileMenuShown}
-          close={() => setMobileMenuShown(false)}
-          className="center backdrop-blur-[2px]"
-        >
-          <div
-            className={clsx(
-              'absolute top-16',
-              'w-1/2 vstack center',
-              'p-2 bg-o-white',
-              'border-2 border-o-black',
-              'rounded-xl shadow-md'
-            )}
-            onClick={(e) => {
-              if (e.target !== e.currentTarget) setMobileMenuShown(false);
-            }}
+      <DropdownMenu>
+        <DropdownMenuTrigger className="my-1 md:hidden w-full">
+          <Button
+            variant="bordered"
+            className="rounded-md w-full font-medium"
+            onClick={() => setMobileMenuShown(!mobileMenuShown)}
           >
-            {links}
-            {profile && (
+            {t('menu.menu')}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="bg-o-white ring-1">
+          <DropdownMenuGroup>
+            {links.map((link, i) => (
+              <DropdownMenuItem className="p-0" key={i}>
+                {link}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuGroup>
+          {profile && (
+            <DropdownMenuItem className="p-0">
               <Button
                 variant="inline"
-                className="my-1 mx-2 p-0 center font-medium md:font-bold text-sm md:text-lg"
+                className="w-full p-0 center font-medium md:font-bold text-sm md:text-lg"
                 onClick={() => logout()}
               >
                 {t('common.logout')}
               </Button>
-            )}
-          </div>
-        </PopUp>
-      </nav>
+            </DropdownMenuItem>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
     </>
   );
 };

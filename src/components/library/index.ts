@@ -1,5 +1,4 @@
 export * from './Button';
-export * from './DropDown';
 export * from './FormItem';
 export * from './Icon';
 export * from './LoadableComponent';

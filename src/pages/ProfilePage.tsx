@@ -1,17 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  Button,
-  DropDown,
-  Icon,
-  LoadableComponent,
-} from '@/components/library';
+import { Button, Icon, LoadableComponent } from '@/components/library';
 import { useProfile, useProfileCollections } from '@/query/queryHooks';
 import { ErrorPage } from './ErrorPage';
 import { FilesList } from '@/components/profile';
 import { CollectionsSearchableList } from '@/components/collection';
 import { useProfileDelete } from '@/query/mutationHooks';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+} from '@/components/ui';
 
 export const ProfilePage: React.FC = () => {
   const { t } = useTranslation();
@@ -57,31 +58,28 @@ export const ProfilePage: React.FC = () => {
         {t('profile.deleteAccount')}
       </h2>
 
-      <DropDown
-        buttonComponent={
-          <Button
-            className="mx-3"
-            variant="bordered"
-            title={t('profile.deleteAccount')}
-          >
-            {t('profile.deleteAccount')}
+      <DropdownMenu>
+        <DropdownMenuTrigger className="mx-3" disabled={isDeletePending}>
+          <Button variant="bordered" title={t('profile.deleteAccount')}>
+            {!isDeletePending ? (
+              t('profile.deleteAccount')
+            ) : (
+              <Icon className="animate-spin" icon="loading-3/4" />
+            )}
           </Button>
-        }
-      >
-        <Button
-          className="m-3"
-          variant="plate-red"
-          onClick={() => deleteProfile()}
-          title={t('common.confirmDeletion')}
-        >
-          {t('common.confirmDeletion')}
-        </Button>
-        {isDeletePending && (
-          <div className="mx-2">
-            <Icon className="animate-spin" icon="loading-3/4" />
-          </div>
-        )}
-      </DropDown>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem>
+            <Button
+              variant="plate-red"
+              onClick={() => deleteProfile()}
+              title={t('common.confirmDeletion')}
+            >
+              {t('common.confirmDeletion')}
+            </Button>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </LoadableComponent>
   );
 };
