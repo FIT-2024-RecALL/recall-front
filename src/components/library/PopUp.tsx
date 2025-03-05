@@ -38,7 +38,7 @@ export const PopUp: React.FC<PopUpProps> = (
   return (
     <div
       className={clsx(
-        'transition-all fixed z-50 inset-0 full',
+        'transition-all fixed z-50 inset-0 full overflow-auto',
         isShown ? 'opacity-100' : 'opacity-0 invisible',
         className
       )}

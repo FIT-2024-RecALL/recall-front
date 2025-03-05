@@ -32,11 +32,7 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
         } else setCardUIFlag('zoomed', () => false);
       }}
       showCloseBtn
-      className={clsx(
-        'center py-2',
-        'bg-neutral-300/75 backdrop-blur-md',
-        'overflow-y-scroll overflow-x-hidden'
-      )}
+      className={clsx('center py-2', 'bg-neutral-300/75 backdrop-blur-md')}
     >
       <div className={clsx('w-11/12 lg:w-3/4 h-11/12 lg:h-5/6')}>
         <FlippingCard
