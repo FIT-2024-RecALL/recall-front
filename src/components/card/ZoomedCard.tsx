@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
-import { PopUp } from '@/components/library';
+import { ControlledModal } from '@/components/library';
 import { FlippingCard } from './visuals';
 import {
   CreateCardControls,
@@ -23,7 +23,7 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
   const isChanged = useAppStore((state) => state.isActiveCardChanged);
 
   return (
-    <PopUp
+    <ControlledModal
       isShown={zoomed}
       close={() => {
         if (mode === 'edit' && isChanged) {
@@ -31,10 +31,9 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
             setCardUIFlag('zoomed', () => false);
         } else setCardUIFlag('zoomed', () => false);
       }}
-      showCloseBtn
-      className={clsx('center py-2', 'bg-neutral-300/75 backdrop-blur-md')}
+      className={clsx('w-11/12 h-11/12')}
     >
-      <div className={clsx('w-11/12 lg:w-3/4 h-11/12 lg:h-5/6')}>
+      <div className="w-full h-full">
         <FlippingCard
           className={clsx(
             'mb-1 md:mb-2 w-full h-5/6',
@@ -46,6 +45,6 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
         {mode === 'edit' && !isNew && <EditCardControls />}
         {mode === 'train' && <TrainCardControls />}
       </div>
-    </PopUp>
+    </ControlledModal>
   );
 };
