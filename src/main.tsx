@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { App } from '@/App';
 import { client } from '@/api';
 import '@/index.css';
+import 'katex/dist/katex.min.css';
 import '@/i18n';
 
 export const serverUrl = import.meta.env.VITE_RECALL_API_HOSTNAME;

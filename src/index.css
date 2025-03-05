@@ -207,7 +207,7 @@ body,
 }
 
 .markdown {
-  * {
+  p {
     @apply my-1 w-fit;
     text-wrap: wrap;
   }
