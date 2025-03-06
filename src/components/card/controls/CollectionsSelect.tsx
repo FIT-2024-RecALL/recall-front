@@ -39,13 +39,13 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
           placeholder: () => 'text-neutral-500/75',
           container: () => 'w-full',
           control: () =>
-            'bg-o-white hover:shadow-inner hover:shadow-neutral-400 rounded-sm px-1',
-          multiValue: () => 'bg-blue-200/75 mx-1 px-1 rounded-sm center',
+            'bg-o-white hover:shadow-inner hover:shadow-neutral-400 opacity px-1',
+          multiValue: () => 'bg-blue-200/75 mx-1 px-1 opacity center',
           multiValueRemove: () =>
             'ml-1 cursor-pointer rounded-xs transition-all duration-400 hover:bg-neutral-300/50',
           menuList: () =>
-            'bg-o-white border border-black my-1 p-1 divide-y-2 divide-neutral-300 rounded-sm',
-          option: () => 'px-2 py-1 rounded-sm hover:bg-blue-200/50 active:',
+            'bg-o-white border border-black my-1 p-1 divide-y-2 divide-neutral-300 opacity',
+          option: () => 'px-2 py-1 opacity hover:bg-blue-200/50 active:',
           dropdownIndicator: () =>
             'mx-2 cursor-pointer rounded-xs transition-all duration-400 hover:bg-neutral-300/50',
         }}

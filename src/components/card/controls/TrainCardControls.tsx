@@ -51,11 +51,11 @@ export const TrainCardControls: React.FC = () => {
             className={clsx(
               'p-1 mx-1 col-span-4 md:col-span-3',
               'text-center bg-transparent resize-none',
-              'focus:outline-hidden',
+              'focus:outline-none',
               'transition-all duration-200',
               'hover:shadow-inner hover:shadow-neutral-400',
               'focus:shadow-inner hover:shadow-neutral-400',
-              'rounded-sm text-o-black'
+              'opacity text-o-black'
             )}
             value={userAnswer}
             onChange={(e) => setUserAnswer(e.target.value)}

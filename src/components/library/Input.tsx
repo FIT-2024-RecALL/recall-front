@@ -16,10 +16,10 @@ export const Input: React.FC<CustomInputProps> = ({
     <input
       className={clsx(
         'p-1 md:p-2 w-full',
-        'text-o-black font-medium rounded-sm',
+        'text-o-black font-medium opacity',
         'bg-transparent',
         'transition-all duration-200',
-        'focus:outline-hidden',
+        'focus:outline-none',
         bottomBorder && 'border-b border-o-black focus:border-b-2',
         className
       )}

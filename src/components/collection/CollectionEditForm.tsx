@@ -109,11 +109,11 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
                 'p-1 md:p-2 w-full text-center font-medium',
                 'text-base md:text-lg lg:text-xl xl:text-3xl',
                 'bg-transparent resize-none',
-                'focus:outline-hidden',
+                'focus:outline-none',
                 'transition-all duration-200',
                 'hover:shadow-inner hover:shadow-neutral-400',
                 'focus:shadow-inner hover:shadow-neutral-400',
-                'rounded-sm text-o-black'
+                'opacity text-o-black'
               )}
               placeholder={t('collection.descriptionPlaceholder')}
               id="description"
