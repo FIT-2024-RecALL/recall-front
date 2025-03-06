@@ -5,5 +5,4 @@ export * from './LoadableComponent';
 export * from './ControlledModal';
 export * from './ProgressBar';
 export * from './SearchBar';
-export * from './SliderCheckbox';
 export * from './Input';

@@ -5,8 +5,10 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { App } from '@/App';
 import { client } from '@/api';
-import '@/index.css';
 import '@/i18n';
+
+import '@/index.css';
+import 'highlight.js/styles/intellij-light.css';
 
 export const serverUrl = import.meta.env.VITE_RECALL_API_HOSTNAME;
 client.setConfig({

@@ -51,7 +51,7 @@ export const CreateCollectionWindow: React.FC = () => {
       isShown={isOpened}
       close={() => setIsOpened(false)}
       className={clsx(
-        'bg-o-white border-1 border-o-black p-1 md:p-3',
+        'bg-o-white border border-o-black p-1 md:p-3',
         'w-11/12 md:w-1/2 lg:w-1/3'
       )}
     >

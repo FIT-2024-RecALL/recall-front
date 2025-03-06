@@ -137,7 +137,7 @@ body,
 }
 
 .markdown {
-  * :not(.katex *) {
+  p {
     @apply my-1 w-fit;
     text-wrap: wrap;
   }
@@ -161,7 +161,7 @@ body,
   }
 
   pre {
-    @apply bg-neutral-100 p-2 rounded-md;
+    @apply bg-neutral-50 p-2 rounded-md;
   }
 
   blockquote {

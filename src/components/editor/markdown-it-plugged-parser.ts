@@ -4,8 +4,7 @@ import highligher from 'highlight.js';
 
 import markdownItMedia from '@gotfeedback/markdown-it-media';
 
-import katex from 'katex';
-import { tex } from '@mdit/plugin-tex';
+import { katex } from '@mdit/plugin-katex';
 
 export const simpleRenderer = markdownit({
   linkify: true,
@@ -22,27 +21,11 @@ export const simpleRenderer = markdownit({
     return '';
   },
 })
-  .use(tex, {
-    render: (content, mode) => {
-      const texStr = katex.renderToString(content, {
-        output: 'mathml',
-        throwOnError: false,
-      });
-      return !mode ? texStr : `<p>${texStr}</p>`;
-    },
-  })
+  .use(katex)
   .disable('image');
 
 export const extendedMdRenderer = markdownit({ ...simpleRenderer.options })
   .use(markdownItMedia, {
     controls: true,
   })
-  .use(tex, {
-    render: (content, mode) => {
-      const texStr = katex.renderToString(content, {
-        output: 'mathml',
-        throwOnError: false,
-      });
-      return !mode ? texStr : `<p>${texStr}</p>`;
-    },
-  });
+  .use(katex);
