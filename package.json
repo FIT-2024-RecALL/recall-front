@@ -13,7 +13,7 @@
   "dependencies": {
     "@gotfeedback/markdown-it-media": "^1.0.1",
     "@hookform/resolvers": "^3.9.0",
-    "@mdit/plugin-katex": "^0.16.7",
+    "@mdit/plugin-tex": "^0.16.0",
     "@radix-ui/react-alert-dialog": "^1.1.6",
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-dropdown-menu": "^2.1.6",
@@ -46,6 +46,7 @@
   "devDependencies": {
     "@hey-api/client-fetch": "^0.3.1",
     "@hey-api/openapi-ts": "^0.53.2",
+    "@types/katex": "^0.16.7",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^20.2.5",
     "@types/react": "^18.2.8",
