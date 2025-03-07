@@ -47,7 +47,7 @@ export const Menu: React.FC = () => {
             {t('menu.menu')}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-o-white ring-1">
+        <DropdownMenuContent className="bg-o-white ring-1 ring-o-black">
           <DropdownMenuGroup>
             {links.map((link, i) => (
               <DropdownMenuItem className="p-0" key={i}>

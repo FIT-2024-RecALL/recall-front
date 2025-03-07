@@ -22,7 +22,10 @@ export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
 
   return (
     <div
-      className={clsx('markdown overflow-auto', className)}
+      className={clsx(
+        'markdown h-full overflow-y-auto overflow-x-hidden',
+        className
+      )}
       dangerouslySetInnerHTML={{
         __html: renderer.render(rawText),
       }}

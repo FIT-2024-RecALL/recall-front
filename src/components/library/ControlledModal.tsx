@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, useEffect } from 'react';
 
 import { Dialog, DialogContent } from '@/components/ui';
+import clsx from 'clsx';
 
 interface ControlledModalProps
   extends PropsWithChildren<React.HTMLAttributes<React.FC>> {
@@ -28,7 +29,9 @@ export const ControlledModal: React.FC<ControlledModalProps> = (
       }}
       {...props}
     >
-      <DialogContent className={className}>{children}</DialogContent>
+      <DialogContent className={clsx('overflow-y-auto', className)}>
+        {children}
+      </DialogContent>
     </Dialog>
   );
 };

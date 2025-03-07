@@ -137,16 +137,19 @@ body,
 }
 
 .markdown {
-  p {
-    @apply my-1 w-fit;
+  > * {
+    @apply my-1 w-full;
+  }
+
+  * {
     text-wrap: wrap;
   }
 
   h1 { font-size: x-large; }
 
-  h2 { font-size: large; }
+  h2 { font-size: larger; }
 
-  h3 { font-size: larger; }
+  h3 { font-size: large; }
 
   h4 { font-size: medium; }
 
@@ -168,11 +171,7 @@ body,
     @apply bg-neutral-100 px-1 pl-2 md:pl-4 rounded-md border-l-2 border-yellow-200 italic;
   }
 
-  img {
-    @apply w-full md:w-1/2;
-  }
-
-  video {
-    @apply w-full md:w-1/2;
+  img, video, audio {
+    @apply w-full md:w-1/2 m-auto;
   }
 }
