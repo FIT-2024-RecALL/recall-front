@@ -38,10 +38,10 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
       <div
         className={clsx(
           'around overflow-hidden',
-          'w-full md:w-fit font-medium',
+          'font-medium',
           'ring-1 ring-o-black rounded-md',
           'ease-in transition-all duration-500',
-          isActive ? 'opacity-100' : 'opacity-0 invisible w-0'
+          isActive ? 'opacity-100 w-full md:w-fit' : 'opacity-0 invisible w-0'
         )}
       >
         <Button

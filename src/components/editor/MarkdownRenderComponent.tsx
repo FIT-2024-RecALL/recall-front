@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useMemo, useState } from 'react';
+import React, { HTMLAttributes, useMemo } from 'react';
 import {
   simpleRenderer,
   extendedMdRenderer,
@@ -22,10 +22,7 @@ export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
 
   return (
     <div
-      className={clsx(
-        'markdown h-full overflow-y-auto overflow-x-hidden',
-        className
-      )}
+      className={clsx('markdown h-full', className)}
       dangerouslySetInnerHTML={{
         __html: renderer.render(rawText),
       }}

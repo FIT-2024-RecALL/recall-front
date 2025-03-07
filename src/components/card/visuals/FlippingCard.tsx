@@ -41,7 +41,10 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
           />
         ) : (
           <MarkdownRenderComponent
-            className="text-lg w-full p-2 md:p-4 font-sans"
+            className={clsx(
+              'text-lg w-full p-2 md:p-4 font-sans',
+              'overflow-y-auto overflow-x-hidden'
+            )}
             rawText={frontSide}
             extended
           />
@@ -57,7 +60,10 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
           />
         ) : (
           <MarkdownRenderComponent
-            className="text-lg w-full p-2 md:p-4 font-sans"
+            className={clsx(
+              'text-lg w-full p-2 md:p-4 font-sans',
+              'overflow-y-auto overflow-x-hidden'
+            )}
             rawText={backSide}
           />
         )}

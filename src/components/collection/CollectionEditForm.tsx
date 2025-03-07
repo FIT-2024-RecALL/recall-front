@@ -2,7 +2,6 @@ import React from 'react';
 import clsx from 'clsx';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
-import { navigate } from 'wouter/use-browser-location';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -25,6 +24,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui';
+import { useLocation } from 'wouter';
 
 export type CollectionType = CollectionEditType & {
   id: number;
@@ -38,6 +38,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
   id,
 }) => {
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
   const {
     collection,
     error: collectionError,
@@ -57,14 +58,15 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
     updateCollection,
     error: saveError,
     isPending: isUpdatePending,
-    isSuccess: isUpdateSuccess,
-  } = useCollectionUpdate(id);
+  } = useCollectionUpdate(id, () => {
+    setLocation(routes.collectionView.getUrl(id));
+  });
   const {
     deleteCollection,
     error: deleteError,
     isPending: isDeletePending,
   } = useCollectionDelete(id, () => {
-    navigate(routes.collections.getUrl(), { replace: true }); // TODO: change to setLocation from useLocation
+    setLocation(routes.collections.getUrl());
   });
 
   return (
@@ -135,12 +137,11 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
           >
             {t('common.saveChanges')}
           </Button>
-          {(isUpdatePending || isUpdateSuccess) && (
+          {isUpdatePending && (
             <div className="mt-1 md:m-2">
               {isUpdatePending && (
                 <Icon className="animate-spin" icon="loader" />
               )}
-              {isUpdateSuccess && t('common.saved')}
             </div>
           )}
           <DropdownMenu>

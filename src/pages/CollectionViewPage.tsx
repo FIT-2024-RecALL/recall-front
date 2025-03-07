@@ -1,15 +1,17 @@
 import React from 'react';
-import { useParams } from 'wouter';
+import { Link, useParams } from 'wouter';
+import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
+
 import {
   useCollection,
   useCollectionCards,
   useProfile,
-  useProfileCards,
 } from '@/query/queryHooks';
 import { CardsList } from '@/components/card';
-import { LoadableComponent } from '@/components/library';
-import { useTranslation } from 'react-i18next';
-import clsx from 'clsx';
+import { Button, LoadableComponent } from '@/components/library';
+import { useAppStore } from '@/state';
+import { routes } from '@/routes';
 
 export interface ViewPageParams {
   id: number;
@@ -18,6 +20,8 @@ export interface ViewPageParams {
 export const CollectionViewPage: React.FC = () => {
   const { t } = useTranslation();
   const { id } = useParams<ViewPageParams>();
+  const { profile } = useProfile();
+  const showAuthWindow = useAppStore((state) => state.showLoginWindow);
   const {
     collection,
     error: collectionError,
@@ -54,6 +58,50 @@ export const CollectionViewPage: React.FC = () => {
           >
             {collection.description}
           </p>
+        )}
+
+        {collection && (
+          <div
+            className={clsx(
+              'w-full center gap-x-2',
+              'mt-2 md:mt-4 mb-4 md:mb-8'
+            )}
+          >
+            {profile ? (
+              <Link to={routes.train.getUrl(collection.id)}>
+                <Button
+                  variant="plate-green"
+                  className="py-1 px-4"
+                  withShadow
+                  title={t('collection.trainButton')}
+                >
+                  {t('collection.trainButton')}
+                </Button>
+              </Link>
+            ) : (
+              <Button
+                variant="plate-green"
+                className="py-1 px-4"
+                onClick={showAuthWindow}
+                withShadow
+                title={t('collection.trainButton')}
+              >
+                {t('collection.trainButton')}
+              </Button>
+            )}
+            {collection?.ownerId === profile?.id && (
+              <Link to={routes.collectionEdit.getUrl(collection.id)}>
+                <Button
+                  variant="plate-yellow"
+                  className="py-1 px-4"
+                  withShadow
+                  title={t('common.edit')}
+                >
+                  {t('common.edit')}
+                </Button>
+              </Link>
+            )}
+          </div>
         )}
 
         <LoadableComponent
