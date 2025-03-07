@@ -157,7 +157,10 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
         <Icon icon="revert" />
       </Button>
       <Button
-        className={clsx('min-h-0 text-o-black', 'ease-in transition-all duration-300')}
+        className={clsx(
+          'min-h-0 text-o-black',
+          'ease-in transition-all duration-300'
+        )}
         variant="bordered"
         title={isActive ? t('editor.togglePreview') : t('editor.toggleEdit')}
         onClick={switchActive}

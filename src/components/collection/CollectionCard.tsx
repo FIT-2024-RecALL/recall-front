@@ -40,18 +40,16 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
             </div>
 
             <div className="flex space-x-2 mt-4">
-              {collection.ownerId === profile?.id && (
-                <Link to={routes.collectionEdit.getUrl(collectionId)}>
-                  <Button
-                    variant="plate-yellow"
-                    className="py-1 px-4"
-                    withShadow
-                    title={t('common.edit')}
-                  >
-                    {t('common.edit')}
-                  </Button>
-                </Link>
-              )}
+              <Link to={routes.collectionView.getUrl(collectionId)}>
+                <Button
+                  variant="plate-blue"
+                  className="py-1 px-4"
+                  withShadow
+                  title={t('common.view')}
+                >
+                  {t('common.view')}
+                </Button>
+              </Link>
               {profile ? (
                 <Link to={routes.train.getUrl(collectionId)}>
                   <Button
@@ -73,6 +71,18 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
                 >
                   {t('collection.trainButton')}
                 </Button>
+              )}
+              {collection.ownerId === profile?.id && (
+                <Link to={routes.collectionEdit.getUrl(collectionId)}>
+                  <Button
+                    variant="plate-yellow"
+                    className="py-1 px-4"
+                    withShadow
+                    title={t('common.edit')}
+                  >
+                    {t('common.edit')}
+                  </Button>
+                </Link>
               )}
             </div>
           </>

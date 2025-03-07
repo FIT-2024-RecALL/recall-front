@@ -76,10 +76,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
         className="my-2 md:my-6"
         onSubmit={handleSubmit((data) => updateCollection(data))}
       >
-        <FormItem
-          className="m-2 md:m-4 text-2xl"
-          errorMessage={errors.title?.message}
-        >
+        <FormItem className="m-2 md:m-4" errorMessage={errors.title?.message}>
           {collection && (
             <Controller
               name="title"
@@ -100,20 +97,20 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
           )}
         </FormItem>
         <FormItem
-          className="m-2 md:m-4 text-lg"
+          className="m-2 md:m-4"
           errorMessage={errors.description?.message}
         >
           {collection && (
             <textarea
               className={clsx(
-                'p-1 md:p-2 w-full text-center font-medium',
+                'p-1 md:p-2 w-full',
+                'text-center text-o-black font-medium',
                 'text-base md:text-lg lg:text-xl xl:text-3xl',
                 'bg-transparent resize-none',
                 'focus:outline-none',
                 'transition-all duration-200',
                 'hover:shadow-inner hover:shadow-neutral-400',
-                'focus:shadow-inner hover:shadow-neutral-400',
-                'opacity text-o-black'
+                'focus:shadow-inner hover:shadow-neutral-400'
               )}
               placeholder={t('collection.descriptionPlaceholder')}
               id="description"

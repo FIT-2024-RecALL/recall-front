@@ -31,7 +31,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
       )}
     >
       <CardSide side="front">
-        {mode === 'edit' && (
+        {mode === 'edit' ? (
           <MarkdownEditorComponent
             state={frontSide}
             setState={(s) => setCardSide('frontSide', s)}
@@ -39,8 +39,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
             placeholder={t('card.frontSidePlaceholder')}
             previewClassName="font-sans"
           />
-        )}
-        {mode === 'train' && (
+        ) : (
           <MarkdownRenderComponent
             className="text-lg w-full p-2 md:p-4 font-sans"
             rawText={frontSide}
@@ -49,15 +48,14 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
         )}
       </CardSide>
       <CardSide side="back">
-        {mode === 'edit' && (
+        {mode === 'edit' ? (
           <MarkdownEditorComponent
             state={backSide}
             setState={(s) => setCardSide('backSide', s)}
             placeholder={t('card.backSidePlaceholder')}
             previewClassName="font-sans"
           />
-        )}
-        {mode === 'train' && (
+        ) : (
           <MarkdownRenderComponent
             className="text-lg w-full p-2 md:p-4 font-sans"
             rawText={backSide}
