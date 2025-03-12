@@ -5,6 +5,7 @@ import {
   CollectionEditPage,
   TrainPage,
   ProfilePage,
+  CollectionViewPage,
 } from '@/pages';
 import { CustomTKeys } from '@/i18n';
 
@@ -17,6 +18,7 @@ type RouteData = {
 type RoutesEnum =
   | 'main'
   | 'collections'
+  | 'collectionView'
   | 'collectionEdit'
   | 'train'
   | 'profile';
@@ -33,6 +35,11 @@ export const routes: Record<RoutesEnum, RouteData> = {
     getUrl: () => '/collections',
     label: 'common.collections',
     content: <CollectionsPage />,
+  },
+  collectionView: {
+    url: '/collections/:id',
+    getUrl: (id: number) => `/collections/${id}`,
+    content: <CollectionViewPage />,
   },
   collectionEdit: {
     url: '/collections/:id/edit',

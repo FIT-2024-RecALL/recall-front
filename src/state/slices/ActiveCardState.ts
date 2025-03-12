@@ -9,7 +9,7 @@ export type CardStateType = {
   backSide: string;
 };
 
-export type ActiveCardUIModes = 'train' | 'edit';
+export type ActiveCardUIModes = 'train' | 'edit' | 'view';
 export type ActiveCardUIFlagKeys = 'zoomed' | 'flipped';
 export type ActiveCardUI = {
   mode: ActiveCardUIModes;

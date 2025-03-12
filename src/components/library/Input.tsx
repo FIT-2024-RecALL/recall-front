@@ -16,7 +16,7 @@ export const Input: React.FC<CustomInputProps> = ({
     <input
       className={clsx(
         'p-1 md:p-2 w-full',
-        'text-o-black font-medium opacity',
+        'text-o-black font-medium ',
         'bg-transparent',
         'transition-all duration-200',
         'focus:outline-none',

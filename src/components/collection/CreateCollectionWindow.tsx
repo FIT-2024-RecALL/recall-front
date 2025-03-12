@@ -83,9 +83,8 @@ export const CreateCollectionWindow: React.FC = () => {
             className={clsx(
               'p-1 md:p-2 w-full h-24 lg:h-32',
               'bg-transparent resize-none',
-              'focus:outline-none',
-              'transition-all duration-200',
-              'opacity text-o-black'
+              'text-o-black focus:outline-none',
+              'transition-all duration-200'
             )}
             placeholder={t('collection.descriptionPlaceholder')}
             id="description"

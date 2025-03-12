@@ -50,12 +50,11 @@ export const TrainCardControls: React.FC = () => {
           <textarea
             className={clsx(
               'p-1 mx-1 col-span-4 md:col-span-3',
-              'text-center bg-transparent resize-none',
+              'text-center text-o-black bg-transparent resize-none',
               'focus:outline-none',
               'transition-all duration-200',
               'hover:shadow-inner hover:shadow-neutral-400',
-              'focus:shadow-inner hover:shadow-neutral-400',
-              'opacity text-o-black'
+              'focus:shadow-inner hover:shadow-neutral-400'
             )}
             value={userAnswer}
             onChange={(e) => setUserAnswer(e.target.value)}

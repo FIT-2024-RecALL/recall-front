@@ -3,7 +3,7 @@ import { Link } from 'wouter';
 import { useTranslation } from 'react-i18next';
 
 import { routes } from '@/routes';
-import { LoadableComponent, Button } from '@/components/library';
+import { LoadableComponent, Button, Icon } from '@/components/library';
 import { useCollection, useProfile } from '@/query/queryHooks';
 import { useAppStore } from '@/state';
 import clsx from 'clsx';
@@ -39,16 +39,26 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
               <p className="text-md mb-2">{collection.description}</p>
             </div>
 
-            <div className="flex space-x-2 mt-4">
+            <div className="flex gap-x-2 mt-4">
+              <Link to={routes.collectionView.getUrl(collectionId)}>
+                <Button
+                  variant="plate-blue"
+                  className="p-2 md:p-3"
+                  withShadow
+                  title={t('common.view')}
+                >
+                  <Icon icon="eye" />
+                </Button>
+              </Link>
               {collection.ownerId === profile?.id && (
                 <Link to={routes.collectionEdit.getUrl(collectionId)}>
                   <Button
                     variant="plate-yellow"
-                    className="py-1 px-4"
+                    className="p-2"
                     withShadow
                     title={t('common.edit')}
                   >
-                    {t('common.edit')}
+                    <Icon icon="editor" />
                   </Button>
                 </Link>
               )}
