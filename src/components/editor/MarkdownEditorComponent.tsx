@@ -121,7 +121,7 @@ export const MarkdownEditorComponent: React.FC<
             'rounded-lg text-o-black font-mono',
             'hover:shadow-inner hover:shadow-neutral-400',
             'focus:shadow-inner hover:shadow-neutral-400',
-            'focus:outline-none'
+            'focus:apperance-none focus:outline-none'
           )}
           placeholder={placeholder}
           value={state}
@@ -149,24 +149,42 @@ export const MarkdownEditorComponent: React.FC<
             }
           }}
           onDragEnter={(e) => {
-            e.currentTarget.classList.add('bg-black/10');
+            e.preventDefault();
+            e.currentTarget.classList.remove('bg-transparent');
+            e.currentTarget.classList.add(
+              'bg-black/10',
+              'shadow-inner',
+              'shadow-neutral-400'
+            );
           }}
           onDragLeave={(e) => {
-            e.currentTarget.classList.remove('bg-black/10');
-          }}
-          onDragOver={(e) => {
             e.preventDefault();
-            const pos = getEditorCursorUnderPoint(e.clientX, e.clientY, state);
-            setEditorSelection({
-              selectionStart: pos,
-              selectionEnd: pos,
-            });
+            e.currentTarget.classList.add('bg-transparent');
+            e.currentTarget.classList.remove(
+              'bg-black/10',
+              'shadow-inner',
+              'shadow-neutral-400'
+            );
           }}
+          // onDragOver={(e) => {
+          //   e.preventDefault();
+          //   const pos = getEditorCursorUnderPoint(e.clientX, e.clientY, state);
+          //   setEditorSelection({
+          //     selectionStart: pos,
+          //     selectionEnd: pos,
+          //   });
+          // }}
           onDrop={(e) => {
             e.preventDefault();
             if (e.dataTransfer.files.length > 0) {
               uploadFile(e.dataTransfer.files[0]);
             }
+            e.currentTarget.classList.add('bg-transparent');
+            e.currentTarget.classList.remove(
+              'bg-black/10',
+              'shadow-inner',
+              'shadow-neutral-400'
+            );
           }}
         />
       ) : (
