@@ -37,13 +37,11 @@ export const Card: React.FC<CardProps> = ({ mode, cardId, className }) => {
         >
           {error && error.message}
           {card && (
-            <>
-              <MarkdownRenderComponent
-                className="full overflow-hidden"
-                rawText={card.frontSide}
-                extended
-              />
-            </>
+            <MarkdownRenderComponent
+              className="full overflow-hidden"
+              rawText={card.frontSide}
+              extended
+            />
           )}
         </MiniCard>
       </LoadableComponent>

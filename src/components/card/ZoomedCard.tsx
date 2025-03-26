@@ -33,18 +33,16 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
       }}
       className={clsx('w-11/12 h-11/12')}
     >
-      <div className="w-full h-full">
-        <FlippingCard
-          className={clsx(
-            'mb-1 md:mb-2 w-full h-5/6',
-            'bg-o-white text-o-black rounded-xl',
-            'border-2 border-black'
-          )}
-        />
-        {mode === 'edit' && isNew && <CreateCardControls />}
-        {mode === 'edit' && !isNew && <EditCardControls />}
-        {mode === 'train' && <TrainCardControls />}
-      </div>
+      <FlippingCard
+        className={clsx(
+          'mb-1 md:mb-2 w-full h-5/6',
+          'bg-o-white text-o-black rounded-xl',
+          'border-2 border-black'
+        )}
+      />
+      {mode === 'edit' && isNew && <CreateCardControls />}
+      {mode === 'edit' && !isNew && <EditCardControls />}
+      {mode === 'train' && <TrainCardControls />}
     </ControlledModal>
   );
 };
