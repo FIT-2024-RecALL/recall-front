@@ -179,6 +179,9 @@ export const MarkdownEditorComponent: React.FC<
             if (e.dataTransfer.files.length > 0) {
               uploadFile(e.dataTransfer.files[0]);
             }
+            setEditorSelection({
+              ...e.currentTarget,
+            });
             e.currentTarget.classList.add('bg-transparent');
             e.currentTarget.classList.remove(
               'bg-black/10',
