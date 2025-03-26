@@ -54,7 +54,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
                 <Link to={routes.collectionEdit.getUrl(collectionId)}>
                   <Button
                     variant="plate-yellow"
-                    className="p-2"
+                    className="p-2 md:p-3"
                     withShadow
                     title={t('common.edit')}
                   >
