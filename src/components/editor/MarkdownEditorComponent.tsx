@@ -10,6 +10,8 @@ import {
   mutations,
   SelectionType,
 } from './editorElementTypes';
+import { useFileUpload } from '@/query/mutationHooks';
+import { getFileFullPath } from '@/query/queryHooks';
 
 interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
   state: string;
@@ -49,17 +51,42 @@ export const MarkdownEditorComponent: React.FC<
     setEditorSelection(newEditorElementState);
     setState(newEditorElementState.str);
   };
+
   const undo = () => {
     const prevEditorState = popHistory();
     if (!prevEditorState) return;
     setState(prevEditorState.str);
     setEditorSelection(prevEditorState);
   };
+
   const getEditorSelection = useCallback(() => {
     if (!editorRef.current) return;
     const { selectionStart, selectionEnd } = editorRef.current;
     return { selectionStart, selectionEnd } satisfies SelectionType;
   }, [editorRef]);
+  const getEditorCursorUnderPoint = useCallback(
+    (x: number, y: number, state: string) => {
+      if (!editorRef.current) return 0;
+      const rect = editorRef.current.getBoundingClientRect();
+      const ex = x - rect.left;
+      const ey = y - rect.top;
+
+      const styles = window.getComputedStyle(editorRef.current);
+      const lineHeight = parseInt(styles.lineHeight, 10) || 20;
+      const paddingLeft = parseInt(styles.paddingLeft, 10) || 0;
+
+      const cursor_line = Math.floor(ey / lineHeight);
+      const cursor_col = Math.floor((ex - paddingLeft) / 8);
+      let pos = cursor_col;
+
+      const lines = state.split('\n');
+      for (let i = 0; i < cursor_line && i < lines.length; i++) {
+        pos += lines[i].length + 1;
+      }
+      return pos;
+    },
+    [editorRef]
+  );
   const setEditorSelection = useCallback(
     ({ selectionStart, selectionEnd }: SelectionType) => {
       requestAnimationFrame(() => {
@@ -70,6 +97,10 @@ export const MarkdownEditorComponent: React.FC<
     },
     [editorRef]
   );
+
+  const { uploadFile } = useFileUpload((response) => {
+    editorActionWrapper(mutations.media, getFileFullPath(response.url));
+  });
 
   return (
     <>
@@ -115,6 +146,26 @@ export const MarkdownEditorComponent: React.FC<
                 .with('KeyB', () => editorActionWrapper(mutations.bold))
                 .with('KeyI', () => editorActionWrapper(mutations.italic))
                 .with('KeyZ', () => undo());
+            }
+          }}
+          onDragEnter={(e) => {
+            e.currentTarget.classList.add('bg-black/10');
+          }}
+          onDragLeave={(e) => {
+            e.currentTarget.classList.remove('bg-black/10');
+          }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            const pos = getEditorCursorUnderPoint(e.clientX, e.clientY, state);
+            setEditorSelection({
+              selectionStart: pos,
+              selectionEnd: pos,
+            });
+          }}
+          onDrop={(e) => {
+            e.preventDefault();
+            if (e.dataTransfer.files.length > 0) {
+              uploadFile(e.dataTransfer.files[0]);
             }
           }}
         />
