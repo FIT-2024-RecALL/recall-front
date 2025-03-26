@@ -74,7 +74,8 @@
     "backSidePlaceholder": "Back side (required)",
     "pairedWithPlaceholder": "Select paired collections (at least one)",
     "createCard": "Create card",
-    "deleteCard": "Delete card"
+    "deleteCard": "Delete card",
+    "confirmClose": "Are you sure to close unsaved card?"
   },
   "train": {
     "onlyAuthorized": "Only authorized users can train",
