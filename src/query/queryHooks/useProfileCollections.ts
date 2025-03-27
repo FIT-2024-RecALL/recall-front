@@ -1,12 +1,12 @@
 import { useQuery, queryOptions } from '@tanstack/react-query';
 import { dataExtractionWrapper } from '@/query';
-import { readCollectionsShortUserCollectionsGet } from '@/api';
+import { readUserCollectionsUserCollectionsGet } from '@/api';
 
 export const getProfileCollectionsQueryOptions = () =>
   queryOptions({
     queryKey: ['profile', 'collections'],
     queryFn: () =>
-      dataExtractionWrapper(readCollectionsShortUserCollectionsGet()),
+      dataExtractionWrapper(readUserCollectionsUserCollectionsGet()),
   });
 
 export const useProfileCollections = () => {

@@ -114,16 +114,6 @@ export type ReadCardCardsCardIdGetResponse = Card;
 
 export type ReadCardCardsCardIdGetError = HTTPValidationError;
 
-export type DeleteCardCardsCardIdDeleteData = {
-  path: {
-    card_id: number;
-  };
-};
-
-export type DeleteCardCardsCardIdDeleteResponse = unknown;
-
-export type DeleteCardCardsCardIdDeleteError = HTTPValidationError;
-
 export type UpdateCardCardsCardIdPutData = {
   body: Body_update_card_cards__card_id__put;
   path: {
@@ -135,13 +125,15 @@ export type UpdateCardCardsCardIdPutResponse = Card;
 
 export type UpdateCardCardsCardIdPutError = HTTPValidationError;
 
-export type CreateCardCardsPostData = {
-  body: Body_create_card_cards__post;
+export type DeleteCardCardsCardIdDeleteData = {
+  path: {
+    card_id: number;
+  };
 };
 
-export type CreateCardCardsPostResponse = Card;
+export type DeleteCardCardsCardIdDeleteResponse = unknown;
 
-export type CreateCardCardsPostError = HTTPValidationError;
+export type DeleteCardCardsCardIdDeleteError = HTTPValidationError;
 
 export type ReadCardCollectionsCardsCardIdCollectionsGetData = {
   path: {
@@ -155,6 +147,14 @@ export type ReadCardCollectionsCardsCardIdCollectionsGetResponse =
 export type ReadCardCollectionsCardsCardIdCollectionsGetError =
   HTTPValidationError;
 
+export type CreateCardCardsPostData = {
+  body: Body_create_card_cards__post;
+};
+
+export type CreateCardCardsPostResponse = Card;
+
+export type CreateCardCardsPostError = HTTPValidationError;
+
 export type ReadCollectionCollectionsCollectionIdGetData = {
   path: {
     collection_id: number;
@@ -164,17 +164,6 @@ export type ReadCollectionCollectionsCollectionIdGetData = {
 export type ReadCollectionCollectionsCollectionIdGetResponse = Collection;
 
 export type ReadCollectionCollectionsCollectionIdGetError = HTTPValidationError;
-
-export type DeleteCollectionCollectionsCollectionIdDeleteData = {
-  path: {
-    collection_id: number;
-  };
-};
-
-export type DeleteCollectionCollectionsCollectionIdDeleteResponse = unknown;
-
-export type DeleteCollectionCollectionsCollectionIdDeleteError =
-  HTTPValidationError;
 
 export type UpdateCollectionCollectionsCollectionIdPutData = {
   body: CollectionCreate;
@@ -186,6 +175,17 @@ export type UpdateCollectionCollectionsCollectionIdPutData = {
 export type UpdateCollectionCollectionsCollectionIdPutResponse = Collection;
 
 export type UpdateCollectionCollectionsCollectionIdPutError =
+  HTTPValidationError;
+
+export type DeleteCollectionCollectionsCollectionIdDeleteData = {
+  path: {
+    collection_id: number;
+  };
+};
+
+export type DeleteCollectionCollectionsCollectionIdDeleteResponse = unknown;
+
+export type DeleteCollectionCollectionsCollectionIdDeleteError =
   HTTPValidationError;
 
 export type ReadCollectionsCollectionsGetData = {
@@ -231,6 +231,39 @@ export type TrainCardsCollectionsCollectionIdCardsTrainGetResponse =
 export type TrainCardsCollectionsCollectionIdCardsTrainGetError =
   HTTPValidationError;
 
+export type GetFileStorageUserIdFilenameGetData = {
+  path: {
+    filename: string;
+    user_id: number;
+  };
+};
+
+export type GetFileStorageUserIdFilenameGetResponse = unknown;
+
+export type GetFileStorageUserIdFilenameGetError = HTTPValidationError;
+
+export type ListFilesStorageGetResponse = Array<FileUploadedScheme>;
+
+export type ListFilesStorageGetError = unknown;
+
+export type AddFileStoragePostData = {
+  body: Body_add_file_storage__post;
+};
+
+export type AddFileStoragePostResponse = FileUploadedScheme;
+
+export type AddFileStoragePostError = HTTPValidationError;
+
+export type DeleteFileStorageFilenameDeleteData = {
+  path: {
+    filename: string;
+  };
+};
+
+export type DeleteFileStorageFilenameDeleteResponse = unknown;
+
+export type DeleteFileStorageFilenameDeleteError = HTTPValidationError;
+
 export type ReadCardLastTrainRecordTrainRecordsLastCardIdGetData = {
   path: {
     card_id: number;
@@ -271,6 +304,29 @@ export type ReadUserUserProfileGetResponse = User;
 
 export type ReadUserUserProfileGetError = unknown;
 
+export type ReadUserCollectionsUserCollectionsGetData = {
+  query?: {
+    limit?: number | null;
+    offset?: number;
+  };
+};
+
+export type ReadUserCollectionsUserCollectionsGetResponse =
+  Array<CollectionShort>;
+
+export type ReadUserCollectionsUserCollectionsGetError = HTTPValidationError;
+
+export type ReadUserCardsUserCardsGetData = {
+  query?: {
+    limit?: number | null;
+    skip?: number;
+  };
+};
+
+export type ReadUserCardsUserCardsGetResponse = Array<number>;
+
+export type ReadUserCardsUserCardsGetError = HTTPValidationError;
+
 export type CreateUserUserRegisterPostData = {
   body: UserCreate;
   query?: {
@@ -290,6 +346,10 @@ export type UpdateUserUserEditProfilePutResponse = User;
 
 export type UpdateUserUserEditProfilePutError = HTTPValidationError;
 
+export type DeleteUserUserDeleteProfileDeleteResponse = unknown;
+
+export type DeleteUserUserDeleteProfileDeleteError = unknown;
+
 export type AuthenticateUserUserLoginPostData = {
   body: UserAuth;
 };
@@ -298,80 +358,9 @@ export type AuthenticateUserUserLoginPostResponse = User;
 
 export type AuthenticateUserUserLoginPostError = HTTPValidationError;
 
-export type ReadCardsUserCardsGetData = {
-  query?: {
-    limit?: number | null;
-    skip?: number;
-  };
-};
-
-export type ReadCardsUserCardsGetResponse = Array<number>;
-
-export type ReadCardsUserCardsGetError = HTTPValidationError;
-
-export type ReadCollectionsShortUserCollectionsGetData = {
-  query?: {
-    limit?: number | null;
-    skip?: number;
-  };
-};
-
-export type ReadCollectionsShortUserCollectionsGetResponse =
-  Array<CollectionShort>;
-
-export type ReadCollectionsShortUserCollectionsGetError = HTTPValidationError;
-
-export type ReadCollectionsUserCollectionsFullGetData = {
-  query?: {
-    limit?: number | null;
-    skip?: number;
-  };
-};
-
-export type ReadCollectionsUserCollectionsFullGetResponse = Array<Collection>;
-
-export type ReadCollectionsUserCollectionsFullGetError = HTTPValidationError;
-
 export type LogoutUserUserLogoutPostResponse = unknown;
 
 export type LogoutUserUserLogoutPostError = unknown;
-
-export type DeleteUserUserDeleteProfileDeleteResponse = unknown;
-
-export type DeleteUserUserDeleteProfileDeleteError = unknown;
-
-export type GetFileStorageUserIdFilenameGetData = {
-  path: {
-    filename: string;
-    user_id: number;
-  };
-};
-
-export type GetFileStorageUserIdFilenameGetResponse = unknown;
-
-export type GetFileStorageUserIdFilenameGetError = HTTPValidationError;
-
-export type ListFilesStorageGetResponse = Array<FileUploadedScheme>;
-
-export type ListFilesStorageGetError = unknown;
-
-export type AddFileStoragePostData = {
-  body: Body_add_file_storage__post;
-};
-
-export type AddFileStoragePostResponse = FileUploadedScheme;
-
-export type AddFileStoragePostError = HTTPValidationError;
-
-export type DeleteFileStorageFilenameDeleteData = {
-  path: {
-    filename: string;
-  };
-};
-
-export type DeleteFileStorageFilenameDeleteResponse = unknown;
-
-export type DeleteFileStorageFilenameDeleteError = HTTPValidationError;
 
 export type ReadItemItemsItemIdGetData = {
   path: {

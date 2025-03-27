@@ -1,11 +1,11 @@
 import { useQuery, queryOptions } from '@tanstack/react-query';
 import { dataExtractionWrapper } from '@/query';
-import { readCardsUserCardsGet } from '@/api';
+import { readUserCardsUserCardsGet } from '@/api';
 
 export const getProfileCardsQueryOptions = () =>
   queryOptions({
     queryKey: ['profile', 'cards'],
-    queryFn: () => dataExtractionWrapper(readCardsUserCardsGet()),
+    queryFn: () => dataExtractionWrapper(readUserCardsUserCardsGet()),
   });
 
 export const useProfileCards = () => {
