@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
-import { Icon, IconType } from './Icon';
 import clsx from 'clsx';
+
+import { Icon, IconType, ShadowWrapper } from '@/components/library';
 
 interface IconButtonProps
   extends PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>> {
@@ -69,18 +70,7 @@ export const Button: React.FC<IconButtonProps> = ({
   );
 
   return withShadow ? (
-    <div
-      className={clsx(
-        'relative transition-all duration-200',
-        'before:absolute before:full before:bg-black/50 before:rounded-md',
-        'before:transition-all before:duration-200',
-        'md:hover:-translate-x-1 md:hover:-translate-y-1',
-        'md:hover:before:translate-x-1 md:hover:before:translate-y-1',
-        shadowBoxClassName
-      )}
-    >
-      {button}
-    </div>
+    <ShadowWrapper className={clsx(shadowBoxClassName)}>{button}</ShadowWrapper>
   ) : (
     button
   );

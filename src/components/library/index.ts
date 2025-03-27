@@ -6,3 +6,4 @@ export * from './ControlledModal';
 export * from './ProgressBar';
 export * from './SearchBar';
 export * from './Input';
+export * from './ShadowWrapper';
