@@ -34,7 +34,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
           'transition-all duration-200'
         )}
         onClick={(e) => {
-          if (e.currentTarget.tagName != 'BUTTON')
+          if (!e.currentTarget.tagName.includes('BUTTON'))
             setLocation(routes.collectionView.getUrl(collectionId));
         }}
       >
