@@ -50,7 +50,7 @@ export const CreateCollectionWindow: React.FC = () => {
     <ControlledModal
       isShown={isOpened}
       close={() => setIsOpened(false)}
-      className={clsx(
+      contentClassName={clsx(
         'bg-o-white border border-o-black p-1 md:p-3',
         'w-11/12 md:w-1/2 lg:w-1/3'
       )}

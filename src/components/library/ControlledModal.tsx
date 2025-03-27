@@ -5,12 +5,13 @@ import clsx from 'clsx';
 
 interface ControlledModalProps
   extends PropsWithChildren<React.HTMLAttributes<React.FC>> {
+  contentClassName?: string;
   isShown: boolean;
   close: () => void;
 }
 
 export const ControlledModal: React.FC<ControlledModalProps> = (
-  { isShown, close, className, children },
+  { isShown, close, contentClassName, children },
   ...props
 ) => {
   useEffect(() => {
@@ -29,7 +30,7 @@ export const ControlledModal: React.FC<ControlledModalProps> = (
       }}
       {...props}
     >
-      <DialogContent className={clsx('overflow-y-auto', className)}>
+      <DialogContent className={clsx('overflow-y-auto', contentClassName)}>
         {children}
       </DialogContent>
     </Dialog>

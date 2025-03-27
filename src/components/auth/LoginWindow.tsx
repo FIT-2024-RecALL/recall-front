@@ -23,7 +23,7 @@ export const LoginWindow: React.FC = () => {
     <ControlledModal
       isShown={authWindowState !== 'hidden'}
       close={closeAuthWindow}
-      className={clsx(
+      contentClassName={clsx(
         'bg-o-white border border-o-black px-4 py-6',
         'w-11/12 md:w-1/2 lg:w-1/3'
       )}

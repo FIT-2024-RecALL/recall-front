@@ -67,7 +67,7 @@ body {
 
   font-family: "MontserratAlternates";
 
-  @apply bg-o-white
+  @apply bg-o-white text-sm lg:text-base xl:text-lg 2xl:text-xl;
 }
 
 html,
@@ -137,21 +137,27 @@ body,
 }
 
 .markdown {
+
   > * {
     @apply my-1 w-full;
   }
 
-  * {
+  * {    
     text-wrap: wrap;
   }
 
-  h1 { font-size: x-large; }
+  h1 {
+    @apply text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl;
+  }
 
-  h2 { font-size: larger; }
+  h2 {
+    @apply text-lg lg:text-xl xl:text-2xl 2xl:text-3xl;
+  }
+  
+  h3, h4 {
+    @apply text-base lg:text-lg xl:text-xl 2xl:text-2xl;
+  }
 
-  h3 { font-size: large; }
-
-  h4 { font-size: medium; }
 
   a {
     text-decoration: underline;
@@ -176,7 +182,11 @@ body,
     @apply bg-neutral-100 px-1 pl-2 md:pl-4 rounded-md border-l-2 border-yellow-200 italic;
   }
 
-  img, video, audio {
+  audio {
+    @apply w-full m-auto;
+  }
+
+  img, video {
     @apply w-full md:w-1/2 m-auto;
   }
 }

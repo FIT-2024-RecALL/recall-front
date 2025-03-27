@@ -22,7 +22,7 @@ export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
 
   return (
     <div
-      className={clsx('markdown h-full', className)}
+      className={clsx('markdown full', className)}
       dangerouslySetInnerHTML={{
         __html: renderer.render(rawText),
       }}

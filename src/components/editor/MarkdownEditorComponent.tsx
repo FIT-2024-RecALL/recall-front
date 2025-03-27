@@ -64,29 +64,6 @@ export const MarkdownEditorComponent: React.FC<
     const { selectionStart, selectionEnd } = editorRef.current;
     return { selectionStart, selectionEnd } satisfies SelectionType;
   }, [editorRef]);
-  const getEditorCursorUnderPoint = useCallback(
-    (x: number, y: number, state: string) => {
-      if (!editorRef.current) return 0;
-      const rect = editorRef.current.getBoundingClientRect();
-      const ex = x - rect.left;
-      const ey = y - rect.top;
-
-      const styles = window.getComputedStyle(editorRef.current);
-      const lineHeight = parseInt(styles.lineHeight, 10) || 20;
-      const paddingLeft = parseInt(styles.paddingLeft, 10) || 0;
-
-      const cursor_line = Math.floor(ey / lineHeight);
-      const cursor_col = Math.floor((ex - paddingLeft) / 8);
-      let pos = cursor_col;
-
-      const lines = state.split('\n');
-      for (let i = 0; i < cursor_line && i < lines.length; i++) {
-        pos += lines[i].length + 1;
-      }
-      return pos;
-    },
-    [editorRef]
-  );
   const setEditorSelection = useCallback(
     ({ selectionStart, selectionEnd }: SelectionType) => {
       requestAnimationFrame(() => {
@@ -166,22 +143,11 @@ export const MarkdownEditorComponent: React.FC<
               'shadow-neutral-400'
             );
           }}
-          // onDragOver={(e) => {
-          //   e.preventDefault();
-          //   const pos = getEditorCursorUnderPoint(e.clientX, e.clientY, state);
-          //   setEditorSelection({
-          //     selectionStart: pos,
-          //     selectionEnd: pos,
-          //   });
-          // }}
           onDrop={(e) => {
             e.preventDefault();
             if (e.dataTransfer.files.length > 0) {
               uploadFile(e.dataTransfer.files[0]);
             }
-            setEditorSelection({
-              ...e.currentTarget,
-            });
             e.currentTarget.classList.add('bg-transparent');
             e.currentTarget.classList.remove(
               'bg-black/10',
@@ -194,7 +160,11 @@ export const MarkdownEditorComponent: React.FC<
         <MarkdownRenderComponent
           rawText={state}
           extended={extended}
-          className={clsx('text-lg w-full', previewClassName)}
+          className={clsx(
+            'p-2 md:p-4 font-sans',
+            'overflow-y-auto overflow-x-hidden',
+            previewClassName
+          )}
         />
       )}
     </>
