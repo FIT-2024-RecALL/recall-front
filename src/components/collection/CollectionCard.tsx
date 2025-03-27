@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'wouter';
+import { Link } from 'wouter';
 import { useTranslation } from 'react-i18next';
 
 import { routes } from '@/routes';
@@ -16,7 +16,6 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
   collectionId,
 }) => {
   const { t } = useTranslation();
-  const [, setLocation] = useLocation();
 
   const { collection, isPending, error } = useCollection(collectionId);
   const { profile } = useProfile();
@@ -26,22 +25,10 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
     <LoadableComponent isPending={isPending} errorMessage={error?.message}>
       <div
         className={clsx(
-          'bg-o-white text-o-black',
-          'hover:bg-o-white-max',
+          'bg-o-white-max text-o-black',
           'p-6 m-2 rounded-lg',
-          'ring-1 ring-o-black hover:ring-green-600',
-          'hover:shadow-lg hover:shadow-green-300',
-          'transition-all duration-200'
+          'ring-1 ring-o-black'
         )}
-        onClick={(e) => {
-          if (
-            !(
-              e.currentTarget.tagName.includes('BUTTON') ||
-              e.currentTarget.tagName.includes('A')
-            )
-          )
-            setLocation(routes.collectionView.getUrl(collectionId));
-        }}
       >
         {collection && (
           <>
