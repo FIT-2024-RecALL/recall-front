@@ -155,7 +155,7 @@ body,
 
   a {
     text-decoration: underline;
-    @apply bg-blue-600;
+    @apply text-blue-600;
   }
 
   ul {

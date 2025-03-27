@@ -33,7 +33,10 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
           'hover:shadow-lg hover:shadow-green-300',
           'transition-all duration-200'
         )}
-        onClick={() => setLocation(routes.collectionView.getUrl(collectionId))}
+        onClick={(e) => {
+          if (e.target == e.currentTarget)
+            setLocation(routes.collectionView.getUrl(collectionId));
+        }}
       >
         {collection && (
           <>
