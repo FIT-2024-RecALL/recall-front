@@ -153,6 +153,11 @@ body,
 
   h4 { font-size: medium; }
 
+  a {
+    text-decoration: underline;
+    @apply bg-blue-600;
+  }
+
   ul {
     list-style: disc;
     margin-left: 20px;

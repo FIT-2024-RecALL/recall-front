@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { useTranslation } from 'react-i18next';
 
 import { routes } from '@/routes';
@@ -16,6 +16,8 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
   collectionId,
 }) => {
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
+
   const { collection, isPending, error } = useCollection(collectionId);
   const { profile } = useProfile();
   const showAuthWindow = useAppStore((state) => state.showLoginWindow);
@@ -31,6 +33,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
           'hover:shadow-lg hover:shadow-green-300',
           'transition-all duration-200'
         )}
+        onClick={() => setLocation(routes.collectionView.getUrl(collectionId))}
       >
         {collection && (
           <>
