@@ -7,6 +7,7 @@ import { MarkdownRenderComponent } from './MarkdownRenderComponent';
 import {
   EditorElementState,
   EditorMutatorWrapper,
+  LINK_REGEX,
   mutations,
   SelectionType,
 } from './editorElementTypes';
@@ -124,6 +125,18 @@ export const MarkdownEditorComponent: React.FC<
                 .with('KeyI', () => editorActionWrapper(mutations.italic))
                 .with('KeyZ', () => undo());
             }
+          }}
+          onPaste={(e) => {
+            if (e.clipboardData.types.length == 0) return;
+            match(e.clipboardData.items[0].kind)
+              .with('string', () => {
+                const text = e.clipboardData.getData('text/plain');
+                if (LINK_REGEX.test(text)) {
+                  e.preventDefault();
+                  editorActionWrapper(mutations.link, text);
+                }
+              })
+              .with('file', () => {});
           }}
           onDragEnter={(e) => {
             e.preventDefault();
