@@ -1,10 +1,11 @@
-import React, { HTMLAttributes, useRef } from 'react';
+import React, { HTMLAttributes, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Icon, Button } from '@/components/library';
 import clsx from 'clsx';
 import { getFileFullPath } from '@/query/queryHooks';
 import { EditorMutatorWrapper, mutations } from './editorElementTypes';
+import { acceptedFilesExts, checkedFileProcessing } from './filesChecking';
 import { useFileUpload } from '@/query/mutationHooks';
 
 interface EditorControlsProps extends HTMLAttributes<React.FC> {
@@ -32,6 +33,13 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
   const { uploadFile, isPending: isFilePending } = useFileUpload((response) => {
     editorActionWrapper(mutations.media, getFileFullPath(response.url));
   });
+  const alertingUploading = useCallback(
+    (file: File) => {
+      if (checkedFileProcessing(file, uploadFile)) return;
+      alert(t('editor.notAllowedFile')); // TODO: Сделать что-то более красивое (возможно)
+    },
+    [uploadFile, t]
+  );
 
   return (
     <div className={clsx('around w-full my-1 gap-y-1 flex-wrap', className)}>
@@ -123,9 +131,10 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
           <input
             ref={uploadRef}
             type="file"
+            accept={acceptedFilesExts}
             className="hidden"
             onChange={(e) => {
-              if (e.target.files) uploadFile(e.target.files[0]);
+              if (e.target.files) alertingUploading(e.target.files[0]);
             }}
           />
           <Button
