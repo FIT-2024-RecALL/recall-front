@@ -136,7 +136,10 @@ export const MarkdownEditorComponent: React.FC<
                   editorActionWrapper(mutations.link, text);
                 }
               })
-              .with('file', () => {});
+              .with('file', () => {
+                e.preventDefault();
+                uploadFile(e.clipboardData.files[0]);
+              });
           }}
           onDragEnter={(e) => {
             e.preventDefault();
