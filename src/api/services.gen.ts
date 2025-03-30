@@ -43,6 +43,9 @@ import type {
   TrainCardsCollectionsCollectionIdCardsTrainGetData,
   TrainCardsCollectionsCollectionIdCardsTrainGetError,
   TrainCardsCollectionsCollectionIdCardsTrainGetResponse,
+  UpdateCollectionCollectionsCollectionIdPublicityPutData,
+  UpdateCollectionCollectionsCollectionIdPublicityPutError,
+  UpdateCollectionCollectionsCollectionIdPublicityPutResponse,
   GetFileStorageUserIdFilenameGetData,
   GetFileStorageUserIdFilenameGetError,
   GetFileStorageUserIdFilenameGetResponse,
@@ -311,6 +314,27 @@ export const trainCardsCollectionsCollectionIdCardsTrainGet = <
   >({
     ...options,
     url: '/collections/{collection_id}/cards/train',
+  });
+};
+
+/**
+ * Update Collection
+ */
+export const updateCollectionCollectionsCollectionIdPublicityPut = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<
+    UpdateCollectionCollectionsCollectionIdPublicityPutData,
+    ThrowOnError
+  >
+) => {
+  return (options?.client ?? client).put<
+    UpdateCollectionCollectionsCollectionIdPublicityPutResponse,
+    UpdateCollectionCollectionsCollectionIdPublicityPutError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/collections/{collection_id}/publicity',
   });
 };
 

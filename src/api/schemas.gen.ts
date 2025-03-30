@@ -89,9 +89,13 @@ export const CardSchema = {
       type: 'integer',
       title: 'Ownerid',
     },
+    isPublic: {
+      type: 'boolean',
+      title: 'Ispublic',
+    },
   },
   type: 'object',
-  required: ['frontSide', 'backSide', 'id', 'ownerId'],
+  required: ['frontSide', 'backSide', 'id', 'ownerId', 'isPublic'],
   title: 'Card',
 } as const;
 
@@ -140,9 +144,13 @@ export const CollectionSchema = {
       type: 'integer',
       title: 'Ownerid',
     },
+    isPublic: {
+      type: 'boolean',
+      title: 'Ispublic',
+    },
   },
   type: 'object',
-  required: ['title', 'id', 'ownerId'],
+  required: ['title', 'id', 'ownerId', 'isPublic'],
   title: 'Collection',
 } as const;
 
@@ -187,9 +195,13 @@ export const CollectionShortSchema = {
       minLength: 1,
       title: 'Title',
     },
+    isPublic: {
+      type: 'boolean',
+      title: 'Ispublic',
+    },
   },
   type: 'object',
-  required: ['id', 'ownerId', 'title'],
+  required: ['id', 'ownerId', 'title', 'isPublic'],
   title: 'CollectionShort',
 } as const;
 

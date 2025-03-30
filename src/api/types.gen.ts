@@ -24,6 +24,7 @@ export type Card = {
   backSide: string;
   id: number;
   ownerId: number;
+  isPublic: boolean;
 };
 
 export type CardCreate = {
@@ -36,6 +37,7 @@ export type Collection = {
   description?: string | null;
   id: number;
   ownerId: number;
+  isPublic: boolean;
 };
 
 export type CollectionCreate = {
@@ -47,6 +49,7 @@ export type CollectionShort = {
   id: number;
   ownerId: number;
   title: string;
+  isPublic: boolean;
 };
 
 export type FileUploadedScheme = {
@@ -229,6 +232,21 @@ export type TrainCardsCollectionsCollectionIdCardsTrainGetResponse =
   Array<number>;
 
 export type TrainCardsCollectionsCollectionIdCardsTrainGetError =
+  HTTPValidationError;
+
+export type UpdateCollectionCollectionsCollectionIdPublicityPutData = {
+  path: {
+    collection_id: number;
+  };
+  query: {
+    is_public: boolean;
+  };
+};
+
+export type UpdateCollectionCollectionsCollectionIdPublicityPutResponse =
+  Collection;
+
+export type UpdateCollectionCollectionsCollectionIdPublicityPutError =
   HTTPValidationError;
 
 export type GetFileStorageUserIdFilenameGetData = {
