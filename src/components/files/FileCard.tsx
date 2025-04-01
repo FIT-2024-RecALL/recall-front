@@ -1,6 +1,6 @@
 import { getFileFullPath, useFileMeta } from '@/query/queryHooks';
 import React, { HTMLAttributes } from 'react';
-import { Button, LoadableComponent } from '@/components/library';
+import { Button, IsPublicIcon, LoadableComponent } from '@/components/library';
 import clsx from 'clsx';
 import { useFileDelete } from '@/query/mutationHooks';
 
@@ -26,8 +26,9 @@ export const FileCard: React.FC<FileCardProps> = ({ fileId, className }) => {
     >
       {fileMeta && (
         <>
-          <div className="col-span-4 md:col-span-3 truncate">
-            <a className="w-fit" href={getFileFullPath(fileMeta.id)}>
+          <div className="col-span-4 md:col-span-3 around">
+            <IsPublicIcon isPublic={fileMeta.isPublic} />
+            <a className="w-fit truncate" href={getFileFullPath(fileMeta.id)}>
               <Button className="w-full" variant="inline">
                 {getFileFullPath(fileMeta.id)}
               </Button>

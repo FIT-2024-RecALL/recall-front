@@ -11,7 +11,7 @@ export const useCollectionPublicityUpdate = (
   onSuccess?: (response: Collection) => void
 ) => {
   const queryClient = useQueryClient();
-  const { mutate: updateCollection, ...rest } = useMutation({
+  const { mutate: updateCollectionPublicity, ...rest } = useMutation({
     mutationFn: (is_public: boolean) =>
       dataExtractionWrapper(
         updateCollectionPublicityCollectionsCollectionIdPublicityPut({
@@ -31,5 +31,5 @@ export const useCollectionPublicityUpdate = (
       onSuccess?.(responseData);
     },
   });
-  return { updateCollection, ...rest };
+  return { updateCollectionPublicity, ...rest };
 };

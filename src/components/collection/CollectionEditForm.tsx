@@ -25,6 +25,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui';
 import { useLocation } from 'wouter';
+import { useCollectionPublicityUpdate } from '@/query/mutationHooks/useCollectionPublicityUpdate';
 
 export type CollectionType = CollectionEditType & {
   id: number;
@@ -56,9 +57,16 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
 
   const {
     updateCollection,
-    error: saveError,
+    error: updateError,
     isPending: isUpdatePending,
   } = useCollectionUpdate(id, () => {
+    setLocation(routes.collectionView.getUrl(id));
+  });
+  const {
+    updateCollectionPublicity,
+    error: publicityError,
+    isPending: isPublicityPending,
+  } = useCollectionPublicityUpdate(id, () => {
     setLocation(routes.collectionView.getUrl(id));
   });
   const {
@@ -125,33 +133,62 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
         </FormItem>
         <FormItem
           className="m-2 md:m-4 text-lg"
-          errorMessage={saveError?.message || deleteError?.message}
+          errorMessage={
+            updateError?.message ||
+            publicityError?.message ||
+            deleteError?.message
+          }
         />
-        <div className="w-full xs-md:vstack center">
+        <div
+          className={clsx(
+            'mt-2 md:m-2',
+            'w-full center gap-x-2',
+            'text-lg md:text-xl'
+          )}
+        >
           <Button
             variant="plate-green"
             type="submit"
             withShadow
-            shadowBoxClassName="mt-2 md:m-2"
+            className="p-2 md:p-3"
             title={t('common.saveChanges')}
           >
-            {t('common.saveChanges')}
+            {!isUpdatePending ? (
+              <Icon icon="save" />
+            ) : (
+              <Icon className="animate-spin" icon="loader" />
+            )}
           </Button>
-          {isUpdatePending && (
-            <div className="mt-1 md:m-2">
-              {isUpdatePending && (
-                <Icon className="animate-spin" icon="loader" />
+          {collection && (
+            <Button
+              variant="plate-yellow"
+              onClick={() => updateCollectionPublicity(!collection.isPublic)}
+              withShadow
+              className="p-2 md:p-3"
+              title={t(
+                collection.isPublic ? 'collection.private' : 'collection.public'
               )}
-            </div>
+            >
+              {!isUpdatePending ? (
+                <Icon icon={collection.isPublic ? 'lock' : 'open'} />
+              ) : (
+                <Icon className="animate-spin" icon="loading-3/4" />
+              )}
+            </Button>
           )}
           <DropdownMenu>
             <DropdownMenuTrigger
-              className="mt-2 md:m-2"
-              disabled={isUpdatePending || isDeletePending}
+              disabled={
+                isUpdatePending || isPublicityPending || isDeletePending
+              }
             >
-              <Button variant="bordered" title={t('collection.deleteButton')}>
+              <Button
+                variant="bordered"
+                className="p-2 md:p-3"
+                title={t('collection.deleteButton')}
+              >
                 {!isDeletePending ? (
-                  t('collection.deleteButton')
+                  <Icon icon="trash" />
                 ) : (
                   <Icon className="animate-spin" icon="loading-3/4" />
                 )}

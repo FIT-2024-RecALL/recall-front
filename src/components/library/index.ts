@@ -1,6 +1,7 @@
 export * from './Button';
 export * from './FormItem';
 export * from './Icon';
+export * from './IsPublicIcon';
 export * from './LoadableComponent';
 export * from './ControlledModal';
 export * from './ProgressBar';

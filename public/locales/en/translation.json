@@ -63,7 +63,9 @@
     "notAllowedToEdit": "You're not allowed to edit other people's collections",
     "pairedCards": "Paired cards",
     "allCards": "All cards",
-    "searchPlaceholder": "Type collection's title..."
+    "searchPlaceholder": "Type collection's title...",
+    "public": "Make public",
+    "private": "Make private"
   },
   "card": {
     "aiMark": "AI mark",

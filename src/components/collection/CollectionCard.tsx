@@ -3,7 +3,12 @@ import { Link } from 'wouter';
 import { useTranslation } from 'react-i18next';
 
 import { routes } from '@/routes';
-import { LoadableComponent, Button, Icon } from '@/components/library';
+import {
+  LoadableComponent,
+  Button,
+  Icon,
+  IsPublicIcon,
+} from '@/components/library';
 import { useCollection, useProfile } from '@/query/queryHooks';
 import { useAppStore } from '@/state';
 import clsx from 'clsx';
@@ -33,7 +38,16 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
         {collection && (
           <>
             <div>
-              <h2 className="text-lg font-bold mb-2">{collection.title}</h2>
+              <h2
+                className={clsx(
+                  'mb-2 gap-x-2',
+                  'flex items-center justify-start',
+                  'text-lg font-bold'
+                )}
+              >
+                <span>{collection.title}</span>
+                <IsPublicIcon isPublic={collection.isPublic} />
+              </h2>
               <p className="text-md mb-2">{collection.description}</p>
             </div>
 

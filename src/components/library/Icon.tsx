@@ -22,6 +22,8 @@ import {
   TbX,
   TbDownload,
   TbUpload,
+  TbLock,
+  TbLockOpen2,
 } from 'react-icons/tb';
 import {
   AiFillFileAdd,
@@ -44,7 +46,7 @@ import { LuSigma } from 'react-icons/lu';
 import { GrRevert } from 'react-icons/gr';
 import React from 'react';
 import { match } from 'ts-pattern';
-import { IconBaseProps } from 'react-icons/lib/cjs/iconBase';
+import { IconBaseProps } from 'react-icons/lib/iconBase';
 
 export const icons = [
   'arrowRight',
@@ -85,10 +87,12 @@ export const icons = [
   'sigma',
   'revert',
   'h1',
+  'lock',
+  'open',
 ] as const;
 export type IconType = (typeof icons)[number];
 
-interface IconProps extends IconBaseProps {
+export interface IconProps extends IconBaseProps {
   icon: IconType;
   color?: string;
   className?: string;
@@ -138,6 +142,8 @@ export const Icon: React.FC<IconProps> = ({
     .with('sigma', () => LuSigma)
     .with('revert', () => GrRevert)
     .with('h1', () => BsTypeH1)
+    .with('lock', () => TbLock)
+    .with('open', () => TbLockOpen2)
     .exhaustive();
 
   const modifiers = match(icon)

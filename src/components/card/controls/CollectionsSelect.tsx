@@ -12,7 +12,7 @@ export type Option<V> = { value: V; label: string };
 export const collectionResponseToOptions = (collections?: CollectionShort[]) =>
   collections?.map((collection) => ({
     value: collection.id,
-    label: collection.title,
+    label: `${collection.title}${collection.isPublic && ' (PUBLIC)'}`,
   })) ?? [];
 
 export interface CollectionsSelectProps {
