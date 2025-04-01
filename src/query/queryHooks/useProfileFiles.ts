@@ -3,7 +3,8 @@ import { dataExtractionWrapper } from '@/query';
 import { readUserFilesUserFilesGet } from '@/api';
 import { serverUrl } from '@/main';
 
-export const getFileFullPath = (filePath: string) => serverUrl + filePath;
+export const getFileFullPath = (file_id: number) =>
+  `${serverUrl}/storage/${file_id}`;
 
 export const getProfileFilesQueryOptions = () =>
   queryOptions({

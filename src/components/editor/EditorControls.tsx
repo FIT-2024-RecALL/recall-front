@@ -5,7 +5,7 @@ import { Icon, Button } from '@/components/library';
 import clsx from 'clsx';
 import { getFileFullPath } from '@/query/queryHooks';
 import { EditorMutatorWrapper, mutations } from './editorElementTypes';
-import { acceptedFilesExts, checkedFileProcessing } from './filesChecking';
+import { acceptedFilesExts, checkedFileProcessing } from '@/components/files';
 import { useFileUpload } from '@/query/mutationHooks';
 
 interface EditorControlsProps extends HTMLAttributes<React.FC> {
@@ -31,7 +31,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
   const uploadRef = useRef<HTMLInputElement>(null);
 
   const { uploadFile, isPending: isFilePending } = useFileUpload((response) => {
-    editorActionWrapper(mutations.media, getFileFullPath(response.url));
+    editorActionWrapper(mutations.media, getFileFullPath(response.id));
   });
   const alertingUploading = useCallback(
     (file: File) => {

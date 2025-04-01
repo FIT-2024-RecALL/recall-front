@@ -11,7 +11,7 @@ import {
   mutations,
   SelectionType,
 } from './editorElementTypes';
-import { checkedFileProcessing } from './filesChecking';
+import { checkedFileProcessing } from '@/components/files';
 import { useFileUpload } from '@/query/mutationHooks';
 import { getFileFullPath } from '@/query/queryHooks';
 import { useTranslation } from 'react-i18next';
@@ -80,7 +80,7 @@ export const MarkdownEditorComponent: React.FC<
   );
 
   const { uploadFile } = useFileUpload((response) => {
-    editorActionWrapper(mutations.media, getFileFullPath(response.url));
+    editorActionWrapper(mutations.media, getFileFullPath(response.id));
   });
   const alertingUploading = useCallback(
     (file: File) => {
