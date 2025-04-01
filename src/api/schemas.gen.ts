@@ -71,6 +71,10 @@ export const Body_update_card_cards__card_id__putSchema = {
 
 export const CardSchema = {
   properties: {
+    isPublic: {
+      type: 'boolean',
+      title: 'Ispublic',
+    },
     frontSide: {
       type: 'string',
       minLength: 1,
@@ -89,13 +93,9 @@ export const CardSchema = {
       type: 'integer',
       title: 'Ownerid',
     },
-    isPublic: {
-      type: 'boolean',
-      title: 'Ispublic',
-    },
   },
   type: 'object',
-  required: ['frontSide', 'backSide', 'id', 'ownerId', 'isPublic'],
+  required: ['isPublic', 'frontSide', 'backSide', 'id', 'ownerId'],
   title: 'Card',
 } as const;
 
@@ -119,6 +119,10 @@ export const CardCreateSchema = {
 
 export const CollectionSchema = {
   properties: {
+    isPublic: {
+      type: 'boolean',
+      title: 'Ispublic',
+    },
     title: {
       type: 'string',
       maxLength: 100,
@@ -144,13 +148,9 @@ export const CollectionSchema = {
       type: 'integer',
       title: 'Ownerid',
     },
-    isPublic: {
-      type: 'boolean',
-      title: 'Ispublic',
-    },
   },
   type: 'object',
-  required: ['title', 'id', 'ownerId', 'isPublic'],
+  required: ['isPublic', 'title', 'id', 'ownerId'],
   title: 'Collection',
 } as const;
 
@@ -181,6 +181,10 @@ export const CollectionCreateSchema = {
 
 export const CollectionShortSchema = {
   properties: {
+    isPublic: {
+      type: 'boolean',
+      title: 'Ispublic',
+    },
     id: {
       type: 'integer',
       title: 'Id',
@@ -195,30 +199,70 @@ export const CollectionShortSchema = {
       minLength: 1,
       title: 'Title',
     },
+  },
+  type: 'object',
+  required: ['isPublic', 'id', 'ownerId', 'title'],
+  title: 'CollectionShort',
+} as const;
+
+export const FileMetaSchema = {
+  properties: {
     isPublic: {
       type: 'boolean',
       title: 'Ispublic',
     },
-  },
-  type: 'object',
-  required: ['id', 'ownerId', 'title', 'isPublic'],
-  title: 'CollectionShort',
-} as const;
-
-export const FileUploadedSchemeSchema = {
-  properties: {
-    url: {
-      type: 'string',
-      title: 'Url',
+    ownerId: {
+      type: 'integer',
+      title: 'Ownerid',
     },
     filename: {
       type: 'string',
       title: 'Filename',
     },
+    type: {
+      type: 'string',
+      enum: ['image', 'video', 'audio'],
+      title: 'Type',
+    },
+    ext: {
+      type: 'string',
+      enum: [
+        'bmp',
+        'gif',
+        'jpg',
+        'jpeg',
+        'png',
+        'svg',
+        'tif',
+        'tiff',
+        'webp',
+        'avi',
+        'm4v',
+        'mkv',
+        'mov',
+        'mpg',
+        'mp4',
+        'ogv',
+        'webm',
+        'wmv',
+        'aac',
+        'flac',
+        'm4a',
+        'mp3',
+        'oga',
+        'ogg',
+        'wav',
+      ],
+      title: 'Ext',
+    },
+    id: {
+      type: 'integer',
+      title: 'Id',
+    },
   },
   type: 'object',
-  required: ['url', 'filename'],
-  title: 'FileUploadedScheme',
+  required: ['isPublic', 'ownerId', 'filename', 'type', 'ext', 'id'],
+  title: 'FileMeta',
 } as const;
 
 export const HTTPValidationErrorSchema = {

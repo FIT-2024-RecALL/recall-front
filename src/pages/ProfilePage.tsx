@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Icon, LoadableComponent } from '@/components/library';
 import { useProfile, useProfileCollections } from '@/query/queryHooks';
 import { ErrorPage } from './ErrorPage';
-import { FilesList } from '@/components/profile';
+import { FilesList } from '@/components/files';
 import { CollectionsSearchableList } from '@/components/collection';
 import { useProfileDelete } from '@/query/mutationHooks';
 import {

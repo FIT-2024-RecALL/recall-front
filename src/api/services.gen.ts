@@ -43,20 +43,24 @@ import type {
   TrainCardsCollectionsCollectionIdCardsTrainGetData,
   TrainCardsCollectionsCollectionIdCardsTrainGetError,
   TrainCardsCollectionsCollectionIdCardsTrainGetResponse,
-  UpdateCollectionCollectionsCollectionIdPublicityPutData,
-  UpdateCollectionCollectionsCollectionIdPublicityPutError,
-  UpdateCollectionCollectionsCollectionIdPublicityPutResponse,
-  GetFileStorageUserIdFilenameGetData,
-  GetFileStorageUserIdFilenameGetError,
-  GetFileStorageUserIdFilenameGetResponse,
-  ListFilesStorageGetError,
-  ListFilesStorageGetResponse,
+  UpdateCollectionPublicityCollectionsCollectionIdPublicityPutData,
+  UpdateCollectionPublicityCollectionsCollectionIdPublicityPutError,
+  UpdateCollectionPublicityCollectionsCollectionIdPublicityPutResponse,
   AddFileStoragePostData,
   AddFileStoragePostError,
   AddFileStoragePostResponse,
-  DeleteFileStorageFilenameDeleteData,
-  DeleteFileStorageFilenameDeleteError,
-  DeleteFileStorageFilenameDeleteResponse,
+  GetFileMetaStorageFileIdMetaGetData,
+  GetFileMetaStorageFileIdMetaGetError,
+  GetFileMetaStorageFileIdMetaGetResponse,
+  GetFileCardsStorageFileIdCardsGetData,
+  GetFileCardsStorageFileIdCardsGetError,
+  GetFileCardsStorageFileIdCardsGetResponse,
+  GetFileStorageFileIdGetData,
+  GetFileStorageFileIdGetError,
+  GetFileStorageFileIdGetResponse,
+  DeleteFileStorageFileIdDeleteData,
+  DeleteFileStorageFileIdDeleteError,
+  DeleteFileStorageFileIdDeleteResponse,
   ReadCardLastTrainRecordTrainRecordsLastCardIdGetData,
   ReadCardLastTrainRecordTrainRecordsLastCardIdGetError,
   ReadCardLastTrainRecordTrainRecordsLastCardIdGetResponse,
@@ -74,6 +78,9 @@ import type {
   ReadUserCardsUserCardsGetData,
   ReadUserCardsUserCardsGetError,
   ReadUserCardsUserCardsGetResponse,
+  ReadUserFilesUserFilesGetData,
+  ReadUserFilesUserFilesGetError,
+  ReadUserFilesUserFilesGetResponse,
   CreateUserUserRegisterPostData,
   CreateUserUserRegisterPostError,
   CreateUserUserRegisterPostResponse,
@@ -318,57 +325,23 @@ export const trainCardsCollectionsCollectionIdCardsTrainGet = <
 };
 
 /**
- * Update Collection
+ * Update Collection Publicity
  */
-export const updateCollectionCollectionsCollectionIdPublicityPut = <
+export const updateCollectionPublicityCollectionsCollectionIdPublicityPut = <
   ThrowOnError extends boolean = false
 >(
   options: Options<
-    UpdateCollectionCollectionsCollectionIdPublicityPutData,
+    UpdateCollectionPublicityCollectionsCollectionIdPublicityPutData,
     ThrowOnError
   >
 ) => {
   return (options?.client ?? client).put<
-    UpdateCollectionCollectionsCollectionIdPublicityPutResponse,
-    UpdateCollectionCollectionsCollectionIdPublicityPutError,
+    UpdateCollectionPublicityCollectionsCollectionIdPublicityPutResponse,
+    UpdateCollectionPublicityCollectionsCollectionIdPublicityPutError,
     ThrowOnError
   >({
     ...options,
     url: '/collections/{collection_id}/publicity',
-  });
-};
-
-/**
- * Get File
- */
-export const getFileStorageUserIdFilenameGet = <
-  ThrowOnError extends boolean = false
->(
-  options: Options<GetFileStorageUserIdFilenameGetData, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    GetFileStorageUserIdFilenameGetResponse,
-    GetFileStorageUserIdFilenameGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/storage/{user_id}/{filename}',
-  });
-};
-
-/**
- * List Files
- */
-export const listFilesStorageGet = <ThrowOnError extends boolean = false>(
-  options?: Options<unknown, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    ListFilesStorageGetResponse,
-    ListFilesStorageGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/storage/',
   });
 };
 
@@ -394,20 +367,72 @@ export const addFileStoragePost = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Delete File
+ * Get File Meta
  */
-export const deleteFileStorageFilenameDelete = <
+export const getFileMetaStorageFileIdMetaGet = <
   ThrowOnError extends boolean = false
 >(
-  options: Options<DeleteFileStorageFilenameDeleteData, ThrowOnError>
+  options: Options<GetFileMetaStorageFileIdMetaGetData, ThrowOnError>
 ) => {
-  return (options?.client ?? client).delete<
-    DeleteFileStorageFilenameDeleteResponse,
-    DeleteFileStorageFilenameDeleteError,
+  return (options?.client ?? client).get<
+    GetFileMetaStorageFileIdMetaGetResponse,
+    GetFileMetaStorageFileIdMetaGetError,
     ThrowOnError
   >({
     ...options,
-    url: '/storage/{filename}',
+    url: '/storage/{file_id}/meta',
+  });
+};
+
+/**
+ * Get File Cards
+ */
+export const getFileCardsStorageFileIdCardsGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<GetFileCardsStorageFileIdCardsGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    GetFileCardsStorageFileIdCardsGetResponse,
+    GetFileCardsStorageFileIdCardsGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/storage/{file_id}/cards',
+  });
+};
+
+/**
+ * Get File
+ */
+export const getFileStorageFileIdGet = <ThrowOnError extends boolean = false>(
+  options: Options<GetFileStorageFileIdGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    GetFileStorageFileIdGetResponse,
+    GetFileStorageFileIdGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/storage/{file_id}',
+  });
+};
+
+/**
+ * Delete File
+ */
+export const deleteFileStorageFileIdDelete = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<DeleteFileStorageFileIdDeleteData, ThrowOnError>
+) => {
+  return (options?.client ?? client).delete<
+    DeleteFileStorageFileIdDeleteResponse,
+    DeleteFileStorageFileIdDeleteError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/storage/{file_id}',
   });
 };
 
@@ -518,6 +543,22 @@ export const readUserCardsUserCardsGet = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: '/user/cards',
+  });
+};
+
+/**
+ * Read User Files
+ */
+export const readUserFilesUserFilesGet = <ThrowOnError extends boolean = false>(
+  options?: Options<ReadUserFilesUserFilesGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadUserFilesUserFilesGetResponse,
+    ReadUserFilesUserFilesGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/user/files',
   });
 };
 

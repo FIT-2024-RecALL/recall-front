@@ -2,11 +2,11 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { LoadableComponent, Button } from '@/components/library';
-import { getFileFullPath, useFilesList } from '@/query/queryHooks';
+import { getFileFullPath, useProfileFiles } from '@/query/queryHooks';
 import { useFileDelete } from '@/query/mutationHooks';
 
 export const FilesList: React.FC = () => {
-  const { files, isPending: isFilesPending } = useFilesList();
+  const { files, isPending: isFilesPending } = useProfileFiles();
 
   const { deleteFile } = useFileDelete();
 
