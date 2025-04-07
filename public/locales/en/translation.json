@@ -99,6 +99,7 @@
     "ul": "Unordered list",
     "ol": "Ordered list",
     "uploadFile": "Upload file for card",
+    "notAllowedFile": "You're allowed to upload only photos, videos or audios",
     "undo": "Undo last change",
     "togglePreview": "Preview",
     "toggleEdit": "Editing"

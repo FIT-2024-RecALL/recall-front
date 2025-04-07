@@ -127,14 +127,14 @@ export const mutations: Mutations = {
     const url = payload ? payload : 'url';
     return state.selectionStart !== state.selectionEnd
       ? getSelectionBordersFillerMutation('[', `](${url})`)(state)
-      : getCursorPositionFillerMutation(`\n[Link label](${url})\n`)(state);
+      : getCursorPositionFillerMutation(`\n[ ... ](${url})\n`)(state);
   },
   math: getSelectedBorderLinesMutation('$$'),
   media: (state, payload) => {
     const url = payload ? payload : 'media_url';
     return state.selectionStart !== state.selectionEnd
       ? getSelectionBordersFillerMutation('![', `](${url})`)(state)
-      : getCursorPositionFillerMutation(`\n![Media label](${url})\n`)(state);
+      : getCursorPositionFillerMutation(`\n![ ... ](${url})\n`)(state);
   },
   h1: getEverySelectedLineStartMutation('# '),
   tab: getEverySelectedLineStartMutation('  '),

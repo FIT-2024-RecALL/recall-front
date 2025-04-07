@@ -11,8 +11,10 @@ import {
   mutations,
   SelectionType,
 } from './editorElementTypes';
+import { checkedFileProcessing } from './filesChecking';
 import { useFileUpload } from '@/query/mutationHooks';
 import { getFileFullPath } from '@/query/queryHooks';
+import { useTranslation } from 'react-i18next';
 
 interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
   state: string;
@@ -25,6 +27,7 @@ interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
 export const MarkdownEditorComponent: React.FC<
   MarkdownEditorComponentProps
 > = ({ state, setState, extended, placeholder, previewClassName }) => {
+  const { t } = useTranslation();
   const [active, setActive] = useState(true);
 
   const historyRef = useRef<EditorElementState[]>([]);
@@ -79,6 +82,13 @@ export const MarkdownEditorComponent: React.FC<
   const { uploadFile } = useFileUpload((response) => {
     editorActionWrapper(mutations.media, getFileFullPath(response.url));
   });
+  const alertingUploading = useCallback(
+    (file: File) => {
+      if (checkedFileProcessing(file, uploadFile)) return;
+      alert(t('editor.notAllowedFile')); // TODO: Сделать что-то более красивое (возможно)
+    },
+    [uploadFile, t]
+  );
 
   return (
     <>
@@ -131,14 +141,18 @@ export const MarkdownEditorComponent: React.FC<
             match(e.clipboardData.items[0].kind)
               .with('string', () => {
                 const text = e.clipboardData.getData('text/plain');
-                if (LINK_REGEX.test(text)) {
-                  e.preventDefault();
-                  editorActionWrapper(mutations.link, text);
-                }
+                if (!LINK_REGEX.test(text)) return;
+                e.preventDefault();
+                editorActionWrapper(mutations.link, text);
               })
-              .with('file', () => {});
+              .with('file', () => {
+                if (!extended) return;
+                e.preventDefault();
+                alertingUploading(e.clipboardData.files[0]);
+              });
           }}
           onDragEnter={(e) => {
+            if (!extended) return;
             e.preventDefault();
             e.currentTarget.classList.remove('bg-transparent');
             e.currentTarget.classList.add(
@@ -148,6 +162,7 @@ export const MarkdownEditorComponent: React.FC<
             );
           }}
           onDragLeave={(e) => {
+            if (!extended) return;
             e.preventDefault();
             e.currentTarget.classList.add('bg-transparent');
             e.currentTarget.classList.remove(
@@ -157,9 +172,10 @@ export const MarkdownEditorComponent: React.FC<
             );
           }}
           onDrop={(e) => {
+            if (!extended) return;
             e.preventDefault();
             if (e.dataTransfer.files.length > 0) {
-              uploadFile(e.dataTransfer.files[0]);
+              alertingUploading(e.dataTransfer.files[0]);
             }
             e.currentTarget.classList.add('bg-transparent');
             e.currentTarget.classList.remove(
