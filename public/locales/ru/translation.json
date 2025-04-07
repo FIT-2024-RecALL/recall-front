@@ -113,6 +113,7 @@
     "toggleEdit": "Редактирование"
   },
   "file": {
+    "deleteFile": "Удалить файл",
     "thisPublic": "Файл доступен всем",
     "thisPrivate": "Файл приватный"
   }

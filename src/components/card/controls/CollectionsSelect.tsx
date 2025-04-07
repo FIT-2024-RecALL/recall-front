@@ -45,7 +45,8 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
           container: () => 'w-full',
           control: () =>
             'bg-o-white hover:shadow-inner hover:shadow-neutral-400 px-1',
-          multiValue: () => 'bg-blue-200/75 mx-1 px-1 center',
+          valueContainer: () => 'p-1 gap-1',
+          multiValue: () => 'bg-blue-200/75 px-1 center',
           multiValueRemove: () =>
             'ml-1 cursor-pointer rounded-xs transition-all duration-400 hover:bg-neutral-300/50',
           menuList: () =>

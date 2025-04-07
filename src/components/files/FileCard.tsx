@@ -1,16 +1,30 @@
 import { getFileFullPath, useFileMeta } from '@/query/queryHooks';
 import React, { HTMLAttributes } from 'react';
-import { Button, IsPublicIcon, LoadableComponent } from '@/components/library';
+import {
+  Button,
+  Icon,
+  IsPublicIcon,
+  LoadableComponent,
+} from '@/components/library';
 import clsx from 'clsx';
 import { useFileDelete } from '@/query/mutationHooks';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../ui';
+import { useTranslation } from 'react-i18next';
 
 interface FileCardProps extends HTMLAttributes<React.FC> {
   fileId: number;
 }
 
 export const FileCard: React.FC<FileCardProps> = ({ fileId, className }) => {
+  const { t } = useTranslation();
+
   const { fileMeta, isPending, error } = useFileMeta(fileId);
-  const { deleteFile } = useFileDelete();
+  const { deleteFile, isPending: isDeletePending } = useFileDelete(fileId);
 
   return (
     <LoadableComponent
@@ -26,22 +40,41 @@ export const FileCard: React.FC<FileCardProps> = ({ fileId, className }) => {
     >
       {fileMeta && (
         <>
-          <div className="col-span-4 md:col-span-3 around">
-            <IsPublicIcon objetcType="file" isPublic={fileMeta.isPublic} />
+          <div className="col-span-4 md:col-span-3 gap-x-1 center">
             <a className="w-fit truncate" href={getFileFullPath(fileMeta.id)}>
               <Button className="w-full" variant="inline">
                 {getFileFullPath(fileMeta.id)}
               </Button>
             </a>
+            <IsPublicIcon objetcType="file" isPublic={fileMeta.isPublic} />
           </div>
-          <div className="col-span-4 md:col-span-1">
-            <Button
-              className="w-full"
-              variant="bordered"
-              onClick={() => deleteFile(fileMeta.id)}
-            >
-              Delete file
-            </Button>
+          <div className="col-span-4 md:col-span-1 center">
+            <DropdownMenu>
+              <DropdownMenuTrigger disabled={isDeletePending}>
+                <Button
+                  className="text-xl"
+                  variant="bordered"
+                  title={t('file.deleteFile')}
+                >
+                  {!isDeletePending ? (
+                    <Icon icon="trash" />
+                  ) : (
+                    <Icon className="animate-spin" icon="loading-3/4" />
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <Button
+                    variant="plate-red"
+                    onClick={() => deleteFile()}
+                    title={t('common.confirmDeletion')}
+                  >
+                    {t('common.confirmDeletion')}
+                  </Button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </>
       )}

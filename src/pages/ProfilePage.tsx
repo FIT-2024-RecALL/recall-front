@@ -52,14 +52,8 @@ export const ProfilePage: React.FC = () => {
 
       <FilesList />
 
-      <hr className="border-2 border-o-black 'my-2 md:my-6 w-full" />
-
-      <h2 className="text-center text-2xl font-bold mb-6">
-        {t('profile.deleteAccount')}
-      </h2>
-
       <DropdownMenu>
-        <DropdownMenuTrigger className="mx-3" disabled={isDeletePending}>
+        <DropdownMenuTrigger className="mt-16" disabled={isDeletePending}>
           <Button variant="bordered" title={t('profile.deleteAccount')}>
             {!isDeletePending ? (
               t('profile.deleteAccount')

@@ -112,6 +112,7 @@
     "toggleEdit": "Editing"
   },
   "file": {
+    "deleteFile": "Delete file",
     "thisPublic": "File is public",
     "thisPrivate": "File is private"
   }

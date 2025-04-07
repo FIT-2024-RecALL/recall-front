@@ -72,7 +72,7 @@ export const EditCardControls: React.FC = () => {
           {updateError?.message || deleteError?.message}
         </div>
       )}
-      <div className="mt-2 text-sm md:text-md center">
+      <div className="mt-2 text-sm md:text-md gap-x-1 md:gap-x-3 center">
         <div
           className={clsx(
             'transition-all duration-300',
@@ -85,6 +85,7 @@ export const EditCardControls: React.FC = () => {
         >
           <Button
             variant="plate-green"
+            className="text-xl p-2"
             onClick={() => {
               updateCard({
                 new_card: { ...cardData },
@@ -93,13 +94,6 @@ export const EditCardControls: React.FC = () => {
             }}
             withShadow
             disabled={isUpdatePending || isDeletePending}
-            shadowBoxClassName={
-              cardData.frontSide &&
-              cardData.backSide &&
-              selectedOptions.length > 0
-                ? 'opacity-100'
-                : 'opacity-0 invisible'
-            }
             title={t('common.saveChanges')}
           >
             {!isUpdatePending ? (
@@ -111,6 +105,7 @@ export const EditCardControls: React.FC = () => {
         </div>
         <span
           className={clsx(
+            'text-center',
             'transition-all duration-300',
             cardData.frontSide &&
               cardData.backSide &&
@@ -122,11 +117,12 @@ export const EditCardControls: React.FC = () => {
           {t('card.requirements')}
         </span>
         <DropdownMenu>
-          <DropdownMenuTrigger
-            className="ml-3"
-            disabled={isUpdatePending || isDeletePending}
-          >
-            <Button variant="bordered" title={t('card.deleteCard')}>
+          <DropdownMenuTrigger disabled={isUpdatePending || isDeletePending}>
+            <Button
+              className="text-xl p-2"
+              variant="bordered"
+              title={t('card.deleteCard')}
+            >
               {!isDeletePending ? (
                 <Icon icon="trash" />
               ) : (

@@ -54,7 +54,7 @@ export const CreateCardControls: React.FC = () => {
           )}
         >
           <Button
-            className={clsx('text-xl')}
+            className={clsx('text-xl p-2')}
             variant="plate-green"
             onClick={() => {
               createCard({
@@ -70,6 +70,7 @@ export const CreateCardControls: React.FC = () => {
         </div>
         <span
           className={clsx(
+            'text-center',
             'transition-all duration-300',
             cardData.frontSide &&
               cardData.backSide &&

@@ -3,12 +3,12 @@ import { dataExtractionWrapper } from '@/query';
 import { getProfileFilesQueryOptions } from '@/query/queryHooks';
 import { deleteFileStorageFileIdDelete } from '@/api';
 
-export const useFileDelete = (onSuccess?: () => void) => {
+export const useFileDelete = (fileId: number, onSuccess?: () => void) => {
   const queryClient = useQueryClient();
   const { mutate: deleteFile, ...rest } = useMutation({
-    mutationFn: (file_id: number) =>
+    mutationFn: () =>
       dataExtractionWrapper(
-        deleteFileStorageFileIdDelete({ path: { file_id } })
+        deleteFileStorageFileIdDelete({ path: { file_id: fileId } })
       ),
     onSuccess: () => {
       queryClient.invalidateQueries({
