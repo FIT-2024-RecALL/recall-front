@@ -73,31 +73,54 @@ export const EditCardControls: React.FC = () => {
         </div>
       )}
       <div className="mt-2 text-sm md:text-md center">
-        <Button
-          variant="plate-green"
-          onClick={() => {
-            updateCard({
-              new_card: { ...cardData },
-              collections: selectedOptions.map((option) => option.value),
-            });
-          }}
-          withShadow
-          disabled={isUpdatePending || isDeletePending}
-          shadowBoxClassName={
+        <div
+          className={clsx(
+            'transition-all duration-300',
             cardData.frontSide &&
-            cardData.backSide &&
-            selectedOptions.length > 0
+              cardData.backSide &&
+              selectedOptions.length > 0
               ? 'opacity-100'
-              : 'opacity-0 invisible'
-          }
-          title={t('common.saveChanges')}
-        >
-          {!isUpdatePending ? (
-            t('common.saveChanges')
-          ) : (
-            <Icon className="animate-spin" icon="loading-3/4" />
+              : 'opacity-0 invisible absolute'
           )}
-        </Button>
+        >
+          <Button
+            variant="plate-green"
+            onClick={() => {
+              updateCard({
+                new_card: { ...cardData },
+                collections: selectedOptions.map((option) => option.value),
+              });
+            }}
+            withShadow
+            disabled={isUpdatePending || isDeletePending}
+            shadowBoxClassName={
+              cardData.frontSide &&
+              cardData.backSide &&
+              selectedOptions.length > 0
+                ? 'opacity-100'
+                : 'opacity-0 invisible'
+            }
+            title={t('common.saveChanges')}
+          >
+            {!isUpdatePending ? (
+              <Icon icon="save" />
+            ) : (
+              <Icon className="animate-spin" icon="loading-3/4" />
+            )}
+          </Button>
+        </div>
+        <span
+          className={clsx(
+            'transition-all duration-300',
+            cardData.frontSide &&
+              cardData.backSide &&
+              selectedOptions.length > 0
+              ? 'opacity-0 invisible absolute'
+              : 'opacity-100'
+          )}
+        >
+          {t('card.requirements')}
+        </span>
         <DropdownMenu>
           <DropdownMenuTrigger
             className="ml-3"
@@ -105,7 +128,7 @@ export const EditCardControls: React.FC = () => {
           >
             <Button variant="bordered" title={t('card.deleteCard')}>
               {!isDeletePending ? (
-                t('card.deleteCard')
+                <Icon icon="trash" />
               ) : (
                 <Icon className="animate-spin" icon="loading-3/4" />
               )}

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { MultiValue } from 'react-select';
 import { useTranslation } from 'react-i18next';
 
-import { Button } from '@/components/library';
+import { Button, Icon } from '@/components/library';
 import { useAppStore } from '@/state';
 import { CollectionsSelect, Option } from './CollectionsSelect';
 import { useCardCreate } from '@/query/mutationHooks';
@@ -42,29 +42,44 @@ export const CreateCardControls: React.FC = () => {
         </div>
       )}
 
-      <div
-        className={clsx(
-          'mt-1 center',
-          'transition-all duration-300',
-          cardData.frontSide && cardData.backSide && selectedOptions.length > 0
-            ? 'opacity-100'
-            : 'opacity-0 invisible'
-        )}
-      >
-        <Button
-          className="text-xl"
-          variant="plate-green"
-          onClick={() => {
-            createCard({
-              card: { ...cardData },
-              collections: selectedOptions?.map((option) => option.value),
-            });
-          }}
-          withShadow
-          title={t('card.createCard')}
+      <div className={clsx('mt-1 center')}>
+        <div
+          className={clsx(
+            'transition-all duration-300',
+            cardData.frontSide &&
+              cardData.backSide &&
+              selectedOptions.length > 0
+              ? 'opacity-100'
+              : 'opacity-0 invisible absolute'
+          )}
         >
-          {t('card.createCard')}
-        </Button>
+          <Button
+            className={clsx('text-xl')}
+            variant="plate-green"
+            onClick={() => {
+              createCard({
+                card: { ...cardData },
+                collections: selectedOptions?.map((option) => option.value),
+              });
+            }}
+            withShadow
+            title={t('card.createCard')}
+          >
+            <Icon icon="save" />
+          </Button>
+        </div>
+        <span
+          className={clsx(
+            'transition-all duration-300',
+            cardData.frontSide &&
+              cardData.backSide &&
+              selectedOptions.length > 0
+              ? 'opacity-0 invisible absolute'
+              : 'opacity-100'
+          )}
+        >
+          {t('card.requirements')}
+        </span>
       </div>
     </div>
   );

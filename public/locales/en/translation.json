@@ -82,7 +82,8 @@
     "deleteCard": "Delete card",
     "confirmClose": "Are you sure to close unsaved card?",
     "thisPublic": "Card is public",
-    "thisPrivate": "Card is private"
+    "thisPrivate": "Card is private",
+    "requirements": "Card must have non-empty sides and at least one collection connected"
   },
   "train": {
     "onlyAuthorized": "Only authorized users can train",
