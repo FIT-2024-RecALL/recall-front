@@ -65,7 +65,9 @@
     "allCards": "All cards",
     "searchPlaceholder": "Type collection's title...",
     "public": "Make public",
-    "private": "Make private"
+    "private": "Make private",
+    "thisPublic": "Collection is public",
+    "thisPrivate": "Collection is private"
   },
   "card": {
     "aiMark": "AI mark",
@@ -78,7 +80,9 @@
     "pairedWithPlaceholder": "Select paired collections (at least one)",
     "createCard": "Create card",
     "deleteCard": "Delete card",
-    "confirmClose": "Are you sure to close unsaved card?"
+    "confirmClose": "Are you sure to close unsaved card?",
+    "thisPublic": "Card is public",
+    "thisPrivate": "Card is private"
   },
   "train": {
     "onlyAuthorized": "Only authorized users can train",
@@ -105,5 +109,9 @@
     "undo": "Undo last change",
     "togglePreview": "Preview",
     "toggleEdit": "Editing"
+  },
+  "file": {
+    "thisPublic": "File is public",
+    "thisPrivate": "File is private"
   }
 }

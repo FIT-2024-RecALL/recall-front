@@ -37,6 +37,7 @@ export const Card: React.FC<CardProps> = ({ mode, cardId, className }) => {
             <>
               <IsPublicIcon
                 className="absolute right-1 top-1"
+                objetcType="card"
                 isPublic={card.isPublic}
               />
               <MarkdownRenderComponent

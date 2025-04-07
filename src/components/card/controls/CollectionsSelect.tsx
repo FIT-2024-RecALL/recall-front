@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoadableComponent } from '@/components/library';
+import { IsPublicIcon, LoadableComponent } from '@/components/library';
 import Select, { MultiValue } from 'react-select';
 
 import { useProfileCollections } from '@/query/queryHooks';
@@ -7,12 +7,17 @@ import { CollectionShort } from '@/api';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '@/state';
 
-export type Option<V> = { value: V; label: string };
+export type Option<V> = { value: V; label: JSX.Element };
 
 export const collectionResponseToOptions = (collections?: CollectionShort[]) =>
   collections?.map((collection) => ({
     value: collection.id,
-    label: `${collection.title}${collection.isPublic && ' (PUBLIC)'}`,
+    label: (
+      <span className="gap-x-1 around md:justify-start items-center">
+        {collection.title}
+        <IsPublicIcon objetcType="collection" isPublic={collection.isPublic} />
+      </span>
+    ),
   })) ?? [];
 
 export interface CollectionsSelectProps {

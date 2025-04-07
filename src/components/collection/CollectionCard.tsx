@@ -46,7 +46,10 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
                 )}
               >
                 <span>{collection.title}</span>
-                <IsPublicIcon isPublic={collection.isPublic} />
+                <IsPublicIcon
+                  objetcType="collection"
+                  isPublic={collection.isPublic}
+                />
               </h2>
               <p className="text-md mb-2">{collection.description}</p>
             </div>

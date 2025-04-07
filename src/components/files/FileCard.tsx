@@ -27,7 +27,7 @@ export const FileCard: React.FC<FileCardProps> = ({ fileId, className }) => {
       {fileMeta && (
         <>
           <div className="col-span-4 md:col-span-3 around">
-            <IsPublicIcon isPublic={fileMeta.isPublic} />
+            <IsPublicIcon objetcType="file" isPublic={fileMeta.isPublic} />
             <a className="w-fit truncate" href={getFileFullPath(fileMeta.id)}>
               <Button className="w-full" variant="inline">
                 {getFileFullPath(fileMeta.id)}

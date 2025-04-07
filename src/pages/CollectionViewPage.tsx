@@ -47,7 +47,10 @@ export const CollectionViewPage: React.FC = () => {
           )}
         >
           <span>{collection?.title}</span>
-          <IsPublicIcon isPublic={collection?.isPublic} />
+          <IsPublicIcon
+            objetcType="collection"
+            isPublic={collection?.isPublic}
+          />
         </h1>
         {collection?.description && (
           <p
