@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Icon, LoadableComponent } from '@/components/library';
+import { Button, LoadableComponent } from '@/components/library';
 import { useProfile, useProfileCollections } from '@/query/queryHooks';
 import { ErrorPage } from './ErrorPage';
 import { FilesList } from '@/components/files';

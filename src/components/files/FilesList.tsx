@@ -11,7 +11,6 @@ export const FilesList: React.FC = () => {
     <LoadableComponent
       isPending={isFilesPending}
       errorMessage={error?.message}
-      className="grid grid-cols-1 align-center justify-center w-full gap-4"
       animated
     >
       {files && files.length === 0 && (
@@ -20,9 +19,16 @@ export const FilesList: React.FC = () => {
           {"'"}s edit form
         </h3>
       )}
-      {files &&
-        files.length > 0 &&
-        files?.map((id) => <FileCard key={id} fileId={id} />)}
+      <div
+        className="w-full grid align-center justify-center gap-4"
+        style={{
+          gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr))',
+        }}
+      >
+        {files &&
+          files.length > 0 &&
+          files?.map((id) => <FileCard key={id} fileId={id} />)}
+      </div>
     </LoadableComponent>
   );
 };

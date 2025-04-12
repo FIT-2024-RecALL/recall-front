@@ -5,13 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 import { navigate } from 'wouter/use-browser-location';
 import { useTranslation } from 'react-i18next';
 
-import {
-  Button,
-  FormItem,
-  Icon,
-  Input,
-  ControlledModal,
-} from '@/components/library';
+import { Button, FormItem, Input, ControlledModal } from '@/components/library';
 import { useAppStore } from '@/state';
 import clsx from 'clsx';
 import { routes } from '@/routes';

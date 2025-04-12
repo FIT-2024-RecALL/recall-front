@@ -1,11 +1,6 @@
 import { getFileFullPath, useFileMeta } from '@/query/queryHooks';
 import React, { HTMLAttributes } from 'react';
-import {
-  Button,
-  Icon,
-  IsPublicIcon,
-  LoadableComponent,
-} from '@/components/library';
+import { Button, IsPublicIcon, LoadableComponent } from '@/components/library';
 import clsx from 'clsx';
 import { useFileDelete } from '@/query/mutationHooks';
 import {
@@ -15,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '../library/shadcn-ui';
 import { useTranslation } from 'react-i18next';
+import { match } from 'ts-pattern';
 
 interface FileCardProps extends HTMLAttributes<React.FC> {
   fileId: number;
@@ -33,13 +29,24 @@ export const FileCard: React.FC<FileCardProps> = ({ fileId, className }) => {
       className={clsx(
         'bg-neutral-300/25 px-2 py-4',
         'grid grid-cols-4',
-        'gap-x-4 rounded-lg',
+        'gap-y-2 gap-x-4 rounded-lg',
         className
       )}
       animated
     >
       {fileMeta && (
         <>
+          <div className="col-span-4 center">
+            {match(fileMeta.type)
+              .with('image', () => <img src={getFileFullPath(fileId)} />)
+              .with('video', () => (
+                <video controls src={getFileFullPath(fileId)} />
+              ))
+              .with('audio', () => (
+                <audio controls src={getFileFullPath(fileId)} />
+              ))
+              .exhaustive()}
+          </div>
           <div className="col-span-4 md:col-span-3 gap-x-1 center">
             <a className="w-fit truncate" href={getFileFullPath(fileMeta.id)}>
               <Button className="w-full" variant="inline">
