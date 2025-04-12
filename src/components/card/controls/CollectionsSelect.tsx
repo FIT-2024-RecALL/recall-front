@@ -15,7 +15,7 @@ export const collectionResponseToOptions = (collections?: CollectionShort[]) =>
     label: (
       <span className="gap-x-1 around md:justify-start items-center">
         {collection.title}
-        <IsPublicIcon objetcType="collection" isPublic={collection.isPublic} />
+        <IsPublicIcon objectType="collection" isPublic={collection.isPublic} />
       </span>
     ),
   })) ?? [];

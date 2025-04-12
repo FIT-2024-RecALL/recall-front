@@ -47,7 +47,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
               >
                 <span>{collection.title}</span>
                 <IsPublicIcon
-                  objetcType="collection"
+                  objectType="collection"
                   isPublic={collection.isPublic}
                 />
               </h2>

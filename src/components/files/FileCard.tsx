@@ -53,7 +53,7 @@ export const FileCard: React.FC<FileCardProps> = ({ fileId, className }) => {
                 {getFileFullPath(fileMeta.id)}
               </Button>
             </a>
-            <IsPublicIcon objetcType="file" isPublic={fileMeta.isPublic} />
+            <IsPublicIcon objectType="file" isPublic={fileMeta.isPublic} />
           </div>
           <div className="col-span-4 md:col-span-1 center">
             <DropdownMenu>

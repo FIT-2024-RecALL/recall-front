@@ -43,7 +43,6 @@ export const filesExts: FileExts[] = [
 export const acceptedFilesExts = filesExts.join(',');
 
 export const isAllowedFile = (file: File) => {
-  console.log(file);
   const typeParts = file.type.split('/');
   if (typeParts.length == 0) return false;
   return filesExts.includes(typeParts[typeParts.length - 1] as FileExts);

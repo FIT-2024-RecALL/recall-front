@@ -6,19 +6,19 @@ import { useTranslation } from 'react-i18next';
 
 export interface IsPublicIconProps extends Omit<IconProps, 'icon'> {
   isPublic?: boolean;
-  objetcType: 'collection' | 'card' | 'file';
+  objectType: 'collection' | 'card' | 'file';
 }
 
 export const IsPublicIcon: React.FC<IsPublicIconProps> = ({
   isPublic,
-  objetcType,
+  objectType,
   ...props
 }) => {
   const { t } = useTranslation();
 
   return (
     <Icon
-      title={match(objetcType)
+      title={match(objectType)
         .with('collection', () =>
           t(isPublic ? 'collection.thisPublic' : 'collection.thisPrivate')
         )
