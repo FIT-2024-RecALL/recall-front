@@ -55,13 +55,9 @@ export const FileCard: React.FC<FileCardProps> = ({ fileId, className }) => {
                   className="text-xl"
                   variant="bordered"
                   title={t('file.deleteFile')}
-                >
-                  {!isDeletePending ? (
-                    <Icon icon="trash" />
-                  ) : (
-                    <Icon className="animate-spin" icon="loading-3/4" />
-                  )}
-                </Button>
+                  loading={isDeletePending}
+                  icon="trash"
+                />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>

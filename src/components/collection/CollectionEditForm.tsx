@@ -8,7 +8,6 @@ import {
   Button,
   FormItem,
   LoadableComponent,
-  Icon,
   Input,
 } from '@/components/library';
 import { useCollection } from '@/query/queryHooks';
@@ -158,13 +157,9 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
             withShadow
             className="p-2 md:p-3"
             title={t('common.saveChanges')}
-          >
-            {!isAnyPending ? (
-              <Icon icon="save" />
-            ) : (
-              <Icon className="animate-spin" icon="loader" />
-            )}
-          </Button>
+            loading={isAnyPending}
+            icon="save"
+          />
           <DropdownMenu>
             <DropdownMenuTrigger disabled={isAnyPending}>
               {collection && (

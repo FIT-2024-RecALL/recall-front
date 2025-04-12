@@ -104,14 +104,10 @@ export const CreateCollectionWindow: React.FC = () => {
             withShadow
             shadowBoxClassName="w-2/3 md:w-1/3"
             title={t('collection.createButton')}
+            loading={isPending}
           >
             {t('common.create')}
           </Button>
-          {isPending && (
-            <div className="mx-2">
-              <Icon className="animate-spin" icon="loader" />
-            </div>
-          )}
         </div>
       </form>
     </ControlledModal>

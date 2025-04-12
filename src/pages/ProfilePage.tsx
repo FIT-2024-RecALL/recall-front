@@ -54,12 +54,12 @@ export const ProfilePage: React.FC = () => {
 
       <DropdownMenu>
         <DropdownMenuTrigger className="mt-16" disabled={isDeletePending}>
-          <Button variant="bordered" title={t('profile.deleteAccount')}>
-            {!isDeletePending ? (
-              t('profile.deleteAccount')
-            ) : (
-              <Icon className="animate-spin" icon="loading-3/4" />
-            )}
+          <Button
+            variant="bordered"
+            title={t('profile.deleteAccount')}
+            loading={isDeletePending}
+          >
+            {t('profile.deleteAccount')}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>

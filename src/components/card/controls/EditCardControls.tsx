@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppStore } from '@/state';
 import { useCardCollections } from '@/query/queryHooks';
 import { useCardDelete, useCardUpdate } from '@/query/mutationHooks';
-import { Button, Icon, LoadableComponent } from '@/components/library';
+import { Button, LoadableComponent } from '@/components/library';
 import {
   collectionResponseToOptions,
   CollectionsSelect,
@@ -50,6 +50,9 @@ export const EditCardControls: React.FC = () => {
     setUIFlag('zoomed', () => false);
   });
 
+  const isAnyPending =
+    cardCollectionsPending || isUpdatePending || isDeletePending;
+
   return (
     <div
       className={clsx(
@@ -91,15 +94,10 @@ export const EditCardControls: React.FC = () => {
               });
             }}
             withShadow
-            disabled={isUpdatePending || isDeletePending}
+            loading={isAnyPending}
+            icon="save"
             title={t('common.saveChanges')}
-          >
-            {!isUpdatePending ? (
-              <Icon icon="save" />
-            ) : (
-              <Icon className="animate-spin" icon="loading-3/4" />
-            )}
-          </Button>
+          />
         </div>
         <span
           className={clsx(
@@ -115,18 +113,14 @@ export const EditCardControls: React.FC = () => {
           {t('card.requirements')}
         </span>
         <DropdownMenu>
-          <DropdownMenuTrigger disabled={isUpdatePending || isDeletePending}>
+          <DropdownMenuTrigger disabled={isAnyPending}>
             <Button
               className="text-xl p-2"
               variant="bordered"
               title={t('card.deleteCard')}
-            >
-              {!isDeletePending ? (
-                <Icon icon="trash" />
-              ) : (
-                <Icon className="animate-spin" icon="loading-3/4" />
-              )}
-            </Button>
+              loading={isAnyPending}
+              icon="trash"
+            />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem>

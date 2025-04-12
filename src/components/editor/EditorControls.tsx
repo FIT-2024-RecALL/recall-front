@@ -142,13 +142,9 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
             variant="bordered"
             title={t('editor.uploadFile')}
             onClick={() => uploadRef.current?.click()}
-          >
-            {!isFilePending ? (
-              <Icon icon="upload" />
-            ) : (
-              <Icon className="animate-spin" icon="loading-3/4" />
-            )}
-          </Button>
+            loading={isFilePending}
+            icon="upload"
+          />
         </>
       )}
       {isActive && (
