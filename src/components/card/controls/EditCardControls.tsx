@@ -17,7 +17,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuItem,
-} from '@/components/ui';
+} from '@/components/library/shadcn-ui';
 
 export const EditCardControls: React.FC = () => {
   const { t } = useTranslation();

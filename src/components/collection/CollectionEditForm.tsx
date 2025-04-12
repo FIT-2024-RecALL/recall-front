@@ -23,7 +23,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui';
+} from '@/components/library/shadcn-ui';
 import { useLocation } from 'wouter';
 import { useCollectionPublicityUpdate } from '@/query/mutationHooks/useCollectionPublicityUpdate';
 

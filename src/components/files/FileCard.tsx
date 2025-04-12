@@ -13,7 +13,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../ui';
+} from '../library/shadcn-ui';
 import { useTranslation } from 'react-i18next';
 
 interface FileCardProps extends HTMLAttributes<React.FC> {
