@@ -37,7 +37,11 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
     useProfileCollections();
 
   return (
-    <LoadableComponent isPending={collectionsPending}>
+    <LoadableComponent
+      isPending={collectionsPending}
+      className="vstack w-full p-1 md:p-2"
+      animated
+    >
       <Select
         unstyled
         classNames={{
@@ -69,6 +73,7 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
           switchOnChangedFlag();
         }}
       />
+      <p>{t('card.selectPublicityAlert')}</p>
     </LoadableComponent>
   );
 };

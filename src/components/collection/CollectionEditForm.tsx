@@ -190,7 +190,7 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
             >
               {collection && (
                 <>
-                  <span className="text-wrap">
+                  <span>
                     {t(
                       collection.isPublic
                         ? 'collection.privateAlert'

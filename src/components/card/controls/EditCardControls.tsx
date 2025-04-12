@@ -59,14 +59,12 @@ export const EditCardControls: React.FC = () => {
         'px-1 py-2'
       )}
     >
-      <div className={clsx('xs-md:vstack md:center w-full')}>
-        <LoadableComponent isPending={cardCollectionsPending}>
-          <CollectionsSelect
-            selectedOptions={selectedOptions}
-            setSelectedOptions={setSelectedOptions}
-          />
-        </LoadableComponent>
-      </div>
+      <LoadableComponent isPending={cardCollectionsPending}>
+        <CollectionsSelect
+          selectedOptions={selectedOptions}
+          setSelectedOptions={setSelectedOptions}
+        />
+      </LoadableComponent>
       {(updateError || deleteError) && (
         <div className={clsx('center mb-2', 'text-red-200 font-bold')}>
           {updateError?.message || deleteError?.message}

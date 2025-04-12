@@ -30,12 +30,10 @@ export const CreateCardControls: React.FC = () => {
         'px-1 py-2'
       )}
     >
-      <div className={clsx('vstack', 'w-full p-1 md:p-2')}>
-        <CollectionsSelect
-          selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions}
-        />
-      </div>
+      <CollectionsSelect
+        selectedOptions={selectedOptions}
+        setSelectedOptions={setSelectedOptions}
+      />
       {createError && (
         <div className={clsx('center mb-2', 'text-red-400 font-bold')}>
           {createError.message}
