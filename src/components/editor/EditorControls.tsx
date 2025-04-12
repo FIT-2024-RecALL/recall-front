@@ -3,8 +3,11 @@ import { useTranslation } from 'react-i18next';
 
 import { Icon, Button } from '@/components/library';
 import clsx from 'clsx';
-import { getFileFullPath } from '@/query/queryHooks';
-import { EditorMutatorWrapper, mutations } from './editorElementTypes';
+import {
+  EditorMutatorWrapper,
+  getMediaTypedUrl,
+  mutations,
+} from './editorElementTypes';
 import { acceptedFilesExts, checkedFileProcessing } from '@/components/files';
 import { useFileUpload } from '@/query/mutationHooks';
 
@@ -15,8 +18,6 @@ interface EditorControlsProps extends HTMLAttributes<React.FC> {
   editorActionWrapper: EditorMutatorWrapper;
   undo: false | (() => void);
 }
-
-export const getMediaMdMarkup = (url: string) => `\n![](${url})\n`;
 
 export const EditorControls: React.FC<EditorControlsProps> = ({
   isActive,
@@ -31,7 +32,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
   const uploadRef = useRef<HTMLInputElement>(null);
 
   const { uploadFile, isPending: isFilePending } = useFileUpload((response) => {
-    editorActionWrapper(mutations.media, getFileFullPath(response.id));
+    editorActionWrapper(mutations.media, getMediaTypedUrl(response));
   });
   const alertingUploading = useCallback(
     (file: File) => {

@@ -1,5 +1,11 @@
+import { FileMeta } from '@/api';
+import { getFileFullPath } from '@/query/queryHooks';
+
 export const LINK_REGEX =
   /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/;
+
+export const getMediaTypedUrl = (meta: FileMeta) =>
+  `![${meta.type}/${meta.ext}](${getFileFullPath(meta.id)})`;
 
 export type SelectionType = {
   selectionStart: number;

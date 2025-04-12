@@ -7,13 +7,13 @@ import { MarkdownRenderComponent } from './MarkdownRenderComponent';
 import {
   EditorElementState,
   EditorMutatorWrapper,
+  getMediaTypedUrl,
   LINK_REGEX,
   mutations,
   SelectionType,
 } from './editorElementTypes';
 import { checkedFileProcessing } from '@/components/files';
 import { useFileUpload } from '@/query/mutationHooks';
-import { getFileFullPath } from '@/query/queryHooks';
 import { useTranslation } from 'react-i18next';
 
 interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
@@ -80,7 +80,7 @@ export const MarkdownEditorComponent: React.FC<
   );
 
   const { uploadFile } = useFileUpload((response) => {
-    editorActionWrapper(mutations.media, getFileFullPath(response.id));
+    editorActionWrapper(mutations.media, getMediaTypedUrl(response));
   });
   const alertingUploading = useCallback(
     (file: File) => {
