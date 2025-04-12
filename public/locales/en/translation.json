@@ -66,6 +66,8 @@
     "searchPlaceholder": "Type collection's title...",
     "public": "Make public",
     "private": "Make private",
+    "publicAlert": "All paired cards are becoming public including connected files",
+    "privateAlert": "Cards still to be public when they paired with at least one public collection",
     "thisPublic": "Collection is public",
     "thisPrivate": "Collection is private"
   },

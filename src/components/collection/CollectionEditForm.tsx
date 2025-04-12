@@ -77,6 +77,12 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
     setLocation(routes.collections.getUrl());
   });
 
+  const isAnyPending =
+    isCollectionPending ||
+    isUpdatePending ||
+    isPublicityPending ||
+    isDeletePending;
+
   return (
     <LoadableComponent
       isPending={isCollectionPending}
@@ -153,46 +159,73 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
             className="p-2 md:p-3"
             title={t('common.saveChanges')}
           >
-            {!isUpdatePending ? (
+            {!isAnyPending ? (
               <Icon icon="save" />
             ) : (
               <Icon className="animate-spin" icon="loader" />
             )}
           </Button>
-          {collection && (
-            <Button
-              variant="plate-yellow"
-              onClick={() => updateCollectionPublicity(!collection.isPublic)}
-              withShadow
-              className="p-2 md:p-3"
-              title={t(
-                collection.isPublic ? 'collection.private' : 'collection.public'
-              )}
-            >
-              {!isUpdatePending ? (
-                <Icon icon={collection.isPublic ? 'lock' : 'open'} />
-              ) : (
-                <Icon className="animate-spin" icon="loading-3/4" />
-              )}
-            </Button>
-          )}
           <DropdownMenu>
-            <DropdownMenuTrigger
-              disabled={
-                isUpdatePending || isPublicityPending || isDeletePending
-              }
+            <DropdownMenuTrigger disabled={isAnyPending}>
+              {collection && (
+                <Button
+                  variant="plate-yellow"
+                  className="p-2 md:p-3"
+                  title={t(
+                    collection.isPublic
+                      ? 'collection.private'
+                      : 'collection.public'
+                  )}
+                  loading={isAnyPending}
+                  icon={collection.isPublic ? 'lock' : 'open'}
+                />
+              )}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className={clsx(
+                'w-screen md:w-fit',
+                'vstack center gap-y-2 p-2',
+                'bg-o-white border border-o-black rounded-lg'
+              )}
             >
+              {collection && (
+                <>
+                  <span className="text-wrap">
+                    {t(
+                      collection.isPublic
+                        ? 'collection.privateAlert'
+                        : 'collection.publicAlert'
+                    )}
+                  </span>
+                  <DropdownMenuItem>
+                    <Button
+                      variant="plate-yellow"
+                      onClick={() =>
+                        updateCollectionPublicity(!collection.isPublic)
+                      }
+                      className="p-2 md:p-3"
+                      title={t(
+                        collection.isPublic
+                          ? 'collection.private'
+                          : 'collection.public'
+                      )}
+                      loading={isAnyPending}
+                      icon={collection.isPublic ? 'lock' : 'open'}
+                    />
+                  </DropdownMenuItem>
+                </>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger disabled={isAnyPending}>
               <Button
                 variant="bordered"
                 className="p-2 md:p-3"
                 title={t('collection.deleteButton')}
-              >
-                {!isDeletePending ? (
-                  <Icon icon="trash" />
-                ) : (
-                  <Icon className="animate-spin" icon="loading-3/4" />
-                )}
-              </Button>
+                icon="trash"
+                loading={isAnyPending}
+              />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem>

@@ -61,7 +61,7 @@ export const Button: React.FC<IconButtonProps> = ({
       )}
       {loading && (
         <Icon
-          icon={'loader'}
+          icon={'loading-3/4'}
           className={`${children ? 'mr-2' : ''} animate-spin`}
         />
       )}
