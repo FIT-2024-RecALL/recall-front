@@ -29,6 +29,7 @@ export const MarkdownEditorComponent: React.FC<
 > = ({ state, setState, extended, placeholder, previewClassName }) => {
   const { t } = useTranslation();
   const [active, setActive] = useState(true);
+  const [selection, setSelection] = useState<SelectionType>();
 
   const historyRef = useRef<EditorElementState[]>([]);
   const pushHistory = useCallback(
@@ -43,7 +44,6 @@ export const MarkdownEditorComponent: React.FC<
 
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const editorActionWrapper: EditorMutatorWrapper = (mutate, payload) => {
-    const selection = getEditorSelection();
     if (!selection) return;
     const editorElementState: EditorElementState = {
       ...selection,
@@ -113,15 +113,15 @@ export const MarkdownEditorComponent: React.FC<
           )}
           placeholder={placeholder}
           value={state}
-          onBeforeInput={() => {
-            const selection = getEditorSelection();
+          onSelect={() => {
+            setSelection(getEditorSelection);
+          }}
+          onChange={(e) => {
             if (!selection) return;
             pushHistory({
               ...selection,
               str: state,
             });
-          }}
-          onChange={(e) => {
             setState(e.target.value);
           }}
           onKeyDown={(e) => {
