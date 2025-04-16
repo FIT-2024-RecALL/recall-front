@@ -56,10 +56,11 @@ export const EditCardControls: React.FC = () => {
   return (
     <div
       className={clsx(
-        'bg-o-white text-o-black rounded-xl',
         'w-full vstack',
+        'px-1 py-2',
+        'bg-o-white text-o-black rounded-xl',
         'border border-black',
-        'px-1 py-2'
+        'shadow-md hover:shadow-gray-500'
       )}
     >
       <LoadableComponent isPending={cardCollectionsPending}>

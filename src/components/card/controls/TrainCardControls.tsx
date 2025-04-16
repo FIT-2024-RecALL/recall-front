@@ -38,11 +38,11 @@ export const TrainCardControls: React.FC = () => {
     >
       <div
         className={clsx(
-          'bg-o-white text-o-black rounded-xl',
-          'w-full vstack',
-          'border border-black',
+          'flip-front w-full vstack',
           'px-1 py-2',
-          'flip-front w-full vstack'
+          'bg-o-white text-o-black rounded-xl',
+          'border border-black',
+          'shadow-md hover:shadow-gray-500'
         )}
       >
         <span className="text-center mx-1">{t('card.flipCard')}</span>

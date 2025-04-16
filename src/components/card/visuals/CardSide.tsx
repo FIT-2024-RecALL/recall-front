@@ -15,7 +15,7 @@ export const CardSide: React.FC<CardSideProps> = ({ side, children }) => {
   return (
     <div
       className={clsx(
-        'px-3 md:px-6 pb-8 full',
+        'p-2 pb-8 full',
         'vstack items-center',
         'overflow-scroll-y',
         animationClasses[side]

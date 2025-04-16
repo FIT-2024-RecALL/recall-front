@@ -39,7 +39,14 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
             placeholder={t('card.frontSidePlaceholder')}
           />
         ) : (
-          <MarkdownRenderComponent rawText={frontSide} extended />
+          <MarkdownRenderComponent
+            className={clsx(
+              'p-1 font-sans',
+              'overflow-y-auto overflow-x-hidden'
+            )}
+            rawText={frontSide}
+            extended
+          />
         )}
       </CardSide>
       <CardSide side="back">
@@ -50,7 +57,13 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
             placeholder={t('card.backSidePlaceholder')}
           />
         ) : (
-          <MarkdownRenderComponent rawText={backSide} />
+          <MarkdownRenderComponent
+            className={clsx(
+              'px-1 font-sans',
+              'overflow-y-auto overflow-x-hidden'
+            )}
+            rawText={backSide}
+          />
         )}
       </CardSide>
       <div

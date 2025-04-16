@@ -31,14 +31,20 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
             setCardUIFlag('zoomed', () => false);
         } else setCardUIFlag('zoomed', () => false);
       }}
-      contentClassName={clsx('w-11/12', mode !== 'view' ? 'h-11/12' : 'h-5/6')}
+      contentClassName={clsx(
+        'w-11/12 p-2 md:p-4',
+        mode !== 'view' ? 'h-11/12' : 'h-5/6',
+        'bg-o-white/50 text-o-black rounded-xl',
+        'border border-black'
+      )}
     >
       <FlippingCard
         className={clsx(
           'mb-1 md:mb-2 w-full',
           mode !== 'view' ? 'h-5/6' : 'h-full',
           'bg-o-white text-o-black rounded-xl',
-          'border-2 border-black'
+          'border border-gray-500',
+          'shadow-md hover:shadow-gray-500'
         )}
       />
       {mode === 'edit' && isNew && <CreateCardControls />}
