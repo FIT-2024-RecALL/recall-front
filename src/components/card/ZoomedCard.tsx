@@ -8,8 +8,9 @@ import {
   EditCardControls,
   TrainCardControls,
 } from './controls';
-import { useAppStore } from '@/state';
+import { useAppStore, useStoredStack } from '@/state';
 import { useTranslation } from 'react-i18next';
+import { frontAtom, backAtom } from '@/components/editor';
 
 type ZoomedCardProps = HTMLAttributes<React.FC>;
 
@@ -21,14 +22,19 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
   const mode = useAppStore((state) => state.activeCardUI.mode);
   const isNew = useAppStore((state) => state.isNewActiveCard);
   const isChanged = useAppStore((state) => state.isActiveCardChanged);
+  const { reset: resetFront } = useStoredStack(frontAtom);
+  const { reset: resetBack } = useStoredStack(backAtom);
 
   return (
     <ControlledModal
       isShown={zoomed}
       close={() => {
         if (mode === 'edit' && isChanged) {
-          if (confirm(t('card.confirmClose')))
+          if (confirm(t('card.confirmClose'))) {
             setCardUIFlag('zoomed', () => false);
+            resetFront();
+            resetBack();
+          }
         } else setCardUIFlag('zoomed', () => false);
       }}
       contentClassName={clsx(

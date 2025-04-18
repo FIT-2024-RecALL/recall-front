@@ -2,6 +2,8 @@ import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
 import {
+  backAtom,
+  frontAtom,
   MarkdownEditorComponent,
   MarkdownRenderComponent,
 } from '@/components/editor';
@@ -35,6 +37,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
           <MarkdownEditorComponent
             state={frontSide}
             setState={(s) => setCardSide('frontSide', s)}
+            historyAtom={frontAtom}
             extended
             placeholder={t('card.frontSidePlaceholder')}
           />
@@ -54,6 +57,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
           <MarkdownEditorComponent
             state={backSide}
             setState={(s) => setCardSide('backSide', s)}
+            historyAtom={backAtom}
             placeholder={t('card.backSidePlaceholder')}
           />
         ) : (
