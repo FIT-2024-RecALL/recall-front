@@ -2,14 +2,12 @@ import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
 import {
-  backAtom,
-  frontAtom,
   MarkdownEditorComponent,
   MarkdownRenderComponent,
 } from '@/components/editor';
 
 import { CardSide } from './CardSide';
-import { useAppStore } from '@/state';
+import { useAppStore, backAtom, frontAtom } from '@/state';
 import { useTranslation } from 'react-i18next';
 
 type FlippingCardProps = HTMLAttributes<React.FC>;

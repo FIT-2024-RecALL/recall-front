@@ -16,7 +16,6 @@ import { checkedFileProcessing } from '@/components/files';
 import { useFileUpload } from '@/query/mutationHooks';
 import { useTranslation } from 'react-i18next';
 import { StoredAtom, useStoredStack } from '@/state';
-import { atomWithStorage } from 'jotai/utils';
 
 interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
   historyAtom: StoredAtom<EditorElementState[]>;
@@ -26,9 +25,6 @@ interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
   placeholder?: string;
   previewClassName?: string;
 }
-
-export const frontAtom = atomWithStorage<EditorElementState[]>('front', []);
-export const backAtom = atomWithStorage<EditorElementState[]>('back', []);
 
 export const MarkdownEditorComponent: React.FC<
   MarkdownEditorComponentProps

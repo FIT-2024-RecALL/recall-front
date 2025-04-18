@@ -8,9 +8,8 @@ import {
   EditCardControls,
   TrainCardControls,
 } from './controls';
-import { useAppStore, useStoredStack } from '@/state';
+import { useAppStore, useStoredStack, frontAtom, backAtom } from '@/state';
 import { useTranslation } from 'react-i18next';
-import { frontAtom, backAtom } from '@/components/editor';
 
 type ZoomedCardProps = HTMLAttributes<React.FC>;
 
