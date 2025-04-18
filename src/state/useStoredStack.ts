@@ -13,7 +13,7 @@ export const useStoredStack = <T>(editorStatesAtom: StoredAtom<T[]>) => {
     () =>
       atom((get) => {
         const arr = get(editorStatesAtom);
-        if (arr.length == 0) return undefined;
+        if (arr.length === 0) return undefined;
         return arr[arr.length - 1];
       }),
     [editorStatesAtom]
@@ -42,7 +42,6 @@ export const useStoredStack = <T>(editorStatesAtom: StoredAtom<T[]>) => {
   const resetAtom = useMemo(
     () =>
       atom(null, (get, set) => {
-        console.log(get(editorStatesAtom));
         set(editorStatesAtom, RESET);
       }),
     [editorStatesAtom]
