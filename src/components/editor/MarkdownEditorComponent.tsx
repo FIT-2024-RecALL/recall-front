@@ -15,10 +15,11 @@ import {
 import { checkedFileProcessing } from '@/components/files';
 import { useFileUpload } from '@/query/mutationHooks';
 import { useTranslation } from 'react-i18next';
-import { StoredAtom, useStoredStack } from '@/state';
+import { StoredStackAtoms } from '@/state';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
-  historyAtom: StoredAtom<EditorElementState[]>;
+  historyAtoms: StoredStackAtoms<EditorElementState>;
   state: string;
   setState: (newState: string) => void;
   extended?: boolean;
@@ -29,7 +30,7 @@ interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
 export const MarkdownEditorComponent: React.FC<
   MarkdownEditorComponentProps
 > = ({
-  historyAtom,
+  historyAtoms,
   state,
   setState,
   extended,
@@ -39,12 +40,11 @@ export const MarkdownEditorComponent: React.FC<
   const { t } = useTranslation();
   const [active, setActive] = useState(true);
   const [selection, setSelection] = useState<SelectionType>();
-  const {
-    state: prevState,
-    push,
-    pop,
-    canPop,
-  } = useStoredStack<EditorElementState>(historyAtom);
+
+  const prevState = useAtomValue(historyAtoms.topValueAtom);
+  const push = useSetAtom(historyAtoms.pushAtom);
+  const canPop = useAtomValue(historyAtoms.canPopAtom);
+  const pop = useSetAtom(historyAtoms.popAtom);
 
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const editorActionWrapper: EditorMutatorWrapper = (mutate, payload) => {

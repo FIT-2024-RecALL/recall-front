@@ -1,12 +1,11 @@
 import { atomWithStorage } from 'jotai/utils';
 
 import { EditorElementState } from '@/components/editor/editorElementTypes';
+import { createStoredStackAtoms } from './stackAtomsFactory';
 
-export const frontAtom = atomWithStorage<EditorElementState[]>(
-  'editor-history-front',
-  []
+export const frontAtoms = createStoredStackAtoms(
+  atomWithStorage<EditorElementState[]>('editor-history-front', [])
 );
-export const backAtom = atomWithStorage<EditorElementState[]>(
-  'editor-history-back',
-  []
+export const backAtoms = createStoredStackAtoms(
+  atomWithStorage<EditorElementState[]>('editor-history-back', [])
 );

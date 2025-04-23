@@ -8,8 +8,9 @@ import {
   EditCardControls,
   TrainCardControls,
 } from './controls';
-import { useAppStore, useStoredStack, frontAtom, backAtom } from '@/state';
+import { useAppStore, frontAtoms, backAtoms } from '@/state';
 import { useTranslation } from 'react-i18next';
+import { useSetAtom } from 'jotai';
 
 type ZoomedCardProps = HTMLAttributes<React.FC>;
 
@@ -21,8 +22,8 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
   const mode = useAppStore((state) => state.activeCardUI.mode);
   const isNew = useAppStore((state) => state.isNewActiveCard);
   const isChanged = useAppStore((state) => state.isActiveCardChanged);
-  const { reset: resetFront } = useStoredStack(frontAtom);
-  const { reset: resetBack } = useStoredStack(backAtom);
+  const resetFront = useSetAtom(frontAtoms.resetAtom);
+  const resetBack = useSetAtom(backAtoms.resetAtom);
 
   return (
     <ControlledModal
