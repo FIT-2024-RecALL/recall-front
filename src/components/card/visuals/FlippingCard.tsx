@@ -7,7 +7,7 @@ import {
 } from '@/components/editor';
 
 import { CardSide } from './CardSide';
-import { useAppStore } from '@/state';
+import { useAppStore, backAtoms, frontAtoms } from '@/state';
 import { useTranslation } from 'react-i18next';
 
 type FlippingCardProps = HTMLAttributes<React.FC>;
@@ -35,6 +35,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
           <MarkdownEditorComponent
             state={frontSide}
             setState={(s) => setCardSide('frontSide', s)}
+            historyAtoms={frontAtoms}
             extended
             placeholder={t('card.frontSidePlaceholder')}
           />
@@ -54,6 +55,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
           <MarkdownEditorComponent
             state={backSide}
             setState={(s) => setCardSide('backSide', s)}
+            historyAtoms={backAtoms}
             placeholder={t('card.backSidePlaceholder')}
           />
         ) : (
