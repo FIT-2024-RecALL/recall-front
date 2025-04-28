@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Icon, LoadableComponent } from '@/components/library';
+import { Button, LoadableComponent } from '@/components/library';
 import { useProfile, useProfileCollections } from '@/query/queryHooks';
 import { ErrorPage } from './ErrorPage';
-import { FilesList } from '@/components/profile';
+import { FilesList } from '@/components/files';
 import { CollectionsSearchableList } from '@/components/collection';
 import { useProfileDelete } from '@/query/mutationHooks';
 import {
@@ -12,7 +12,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuItem,
-} from '@/components/ui';
+} from '@/components/library/shadcn-ui';
 
 export const ProfilePage: React.FC = () => {
   const { t } = useTranslation();
@@ -52,20 +52,14 @@ export const ProfilePage: React.FC = () => {
 
       <FilesList />
 
-      <hr className="border-2 border-o-black 'my-2 md:my-6 w-full" />
-
-      <h2 className="text-center text-2xl font-bold mb-6">
-        {t('profile.deleteAccount')}
-      </h2>
-
       <DropdownMenu>
-        <DropdownMenuTrigger className="mx-3" disabled={isDeletePending}>
-          <Button variant="bordered" title={t('profile.deleteAccount')}>
-            {!isDeletePending ? (
-              t('profile.deleteAccount')
-            ) : (
-              <Icon className="animate-spin" icon="loading-3/4" />
-            )}
+        <DropdownMenuTrigger className="mt-16" disabled={isDeletePending}>
+          <Button
+            variant="bordered"
+            title={t('profile.deleteAccount')}
+            loading={isDeletePending}
+          >
+            {t('profile.deleteAccount')}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>

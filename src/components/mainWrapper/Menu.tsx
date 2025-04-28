@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuItem,
   DropdownMenuGroup,
-} from '@/components/ui';
+} from '@/components/library/shadcn-ui';
 
 export const Menu: React.FC = () => {
   const { t } = useTranslation();

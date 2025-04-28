@@ -3,9 +3,12 @@ import { useTranslation } from 'react-i18next';
 
 import { Icon, Button } from '@/components/library';
 import clsx from 'clsx';
-import { getFileFullPath } from '@/query/queryHooks';
-import { EditorMutatorWrapper, mutations } from './editorElementTypes';
-import { acceptedFilesExts, checkedFileProcessing } from './filesChecking';
+import {
+  EditorMutatorWrapper,
+  getMediaTypedUrl,
+  mutations,
+} from './editorElementTypes';
+import { acceptedFilesExts, checkedFileProcessing } from '@/components/files';
 import { useFileUpload } from '@/query/mutationHooks';
 
 interface EditorControlsProps extends HTMLAttributes<React.FC> {
@@ -15,8 +18,6 @@ interface EditorControlsProps extends HTMLAttributes<React.FC> {
   editorActionWrapper: EditorMutatorWrapper;
   undo: false | (() => void);
 }
-
-export const getMediaMdMarkup = (url: string) => `\n![](${url})\n`;
 
 export const EditorControls: React.FC<EditorControlsProps> = ({
   isActive,
@@ -31,7 +32,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
   const uploadRef = useRef<HTMLInputElement>(null);
 
   const { uploadFile, isPending: isFilePending } = useFileUpload((response) => {
-    editorActionWrapper(mutations.media, getFileFullPath(response.url));
+    editorActionWrapper(mutations.media, getMediaTypedUrl(response));
   });
   const alertingUploading = useCallback(
     (file: File) => {
@@ -142,13 +143,9 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
             variant="bordered"
             title={t('editor.uploadFile')}
             onClick={() => uploadRef.current?.click()}
-          >
-            {!isFilePending ? (
-              <Icon icon="upload" />
-            ) : (
-              <Icon className="animate-spin" icon="loading-3/4" />
-            )}
-          </Button>
+            loading={isFilePending}
+            icon="upload"
+          />
         </>
       )}
       {isActive && (

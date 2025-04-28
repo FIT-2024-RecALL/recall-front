@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { MultiValue } from 'react-select';
 import { useTranslation } from 'react-i18next';
 
-import { Button } from '@/components/library';
+import { Button, Icon } from '@/components/library';
 import { useAppStore } from '@/state';
 import { CollectionsSelect, Option } from './CollectionsSelect';
 import { useCardCreate } from '@/query/mutationHooks';
@@ -24,47 +24,62 @@ export const CreateCardControls: React.FC = () => {
   return (
     <div
       className={clsx(
-        'bg-o-white text-o-black rounded-xl',
         'w-full vstack',
+        'px-1 py-2',
+        'bg-o-white text-o-black rounded-xl',
         'border border-black',
-        'px-1 py-2'
+        'shadow-md hover:shadow-gray-500'
       )}
     >
-      <div className={clsx('vstack', 'w-full p-1 md:p-2')}>
-        <CollectionsSelect
-          selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions}
-        />
-      </div>
+      <CollectionsSelect
+        selectedOptions={selectedOptions}
+        setSelectedOptions={setSelectedOptions}
+      />
       {createError && (
         <div className={clsx('center mb-2', 'text-red-400 font-bold')}>
           {createError.message}
         </div>
       )}
 
-      <div
-        className={clsx(
-          'mt-1 center',
-          'transition-all duration-300',
-          cardData.frontSide && cardData.backSide && selectedOptions.length > 0
-            ? 'opacity-100'
-            : 'opacity-0 invisible'
-        )}
-      >
-        <Button
-          className="text-xl"
-          variant="plate-green"
-          onClick={() => {
-            createCard({
-              card: { ...cardData },
-              collections: selectedOptions?.map((option) => option.value),
-            });
-          }}
-          withShadow
-          title={t('card.createCard')}
+      <div className={clsx('mt-1 center')}>
+        <div
+          className={clsx(
+            'transition-all duration-300',
+            cardData.frontSide &&
+              cardData.backSide &&
+              selectedOptions.length > 0
+              ? 'opacity-100'
+              : 'opacity-0 invisible absolute'
+          )}
         >
-          {t('card.createCard')}
-        </Button>
+          <Button
+            className={clsx('text-xl p-2')}
+            variant="plate-green"
+            onClick={() => {
+              createCard({
+                card: { ...cardData },
+                collections: selectedOptions?.map((option) => option.value),
+              });
+            }}
+            withShadow
+            title={t('card.createCard')}
+          >
+            <Icon icon="save" />
+          </Button>
+        </div>
+        <span
+          className={clsx(
+            'text-center',
+            'transition-all duration-300',
+            cardData.frontSide &&
+              cardData.backSide &&
+              selectedOptions.length > 0
+              ? 'opacity-0 invisible absolute'
+              : 'opacity-100'
+          )}
+        >
+          {t('card.requirements')}
+        </span>
       </div>
     </div>
   );

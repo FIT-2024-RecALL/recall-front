@@ -9,7 +9,7 @@ import {
   useProfile,
 } from '@/query/queryHooks';
 import { CardsList } from '@/components/card';
-import { Button, LoadableComponent } from '@/components/library';
+import { Button, LoadableComponent, IsPublicIcon } from '@/components/library';
 import { useAppStore } from '@/state';
 import { routes } from '@/routes';
 
@@ -41,12 +41,16 @@ export const CollectionViewPage: React.FC = () => {
       <div className="vstack">
         <h1
           className={clsx(
-            'm-2 md:m-4',
+            'm-2 md:m-4 center gap-x-2',
             'text-center font-black',
             'text-lg md:text-xl lg:text-2xl xl:text-4xl'
           )}
         >
-          {collection?.title}
+          <span>{collection?.title}</span>
+          <IsPublicIcon
+            objectType="collection"
+            isPublic={collection?.isPublic}
+          />
         </h1>
         {collection?.description && (
           <p

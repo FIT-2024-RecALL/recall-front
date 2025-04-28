@@ -63,7 +63,13 @@
     "notAllowedToEdit": "You're not allowed to edit other people's collections",
     "pairedCards": "Paired cards",
     "allCards": "All cards",
-    "searchPlaceholder": "Type collection's title..."
+    "searchPlaceholder": "Type collection's title...",
+    "public": "Make public",
+    "private": "Make private",
+    "publicAlert": "All paired cards are becoming public including connected files",
+    "privateAlert": "Cards still to be public when they paired with at least one public collection",
+    "thisPublic": "Collection is public",
+    "thisPrivate": "Collection is private"
   },
   "card": {
     "aiMark": "AI mark",
@@ -76,7 +82,11 @@
     "pairedWithPlaceholder": "Select paired collections (at least one)",
     "createCard": "Create card",
     "deleteCard": "Delete card",
-    "confirmClose": "Are you sure to close unsaved card?"
+    "confirmClose": "Are you sure to close unsaved card?",
+    "thisPublic": "Card is public",
+    "thisPrivate": "Card is private",
+    "selectPublicityAlert": "Card connected with at least one public collection becomes public with its files",
+    "requirements": "Card must have non-empty sides and at least one collection connected"
   },
   "train": {
     "onlyAuthorized": "Only authorized users can train",
@@ -103,5 +113,10 @@
     "undo": "Undo last change",
     "togglePreview": "Preview",
     "toggleEdit": "Editing"
+  },
+  "file": {
+    "deleteFile": "Delete file",
+    "thisPublic": "File is public",
+    "thisPrivate": "File is private"
   }
 }

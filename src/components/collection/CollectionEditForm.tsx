@@ -8,7 +8,6 @@ import {
   Button,
   FormItem,
   LoadableComponent,
-  Icon,
   Input,
 } from '@/components/library';
 import { useCollection } from '@/query/queryHooks';
@@ -23,8 +22,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui';
+} from '@/components/library/shadcn-ui';
 import { useLocation } from 'wouter';
+import { useCollectionPublicityUpdate } from '@/query/mutationHooks/useCollectionPublicityUpdate';
 
 export type CollectionType = CollectionEditType & {
   id: number;
@@ -56,9 +56,16 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
 
   const {
     updateCollection,
-    error: saveError,
+    error: updateError,
     isPending: isUpdatePending,
   } = useCollectionUpdate(id, () => {
+    setLocation(routes.collectionView.getUrl(id));
+  });
+  const {
+    updateCollectionPublicity,
+    error: publicityError,
+    isPending: isPublicityPending,
+  } = useCollectionPublicityUpdate(id, () => {
     setLocation(routes.collectionView.getUrl(id));
   });
   const {
@@ -68,6 +75,12 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
   } = useCollectionDelete(id, () => {
     setLocation(routes.collections.getUrl());
   });
+
+  const isAnyPending =
+    isCollectionPending ||
+    isUpdatePending ||
+    isPublicityPending ||
+    isDeletePending;
 
   return (
     <LoadableComponent
@@ -125,37 +138,89 @@ export const CollectionEditForm: React.FC<CollectionEditFormProps> = ({
         </FormItem>
         <FormItem
           className="m-2 md:m-4 text-lg"
-          errorMessage={saveError?.message || deleteError?.message}
+          errorMessage={
+            updateError?.message ||
+            publicityError?.message ||
+            deleteError?.message
+          }
         />
-        <div className="w-full xs-md:vstack center">
+        <div
+          className={clsx(
+            'mt-2 md:m-2',
+            'w-full center gap-x-2',
+            'text-lg md:text-xl'
+          )}
+        >
           <Button
             variant="plate-green"
             type="submit"
             withShadow
-            shadowBoxClassName="mt-2 md:m-2"
+            className="p-2 md:p-3"
             title={t('common.saveChanges')}
-          >
-            {t('common.saveChanges')}
-          </Button>
-          {isUpdatePending && (
-            <div className="mt-1 md:m-2">
-              {isUpdatePending && (
-                <Icon className="animate-spin" icon="loader" />
-              )}
-            </div>
-          )}
+            loading={isAnyPending}
+            icon="save"
+          />
           <DropdownMenu>
-            <DropdownMenuTrigger
-              className="mt-2 md:m-2"
-              disabled={isUpdatePending || isDeletePending}
+            <DropdownMenuTrigger disabled={isAnyPending}>
+              {collection && (
+                <Button
+                  variant="plate-yellow"
+                  className="p-2 md:p-3"
+                  title={t(
+                    collection.isPublic
+                      ? 'collection.private'
+                      : 'collection.public'
+                  )}
+                  loading={isAnyPending}
+                  icon={collection.isPublic ? 'lock' : 'open'}
+                />
+              )}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className={clsx(
+                'w-screen md:w-fit',
+                'vstack center gap-y-2 p-2',
+                'bg-o-white border border-o-black rounded-lg'
+              )}
             >
-              <Button variant="bordered" title={t('collection.deleteButton')}>
-                {!isDeletePending ? (
-                  t('collection.deleteButton')
-                ) : (
-                  <Icon className="animate-spin" icon="loading-3/4" />
-                )}
-              </Button>
+              {collection && (
+                <>
+                  <span>
+                    {t(
+                      collection.isPublic
+                        ? 'collection.privateAlert'
+                        : 'collection.publicAlert'
+                    )}
+                  </span>
+                  <DropdownMenuItem>
+                    <Button
+                      variant="plate-yellow"
+                      onClick={() =>
+                        updateCollectionPublicity(!collection.isPublic)
+                      }
+                      className="p-2 md:p-3"
+                      title={t(
+                        collection.isPublic
+                          ? 'collection.private'
+                          : 'collection.public'
+                      )}
+                      loading={isAnyPending}
+                      icon={collection.isPublic ? 'lock' : 'open'}
+                    />
+                  </DropdownMenuItem>
+                </>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger disabled={isAnyPending}>
+              <Button
+                variant="bordered"
+                className="p-2 md:p-3"
+                title={t('collection.deleteButton')}
+                icon="trash"
+                loading={isAnyPending}
+              />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem>

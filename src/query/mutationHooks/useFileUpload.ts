@@ -1,11 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { dataExtractionWrapper } from '@/query';
-import { addFileStoragePost, FileUploadedScheme } from '@/api';
-import { getFilesListQueryOptions } from '@/query/queryHooks';
+import { addFileStoragePost, FileMeta } from '@/api';
+import { getProfileFilesQueryOptions } from '@/query/queryHooks';
 
-export const useFileUpload = (
-  onSuccess?: (response: FileUploadedScheme) => void
-) => {
+export const useFileUpload = (onSuccess?: (response: FileMeta) => void) => {
   const queryClient = useQueryClient();
 
   const { mutate: uploadFile, ...rest } = useMutation({
@@ -19,7 +17,7 @@ export const useFileUpload = (
       ),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: getFilesListQueryOptions().queryKey,
+        queryKey: getProfileFilesQueryOptions().queryKey,
       });
       onSuccess?.(response);
     },

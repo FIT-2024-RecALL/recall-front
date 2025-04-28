@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useEffect } from 'react';
 
-import { Dialog, DialogContent } from '@/components/ui';
+import { Dialog, DialogContent } from '@/components/library/shadcn-ui';
 import clsx from 'clsx';
 
 interface ControlledModalProps

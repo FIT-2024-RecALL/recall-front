@@ -21,6 +21,7 @@ export type FileExts =
   | 'flac'
   | 'm4a'
   | 'mp3'
+  | 'mpeg'
   | 'oga'
   | 'ogg'
   | 'wav';
@@ -30,7 +31,7 @@ export type FileTypes = 'image' | 'video' | 'audio';
 export const filesTypeExt: Record<FileTypes, FileExts[]> = {
   image: ['bmp', 'gif', 'jpg', 'jpeg', 'png', 'svg', 'tif', 'tiff', 'webp'],
   video: ['avi', 'm4v', 'mkv', 'mov', 'mpg', 'mp4', 'ogv', 'webm', 'wmv'],
-  audio: ['aac', 'flac', 'm4a', 'mp3', 'oga', 'ogg', 'wav'],
+  audio: ['aac', 'flac', 'm4a', 'mp3', 'mpeg', 'oga', 'ogg', 'wav'],
 };
 
 export const filesExts: FileExts[] = [

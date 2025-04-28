@@ -1,4 +1,4 @@
-FROM node:20.18-alpine AS build
+FROM node:20.17-alpine AS build
 
 COPY package.json package.json
 RUN npm install

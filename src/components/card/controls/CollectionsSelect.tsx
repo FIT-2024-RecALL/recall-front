@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoadableComponent } from '@/components/library';
+import { IsPublicIcon, LoadableComponent } from '@/components/library';
 import Select, { MultiValue } from 'react-select';
 
 import { useProfileCollections } from '@/query/queryHooks';
@@ -7,12 +7,17 @@ import { CollectionShort } from '@/api';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '@/state';
 
-export type Option<V> = { value: V; label: string };
+export type Option<V> = { value: V; label: JSX.Element };
 
 export const collectionResponseToOptions = (collections?: CollectionShort[]) =>
   collections?.map((collection) => ({
     value: collection.id,
-    label: collection.title,
+    label: (
+      <span className="gap-x-1 around md:justify-start items-center">
+        {collection.title}
+        <IsPublicIcon objectType="collection" isPublic={collection.isPublic} />
+      </span>
+    ),
   })) ?? [];
 
 export interface CollectionsSelectProps {
@@ -32,7 +37,11 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
     useProfileCollections();
 
   return (
-    <LoadableComponent isPending={collectionsPending}>
+    <LoadableComponent
+      isPending={collectionsPending}
+      className="vstack w-full p-1 md:p-2"
+      animated
+    >
       <Select
         unstyled
         classNames={{
@@ -40,7 +49,8 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
           container: () => 'w-full',
           control: () =>
             'bg-o-white hover:shadow-inner hover:shadow-neutral-400 px-1',
-          multiValue: () => 'bg-blue-200/75 mx-1 px-1 center',
+          valueContainer: () => 'p-1 gap-1',
+          multiValue: () => 'bg-blue-200/75 px-1 center',
           multiValueRemove: () =>
             'ml-1 cursor-pointer rounded-xs transition-all duration-400 hover:bg-neutral-300/50',
           menuList: () =>
@@ -63,6 +73,7 @@ export const CollectionsSelect: React.FC<CollectionsSelectProps> = ({
           switchOnChangedFlag();
         }}
       />
+      <p>{t('card.selectPublicityAlert')}</p>
     </LoadableComponent>
   );
 };

@@ -7,16 +7,19 @@ import { MarkdownRenderComponent } from './MarkdownRenderComponent';
 import {
   EditorElementState,
   EditorMutatorWrapper,
+  getMediaTypedUrl,
   LINK_REGEX,
   mutations,
   SelectionType,
 } from './editorElementTypes';
-import { checkedFileProcessing } from './filesChecking';
+import { checkedFileProcessing } from '@/components/files';
 import { useFileUpload } from '@/query/mutationHooks';
-import { getFileFullPath } from '@/query/queryHooks';
 import { useTranslation } from 'react-i18next';
+import { StoredStackAtoms } from '@/state';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
+  historyAtoms: StoredStackAtoms<EditorElementState>;
   state: string;
   setState: (newState: string) => void;
   extended?: boolean;
@@ -26,30 +29,31 @@ interface MarkdownEditorComponentProps extends HTMLAttributes<React.FC> {
 
 export const MarkdownEditorComponent: React.FC<
   MarkdownEditorComponentProps
-> = ({ state, setState, extended, placeholder, previewClassName }) => {
+> = ({
+  historyAtoms,
+  state,
+  setState,
+  extended,
+  placeholder,
+  previewClassName,
+}) => {
   const { t } = useTranslation();
   const [active, setActive] = useState(true);
+  const [selection, setSelection] = useState<SelectionType>();
 
-  const historyRef = useRef<EditorElementState[]>([]);
-  const pushHistory = useCallback(
-    (value: EditorElementState) => {
-      historyRef.current.push(value);
-    },
-    [historyRef]
-  );
-  const popHistory = useCallback(() => {
-    return historyRef.current.pop();
-  }, [historyRef]);
+  const prevState = useAtomValue(historyAtoms.topValueAtom);
+  const push = useSetAtom(historyAtoms.pushAtom);
+  const canPop = useAtomValue(historyAtoms.canPopAtom);
+  const pop = useSetAtom(historyAtoms.popAtom);
 
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const editorActionWrapper: EditorMutatorWrapper = (mutate, payload) => {
-    const selection = getEditorSelection();
     if (!selection) return;
     const editorElementState: EditorElementState = {
       ...selection,
       str: state,
     };
-    pushHistory(editorElementState);
+    push(editorElementState);
 
     const newEditorElementState = mutate(editorElementState, payload);
     setEditorSelection(newEditorElementState);
@@ -57,10 +61,10 @@ export const MarkdownEditorComponent: React.FC<
   };
 
   const undo = () => {
-    const prevEditorState = popHistory();
-    if (!prevEditorState) return;
-    setState(prevEditorState.str);
-    setEditorSelection(prevEditorState);
+    if (!prevState) return;
+    setState(prevState.str);
+    setEditorSelection(prevState);
+    pop();
   };
 
   const getEditorSelection = useCallback(() => {
@@ -80,7 +84,7 @@ export const MarkdownEditorComponent: React.FC<
   );
 
   const { uploadFile } = useFileUpload((response) => {
-    editorActionWrapper(mutations.media, getFileFullPath(response.url));
+    editorActionWrapper(mutations.media, getMediaTypedUrl(response));
   });
   const alertingUploading = useCallback(
     (file: File) => {
@@ -97,7 +101,7 @@ export const MarkdownEditorComponent: React.FC<
         isActive={active}
         switchActive={() => setActive((a) => !a)}
         editorActionWrapper={editorActionWrapper}
-        undo={historyRef.current.length > 0 && undo}
+        undo={canPop && undo}
       />
       {active ? (
         <textarea
@@ -113,15 +117,15 @@ export const MarkdownEditorComponent: React.FC<
           )}
           placeholder={placeholder}
           value={state}
-          onBeforeInput={() => {
-            const selection = getEditorSelection();
+          onSelect={() => {
+            setSelection(getEditorSelection);
+          }}
+          onChange={(e) => {
             if (!selection) return;
-            pushHistory({
+            push({
               ...selection,
               str: state,
             });
-          }}
-          onChange={(e) => {
             setState(e.target.value);
           }}
           onKeyDown={(e) => {

@@ -1,18 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { dataExtractionWrapper } from '@/query';
-import { getFilesListQueryOptions } from '@/query/queryHooks';
-import { deleteFileStorageFilenameDelete } from '@/api';
+import { getProfileFilesQueryOptions } from '@/query/queryHooks';
+import { deleteFileStorageFileIdDelete } from '@/api';
 
-export const useFileDelete = (onSuccess?: () => void) => {
+export const useFileDelete = (fileId: number, onSuccess?: () => void) => {
   const queryClient = useQueryClient();
   const { mutate: deleteFile, ...rest } = useMutation({
-    mutationFn: (filename: string) =>
+    mutationFn: () =>
       dataExtractionWrapper(
-        deleteFileStorageFilenameDelete({ path: { filename } })
+        deleteFileStorageFileIdDelete({ path: { file_id: fileId } })
       ),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: getFilesListQueryOptions().queryKey,
+        queryKey: getProfileFilesQueryOptions().queryKey,
       });
       onSuccess?.();
     },

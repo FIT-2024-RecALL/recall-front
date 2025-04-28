@@ -5,13 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod/src/zod';
 import { navigate } from 'wouter/use-browser-location';
 import { useTranslation } from 'react-i18next';
 
-import {
-  Button,
-  FormItem,
-  Icon,
-  Input,
-  ControlledModal,
-} from '@/components/library';
+import { Button, FormItem, Input, ControlledModal } from '@/components/library';
 import { useAppStore } from '@/state';
 import clsx from 'clsx';
 import { routes } from '@/routes';
@@ -104,14 +98,10 @@ export const CreateCollectionWindow: React.FC = () => {
             withShadow
             shadowBoxClassName="w-2/3 md:w-1/3"
             title={t('collection.createButton')}
+            loading={isPending}
           >
             {t('common.create')}
           </Button>
-          {isPending && (
-            <div className="mx-2">
-              <Icon className="animate-spin" icon="loader" />
-            </div>
-          )}
         </div>
       </form>
     </ControlledModal>

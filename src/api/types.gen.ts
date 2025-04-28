@@ -20,6 +20,7 @@ export type Body_update_card_cards__card_id__put = {
 };
 
 export type Card = {
+  isPublic: boolean;
   frontSide: string;
   backSide: string;
   id: number;
@@ -32,6 +33,7 @@ export type CardCreate = {
 };
 
 export type Collection = {
+  isPublic: boolean;
   title: string;
   description?: string | null;
   id: number;
@@ -44,15 +46,74 @@ export type CollectionCreate = {
 };
 
 export type CollectionShort = {
+  isPublic: boolean;
   id: number;
   ownerId: number;
   title: string;
 };
 
-export type FileUploadedScheme = {
-  url: string;
+export type FileMeta = {
+  isPublic: boolean;
+  ownerId: number;
   filename: string;
+  type: 'image' | 'video' | 'audio';
+  ext:
+    | 'bmp'
+    | 'gif'
+    | 'jpg'
+    | 'jpeg'
+    | 'png'
+    | 'svg'
+    | 'tif'
+    | 'tiff'
+    | 'webp'
+    | 'avi'
+    | 'm4v'
+    | 'mkv'
+    | 'mov'
+    | 'mpg'
+    | 'mp4'
+    | 'ogv'
+    | 'webm'
+    | 'wmv'
+    | 'aac'
+    | 'flac'
+    | 'm4a'
+    | 'mp3'
+    | 'oga'
+    | 'ogg'
+    | 'wav';
+  id: number;
 };
+
+export type type = 'image' | 'video' | 'audio';
+
+export type ext =
+  | 'bmp'
+  | 'gif'
+  | 'jpg'
+  | 'jpeg'
+  | 'png'
+  | 'svg'
+  | 'tif'
+  | 'tiff'
+  | 'webp'
+  | 'avi'
+  | 'm4v'
+  | 'mkv'
+  | 'mov'
+  | 'mpg'
+  | 'mp4'
+  | 'ogv'
+  | 'webm'
+  | 'wmv'
+  | 'aac'
+  | 'flac'
+  | 'm4a'
+  | 'mp3'
+  | 'oga'
+  | 'ogg'
+  | 'wav';
 
 export type HTTPValidationError = {
   detail?: Array<ValidationError>;
@@ -231,38 +292,68 @@ export type TrainCardsCollectionsCollectionIdCardsTrainGetResponse =
 export type TrainCardsCollectionsCollectionIdCardsTrainGetError =
   HTTPValidationError;
 
-export type GetFileStorageUserIdFilenameGetData = {
+export type UpdateCollectionPublicityCollectionsCollectionIdPublicityPutData = {
   path: {
-    filename: string;
-    user_id: number;
+    collection_id: number;
+  };
+  query: {
+    is_public: boolean;
   };
 };
 
-export type GetFileStorageUserIdFilenameGetResponse = unknown;
+export type UpdateCollectionPublicityCollectionsCollectionIdPublicityPutResponse =
+  Collection;
 
-export type GetFileStorageUserIdFilenameGetError = HTTPValidationError;
-
-export type ListFilesStorageGetResponse = Array<FileUploadedScheme>;
-
-export type ListFilesStorageGetError = unknown;
+export type UpdateCollectionPublicityCollectionsCollectionIdPublicityPutError =
+  HTTPValidationError;
 
 export type AddFileStoragePostData = {
   body: Body_add_file_storage__post;
 };
 
-export type AddFileStoragePostResponse = FileUploadedScheme;
+export type AddFileStoragePostResponse = FileMeta;
 
 export type AddFileStoragePostError = HTTPValidationError;
 
-export type DeleteFileStorageFilenameDeleteData = {
+export type GetFileMetaStorageFileIdMetaGetData = {
   path: {
-    filename: string;
+    file_id: number;
   };
 };
 
-export type DeleteFileStorageFilenameDeleteResponse = unknown;
+export type GetFileMetaStorageFileIdMetaGetResponse = FileMeta;
 
-export type DeleteFileStorageFilenameDeleteError = HTTPValidationError;
+export type GetFileMetaStorageFileIdMetaGetError = HTTPValidationError;
+
+export type GetFileCardsStorageFileIdCardsGetData = {
+  path: {
+    file_id: number;
+  };
+};
+
+export type GetFileCardsStorageFileIdCardsGetResponse = Array<number>;
+
+export type GetFileCardsStorageFileIdCardsGetError = HTTPValidationError;
+
+export type GetFileStorageFileIdGetData = {
+  path: {
+    file_id: number;
+  };
+};
+
+export type GetFileStorageFileIdGetResponse = unknown;
+
+export type GetFileStorageFileIdGetError = HTTPValidationError;
+
+export type DeleteFileStorageFileIdDeleteData = {
+  path: {
+    file_id: number;
+  };
+};
+
+export type DeleteFileStorageFileIdDeleteResponse = unknown;
+
+export type DeleteFileStorageFileIdDeleteError = HTTPValidationError;
 
 export type ReadCardLastTrainRecordTrainRecordsLastCardIdGetData = {
   path: {
@@ -326,6 +417,17 @@ export type ReadUserCardsUserCardsGetData = {
 export type ReadUserCardsUserCardsGetResponse = Array<number>;
 
 export type ReadUserCardsUserCardsGetError = HTTPValidationError;
+
+export type ReadUserFilesUserFilesGetData = {
+  query?: {
+    limit?: number | null;
+    skip?: number;
+  };
+};
+
+export type ReadUserFilesUserFilesGetResponse = Array<number>;
+
+export type ReadUserFilesUserFilesGetError = HTTPValidationError;
 
 export type CreateUserUserRegisterPostData = {
   body: UserCreate;
