@@ -112,7 +112,8 @@
     "notAllowedFile": "You're allowed to upload only photos, videos or audios",
     "undo": "Undo last change",
     "togglePreview": "Preview",
-    "toggleEdit": "Editing"
+    "toggleEdit": "Editing",
+    "mediaError": "Failed to load media"
   },
   "file": {
     "deleteFile": "Delete file",

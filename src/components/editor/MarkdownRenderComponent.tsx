@@ -4,16 +4,15 @@ import {
   extendedMdRenderer,
 } from './markdown-it-plugged-parser';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 export interface MarkdownRendererProps extends HTMLAttributes<React.FC> {
   rawText: string;
-  checkMedia?: boolean;
   extended?: boolean;
 }
 
 export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
   rawText,
-  checkMedia,
   extended,
   className,
 }) => {
@@ -22,24 +21,24 @@ export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
     [extended]
   );
   const ref = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
-    console.log('checkMedia', checkMedia);
     if (!ref.current) return;
     const sources = ref.current.querySelectorAll('source');
     sources.forEach((source) => {
-      source.addEventListener('error', function (e) {
-        console.log(this.parentElement);
-        if (!this.parentElement) return;
-        this.parentElement.classList.add('error');
-      });
+      source.addEventListener(
+        'error',
+        function () {
+          if (!this.parentElement?.parentElement) return;
+          const pElem = this.parentElement?.parentElement;
+          pElem.textContent = t('editor.mediaError');
+          pElem.className = clsx('w-full text-lg font-medium text-red-600');
+        },
+        true
+      );
     });
-    // return () => {
-    //   sources.forEach((source) => {
-    //     source.removeEventListener('error');
-    //   });
-    // };
-  }, [checkMedia, ref]);
+  }, [ref, t]);
 
   return (
     <div
