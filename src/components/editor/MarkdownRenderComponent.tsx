@@ -26,18 +26,17 @@ export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
   useEffect(() => {
     if (!ref.current) return;
     const sources = ref.current.querySelectorAll('source');
-    sources.forEach((source) => {
-      source.addEventListener(
-        'error',
-        function () {
-          if (!this.parentElement?.parentElement) return;
-          const pElem = this.parentElement?.parentElement;
-          pElem.textContent = t('editor.mediaError');
-          pElem.className = clsx('w-full text-lg font-medium text-red-600');
-        },
-        true
-      );
-    });
+    const handler = function (this: HTMLSourceElement) {
+      if (!this.parentElement?.parentElement) return;
+      this.parentElement.classList.add('hidden');
+      const pElem = this.parentElement?.parentElement;
+      pElem.innerHTML += `<span>${t('editor.mediaError')}</span>`;
+      pElem.className = clsx('w-full text-lg font-medium text-red-600');
+    };
+    sources.forEach((source) => source.addEventListener('error', handler));
+    return () => {
+      sources.forEach((source) => source.removeEventListener('error', handler));
+    };
   }, [ref, t]);
 
   return (
