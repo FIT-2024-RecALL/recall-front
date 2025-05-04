@@ -46,6 +46,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
               'overflow-y-auto overflow-x-hidden'
             )}
             rawText={frontSide}
+            checkMedia
             extended
           />
         )}
@@ -65,6 +66,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
               'overflow-y-auto overflow-x-hidden'
             )}
             rawText={backSide}
+            checkMedia
           />
         )}
       </CardSide>

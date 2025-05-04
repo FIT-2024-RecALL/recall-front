@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useMemo } from 'react';
+import React, { HTMLAttributes, useEffect, useMemo, useRef } from 'react';
 import {
   simpleRenderer,
   extendedMdRenderer,
@@ -7,11 +7,13 @@ import clsx from 'clsx';
 
 export interface MarkdownRendererProps extends HTMLAttributes<React.FC> {
   rawText: string;
+  checkMedia?: boolean;
   extended?: boolean;
 }
 
 export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
   rawText,
+  checkMedia,
   extended,
   className,
 }) => {
@@ -19,9 +21,29 @@ export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
     () => (extended ? extendedMdRenderer : simpleRenderer),
     [extended]
   );
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    console.log('checkMedia', checkMedia);
+    if (!ref.current) return;
+    const sources = ref.current.querySelectorAll('source');
+    sources.forEach((source) => {
+      source.addEventListener('error', function (e) {
+        console.log(this.parentElement);
+        if (!this.parentElement) return;
+        this.parentElement.classList.add('error');
+      });
+    });
+    // return () => {
+    //   sources.forEach((source) => {
+    //     source.removeEventListener('error');
+    //   });
+    // };
+  }, [checkMedia, ref]);
 
   return (
     <div
+      ref={ref}
       className={clsx('markdown full', className)}
       dangerouslySetInnerHTML={{
         __html: renderer.render(rawText),
