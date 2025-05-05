@@ -4,7 +4,15 @@ import {
   extendedMdRenderer,
 } from './markdown-it-plugged-parser';
 import clsx from 'clsx';
-import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
+
+const mediaLoadErrorHandler = function (this: HTMLSourceElement) {
+  if (!this.parentElement?.parentElement) return;
+  this.parentElement.classList.add('hidden');
+  const pElem = this.parentElement?.parentElement;
+  pElem.innerHTML += `<span>${t('editor.mediaError')}</span>`;
+  pElem.className = clsx('w-full text-lg font-medium text-red-600');
+};
 
 export interface MarkdownRendererProps extends HTMLAttributes<React.FC> {
   rawText: string;
@@ -21,23 +29,17 @@ export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
     [extended]
   );
   const ref = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (!ref.current) return;
-    const sources = ref.current.querySelectorAll('source');
-    const handler = function (this: HTMLSourceElement) {
-      if (!this.parentElement?.parentElement) return;
-      this.parentElement.classList.add('hidden');
-      const pElem = this.parentElement?.parentElement;
-      pElem.innerHTML += `<span>${t('editor.mediaError')}</span>`;
-      pElem.className = clsx('w-full text-lg font-medium text-red-600');
-    };
-    sources.forEach((source) => source.addEventListener('error', handler));
-    return () => {
-      sources.forEach((source) => source.removeEventListener('error', handler));
-    };
-  }, [ref, t]);
+    requestAnimationFrame(() => {
+      if (!ref.current) return;
+      const sources = ref.current.querySelectorAll('source');
+      sources.forEach((source) => {
+        source.addEventListener('error', mediaLoadErrorHandler, { once: true });
+      });
+    });
+  }, [ref, rawText]);
 
   return (
     <div
