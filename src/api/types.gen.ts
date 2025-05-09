@@ -20,10 +20,10 @@ export type Body_update_card_cards__card_id__put = {
 };
 
 export type Card = {
+  id: number;
   isPublic: boolean;
   frontSide: string;
   backSide: string;
-  id: number;
   ownerId: number;
 };
 
@@ -33,10 +33,10 @@ export type CardCreate = {
 };
 
 export type Collection = {
+  id: number;
   isPublic: boolean;
   title: string;
   description?: string | null;
-  id: number;
   ownerId: number;
 };
 
@@ -46,13 +46,14 @@ export type CollectionCreate = {
 };
 
 export type CollectionShort = {
-  isPublic: boolean;
   id: number;
+  isPublic: boolean;
   ownerId: number;
   title: string;
 };
 
 export type FileMeta = {
+  id: number;
   isPublic: boolean;
   ownerId: number;
   filename: string;
@@ -80,10 +81,10 @@ export type FileMeta = {
     | 'flac'
     | 'm4a'
     | 'mp3'
+    | 'mpeg'
     | 'oga'
     | 'ogg'
     | 'wav';
-  id: number;
 };
 
 export type type = 'image' | 'video' | 'audio';
@@ -111,6 +112,7 @@ export type ext =
   | 'flac'
   | 'm4a'
   | 'mp3'
+  | 'mpeg'
   | 'oga'
   | 'ogg'
   | 'wav';
@@ -463,13 +465,3 @@ export type AuthenticateUserUserLoginPostError = HTTPValidationError;
 export type LogoutUserUserLogoutPostResponse = unknown;
 
 export type LogoutUserUserLogoutPostError = unknown;
-
-export type ReadItemItemsItemIdGetData = {
-  path: {
-    item_id: number | null;
-  };
-};
-
-export type ReadItemItemsItemIdGetResponse = unknown;
-
-export type ReadItemItemsItemIdGetError = unknown | HTTPValidationError;

@@ -12,7 +12,8 @@
     "view": "View",
     "saveChanges": "Save changes",
     "saved": "Saved",
-    "close": "Close"
+    "close": "Close",
+    "copy": "Copy"
   },
   "menu": {
     "menu": "Menu",
@@ -118,6 +119,7 @@
   "file": {
     "deleteFile": "Delete file",
     "thisPublic": "File is public",
-    "thisPrivate": "File is private"
+    "thisPrivate": "File is private",
+    "copy": "Copy component for card"
   }
 }

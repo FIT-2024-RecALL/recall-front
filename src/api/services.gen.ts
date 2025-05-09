@@ -94,9 +94,6 @@ import type {
   AuthenticateUserUserLoginPostResponse,
   LogoutUserUserLogoutPostError,
   LogoutUserUserLogoutPostResponse,
-  ReadItemItemsItemIdGetData,
-  ReadItemItemsItemIdGetError,
-  ReadItemItemsItemIdGetResponse,
 } from './types.gen';
 
 export const client = createClient(createConfig());
@@ -647,21 +644,5 @@ export const logoutUserUserLogoutPost = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: '/user/logout',
-  });
-};
-
-/**
- * Read Item
- */
-export const readItemItemsItemIdGet = <ThrowOnError extends boolean = false>(
-  options: Options<ReadItemItemsItemIdGetData, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    ReadItemItemsItemIdGetResponse,
-    ReadItemItemsItemIdGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/items/{item_id}',
   });
 };
