@@ -32,12 +32,9 @@ export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
 
   useEffect(() => {
     if (!ref.current) return;
-    requestAnimationFrame(() => {
-      if (!ref.current) return;
-      const sources = ref.current.querySelectorAll('source');
-      sources.forEach((source) => {
-        source.addEventListener('error', mediaLoadErrorHandler, { once: true });
-      });
+    const sources = ref.current.querySelectorAll('source');
+    sources.forEach((source) => {
+      source.addEventListener('error', mediaLoadErrorHandler, { once: true });
     });
   }, [ref, rawText]);
 
@@ -47,7 +44,7 @@ export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
       className={clsx('markdown full', className)}
       dangerouslySetInnerHTML={{
         __html: renderer.render(rawText),
-      }}
+      }} // Memoize
     ></div>
   );
 };
