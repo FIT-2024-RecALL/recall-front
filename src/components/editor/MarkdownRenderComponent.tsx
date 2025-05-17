@@ -28,8 +28,14 @@ export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
     () => (extended ? extendedMdRenderer : simpleRenderer),
     [extended]
   );
-  const ref = useRef<HTMLDivElement>(null);
+  const HtmlObject = useMemo(
+    () => ({
+      __html: renderer.render(rawText),
+    }),
+    [renderer, rawText]
+  );
 
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!ref.current) return;
     const sources = ref.current.querySelectorAll('source');
@@ -42,9 +48,7 @@ export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
     <div
       ref={ref}
       className={clsx('markdown full', className)}
-      dangerouslySetInnerHTML={{
-        __html: renderer.render(rawText),
-      }} // Memoize
+      dangerouslySetInnerHTML={HtmlObject}
     ></div>
   );
 };
