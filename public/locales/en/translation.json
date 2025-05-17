@@ -12,7 +12,8 @@
     "view": "View",
     "saveChanges": "Save changes",
     "saved": "Saved",
-    "close": "Close"
+    "close": "Close",
+    "copy": "Copy"
   },
   "menu": {
     "menu": "Menu",
@@ -112,11 +113,13 @@
     "notAllowedFile": "You're allowed to upload only photos, videos or audios",
     "undo": "Undo last change",
     "togglePreview": "Preview",
-    "toggleEdit": "Editing"
+    "toggleEdit": "Editing",
+    "mediaError": "Failed to load media"
   },
   "file": {
     "deleteFile": "Delete file",
     "thisPublic": "File is public",
-    "thisPrivate": "File is private"
+    "thisPrivate": "File is private",
+    "copy": "Copy component for card"
   }
 }

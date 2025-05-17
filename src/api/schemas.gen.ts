@@ -71,6 +71,10 @@ export const Body_update_card_cards__card_id__putSchema = {
 
 export const CardSchema = {
   properties: {
+    id: {
+      type: 'integer',
+      title: 'Id',
+    },
     isPublic: {
       type: 'boolean',
       title: 'Ispublic',
@@ -85,17 +89,13 @@ export const CardSchema = {
       minLength: 1,
       title: 'Backside',
     },
-    id: {
-      type: 'integer',
-      title: 'Id',
-    },
     ownerId: {
       type: 'integer',
       title: 'Ownerid',
     },
   },
   type: 'object',
-  required: ['isPublic', 'frontSide', 'backSide', 'id', 'ownerId'],
+  required: ['id', 'isPublic', 'frontSide', 'backSide', 'ownerId'],
   title: 'Card',
 } as const;
 
@@ -119,6 +119,10 @@ export const CardCreateSchema = {
 
 export const CollectionSchema = {
   properties: {
+    id: {
+      type: 'integer',
+      title: 'Id',
+    },
     isPublic: {
       type: 'boolean',
       title: 'Ispublic',
@@ -140,17 +144,13 @@ export const CollectionSchema = {
       ],
       title: 'Description',
     },
-    id: {
-      type: 'integer',
-      title: 'Id',
-    },
     ownerId: {
       type: 'integer',
       title: 'Ownerid',
     },
   },
   type: 'object',
-  required: ['isPublic', 'title', 'id', 'ownerId'],
+  required: ['id', 'isPublic', 'title', 'ownerId'],
   title: 'Collection',
 } as const;
 
@@ -181,13 +181,13 @@ export const CollectionCreateSchema = {
 
 export const CollectionShortSchema = {
   properties: {
-    isPublic: {
-      type: 'boolean',
-      title: 'Ispublic',
-    },
     id: {
       type: 'integer',
       title: 'Id',
+    },
+    isPublic: {
+      type: 'boolean',
+      title: 'Ispublic',
     },
     ownerId: {
       type: 'integer',
@@ -201,12 +201,16 @@ export const CollectionShortSchema = {
     },
   },
   type: 'object',
-  required: ['isPublic', 'id', 'ownerId', 'title'],
+  required: ['id', 'isPublic', 'ownerId', 'title'],
   title: 'CollectionShort',
 } as const;
 
 export const FileMetaSchema = {
   properties: {
+    id: {
+      type: 'integer',
+      title: 'Id',
+    },
     isPublic: {
       type: 'boolean',
       title: 'Ispublic',
@@ -249,19 +253,27 @@ export const FileMetaSchema = {
         'flac',
         'm4a',
         'mp3',
+        'mpeg',
         'oga',
         'ogg',
         'wav',
       ],
       title: 'Ext',
     },
-    id: {
-      type: 'integer',
-      title: 'Id',
+    size: {
+      anyOf: [
+        {
+          type: 'integer',
+        },
+        {
+          type: 'null',
+        },
+      ],
+      title: 'Size',
     },
   },
   type: 'object',
-  required: ['isPublic', 'ownerId', 'filename', 'type', 'ext', 'id'],
+  required: ['id', 'isPublic', 'ownerId', 'filename', 'type', 'ext', 'size'],
   title: 'FileMeta',
 } as const;
 

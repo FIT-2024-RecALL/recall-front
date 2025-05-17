@@ -11,6 +11,7 @@ import {
 } from '../library/shadcn-ui';
 import { useTranslation } from 'react-i18next';
 import { match } from 'ts-pattern';
+import { getMediaTypedUrl } from '../editor';
 
 interface FileCardProps extends HTMLAttributes<React.FC> {
   fileId: number;
@@ -48,11 +49,18 @@ export const FileCard: React.FC<FileCardProps> = ({ fileId, className }) => {
               .exhaustive()}
           </div>
           <div className="col-span-4 md:col-span-3 gap-x-1 center">
-            <a className="w-fit truncate" href={getFileFullPath(fileMeta.id)}>
-              <Button className="w-full" variant="inline">
-                {getFileFullPath(fileMeta.id)}
-              </Button>
-            </a>
+            <Button
+              className="mx-1"
+              variant="bordered"
+              title={t('file.copy')}
+              onClick={() => {
+                navigator.clipboard.writeText(
+                  `![ ... ](${getMediaTypedUrl(fileMeta)})`
+                );
+              }}
+            >
+              {t('common.copy')}
+            </Button>
             <IsPublicIcon objectType="file" isPublic={fileMeta.isPublic} />
           </div>
           <div className="col-span-4 md:col-span-1 center">

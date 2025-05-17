@@ -19,6 +19,9 @@ import type {
   ReadCardCollectionsCardsCardIdCollectionsGetData,
   ReadCardCollectionsCardsCardIdCollectionsGetError,
   ReadCardCollectionsCardsCardIdCollectionsGetResponse,
+  ReadCardFilesCardsCardIdFilesGetData,
+  ReadCardFilesCardsCardIdFilesGetError,
+  ReadCardFilesCardsCardIdFilesGetResponse,
   CreateCardCardsPostData,
   CreateCardCardsPostError,
   CreateCardCardsPostResponse,
@@ -94,9 +97,6 @@ import type {
   AuthenticateUserUserLoginPostResponse,
   LogoutUserUserLogoutPostError,
   LogoutUserUserLogoutPostResponse,
-  ReadItemItemsItemIdGetData,
-  ReadItemItemsItemIdGetError,
-  ReadItemItemsItemIdGetResponse,
 } from './types.gen';
 
 export const client = createClient(createConfig());
@@ -169,6 +169,24 @@ export const readCardCollectionsCardsCardIdCollectionsGet = <
   >({
     ...options,
     url: '/cards/{card_id}/collections',
+  });
+};
+
+/**
+ * Read Card Files
+ */
+export const readCardFilesCardsCardIdFilesGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<ReadCardFilesCardsCardIdFilesGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCardFilesCardsCardIdFilesGetResponse,
+    ReadCardFilesCardsCardIdFilesGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/cards/{card_id}/files',
   });
 };
 
@@ -647,21 +665,5 @@ export const logoutUserUserLogoutPost = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: '/user/logout',
-  });
-};
-
-/**
- * Read Item
- */
-export const readItemItemsItemIdGet = <ThrowOnError extends boolean = false>(
-  options: Options<ReadItemItemsItemIdGetData, ThrowOnError>
-) => {
-  return (options?.client ?? client).get<
-    ReadItemItemsItemIdGetResponse,
-    ReadItemItemsItemIdGetError,
-    ThrowOnError
-  >({
-    ...options,
-    url: '/items/{item_id}',
   });
 };
