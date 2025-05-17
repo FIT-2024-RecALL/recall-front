@@ -19,6 +19,9 @@ import type {
   ReadCardCollectionsCardsCardIdCollectionsGetData,
   ReadCardCollectionsCardsCardIdCollectionsGetError,
   ReadCardCollectionsCardsCardIdCollectionsGetResponse,
+  ReadCardFilesCardsCardIdFilesGetData,
+  ReadCardFilesCardsCardIdFilesGetError,
+  ReadCardFilesCardsCardIdFilesGetResponse,
   CreateCardCardsPostData,
   CreateCardCardsPostError,
   CreateCardCardsPostResponse,
@@ -166,6 +169,24 @@ export const readCardCollectionsCardsCardIdCollectionsGet = <
   >({
     ...options,
     url: '/cards/{card_id}/collections',
+  });
+};
+
+/**
+ * Read Card Files
+ */
+export const readCardFilesCardsCardIdFilesGet = <
+  ThrowOnError extends boolean = false
+>(
+  options: Options<ReadCardFilesCardsCardIdFilesGetData, ThrowOnError>
+) => {
+  return (options?.client ?? client).get<
+    ReadCardFilesCardsCardIdFilesGetResponse,
+    ReadCardFilesCardsCardIdFilesGetError,
+    ThrowOnError
+  >({
+    ...options,
+    url: '/cards/{card_id}/files',
   });
 };
 

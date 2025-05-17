@@ -85,6 +85,7 @@ export type FileMeta = {
     | 'oga'
     | 'ogg'
     | 'wav';
+  size: number | null;
 };
 
 export type type = 'image' | 'video' | 'audio';
@@ -209,6 +210,16 @@ export type ReadCardCollectionsCardsCardIdCollectionsGetResponse =
 
 export type ReadCardCollectionsCardsCardIdCollectionsGetError =
   HTTPValidationError;
+
+export type ReadCardFilesCardsCardIdFilesGetData = {
+  path: {
+    card_id: number;
+  };
+};
+
+export type ReadCardFilesCardsCardIdFilesGetResponse = Array<FileMeta>;
+
+export type ReadCardFilesCardsCardIdFilesGetError = HTTPValidationError;
 
 export type CreateCardCardsPostData = {
   body: Body_create_card_cards__post;

@@ -260,9 +260,20 @@ export const FileMetaSchema = {
       ],
       title: 'Ext',
     },
+    size: {
+      anyOf: [
+        {
+          type: 'integer',
+        },
+        {
+          type: 'null',
+        },
+      ],
+      title: 'Size',
+    },
   },
   type: 'object',
-  required: ['id', 'isPublic', 'ownerId', 'filename', 'type', 'ext'],
+  required: ['id', 'isPublic', 'ownerId', 'filename', 'type', 'ext', 'size'],
   title: 'FileMeta',
 } as const;
 
