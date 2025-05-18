@@ -10,9 +10,11 @@ import { CardSide } from './CardSide';
 import { useAppStore, backAtoms, frontAtoms } from '@/state';
 import { useTranslation } from 'react-i18next';
 
-type FlippingCardProps = HTMLAttributes<React.FC>;
+type ActiveFlippingCardProps = HTMLAttributes<React.FC>;
 
-export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
+export const ActiveFlippingCard: React.FC<ActiveFlippingCardProps> = ({
+  className,
+}) => {
   const { t } = useTranslation();
 
   const mode = useAppStore((state) => state.activeCardUI.mode);

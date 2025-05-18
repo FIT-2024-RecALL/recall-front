@@ -1,2 +1,3 @@
 export * from './MiniCard';
-export * from './FlippingCard';
+export * from './ActiveFlippingCard';
+export * from './StaticFlippingCard';
