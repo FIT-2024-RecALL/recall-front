@@ -10,9 +10,11 @@ import { CardSide } from './CardSide';
 import { useAppStore, backAtoms, frontAtoms } from '@/state';
 import { useTranslation } from 'react-i18next';
 
-type FlippingCardProps = HTMLAttributes<React.FC>;
+type ActiveFlippingCardProps = HTMLAttributes<React.FC>;
 
-export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
+export const ActiveFlippingCard: React.FC<ActiveFlippingCardProps> = ({
+  className,
+}) => {
   const { t } = useTranslation();
 
   const mode = useAppStore((state) => state.activeCardUI.mode);
@@ -30,7 +32,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
         className
       )}
     >
-      <CardSide side="front">
+      <CardSide className="p-2 pb-8" side="front">
         {mode === 'edit' ? (
           <MarkdownEditorComponent
             state={frontSide}
@@ -50,7 +52,7 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
           />
         )}
       </CardSide>
-      <CardSide side="back">
+      <CardSide className="p-2 pb-8" side="back">
         {mode === 'edit' ? (
           <MarkdownEditorComponent
             state={backSide}

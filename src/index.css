@@ -39,25 +39,25 @@
 
 @font-face {
   font-family: 'MontserratAlternates';
-  src: url('$fonts/MontserratAlternates-Light.ttf');
+  src: url('@public/fonts/MontserratAlternates-Light.ttf');
   font-weight: 200;
 }
 
 @font-face {
   font-family: 'MontserratAlternates';
-  src: url('$fonts/MontserratAlternates-Regular.ttf');
+  src: url('@public/fonts/MontserratAlternates-Regular.ttf');
   font-weight: 400;
 }
 
 @font-face {
   font-family: 'MontserratAlternates';
-  src: url('$fonts/MontserratAlternates-Medium.ttf');
+  src: url('@public/fonts/MontserratAlternates-Medium.ttf');
   font-weight: 500;
 }
 
 @font-face {
   font-family: 'MontserratAlternates';
-  src: url('$fonts/MontserratAlternates-Bold.ttf');
+  src: url('@public/fonts/MontserratAlternates-Bold.ttf');
   font-weight: 800;
 }
 
@@ -119,11 +119,6 @@ body,
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
-}
-
-/* Ужасный костыль. Надо будет убрать */
-.animate-flip .flip-front {
-  opacity: 0;
 }
 
 .flip-back {
@@ -190,3 +185,7 @@ body,
     @apply w-full md:w-1/2 m-auto;
   }
 }
+
+.media-full > { img, video {
+  @apply md:w-1/2
+}}

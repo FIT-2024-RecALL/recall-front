@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
 import { ControlledModal } from '@/components/library';
-import { FlippingCard } from './visuals';
+import { ActiveFlippingCard } from './visuals';
 import {
   CreateCardControls,
   EditCardControls,
@@ -44,7 +44,7 @@ export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
         'border border-black'
       )}
     >
-      <FlippingCard
+      <ActiveFlippingCard
         className={clsx(
           'mb-1 md:mb-2 w-full',
           mode !== 'view' ? 'h-5/6' : 'h-full',

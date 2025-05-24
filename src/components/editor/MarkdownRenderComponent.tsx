@@ -17,11 +17,13 @@ const mediaLoadErrorHandler = function (this: HTMLSourceElement) {
 export interface MarkdownRendererProps extends HTMLAttributes<React.FC> {
   rawText: string;
   extended?: boolean;
+  unstyled?: boolean;
 }
 
 export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
   rawText,
   extended,
+  unstyled,
   className,
 }) => {
   const renderer = useMemo(
@@ -47,7 +49,7 @@ export const MarkdownRenderComponent: React.FC<MarkdownRendererProps> = ({
   return (
     <div
       ref={ref}
-      className={clsx('markdown full', className)}
+      className={clsx('full', !unstyled && 'markdown', className)}
       dangerouslySetInnerHTML={HtmlObject}
     ></div>
   );
