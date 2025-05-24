@@ -61,7 +61,7 @@ const EXAMPLES: Record<ExampleKey, ExampleCardSides> = {
   latex: {
     frontSide: 'LaTeX - красивые формулы',
     backSide:
-      '$$\nE = mc^2\n$$\n$$\n\\begin{cases}a = b + c \\\\ c = a^2\\end{cases}\n$$',
+      '$$\nE = mc^2\n$$\n$$\n\\begin{cases}ax^2 + bx + c = 0 \\\\ D = b^2 - 4ac\\\\ x_{1,2} = \\frac{-b\\plusmn\\sqrt{D}}{2a}\\end{cases}\n$$\n$$\nRMSE = \\sqrt{\\frac{1}{n}\\sum_{i=1}^{n}(y_{i} - x_{i})^{2}}\n$$',
   },
   photo: {
     frontSide: 'Фото',
