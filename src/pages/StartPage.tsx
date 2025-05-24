@@ -176,7 +176,8 @@ export const StartPage: React.FC = () => {
             <ExampleCard {...EXAMPLES.latex} />
           </div>
           <h2 className="text-md lg:text-lg text-center font-medium mb-2">
-            А ещё мы позволяем загружать медиафайлы небольшого размера прямо на наше сервер!
+            А ещё мы позволяем загружать медиафайлы небольшого размера прямо на
+            наше сервер!
           </h2>
           <h2 className="text-lg lg:text-xl text-center font-medium mb-2">
             И многое другое! Попробуй сам ;)

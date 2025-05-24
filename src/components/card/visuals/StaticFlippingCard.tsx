@@ -1,11 +1,9 @@
 import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
-import { MarkdownRenderComponent } from '@/components/editor';
-
 import { CardSide } from './CardSide';
 
-interface StaticFlippingCardProps extends HTMLAttributes<React.FC> {
+interface StaticFlippingCardProps extends HTMLAttributes<HTMLDivElement> {
   frontSide: JSX.Element;
   backSide: JSX.Element;
   flipped: boolean | 'hover';

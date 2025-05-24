@@ -12,7 +12,15 @@ export const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
   bgClass,
   children,
 }) => {
-  const offset = useMemo(() => shadowOffset ?? 1, [shadowOffset]);
+  const offsetClasses = useMemo(() => {
+    const offset = shadowOffset ?? 1;
+    return [
+      `md:hover:-translate-x-${offset}`,
+      `md:hover:-translate-y-${offset}`,
+      `md:hover:before:translate-x-${offset}`,
+      `md:hover:before:translate-y-${offset}`
+    ]
+  }, [shadowOffset]);
   const bgColorClass = useMemo(
     () => (bgClass ? `before:${bgClass}` : 'before:bg-black/50'),
     [bgClass]
@@ -25,8 +33,7 @@ export const ShadowWrapper: React.FC<ShadowWrapperProps> = ({
         'before:absolute before:full before:rounded-md',
         bgColorClass,
         'before:transition-all before:duration-200',
-        `md:hover:-translate-x-${offset} md:hover:-translate-y-${offset}`,
-        `md:hover:before:translate-x-${offset} md:hover:before:translate-y-${offset}`,
+        offsetClasses,
         className
       )}
     >

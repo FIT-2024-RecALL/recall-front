@@ -1,3 +1,4 @@
+import { ShadowWrapper } from '@/components/library';
 import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
@@ -30,17 +31,5 @@ export const MiniCard: React.FC<MiniCardProps> = ({
 
   if (shadowOff) return card;
 
-  return (
-    <div
-      className={clsx(
-        'relative transition-all duration-200',
-        'before:absolute before:full before:bg-black/50 before:rounded-lg',
-        'before:transition-all before:duration-200',
-        'hover:-translate-x-2 hover:-translate-y-2',
-        'hover:before:translate-x-2 hover:before:translate-y-2'
-      )}
-    >
-      {card}
-    </div>
-  );
+  return <ShadowWrapper shadowOffset={2}>{card}</ShadowWrapper>;
 };
