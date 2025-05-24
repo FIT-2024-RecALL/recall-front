@@ -89,7 +89,7 @@ export const StartPage: React.FC = () => {
       <div className="full center vstack">
         <div className="h-screen pt-28">
           <MiniCard
-            className="bg-lime-200 ring-4"
+            className="bg-lime-200 hover:bg-lime-300 ring-4"
             onClick={() =>
               document
                 .getElementById('description')
