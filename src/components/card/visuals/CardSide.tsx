@@ -11,14 +11,17 @@ const animationClasses = {
   back: 'flip-back',
 } satisfies Record<CardSides, string>;
 
-export const CardSide: React.FC<CardSideProps> = ({ side, children }) => {
+export const CardSide: React.FC<CardSideProps> = ({
+  side,
+  children,
+  className,
+}) => {
   return (
     <div
       className={clsx(
-        'p-2 pb-8 full',
-        'vstack items-center',
-        'overflow-scroll-y',
-        animationClasses[side]
+        'overflow-scroll-y full',
+        animationClasses[side],
+        className
       )}
     >
       {children}

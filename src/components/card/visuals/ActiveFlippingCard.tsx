@@ -32,7 +32,7 @@ export const ActiveFlippingCard: React.FC<ActiveFlippingCardProps> = ({
         className
       )}
     >
-      <CardSide side="front">
+      <CardSide className="p-2 pb-8" side="front">
         {mode === 'edit' ? (
           <MarkdownEditorComponent
             state={frontSide}
@@ -52,7 +52,7 @@ export const ActiveFlippingCard: React.FC<ActiveFlippingCardProps> = ({
           />
         )}
       </CardSide>
-      <CardSide side="back">
+      <CardSide className="p-2 pb-8" side="back">
         {mode === 'edit' ? (
           <MarkdownEditorComponent
             state={backSide}

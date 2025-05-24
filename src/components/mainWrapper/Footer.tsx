@@ -3,18 +3,9 @@ import React from 'react';
 export const Footer: React.FC = () => {
   return (
     <footer>
-      <div className="text-gray-gray-500 flex vstack center p-1">
-        <p>
-          <code>2024</code>, NSU FIT
-        </p>
-        <a
-          className="underline"
-          href="https://github.com/FIT-2024-RecALL"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Github
-        </a>
+      <div className="text-gray-500 flex vstack center p-1">
+        <p>© 2024-2025 RecAll</p>
+        <p>Все права защищены</p>
       </div>
     </footer>
   );
