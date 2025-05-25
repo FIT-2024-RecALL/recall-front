@@ -7,7 +7,7 @@ import { Button } from '@/components/library';
 import { useProfile } from '@/query/queryHooks';
 import { MiniCard } from '@/components/card';
 
-import intervalsImage from '@public/img/intervals.png';
+import intervalsImage from '@public/img/intervalsWide.png';
 import { StaticFlippingCard } from '@/components/card';
 import { MarkdownRenderComponent } from '@/components/editor';
 
@@ -25,7 +25,7 @@ const ExampleCard: React.FC<ExampleCardSides> = ({
   const [isFlipped, setIsFlipped] = useState(false);
   return (
     <StaticFlippingCard
-      className="min-h-48"
+      className="min-h-64 md:min-h-48"
       flipped={isFlipped}
       frontSide={
         <MiniCard
@@ -87,13 +87,13 @@ export const StartPage: React.FC = () => {
   return (
     <div className="vstack text-o-black rounded-md">
       <div className="full center vstack">
-        <div className="h-screen pt-28">
+        <div className="h-screen pt-28 md:pt-30 lg:pt-36 xl:pt-48">
           <MiniCard
             className="bg-lime-200 hover:bg-lime-300 ring-4"
             onClick={() =>
               document
                 .getElementById('description')
-                ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
             }
           >
             <h1 className="text-4xl lg:text-6xl text-center my-6 font-bold">
@@ -110,12 +110,14 @@ export const StartPage: React.FC = () => {
             'grid grid-cols-1 md:grid-cols-2'
           )}
         >
-          <img
-            className="rounded-lg shadow-lg"
-            src={intervalsImage}
-            alt=""
-            id="description"
-          />
+          <div className="flex items-end md:vstack md:center">
+            <img
+              className="rounded-lg shadow-lg"
+              src={intervalsImage}
+              alt=""
+              id="description"
+            />
+          </div>
           <div className="vstack items-center justify-center">
             <p className="text-md lg:text-2xl text-center my-4 font-medium">
               {t('startPage.p1')}
@@ -166,12 +168,12 @@ export const StartPage: React.FC = () => {
           <h3 className="text-xl lg:text-2xl text-center font-medium mb-10">
             Кликни для просмотра
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 mb-6">
             <ExampleCard unstyled {...EXAMPLES.photo} />
             <ExampleCard unstyled {...EXAMPLES.video} />
             <ExampleCard {...EXAMPLES.audio} />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mb-10">
             <ExampleCard {...EXAMPLES.markup} />
             <ExampleCard {...EXAMPLES.latex} />
           </div>

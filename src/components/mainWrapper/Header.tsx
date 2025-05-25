@@ -9,6 +9,8 @@ import { routes } from '@/routes';
 import { useLogout } from '@/query/mutationHooks';
 import { useTranslation } from 'react-i18next';
 
+import icon from '@public/favicon.ico';
+
 export const Header: React.FC = () => {
   const { t } = useTranslation();
 
@@ -22,9 +24,13 @@ export const Header: React.FC = () => {
   return (
     <header>
       <div className="grid grid-cols-3 m-0 p-2 w-full">
-        <h2 className="flex justify-start items-center text-lg md:text-2xl font-bold mx-2">
-          <Link to="/">RecAll</Link>
-        </h2>
+        <Link
+          to="/"
+          className="flex justify-start items-center text-lg md:text-2xl font-bold mx-2 gap-x-1"
+        >
+          <img className="h-4 w-4 md:h-8 md:w-8" src={icon} alt="Icon" />
+          <h2>RecAll</h2>
+        </Link>
         <Menu />
         <div className="flex justify-center md:justify-end w-full">
           {profile ? (
