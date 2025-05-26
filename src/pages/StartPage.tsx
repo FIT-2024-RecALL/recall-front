@@ -10,6 +10,8 @@ import { MiniCard } from '@/components/card';
 import intervalsImage from '@public/img/intervalsWide.png';
 import { StaticFlippingCard } from '@/components/card';
 import { MarkdownRenderComponent } from '@/components/editor';
+import { Redirect } from 'wouter';
+import { routes } from '@/routes';
 
 type ExampleCardSides = {
   frontSide: string;
@@ -84,6 +86,8 @@ export const StartPage: React.FC = () => {
   const showRegisterWindow = useAppStore((state) => state.showRegisterWindow);
   const { t } = useTranslation();
 
+  if (profile) return <Redirect to={routes.profile.getUrl()} />;
+
   return (
     <div className="vstack text-o-black rounded-md">
       <div className="full center vstack">
@@ -97,9 +101,7 @@ export const StartPage: React.FC = () => {
             }
           >
             <h1 className="text-4xl lg:text-6xl text-center my-6 font-bold">
-              {profile
-                ? `${t('startPage.hello')}, ${profile.nickname}!`
-                : t('startPage.title')}
+              {t('startPage.title')}
             </h1>
           </MiniCard>
         </div>

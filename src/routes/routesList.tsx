@@ -54,6 +54,7 @@ export const routes: Record<RoutesEnum, RouteData> = {
   profile: {
     url: '/profile',
     getUrl: () => '/profile',
+    label: 'common.profile',
     content: <ProfilePage />,
   },
 };

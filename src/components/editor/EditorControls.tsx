@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useCallback, useRef } from 'react';
+import React, { HTMLAttributes, useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Icon, Button } from '@/components/library';
@@ -31,7 +31,11 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
 
   const uploadRef = useRef<HTMLInputElement>(null);
 
-  const { uploadFile, isPending: isFilePending } = useFileUpload((response) => {
+  const {
+    uploadFile,
+    isPending: isFilePending,
+    error,
+  } = useFileUpload((response) => {
     editorActionWrapper(mutations.media, getMediaTypedUrl(response));
   });
   const alertingUploading = useCallback(
@@ -41,6 +45,10 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
     },
     [uploadFile, t]
   );
+  useEffect(() => {
+    if (!error) return;
+    alert(error.message);
+  }, [error]);
 
   return (
     <div className={clsx('around w-full my-1 gap-y-1 flex-wrap', className)}>
