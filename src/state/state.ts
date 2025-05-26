@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
-import { devtools } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 import { Mutator } from './types';
 import {
@@ -19,14 +19,19 @@ type StoreType = AuthWindowState &
   CreateCollectionState;
 
 export const useAppStore = create<StoreType>()(
-  devtools((set, ...rest) => {
-    const mutate: Mutator<StoreType> = (mutator) => set(produce(mutator));
+  devtools(
+    persist(
+      (set, ...rest) => {
+        const mutate: Mutator<StoreType> = (mutator) => set(produce(mutator));
 
-    return {
-      ...createAuthWindowStateSlice(mutate, set, ...rest),
-      ...createActiveCardStateSlice(mutate, set, ...rest),
-      ...createTrainStateSlice(mutate, set, ...rest),
-      ...createCreateCollectionState(mutate, set, ...rest),
-    };
-  })
+        return {
+          ...createAuthWindowStateSlice(mutate, set, ...rest),
+          ...createActiveCardStateSlice(mutate, set, ...rest),
+          ...createTrainStateSlice(mutate, set, ...rest),
+          ...createCreateCollectionState(mutate, set, ...rest),
+        };
+      },
+      { name: 'app-store' }
+    )
+  )
 );

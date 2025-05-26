@@ -1,138 +1,131 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
-import { Button } from '@/components/library/Button';
-import { FormItem } from '@/components/library/FormItem';
-import { createUserUserRegisterPost } from '@/api';
+import { Button, Input, FormItem } from '@/components/library';
 import { useAppStore } from '@/state';
-import { dataExtractionWrapper } from '@/query';
-import { getProfileQueryOptions } from '@/query/queryHooks';
-import clsx from 'clsx';
+import { useRegister } from '@/query/mutationHooks';
 
 const userRegisterScheme = z
   .object({
-    email: z.string().email('Invalid email').min(1, 'Email is required'),
-    nickname: z.string().min(1, 'Nickname is required'),
-    password1: z.string().min(8, 'Password must be >= 8 symbols'),
-    password2: z.string().min(8, 'Repetition of password is required'),
+    email: z
+      .string({ message: 'auth.emailRequired' })
+      .email('auth.invalidEmail'),
+    nickname: z.string({ message: 'auth.nicknameRequired' }),
+    password1: z
+      .string({ message: 'auth.passwordRequired' })
+      .min(8, 'auth.passwordMinLength'),
+    password2: z
+      .string({ message: 'auth.passwordRepeatRequired' })
+      .min(8, 'auth.passwordMinLength'),
   })
   .refine((data) => data.password1 === data.password2, {
-    message: 'Repeat your password correctly',
+    message: 'auth.passwordMismatch',
     path: ['password2'],
   });
 export type UserRegisterData = z.infer<typeof userRegisterScheme>;
 
 export const RegisterForm: React.FC = () => {
+  const { t } = useTranslation();
   const closeAuthWindow = useAppStore((state) => state.closeAuthWindow);
 
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<UserRegisterData>({
     resolver: zodResolver(userRegisterScheme),
   });
 
-  const queryClient = useQueryClient();
-  const { mutate: registerUser, error } = useMutation({
-    mutationFn: (data: UserRegisterData) =>
-      dataExtractionWrapper(
-        createUserUserRegisterPost({
-          body: {
-            email: data.email,
-            nickname: data.nickname,
-            password: data.password1,
-          },
-        })
-      ),
-    onSuccess: (data) => {
-      closeAuthWindow();
-      queryClient.setQueryData(getProfileQueryOptions().queryKey, data);
-    },
+  const { registerUser, error } = useRegister(() => {
+    closeAuthWindow();
   });
 
   return (
     <form
-      className="vstack w-full p-2 text-white"
+      className="vstack center w-full"
       onSubmit={handleSubmit((data) => registerUser(data))}
     >
       <FormItem
-        className="vstack p-1 w-full"
+        className="vstack mb-2 w-full"
         errorMessage={errors.email?.message}
       >
-        <input
-          placeholder="Email"
-          className={clsx(
-            'p-1 md:p-2 w-full',
-            'text-1-1 font-medium rounded',
-            'bg-transparent border-b border-1-1',
-            'focus:outline-none focus:border-b-2'
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <Input
+              placeholder={t('auth.emailPlaceholder')}
+              bottomBorder
+              {...field}
+            />
           )}
-          {...register('email')}
         />
       </FormItem>
       <FormItem
-        className="vstack p-1 w-full"
+        className="vstack mb-2 w-full"
         errorMessage={errors.nickname?.message}
       >
-        <input
-          placeholder="Nickname"
-          className={clsx(
-            'p-1 md:p-2 w-full',
-            'text-1-1 font-medium rounded',
-            'bg-transparent border-b border-1-1',
-            'focus:outline-none focus:border-b-2'
+        <Controller
+          name="nickname"
+          control={control}
+          render={({ field }) => (
+            <Input
+              placeholder={t('auth.nicknamePlaceholder')}
+              bottomBorder
+              {...field}
+            />
           )}
-          {...register('nickname')}
         />
       </FormItem>
       <FormItem
-        className="vstack p-1 w-full"
+        className="vstack mb-2 w-full"
         errorMessage={errors.password1?.message}
       >
-        <input
-          placeholder="Create password"
-          className={clsx(
-            'p-1 md:p-2 w-full',
-            'text-1-1 font-medium rounded',
-            'bg-transparent border-b border-1-1',
-            'focus:outline-none focus:border-b-2'
+        <Controller
+          name="password1"
+          control={control}
+          render={({ field }) => (
+            <Input
+              placeholder={t('auth.createPasswordPlaceholder')}
+              bottomBorder
+              type="password"
+              {...field}
+            />
           )}
-          {...register('password1')}
-          type="password"
         />
       </FormItem>
       <FormItem
-        className="vstack p-1 w-full"
+        className="vstack mb-2 w-full"
         errorMessage={errors.password2?.message}
       >
-        <input
-          placeholder="Repeat password"
-          className={clsx(
-            'p-1 md:p-2 w-full',
-            'text-1-1 font-medium rounded',
-            'bg-transparent border-b border-1-1',
-            'focus:outline-none focus:border-b-2'
+        <Controller
+          name="password2"
+          control={control}
+          render={({ field }) => (
+            <Input
+              placeholder={t('auth.repeatPasswordPlaceholder')}
+              bottomBorder
+              type="password"
+              {...field}
+            />
           )}
-          {...register('password2')}
-          type="password"
         />
       </FormItem>
       {error && (
-        <FormItem className="vstack p-1 w-full" errorMessage={error.message} />
+        <FormItem className="vstack mb-2 w-full" errorMessage={error.message} />
       )}
-      <div className="center mt-2 mb-1">
-        <Button
-          variant="plate"
-          type="submit"
-          className="w-2/3 text-lg font-medium"
-        >
-          Sign up
-        </Button>
-      </div>
+      <Button
+        variant="plate-blue"
+        type="submit"
+        className="full text-lg font-medium"
+        withShadow
+        shadowBoxClassName="w-2/3 mt-1 mb-2"
+      >
+        {t('common.register')}
+      </Button>
     </form>
   );
 };

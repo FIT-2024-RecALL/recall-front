@@ -1,12 +1,12 @@
 import React, { HTMLAttributes } from 'react';
+import clsx from 'clsx';
 
 import { MiniCard } from './visuals';
 import { ActiveCardUIModes } from '@/state/slices';
 import { useAppStore } from '@/state';
 import { useCard } from '@/query/queryHooks';
-import { LoadableComponent } from '@/components/library';
+import { IsPublicIcon, LoadableComponent } from '@/components/library';
 import { MarkdownRenderComponent } from '@/components/editor';
-import clsx from 'clsx';
 
 interface CardProps extends HTMLAttributes<React.FC> {
   mode: ActiveCardUIModes;
@@ -30,21 +30,21 @@ export const Card: React.FC<CardProps> = ({ mode, cardId, className }) => {
               setRealActiveCard(card);
             })
           }
-          className={clsx(
-            'overflow-hidden relative',
-            'text-lg md:text-xl font-medium',
-            className
-          )}
+          className={clsx('bg-o-white-max font-medium relative', className)}
         >
           {error && error.message}
           {card && (
             <>
+              <IsPublicIcon
+                className="absolute right-1 top-1"
+                objectType="card"
+                isPublic={card.isPublic}
+              />
               <MarkdownRenderComponent
-                className="full overflow-hidden"
+                className="overflow-hidden"
                 rawText={card.frontSide}
                 extended
               />
-              <div className="full absolute"></div>
             </>
           )}
         </MiniCard>

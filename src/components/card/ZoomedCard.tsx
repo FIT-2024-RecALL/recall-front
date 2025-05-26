@@ -1,42 +1,61 @@
 import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
-import { PopUp } from '@/components/library';
-import { FlippingCard } from './visuals';
+import { ControlledModal } from '@/components/library';
+import { ActiveFlippingCard } from './visuals';
 import {
   CreateCardControls,
   EditCardControls,
   TrainCardControls,
 } from './controls';
-import { useAppStore } from '@/state';
+import { useAppStore, frontAtoms, backAtoms } from '@/state';
+import { useTranslation } from 'react-i18next';
+import { useSetAtom } from 'jotai';
 
-interface ZoomedCardProps extends HTMLAttributes<React.FC> {}
+type ZoomedCardProps = HTMLAttributes<React.FC>;
 
 export const ZoomedCard: React.FC<ZoomedCardProps> = () => {
+  const { t } = useTranslation();
+
   const zoomed = useAppStore((state) => state.activeCardUI.zoomed);
   const setCardUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
   const mode = useAppStore((state) => state.activeCardUI.mode);
   const isNew = useAppStore((state) => state.isNewActiveCard);
+  const isChanged = useAppStore((state) => state.isActiveCardChanged);
+  const resetFront = useSetAtom(frontAtoms.resetAtom);
+  const resetBack = useSetAtom(backAtoms.resetAtom);
 
   return (
-    <PopUp
+    <ControlledModal
       isShown={zoomed}
-      close={() => setCardUIFlag('zoomed', () => false)}
-      className="center bg-o-white/75 backdrop-blur-md"
+      close={() => {
+        if (mode === 'edit' && isChanged) {
+          if (confirm(t('card.confirmClose'))) {
+            setCardUIFlag('zoomed', () => false);
+            resetFront();
+            resetBack();
+          }
+        } else setCardUIFlag('zoomed', () => false);
+      }}
+      contentClassName={clsx(
+        'w-11/12 p-2 md:p-4',
+        mode !== 'view' ? 'h-11/12' : 'h-5/6',
+        'bg-o-white/50 text-o-black rounded-xl',
+        'border border-black'
+      )}
     >
-      <div className={clsx('w-11/12 lg:w-3/4 h-11/12 lg:h-5/6 center vstack')}>
-        <FlippingCard
-          className={clsx(
-            'mb-1 md:mb-2 w-full h-5/6',
-            'bg-1-1 rounded-xl',
-            'border border-2 border-black',
-            'text-white'
-          )}
-        />
-        {mode === 'edit' && isNew && <CreateCardControls />}
-        {mode === 'edit' && !isNew && <EditCardControls />}
-        {mode === 'train' && <TrainCardControls />}
-      </div>
-    </PopUp>
+      <ActiveFlippingCard
+        className={clsx(
+          'mb-1 md:mb-2 w-full',
+          mode !== 'view' ? 'h-5/6' : 'h-full',
+          'bg-o-white text-o-black rounded-xl',
+          'border border-gray-500',
+          'shadow-md hover:shadow-gray-500'
+        )}
+      />
+      {mode === 'edit' && isNew && <CreateCardControls />}
+      {mode === 'edit' && !isNew && <EditCardControls />}
+      {mode === 'train' && <TrainCardControls />}
+    </ControlledModal>
   );
 };

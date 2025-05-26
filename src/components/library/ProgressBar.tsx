@@ -19,13 +19,13 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
     <div
       className={clsx(
         'relative m-1 overflow-hidden',
-        'border border-black rounded',
+        'border border-black',
         className
       )}
     >
       <div
         className={clsx(
-          'absolute bg-1-6 h-full',
+          'absolute bg-green-300 h-full',
           'trainsition-all duration-500',
           fillClassName
         )}

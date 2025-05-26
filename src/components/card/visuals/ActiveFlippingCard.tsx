@@ -7,11 +7,16 @@ import {
 } from '@/components/editor';
 
 import { CardSide } from './CardSide';
-import { useAppStore } from '@/state';
+import { useAppStore, backAtoms, frontAtoms } from '@/state';
+import { useTranslation } from 'react-i18next';
 
-type FlippingCardProps = HTMLAttributes<React.FC>;
+type ActiveFlippingCardProps = HTMLAttributes<React.FC>;
 
-export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
+export const ActiveFlippingCard: React.FC<ActiveFlippingCardProps> = ({
+  className,
+}) => {
+  const { t } = useTranslation();
+
   const mode = useAppStore((state) => state.activeCardUI.mode);
   const frontSide = useAppStore((state) => state.activeCard.frontSide);
   const backSide = useAppStore((state) => state.activeCard.backSide);
@@ -27,34 +32,40 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
         className
       )}
     >
-      <CardSide side="front">
-        {mode === 'edit' && (
+      <CardSide className="p-2 pb-8 bg-o-white rounded-xl" side="front">
+        {mode === 'edit' ? (
           <MarkdownEditorComponent
             state={frontSide}
             setState={(s) => setCardSide('frontSide', s)}
+            historyAtoms={frontAtoms}
             extended
-            placeholder="First side (required)"
+            placeholder={t('card.frontSidePlaceholder')}
           />
-        )}
-        {mode === 'train' && (
+        ) : (
           <MarkdownRenderComponent
-            className="text-lg w-full p-2 md:p-4"
+            className={clsx(
+              'p-1 font-sans',
+              'overflow-y-auto overflow-x-hidden'
+            )}
             rawText={frontSide}
             extended
           />
         )}
       </CardSide>
-      <CardSide side="back">
-        {mode === 'edit' && (
+      <CardSide className="p-2 pb-8 bg-o-white rounded-xl" side="back">
+        {mode === 'edit' ? (
           <MarkdownEditorComponent
             state={backSide}
             setState={(s) => setCardSide('backSide', s)}
-            placeholder="Second side (required)"
+            historyAtoms={backAtoms}
+            placeholder={t('card.backSidePlaceholder')}
           />
-        )}
-        {mode === 'train' && (
+        ) : (
           <MarkdownRenderComponent
-            className="text-lg w-full p-2 md:p-4"
+            className={clsx(
+              'px-1 font-sans',
+              'overflow-y-auto overflow-x-hidden'
+            )}
             rawText={backSide}
           />
         )}
@@ -63,10 +74,11 @@ export const FlippingCard: React.FC<FlippingCardProps> = ({ className }) => {
         className={clsx(
           'absolute bottom-0',
           'w-full h-7 md:py-2',
-          'center',
-          'overflow-hidden transition-all',
-          'hover:cursor-pointer hover:bg-1-8/10 hover:pl-10',
-          'text-xl font-bold'
+          'center rounded-b-lg',
+          'overflow-hidden transition-all duration-500',
+          'hover:cursor-pointer hover:pl-10',
+          'text-xl font-bold',
+          'bg-blue-300 hover:bg-blue-300/75'
         )}
         onClick={() => setUIFlag('flipped', (f) => !f)}
       >

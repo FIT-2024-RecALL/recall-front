@@ -1,24 +1,26 @@
+import { ShadowWrapper } from '@/components/library';
 import clsx from 'clsx';
 import React, { HTMLAttributes } from 'react';
 
 interface MiniCardProps extends HTMLAttributes<React.FC> {
   onClick?: () => void;
+  shadowOff?: boolean;
 }
 
 export const MiniCard: React.FC<MiniCardProps> = ({
   onClick,
   className,
   children,
+  shadowOff,
 }) => {
-  return (
+  const card = (
     <div
       className={clsx(
-        'transition-all',
-        'p-2 w-full h-48 center',
-        'hover:cursor-pointer rounded-lg',
-        'bg-1-3 hover:bg-1-3/80',
-        'hover:scale-105 hover:shadow',
-        'text-1-12',
+        'transition-all duration-200',
+        'overflow-hidden relative',
+        'px-4 py-2 w-full h-56 md:h-48 center rounded-lg',
+        'ring-1 ring-o-black',
+        'hover:cursor-pointer',
         className
       )}
       onClick={() => onClick?.()}
@@ -26,4 +28,8 @@ export const MiniCard: React.FC<MiniCardProps> = ({
       {children}
     </div>
   );
+
+  if (shadowOff) return card;
+
+  return <ShadowWrapper shadowOffset={2}>{card}</ShadowWrapper>;
 };

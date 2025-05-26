@@ -10,12 +10,15 @@ import { CollectionEditForm } from '@/components/collection';
 import { ErrorPage } from '@/pages';
 import { CardsList } from '@/components/card';
 import { LoadableComponent } from '@/components/library';
+import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 
 export interface EditPageParams {
   id: number;
 }
 
 export const CollectionEditPage: React.FC = () => {
+  const { t } = useTranslation();
   const { id } = useParams<EditPageParams>();
   const { profile } = useProfile();
   const {
@@ -38,7 +41,7 @@ export const CollectionEditPage: React.FC = () => {
     return (
       <ErrorPage
         isPending={isCollectionPending}
-        message="You're not allowed to edit other people's collections"
+        message={t('collection.notAllowedToEdit')}
       />
     );
 
@@ -47,11 +50,18 @@ export const CollectionEditPage: React.FC = () => {
       isPending={isCollectionPending}
       errorMessage={collectionError?.message}
     >
-      <div className="vstack m-2 md:m-10 p-2 md:p-5">
+      <div className="vstack">
         <CollectionEditForm id={id} />
 
-        <hr className="border-2 border-1-1 rounded my-2 md:my-6" />
-        <h2 className="my-2 text-2xl text-center font-bold">Paired cards</h2>
+        <h2
+          className={clsx(
+            'mt-4 md:mt-8 mb-2 md:mb-4',
+            'text-center font-medium',
+            'text-base md:text-lg lg:text-xl xl:text-3xl'
+          )}
+        >
+          {t('collection.pairedCards')}
+        </h2>
         <LoadableComponent
           isPending={collectionCardsPending}
           errorMessage={collectionCardsError?.message}
@@ -62,8 +72,16 @@ export const CollectionEditPage: React.FC = () => {
             addNewCard
           />
         </LoadableComponent>
-        <hr className="border border-1-1 rounded my-2 md:my-6" />
-        <h2 className="my-2 text-2xl text-center font-bold">All cards</h2>
+
+        <h2
+          className={clsx(
+            'mt-4 md:mt-8 mb-2 md:mb-4',
+            'text-center font-medium',
+            'text-base md:text-lg lg:text-xl xl:text-3xl'
+          )}
+        >
+          {t('collection.allCards')}
+        </h2>
         <LoadableComponent
           isPending={profileCardsPending}
           errorMessage={profileCardsError?.message}

@@ -1,7 +1,7 @@
 export * from './useProfile';
 export * from './useProfileCards';
 export * from './useProfileCollections';
-export * from './useFilesList';
+export * from './useProfileFiles';
 
 export * from './useCollections';
 export * from './useCollection';
@@ -10,3 +10,5 @@ export * from './useCollectionTrainCards';
 
 export * from './useCard';
 export * from './useCardCollections';
+
+export * from './useFileMeta';

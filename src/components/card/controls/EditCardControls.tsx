@@ -1,25 +1,26 @@
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
 import { MultiValue } from 'react-select';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 import { useAppStore } from '@/state';
-import {
-  useCardCollections,
-  getCardQueryOptions,
-  getCardCollectionsQueryOptions,
-  getProfileCardsQueryOptions,
-} from '@/query/queryHooks';
-import { dataExtractionWrapper } from '@/query';
-import { deleteCardCardsCardIdDelete, updateCardCardsCardIdPut } from '@/api';
-import { Button, DropDown, LoadableComponent } from '@/components/library';
+import { useCardCollections } from '@/query/queryHooks';
+import { useCardDelete, useCardUpdate } from '@/query/mutationHooks';
+import { Button, LoadableComponent } from '@/components/library';
 import {
   collectionResponseToOptions,
   CollectionsSelect,
   Option,
 } from './CollectionsSelect';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+} from '@/components/library/shadcn-ui';
 
 export const EditCardControls: React.FC = () => {
+  const { t } = useTranslation();
   const cardId = useAppStore((state) => state.activeCardId);
   const cardData = useAppStore((state) => state.activeCard);
   const setUIFlag = useAppStore((state) => state.setActiveCardUIFlag);
@@ -34,124 +35,107 @@ export const EditCardControls: React.FC = () => {
     setSelectedOptions(collectionResponseToOptions(cardCollections));
   }, [cardCollections]);
 
-  const client = useQueryClient();
-  const { mutate: updateCard, error: updateError } = useMutation({
-    mutationFn: (data: {
-      id: number;
-      new_card: { frontSide: string; backSide: string };
-      collections: number[];
-    }) =>
-      dataExtractionWrapper(
-        updateCardCardsCardIdPut({
-          path: {
-            card_id: data.id,
-          },
-          body: {
-            ...data,
-          },
-        })
-      ),
-    onSuccess: (responseData) => {
-      client.invalidateQueries({ queryKey: ['collection'] }); // TODO: подумать, как оптимизировать этот запрос
-      client.invalidateQueries({
-        queryKey: getCardCollectionsQueryOptions(responseData.id).queryKey,
-      });
-      client.setQueryData(
-        getCardQueryOptions(responseData.id).queryKey,
-        responseData
-      );
-      setUIFlag('zoomed', () => false);
-    },
+  const {
+    updateCard,
+    isPending: isUpdatePending,
+    error: updateError,
+  } = useCardUpdate(cardId, () => {
+    setUIFlag('zoomed', () => false);
   });
-  const { mutate: deleteCard, error: deleteError } = useMutation({
-    mutationFn: (id: number) =>
-      dataExtractionWrapper(
-        deleteCardCardsCardIdDelete({
-          path: {
-            card_id: id,
-          },
-        })
-      ),
-    onSuccess: (responseData, id) => {
-      client.invalidateQueries({ queryKey: ['collection'] }); // TODO: подумать, как оптимизировать этот запрос
-      client.resetQueries({
-        queryKey: getCardCollectionsQueryOptions(id).queryKey,
-      });
-      client.resetQueries({
-        queryKey: getCardQueryOptions(id).queryKey,
-      });
-      client.invalidateQueries({
-        queryKey: getProfileCardsQueryOptions().queryKey,
-      });
-      setUIFlag('zoomed', () => false);
-    },
+  const {
+    deleteCard,
+    isPending: isDeletePending,
+    error: deleteError,
+  } = useCardDelete(cardId, () => {
+    setUIFlag('zoomed', () => false);
   });
 
+  const isAnyPending =
+    cardCollectionsPending || isUpdatePending || isDeletePending;
+
   return (
-    <>
-      <div
-        className={clsx(
-          'bg-1-1 rounded-xl',
-          'w-full vstack',
-          'border border-2 border-black',
-          'text-white'
-        )}
-      >
-        <div className={clsx('xs-md:vstack md:center', 'w-full p-1 md:p-4')}>
-          <span className="md:text-right w-full md:w-1/6 px-1">
-            Paired with:
-          </span>
-          <LoadableComponent isPending={cardCollectionsPending}>
-            <CollectionsSelect
-              selectedOptions={selectedOptions}
-              setSelectedOptions={setSelectedOptions}
-            />
-          </LoadableComponent>
+    <div
+      className={clsx(
+        'w-full vstack',
+        'px-1 py-2',
+        'bg-o-white text-o-black rounded-xl',
+        'border border-black',
+        'shadow-md hover:shadow-gray-500'
+      )}
+    >
+      <LoadableComponent isPending={cardCollectionsPending}>
+        <CollectionsSelect
+          selectedOptions={selectedOptions}
+          setSelectedOptions={setSelectedOptions}
+        />
+      </LoadableComponent>
+      {(updateError || deleteError) && (
+        <div className={clsx('center mb-2', 'text-red-200 font-bold')}>
+          {updateError?.message || deleteError?.message}
         </div>
-        {(updateError || deleteError) && (
-          <div className={clsx('center mb-2', 'text-red-200 font-bold')}>
-            {updateError?.message || deleteError?.message}
-          </div>
-        )}
-      </div>
-      <div className={clsx('m-2 center h-1/12')}>
-        <Button
+      )}
+      <div className="mt-2 text-sm md:text-md gap-x-1 md:gap-x-3 center">
+        <div
           className={clsx(
-            'text-xl m-3',
             'transition-all duration-300',
             cardData.frontSide &&
               cardData.backSide &&
               selectedOptions.length > 0
-              ? 'opacity-1'
-              : 'opacity-0 invisible'
+              ? 'opacity-100'
+              : 'opacity-0 invisible absolute'
           )}
-          variant="bordered"
-          onClick={() => {
-            updateCard({
-              id: cardId,
-              new_card: { ...cardData },
-              collections: selectedOptions.map((option) => option.value),
-            });
-          }}
-        >
-          Save card
-        </Button>
-        <DropDown
-          buttonComponent={
-            <Button className="ml-3" variant="bordered">
-              Delete card
-            </Button>
-          }
         >
           <Button
-            className="m-3"
-            variant="bordered"
-            onClick={() => deleteCard(cardId)}
-          >
-            Confirm deletion
-          </Button>
-        </DropDown>
+            variant="plate-green"
+            className="text-xl p-2"
+            onClick={() => {
+              updateCard({
+                new_card: { ...cardData },
+                collections: selectedOptions.map((option) => option.value),
+              });
+            }}
+            withShadow
+            loading={isAnyPending}
+            icon="save"
+            title={t('common.saveChanges')}
+          />
+        </div>
+        <span
+          className={clsx(
+            'text-center',
+            'transition-all duration-300',
+            cardData.frontSide &&
+              cardData.backSide &&
+              selectedOptions.length > 0
+              ? 'opacity-0 invisible absolute'
+              : 'opacity-100'
+          )}
+        >
+          {t('card.requirements')}
+        </span>
+        <DropdownMenu>
+          <DropdownMenuTrigger disabled={isAnyPending}>
+            <Button
+              className="text-xl p-2"
+              variant="bordered"
+              title={t('card.deleteCard')}
+              loading={isAnyPending}
+              icon="trash"
+            />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>
+              <Button
+                variant="plate-red"
+                onClick={() => deleteCard()}
+                title={t('common.confirmDeletion')}
+              >
+                {t('common.confirmDeletion')}
+              </Button>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
-    </>
+    </div>
   );
 };

@@ -1,106 +1,79 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import {
-  Button,
-  DropDown,
-  Icon,
-  LoadableComponent,
-} from '@/components/library';
-import {
-  getProfileCardsQueryOptions,
-  getProfileCollectionsQueryOptions,
-  getProfileQueryOptions,
-  useProfile,
-  useProfileCollections,
-} from '@/query/queryHooks';
+import { Button, LoadableComponent } from '@/components/library';
+import { useProfile, useProfileCollections } from '@/query/queryHooks';
 import { ErrorPage } from './ErrorPage';
-import { FilesList } from '@/components/profile';
+import { FilesList } from '@/components/files';
 import { CollectionsSearchableList } from '@/components/collection';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { dataExtractionWrapper } from '@/query';
-import { deleteUserUserDeleteProfileDelete } from '@/api';
+import { useProfileDelete } from '@/query/mutationHooks';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+} from '@/components/library/shadcn-ui';
 
 export const ProfilePage: React.FC = () => {
+  const { t } = useTranslation();
   const { profile, isPending: isProfilePending } = useProfile();
   const { collections, isPending: isCollectionsPending } =
     useProfileCollections();
 
-  const queryClient = useQueryClient();
-  const {
-    mutate: deleteProfile,
-    error: deleteError,
-    isPending: isDeletePending,
-  } = useMutation({
-    mutationFn: () =>
-      dataExtractionWrapper(deleteUserUserDeleteProfileDelete()),
-    onSuccess: () => {
-      queryClient.resetQueries({
-        queryKey: getProfileQueryOptions().queryKey,
-      });
-      queryClient.resetQueries({
-        queryKey: getProfileCardsQueryOptions().queryKey,
-      });
-      queryClient.resetQueries({
-        queryKey: getProfileCollectionsQueryOptions().queryKey,
-      });
-    },
-  });
+  const { deleteProfile, isPending: isDeletePending } = useProfileDelete();
 
   if (!profile)
     return (
       <ErrorPage
         isPending={isProfilePending}
-        message="Only authorized users can view their profiles"
+        message={t('profile.onlyAuthorized')}
       />
     );
 
   return (
     <LoadableComponent
-      className="flex flex-col items-center m-4 md:m-10 p-5"
+      className="flex flex-col items-center"
       isPending={isProfilePending || isCollectionsPending}
       animated
     >
-      <h1 className="text-center text-2xl font-bold mb-6">
-        {profile?.nickname}
-        {"'"}s profile
+      <h1 className="text-center text-2xl font-bold mb-4">
+        {t('startPage.hello')}, {profile?.nickname}!
       </h1>
 
-      <hr className="border-2 border-1-1 rounded my-2 md:my-6 w-full" />
-
-      <h2 className="text-center text-2xl font-bold mb-6">Your collections</h2>
+      <h2 className="text-center text-2xl font-bold mt-8 mb-4">
+        {t('profile.myCollections')}
+      </h2>
 
       {collections && <CollectionsSearchableList collections={collections} />}
 
-      <hr className="border-2 border-1-1 rounded my-2 md:my-6 w-full" />
-
-      <h2 className="text-center text-2xl font-bold mb-6">Your files</h2>
+      <h2 className="text-center text-2xl font-bold mt-8 mb-4">
+        {t('profile.myFiles')}
+      </h2>
 
       <FilesList />
 
-      <hr className="border-2 border-1-1 rounded my-2 md:my-6 w-full" />
-
-      <h2 className="text-center text-2xl font-bold mb-6">Delete account</h2>
-
-      <DropDown
-        buttonComponent={
-          <Button className="mx-3" variant="bordered-trans">
-            Delete account
+      <DropdownMenu>
+        <DropdownMenuTrigger className="mt-16" disabled={isDeletePending}>
+          <Button
+            variant="bordered"
+            title={t('profile.deleteAccount')}
+            loading={isDeletePending}
+          >
+            {t('profile.deleteAccount')}
           </Button>
-        }
-      >
-        <Button
-          className="m-3"
-          variant="bordered"
-          onClick={() => deleteProfile()}
-        >
-          Confirm deletion
-        </Button>
-        {isDeletePending && (
-          <div className="mx-2">
-            <Icon className="animate-spin" icon="loading-3/4" />
-          </div>
-        )}
-      </DropDown>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem>
+            <Button
+              variant="plate-red"
+              onClick={() => deleteProfile()}
+              title={t('common.confirmDeletion')}
+            >
+              {t('common.confirmDeletion')}
+            </Button>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </LoadableComponent>
   );
 };

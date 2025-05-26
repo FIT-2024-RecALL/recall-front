@@ -5,6 +5,7 @@ import { useAppStore } from '@/state';
 import { CollectionShort } from '@/api';
 import clsx from 'clsx';
 import { CollectionCard } from './CollectionCard';
+import { useTranslation } from 'react-i18next';
 
 export interface CollectionsSearchableListProps {
   collections: CollectionShort[];
@@ -13,6 +14,7 @@ export interface CollectionsSearchableListProps {
 export const CollectionsSearchableList: React.FC<
   CollectionsSearchableListProps
 > = ({ collections }) => {
+  const { t } = useTranslation();
   const { profile } = useProfile();
 
   const setIsCreateCollectionOpened = useAppStore(
@@ -36,31 +38,28 @@ export const CollectionsSearchableList: React.FC<
   }, [searchTerm, collections]);
 
   return (
-    <>
+    <div className="center flex-col w-full">
       {profile ? (
         <div className="flex justify-center mb-4">
           <Button
-            variant="plate"
-            className={clsx(
-              'py-3 px-6 rounded-full',
-              'text-lg font-medium',
-              'shadow-md hover:shadow-lg',
-              'transition duration-200'
-            )}
+            variant="plate-green"
+            className={clsx('py-2 px-4 rounded-full', 'text-lg font-medium')}
             onClick={() => setIsCreateCollectionOpened(true)}
+            withShadow
+            title={t('collection.createButton')}
           >
-            Create collection
+            {t('collection.createButton')}
           </Button>
         </div>
       ) : (
         <h3 className="text-center text-xl mb-4 font-medium col-span-full">
-          Authorize to create new collection
+          {t('collection.authorizeToCreate')}
         </h3>
       )}
 
       {collections.length == 0 && (
         <h3 className="text-center text-xl font-medium col-span-full">
-          There{"'"}re no collections yet. Create the first!
+          {t('collection.noCollections')}
         </h3>
       )}
       {collections.length > 0 && (
@@ -69,12 +68,16 @@ export const CollectionsSearchableList: React.FC<
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
             activeSearch={activeCollections.map((item) => item.title)}
+            placeholder={t('collection.searchPlaceholder')}
           />
 
           <div
-            className="grid align-center justify-center w-full gap-4 pt-4"
+            className={clsx(
+              'w-full mt-4',
+              'grid align-center justify-center gap-4'
+            )}
             style={{
-              gridTemplateColumns: 'repeat( auto-fit, 320px )',
+              gridTemplateColumns: 'repeat( auto-fit, minmax(300px, 1fr))',
             }}
           >
             {activeCollections.length > 0 ? (
@@ -83,12 +86,12 @@ export const CollectionsSearchableList: React.FC<
               ))
             ) : (
               <h3 className="text-center text-xl font-medium col-span-full">
-                No collections found. Maybe create new one?
+                {t('collection.noCollectionsFound')}
               </h3>
             )}
           </div>
         </>
       )}
-    </>
+    </div>
   );
 };

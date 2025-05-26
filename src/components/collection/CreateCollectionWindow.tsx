@@ -1,28 +1,26 @@
 import React from 'react';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod/src/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { navigate } from 'wouter/use-browser-location';
+import { useTranslation } from 'react-i18next';
 
-import { Button, FormItem, Icon, PopUp } from '@/components/library';
+import { Button, FormItem, Input, ControlledModal } from '@/components/library';
 import { useAppStore } from '@/state';
 import clsx from 'clsx';
-import {
-  getCollectionQueryOptions,
-  getCollectionsQueryOptions,
-} from '@/query/queryHooks';
-import { createCollectionCollectionsPost } from '@/api';
-import { dataExtractionWrapper } from '@/query';
 import { routes } from '@/routes';
+import { useCollectionCreate } from '@/query/mutationHooks';
 
 export const collectionScheme = z.object({
-  title: z.string().min(1, 'Title is required'),
+  title: z
+    .string({ message: 'collection.titleRequired' })
+    .min(1, 'collection.titleRequired'),
   description: z.string(),
 });
 export type CollectionEditType = z.infer<typeof collectionScheme>;
 
 export const CreateCollectionWindow: React.FC = () => {
+  const { t } = useTranslation();
   const isOpened = useAppStore((state) => state.isCreateCollectionWindowOpened);
   const setIsOpened = useAppStore(
     (state) => state.setIsCreateCollectionWindowOpened
@@ -30,107 +28,82 @@ export const CreateCollectionWindow: React.FC = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<CollectionEditType>({
     resolver: zodResolver(collectionScheme),
   });
 
-  const queryClient = useQueryClient();
-  const {
-    mutate: saveCollectionData,
-    error,
-    isPending,
-  } = useMutation({
-    mutationFn: (data: CollectionEditType) =>
-      dataExtractionWrapper(
-        createCollectionCollectionsPost({
-          body: {
-            ...data,
-          },
-        })
-      ),
-    onSuccess: (data) => {
-      queryClient.setQueryData(
-        getCollectionQueryOptions(data.id).queryKey,
-        data
-      );
-      queryClient.invalidateQueries({
-        queryKey: getCollectionsQueryOptions().queryKey,
-      });
-      navigate(routes.collectionEdit.getUrl(data.id), { replace: true });
-      setIsOpened(false);
-    },
+  const { createCollection, error, isPending } = useCollectionCreate((data) => {
+    navigate(routes.collectionEdit.getUrl(data.id), { replace: true });
+    setIsOpened(false);
   });
 
   return (
-    <PopUp
+    <ControlledModal
       isShown={isOpened}
       close={() => setIsOpened(false)}
-      className="bg-1-8/25 backdrop-blur-sm"
+      contentClassName={clsx(
+        'bg-o-white border border-o-black p-1 md:p-3',
+        'w-11/12 md:w-1/2 lg:w-1/3'
+      )}
     >
-      <div className="center">
-        <div
-          className={clsx(
-            'absolute top-1/4 w-3/4',
-            'bg-o-white',
-            'm-2 p-3 md:w-1/2 lg:w-1/3 h-fit',
-            'border border-1-1 rounded-lg'
-          )}
+      <h2 className="text-xl font-medium text-center">
+        {t('collection.creationTitle')}
+      </h2>
+      <form onSubmit={handleSubmit((data) => createCollection(data))}>
+        <FormItem
+          className="m-2 md:m-4 text-xl md:text-2xl"
+          errorMessage={errors.title?.message}
         >
-          <h2 className="text-xl font-medium text-center">
-            Collection{"'"}s creation
-          </h2>
-          <form onSubmit={handleSubmit((data) => saveCollectionData(data))}>
-            <FormItem
-              className="m-2 md:m-4 text-2xl"
-              errorMessage={errors.title?.message}
-            >
-              <input
-                className={clsx(
-                  'p-1 md:p-2 w-full',
-                  'text-1-1 font-medium rounded',
-                  'bg-transparent border-b border-1-1',
-                  'focus:outline-none focus:border-b-2'
-                )}
-                placeholder="Title"
+          <Controller
+            control={control}
+            name="title"
+            render={({ field }) => (
+              <Input
+                placeholder={t('collection.titlePlaceholder')}
                 id="title"
-                {...register('title', { required: true })}
+                {...field}
               />
-            </FormItem>
-            <FormItem
-              className="m-2 md:m-4 text-lg"
-              errorMessage={errors.description?.message}
-            >
-              <textarea
-                className={clsx(
-                  'p-1 md:p-2 w-full h-24 lg:h-32',
-                  'bg-transparent border border-1-1',
-                  'focus:outline-none focus:border-2',
-                  'rounded text-black'
-                )}
-                placeholder="Description"
-                id="description"
-                {...register('description')}
-              />
-            </FormItem>
-            <FormItem
-              className="m-2 md:m-4 text-lg"
-              errorMessage={error?.message}
-            />
-            <div className="w-full center">
-              <Button variant="plate" type="submit">
-                Create
-              </Button>
-              {isPending && (
-                <div className="mx-2">
-                  <Icon className="animate-spin" icon="loader" />
-                </div>
-              )}
-            </div>
-          </form>
+            )}
+          />
+        </FormItem>
+        <FormItem
+          className="m-2 md:m-4 text-lg"
+          errorMessage={errors.description?.message}
+        >
+          <textarea
+            className={clsx(
+              'p-1 md:p-2 w-full h-24 lg:h-32',
+              'bg-transparent resize-none',
+              'text-o-black focus:outline-none',
+              'transition-all duration-200'
+            )}
+            placeholder={t('collection.descriptionPlaceholder')}
+            id="description"
+            {...register('description')}
+          />
+        </FormItem>
+        {error?.message && (
+          <FormItem
+            className="m-2 md:m-4 text-lg"
+            errorMessage={error?.message}
+          />
+        )}
+        <div className="w-full center">
+          <Button
+            variant="plate-green"
+            type="submit"
+            withShadow
+            shadowBoxClassName="w-2/3 md:w-1/3"
+            title={t('collection.createButton')}
+            loading={isPending}
+          >
+            {t('common.create')}
+          </Button>
         </div>
-      </div>
-    </PopUp>
+      </form>
+    </ControlledModal>
   );
 };

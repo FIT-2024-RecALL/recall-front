@@ -10,7 +10,7 @@ export interface ErrorPageProps {
 
 export const ErrorPage: React.FC<ErrorPageProps> = ({ message, isPending }) => {
   return (
-    <div className="vstack m-2 md:m-10 p-2 md:p-5 rounded-md">
+    <div className="vstack rounded-md">
       <LoadableComponent isPending={isPending} animated>
         <h1 className="text-4xl text-center m-2 font-bold text-red-600">
           Error!
@@ -19,13 +19,14 @@ export const ErrorPage: React.FC<ErrorPageProps> = ({ message, isPending }) => {
           {message}
         </h2>
         <div className="w-full center text-lg">
-          <Link to={routes.main.getUrl()}>
-            <Button className="m-2" variant="bordered-trans">
+          {/* TODO: Сделать тут наконец нормальный обратный переход */}
+          <Link to={routes.main.getUrl()}> 
+            <Button className="m-2" variant="bordered">
               Go back
             </Button>
           </Link>
           <Link to={routes.main.getUrl()}>
-            <Button className="m-2" variant="plate">
+            <Button className="m-2" variant="plate-blue">
               Go to main page
             </Button>
           </Link>
