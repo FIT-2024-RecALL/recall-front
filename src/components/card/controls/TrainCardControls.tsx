@@ -25,7 +25,8 @@ export const TrainCardControls: React.FC = () => {
     setUIFlag('flipped', () => true);
   });
 
-  return flippedCount > 1 ? (
+  // TODO: Вернуть анимацию в лучшие времена
+  return flippedCount >= 1 ? (
     <div className="w-full vstack">
       <TrainContraolsBacksideContent aiFeedBack={aiFeedBack} />
     </div>
@@ -74,7 +75,7 @@ export const TrainCardControls: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flip-back w-full vstack">
+      <div className="flip-back w-full vstack bg-o-white">
         <TrainContraolsBacksideContent aiFeedBack={aiFeedBack} />
       </div>
     </div>
