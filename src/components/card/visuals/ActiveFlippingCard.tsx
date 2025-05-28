@@ -58,6 +58,7 @@ export const ActiveFlippingCard: React.FC<ActiveFlippingCardProps> = ({
             state={backSide}
             setState={(s) => setCardSide('backSide', s)}
             historyAtoms={backAtoms}
+            extended
             placeholder={t('card.backSidePlaceholder')}
           />
         ) : (
@@ -67,6 +68,7 @@ export const ActiveFlippingCard: React.FC<ActiveFlippingCardProps> = ({
               'overflow-y-auto overflow-x-hidden'
             )}
             rawText={backSide}
+            extended
           />
         )}
       </CardSide>
